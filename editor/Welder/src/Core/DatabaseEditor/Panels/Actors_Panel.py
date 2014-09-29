@@ -23,49 +23,53 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def __init__(self, parent, actorIndex=0):
         """Basic constructor for the Actors panel"""
         Actors_Panel_Template.__init__(self, parent)
-        # Load the project's game objects into this module's scope
-        project = Kernel.GlobalObjects['PROJECT']
-        global Config, DataActors, DataClasses, DataWeapons, DataArmors
-        
-        try:
-            DataActors = project.getData('Actors')
-            DataClasses = project.getData('Classes')
-            DataWeapons = project.getData('Weapons')
-            DataArmors = project.getData('Armors')
-        except NameError:
-            Kernel.Log(
-                'Database opened before Project was initialized', '[Database:ACTOR]', True)
-            self.Destroy()
+
+        config = Kernel.Config.getUnified()
+
         # Set font for the note control
-        font = wx.Font(
-            8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+
+        if "Misc" in config and "NoteFont" in config["Misc"]:
+            font.SetFaceName(str(config['Misc']['NoteFont']))
         self.textCtrlNotes.SetFont(font)
         self.ParamTab = 0
+
         # Set the ranges for initial and final level spin controls
-        max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
-        self.spinCtrlInitialLevel.SetRange(1, max)
-        self.spinCtrlFinalLevel.SetRange(1, max)
-        self.spinCtrlLevel.SetRange(1, max)
+        ma = 999
+        if "DatabaseLimits" in config and "ActorLevel" in config["DatabaseLimits"]:
+            ma = int(config['DatabaseLimits']['ActorLevel'])
+
+        self.spinCtrlInitialLevel.SetRange(1, ma)
+        self.spinCtrlFinalLevel.SetRange(1, ma)
+        self.spinCtrlLevel.SetRange(1, ma)
         self.glCanvasCharacter.canvas.Bind(wx.EVT_LEFT_DCLICK,
                                            Kernel.Protect(self.glCanvasCharacter_DoubleClick))
         self.glCanvasBattler.canvas.Bind(wx.EVT_LEFT_DCLICK,
                                          Kernel.Protect(self.glCanvasBattler_DoubleClick))
         self.parameterGraph.canvas.Bind(wx.EVT_LEFT_DCLICK,
                                         Kernel.Protect(self.parameterGraph_DoubleClicked))
+
+        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
         # Initialize the selected actor attribute
-        if actorIndex >= len(DataActors):
+        if actorIndex >= len(actors):
             actorIndex = 0
-        self.SelectedActor = DataActors[DM.FixedIndex(actorIndex)]
+        self.SelectedActor = actors[DM.FixedIndex(actorIndex)]
+
         # Create the controls for the equipment and set the values for all the
         # controls
         self.CreateEquipmentControls()
-        for param in list(Kernel.Config.getUnified()['GameSetup']['Parameters']):
+        params = []
+        if "GameSetup" in config and "Parameters" in config["GameSetup"]:
+            params = list(config['GameSetup']['Parameters'])
+        for param in params:
             self.AddParameterPage(param)
+
         self.noteBookActorParameters.ChangeSelection(0)
         self.comboBoxExpCurve.SetCursor(wx.STANDARD_CURSOR)
+
         DM.DrawHeaderBitmap(self.bitmapActors, 'Actors')
         self.refreshAll()
+
         # Set the initial selection of the list control
         self.listBoxActors.SetSelection(actorIndex)
         # Bind the panel to the Panel Manager
@@ -77,7 +81,8 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.noteBookActorParameters.AddPage(page, title)
         index = self.noteBookActorParameters.GetPageCount() - 1
         maxlevel = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
-        for actor in DataActors:
+        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        for actor in actors:
             if actor is None:
                 actor = RPG.Actor()
             actor.parameters.resize(index + 1, maxlevel + 1)
@@ -126,27 +131,44 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def refreshActorList(self):
         """Refreshes the values in the actor wxListBox control"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Actors'])
-        DM.FillControl(self.listBoxActors, DataActors, digits, [])
+        config = Kernel.Config.getUnified()
+        digits = 4
+        if "GameObjects" in config and "Actors" in config["GameObjects"]:
+            digits = len(str(int(config['GameObjects']['Actors'])))
+        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        DM.FillControl(self.listBoxActors, actors, digits, [])
 
     def refreshClasses(self):
         """Refreshes the values in the class wxChoice control"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Classes'])
-        DM.FillControl(self.comboBoxClass, DataClasses, digits, [])
+        config = Kernel.Config.getUnified()
+        digits = 4
+        if "GameObjects" in config and "Classes" in config["GameObjects"]:
+            digits = len(str(int(config['GameObjects']['Classes'])))
+        classes = Kernel.GlobalObjects['PROJECT'].getData('Classes')
+        DM.FillControl(self.comboBoxClass, classes, digits, [])
 
     def refreshWeapons(self):
         """Sets the weapon combobox(s) data determined by the actor's class"""
-        weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Weapons'])
+        digits = 4
+        weaponSlots = 1
+
+        config = Kernel.Config.getUnified()
+        if "GameSetup" in config and 'WeaponSlots' in config["GameSetup"]:
+            weaponSlots = len(list(config['GameSetup']['WeaponSlots']))
+        if "GameObjects" in config and "Weapons" in config["GameObjects"]:
+            digits = len(str(int(config['GameObjects']['Weapons'])))
+
+        weapons = Kernel.GlobalObjects['PROJECT'].getDataCopy('Weapons')
+
         for i in range(weaponSlots):
             items = ['(None)']
             ids = self.GetWeaponIDs()
             for id in ids:
-                if DataWeapons[id] is None:
-                    DataWeapons[id] = RPG.Weapon()
+                if weapons[id] is None:
+                    weapons[id] = RPG.Weapon()
             items.extend(
-                [''.join([str(DataWeapons[id].id).zfill(digits), ': ',
-                          DataWeapons[id].name]) for id in ids])
+                [''.join([str(weapons[id].id).zfill(digits), ': ',
+                          weapons[id].name]) for id in ids])
             self.EquipmentBoxes[i].Clear()
             self.EquipmentBoxes[i].AppendItems(items)
             if DM.ARC_FORMAT:
@@ -163,23 +185,34 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def refreshArmors(self):
         """Sets the armor combo box data determined by the actor's class"""
-        weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Armors'])
+        digits = 4
+        weaponSlots = 1
+        cypher = [0, 1, 2, 3, 3, 3]
         kinds = {}
-        cypher = [int(k)
-                  for k in list(Kernel.Config.getUnified()['GameSetup']['ArmorSlotKinds'])]
+
+        config = Kernel.Config.getUnified()
+        if "GameSetup" in config and "WeaponSlots" in config["GameSetup"]:
+            weaponSlots = len(list(config['GameSetup']['WeaponSlots']))
+        if "GameObjects" in config and "Armors" in config["GameObjects"]:
+            digits = len(str(int(config['GameObjects']['Armors'])))
+        if "GameSetup" in config and "ArmorSlotKinds" in config["GameSetup"]:
+            cypher = [int(k) for k in list(config['GameSetup']['ArmorSlotKinds'])]
+
+        armors = Kernel.GlobalObjects['PROJECT'].getDataCopy('Armors')
+
         for k in list(Kernel.Config.getUnified()['GameSetup']['ArmorSlotKinds']):
             key = int(k)
             if key not in kinds:
                 values = ['(None)']
                 ids = self.GetArmorIDs(key)
                 for id in ids:
-                    if DataWeapons[id] is None:
-                        DataWeapons[id] = RPG.Weapon()
+                    if armors[id] is None:
+                        armors[id] = RPG.Weapon()
                 values.extend(
                     [''.join([str(id).zfill(digits), ': ',
-                              DataArmors[id].name]) for id in ids])
+                              armors[id].name]) for id in ids])
                 kinds[key] = values
+
         for i in range(weaponSlots, len(self.EquipmentBoxes)):
             kind = cypher[i - weaponSlots]
             items = kinds[kind]
@@ -268,9 +301,10 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def listBoxActors_SelectionChanged(self, event):
         """Changes the data on the panel to reflect the values of the selected actor"""
         index = DM.FixedIndex(event.GetSelection())
-        if DataActors[index] is None:
-            DataActors[index] = RPG.Actor()
-        self.SelectedActor = DataActors[index]
+        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        if actors[index] is None:
+            actors[index] = RPG.Actor()
+        self.SelectedActor = actors[index]
         self.refreshWeapons()
         self.refreshArmors()
         self.refreshFixedEquipment()
@@ -284,8 +318,12 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def GetParameterValue(self, index, level):
         """Retrieves the value of the current actor's selected parameter for the defined level"""
         if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
-            maxlevel = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
-            for actor in DataActors:
+            maxlevel = 999
+            config = Kernel.Config.getUnified()
+            if "DatabaseLimits" in config and "ActorLevel" in config["DatabaseLimits"]:
+                maxlevel = int(config['DatabaseLimits']['ActorLevel'])
+            actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+            for actor in actors:
                 if actor is None:
                     actor = RPG.Actor()
                 actor.parameters.resize(index + 1, maxlevel + 1)
@@ -295,8 +333,12 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = int(Kernel.Config.getUnified()['GameObjects']['Actors'])
-        DM.ChangeDataCapacity(self, self.listBoxActors, DataActors, max)
+        config = Kernel.Config.getUnified()
+        ma = 9999
+        if "GameObjects" in config and "Actors" in config["GameObjects"]:
+            ma = int(Kernel.Config.getUnified()['GameObjects']['Actors'])
+        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        DM.ChangeDataCapacity(self, self.listBoxActors, actors, ma)
 
     def textBoxName_TextChanged(self, event):
         """updates the selected actor's name"""
@@ -549,13 +591,16 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def GetWeaponIDs(self):
         """Returns the ID of the weapon found at index in the actor's weapon set"""
-        return DataClasses[self.SelectedActor.class_id].weapon_set
+        classes = Kernel.GlobalObjects['PROJECT'].getData('Classes')
+        return classes[self.SelectedActor.class_id].weapon_set
 
     def GetArmorIDs(self, kind):
         """Returns all actor armor IDs that are of type 'kind'"""
-        ids = DataClasses[self.SelectedActor.class_id].armor_set
+        classes = Kernel.GlobalObjects['PROJECT'].getData('Classes')
+        armors = Kernel.GlobalObjects['PROJECT'].getData('Armors')
+        ids = classes[self.SelectedActor.class_id].armor_set
         filtered = []
         for id in ids:
-            if DataArmors[id].kind == kind:
+            if armors[id].kind == kind:
                 filtered.append(id)
         return filtered
