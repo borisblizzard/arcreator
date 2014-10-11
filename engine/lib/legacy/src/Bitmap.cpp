@@ -3,7 +3,7 @@
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <atres/atres.h>
-#include <atres/FontResourceBitmap.h>
+#include <atres/FontBitmap.h>
 #include <atres/Renderer.h>
 #include <gtypes/Rectangle.h>
 #include <gtypes/Vector2.h>
@@ -189,7 +189,7 @@ namespace legacy
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
 		grect destRect((float)x, (float)y, (float)w,
-			hmax((float)h, atres::renderer->getFontResource(fontName)->getLineHeight()));
+			hmax((float)h, atres::renderer->getFont(fontName)->getLineHeight()));
 		atres::renderer->drawText(fontName, destRect, text, horizontal,
 			atres::CENTER, this->font->getColor()->toAprilColor());
 		april::rendersys->setRenderTarget(target);

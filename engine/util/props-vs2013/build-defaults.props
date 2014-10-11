@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(WholeProgramOptimization)'!='true'">
+    <OutDir>$(SolutionDir)bin\Debug\$(Platform)\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\Debug\$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(WholeProgramOptimization)'=='true'">
+    <OutDir>$(SolutionDir)bin\Release\$(Platform)\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\Release\$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
+    <GenerateManifest Condition="'$(Platform)'=='Win32'">true</GenerateManifest>
+    <EmbedManifest Condition="'$(Platform)'=='Win32'">true</EmbedManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <RuntimeLibrary Condition="'$(WholeProgramOptimization)'!='true'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(WholeProgramOptimization)'=='true'">MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem Condition="'$(WholeProgramOptimization)'!='true'">Console</SubSystem>
+      <SubSystem Condition="'$(WholeProgramOptimization)'=='true'">Windows</SubSystem>
+    </Link>
+    <Manifest Condition="'$(WholeProgramOptimization)'=='true'">
+      <AdditionalManifestFiles>util/dpi_awareness.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+  </ItemDefinitionGroup>
+</Project>

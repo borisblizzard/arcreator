@@ -1,6 +1,7 @@
 #include <april/PixelShader.h>
 #include <hltypes/hlog.h>
 #include <hltypes/hstring.h>
+#include <hltypes/hplatform.h>
 
 #include "Audio.h"
 #include "Bitmap.h"
