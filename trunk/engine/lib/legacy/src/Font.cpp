@@ -1,7 +1,7 @@
 #include <ruby.h>
 
 #include <atres/Renderer.h>
-#include <atresttf/FontResourceTtf.h>
+#include <atresttf/FontTtf.h>
 #include <hltypes/harray.h>
 #include <hltypes/hstring.h>
 
@@ -93,15 +93,15 @@ namespace legacy
 		if (!atres::renderer->hasFont(fontName) && !_missingFonts.contains(fontName))
 		{
 			float baseSize = (float)legacy::parameters.try_get_by_key(CFG_FONT_BASE_SIZE, "50");
-			atresttf::FontResourceTtf* fontResource = new atresttf::FontResourceTtf("", fontName, baseSize, 1.0f);
-			if (fontResource->isLoaded())
+			atresttf::FontTtf* font = new atresttf::FontTtf("", fontName, baseSize, 1.0f);
+			if (font->isLoaded())
 			{
-				atres::renderer->registerFontResource(fontResource);
+				atres::renderer->registerFont(font);
 			}
 			else // font file was not found
 			{
 				_missingFonts += fontName;
-				delete fontResource;
+				delete font;
 			}
 		}
 	}
@@ -114,7 +114,7 @@ namespace legacy
 		{
 			return "";
 		}
-		float fontHeight = atres::renderer->getFontResource(result)->getHeight();
+		float fontHeight = atres::renderer->getFont(result)->getHeight();
 		if (this->size != fontHeight)
 		{
 			result += hsprintf(":%f", this->size / fontHeight);

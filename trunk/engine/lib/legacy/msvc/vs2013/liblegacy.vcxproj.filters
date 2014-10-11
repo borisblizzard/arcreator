@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{10814b74-79f6-4983-8a54-8430ee96ee15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Support">
+      <UniqueIdentifier>{7d7035b2-e5ea-4daa-80d9-2a49921e1e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{2705e922-5d9e-483a-b76f-6999832867ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Support">
+      <UniqueIdentifier>{975adeee-136c-4528-9054-85854258226b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{2fe695d9-c1e5-4e39-90a6-40c009af7652}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\fileproperties.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\legacy\Audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Bitmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\RGSSError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Tilemap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Tone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Viewport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\ApplicationExitException.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\legacy.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\RenderQueue.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\legacyExport.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Constants.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CodeSnippets.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Blendable.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\BlendType.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\Renderable.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\RubyObject.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\SourceRenderer.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\legacy\SystemSprite.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Bitmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Rect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RGSSError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Tilemap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Tone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Viewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ApplicationExitException.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RenderQueue.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\legacy.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Blendable.cpp">
+      <Filter>Source Files\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Renderable.cpp">
+      <Filter>Source Files\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SourceRenderer.cpp">
+      <Filter>Source Files\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SystemSprite.cpp">
+      <Filter>Source Files\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RubyObject.cpp">
+      <Filter>Source Files\Support</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

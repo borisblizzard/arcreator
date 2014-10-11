@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugS|Win32">
+      <Configuration>DebugS</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseS|Win32">
+      <Configuration>ReleaseS</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F534DECC-8170-4A48-8BB1-4DD5C64162DF}</ProjectGuid>
+    <RootNamespace>legacy</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="props\default.props" />
+  <Import Project="..\..\..\hltypes\msvc\vs2013\props-generic\platform-$(Platform).props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\..\..\hltypes\msvc\vs2013\props-generic\build-defaults.props" />
+  <Import Project="props\configuration.props" />
+  <ItemGroup>
+    <ResourceCompile Include="..\..\fileproperties.rc">
+      <ExcludedFromBuild Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86' or '$(ConfigurationType)'=='StaticLibrary'">true</ExcludedFromBuild>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\april\msvc\vs2013\libapril.vcxproj">
+      <Project>{2d053cda-686b-4b36-80eb-1da5f0cef8f9}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\atres\msvc\vs2013\libatres.vcxproj">
+      <Project>{a1e808a0-fe36-47fe-9e3b-cf195ea31f0a}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\gtypes\msvc\vs2013\libgtypes.vcxproj">
+      <Project>{9c043b29-db40-48d5-97d8-1bc44128e3ba}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\hltypes\msvc\vs2013\libhltypes.vcxproj">
+      <Project>{e4d373bf-e227-48b9-99e6-84987e8674ec}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\legacy\ApplicationExitException.h" />
+    <ClInclude Include="..\..\include\legacy\Audio.h" />
+    <ClInclude Include="..\..\include\legacy\Bitmap.h" />
+    <ClInclude Include="..\..\include\legacy\Blendable.h" />
+    <ClInclude Include="..\..\include\legacy\BlendType.h" />
+    <ClInclude Include="..\..\include\legacy\Color.h" />
+    <ClInclude Include="..\..\include\legacy\Font.h" />
+    <ClInclude Include="..\..\include\legacy\Graphics.h" />
+    <ClInclude Include="..\..\include\legacy\Input.h" />
+    <ClInclude Include="..\..\include\legacy\legacy.h" />
+    <ClInclude Include="..\..\include\legacy\legacyExport.h" />
+    <ClInclude Include="..\..\include\legacy\Plane.h" />
+    <ClInclude Include="..\..\include\legacy\Rect.h" />
+    <ClInclude Include="..\..\include\legacy\Renderable.h" />
+    <ClInclude Include="..\..\include\legacy\RenderQueue.h" />
+    <ClInclude Include="..\..\include\legacy\RGSSError.h" />
+    <ClInclude Include="..\..\include\legacy\RubyObject.h" />
+    <ClInclude Include="..\..\include\legacy\SourceRenderer.h" />
+    <ClInclude Include="..\..\include\legacy\Sprite.h" />
+    <ClInclude Include="..\..\include\legacy\SystemSprite.h" />
+    <ClInclude Include="..\..\include\legacy\Table.h" />
+    <ClInclude Include="..\..\include\legacy\Tilemap.h" />
+    <ClInclude Include="..\..\include\legacy\Tone.h" />
+    <ClInclude Include="..\..\include\legacy\Viewport.h" />
+    <ClInclude Include="..\..\include\legacy\Window.h" />
+    <ClInclude Include="..\..\src\CodeSnippets.h" />
+    <ClInclude Include="..\..\src\Constants.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\ApplicationExitException.cpp" />
+    <ClCompile Include="..\..\src\Audio.cpp" />
+    <ClCompile Include="..\..\src\Bitmap.cpp" />
+    <ClCompile Include="..\..\src\Blendable.cpp" />
+    <ClCompile Include="..\..\src\Color.cpp" />
+    <ClCompile Include="..\..\src\Font.cpp" />
+    <ClCompile Include="..\..\src\Graphics.cpp" />
+    <ClCompile Include="..\..\src\Input.cpp" />
+    <ClCompile Include="..\..\src\legacy.cpp" />
+    <ClCompile Include="..\..\src\Plane.cpp" />
+    <ClCompile Include="..\..\src\Rect.cpp" />
+    <ClCompile Include="..\..\src\Renderable.cpp" />
+    <ClCompile Include="..\..\src\RenderQueue.cpp" />
+    <ClCompile Include="..\..\src\RGSSError.cpp" />
+    <ClCompile Include="..\..\src\RubyObject.cpp" />
+    <ClCompile Include="..\..\src\SourceRenderer.cpp" />
+    <ClCompile Include="..\..\src\Sprite.cpp" />
+    <ClCompile Include="..\..\src\SystemSprite.cpp" />
+    <ClCompile Include="..\..\src\Table.cpp" />
+    <ClCompile Include="..\..\src\Tilemap.cpp" />
+    <ClCompile Include="..\..\src\Tone.cpp" />
+    <ClCompile Include="..\..\src\Viewport.cpp" />
+    <ClCompile Include="..\..\src\Window.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

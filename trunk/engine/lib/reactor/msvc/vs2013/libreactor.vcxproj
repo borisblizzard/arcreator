@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugS|Win32">
+      <Configuration>DebugS</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseS|Win32">
+      <Configuration>ReleaseS</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B4A3A8E8-4C40-49F1-81C2-453BCB0545C6}</ProjectGuid>
+    <RootNamespace>reactor</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="props\default.props" />
+  <Import Project="..\..\..\hltypes\msvc\vs2013\props-generic\platform-$(Platform).props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\..\..\hltypes\msvc\vs2013\props-generic\build-defaults.props" />
+  <Import Project="props\configuration.props" />
+  <ItemGroup>
+    <ResourceCompile Include="..\..\fileproperties.rc">
+      <ExcludedFromBuild Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86' or '$(ConfigurationType)'=='StaticLibrary'">true</ExcludedFromBuild>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\april\msvc\vs2013\libapril.vcxproj">
+      <Project>{2d053cda-686b-4b36-80eb-1da5f0cef8f9}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\atres\msvc\vs2013\libatres.vcxproj">
+      <Project>{a1e808a0-fe36-47fe-9e3b-cf195ea31f0a}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\gtypes\msvc\vs2013\libgtypes.vcxproj">
+      <Project>{9c043b29-db40-48d5-97d8-1bc44128e3ba}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\hltypes\msvc\vs2013\libhltypes.vcxproj">
+      <Project>{e4d373bf-e227-48b9-99e6-84987e8674ec}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\reactor\ApplicationExitException.h" />
+    <ClInclude Include="..\..\include\reactor\ARC.h" />
+    <ClInclude Include="..\..\include\reactor\ARC_Data.h" />
+    <ClInclude Include="..\..\include\reactor\ARC_Error.h" />
+    <ClInclude Include="..\..\include\reactor\Input.h" />
+    <ClInclude Include="..\..\include\reactor\reactor.h" />
+    <ClInclude Include="..\..\include\reactor\reactorExport.h" />
+    <ClInclude Include="..\..\include\reactor\System.h" />
+    <ClInclude Include="..\..\include\reactor\TransitionManager.h" />
+    <ClInclude Include="..\..\src\CodeSnippets.h" />
+    <ClInclude Include="..\..\src\Constants.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\ApplicationExitException.cpp" />
+    <ClCompile Include="..\..\src\ARC.cpp" />
+    <ClCompile Include="..\..\src\ARC_Data.cpp" />
+    <ClCompile Include="..\..\src\ARC_Error.cpp" />
+    <ClCompile Include="..\..\src\Input.cpp" />
+    <ClCompile Include="..\..\src\reactor.cpp" />
+    <ClCompile Include="..\..\src\System.cpp" />
+    <ClCompile Include="..\..\src\TransitionManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\shaders\pixelShader-Default.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">2.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">2.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\..\shaders\vertexShader-Default.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">2.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">2.0</ShaderModel>
+    </FxCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

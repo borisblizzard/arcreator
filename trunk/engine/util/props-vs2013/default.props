@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+	  <AdditionalIncludeDirectories>src;lib/include;lib/hltypes/include;lib/gtypes/include;lib/april/include;lib/aprilparticle/include;lib/atres/include;lib/atres/atresttf/include;lib/aprilui/include;lib/aprilparticle/apriluiparticle/include;lib/aprilvideo/include;lib/cags/include;lib/cags/cachies/include;lib/xal/include;lib/xal/xalutil/include;lib/liteser/include;lib/gamesys/include;lib/scedge/include;lib/catime/include;lib/cags/cpromo/include;lib/cags/store_wrapper/include;lib/cags/push_wrapper/include;lib/cfacebook/include;lib/cags/xpromo_wrapper/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+</Project>

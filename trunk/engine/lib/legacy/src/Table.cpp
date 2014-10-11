@@ -232,7 +232,7 @@ namespace legacy
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
-		if (!is_between(x, 0, table->xSize - 1) || !is_between(y, 0, table->ySize - 1) || !is_between(z, 0, table->zSize - 1))
+		if (!is_between_ie(x, 0, table->xSize) || !is_between_ie(y, 0, table->ySize) || !is_between_ie(z, 0, table->zSize))
 		{
 			return Qnil;
 		}
@@ -266,7 +266,7 @@ namespace legacy
 			z = NUM2INT(arg3);
 			value = NUM2INT(arg4);
 		}
-		if (!is_between(x, 0, table->xSize - 1) || !is_between(y, 0, table->ySize - 1) || !is_between(z, 0, table->zSize - 1))
+		if (!is_between_ie(x, 0, table->xSize) || !is_between_ie(y, 0, table->ySize) || !is_between_ie(z, 0, table->zSize))
 		{
 			return Qnil;
 		}
