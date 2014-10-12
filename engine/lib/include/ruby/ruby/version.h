@@ -2,7 +2,7 @@
 
   ruby/version.h -
 
-  $Author$
+  $Author: nobu $
   created at: Wed May 13 12:56:56 JST 2009
 
   Copyright (C) 1993-2009 Yukihiro Matsumoto
@@ -43,9 +43,7 @@ extern "C" {
 #endif
 #endif
 
-#if defined __GNUC__ && __GNUC__ >= 4
-#pragma GCC visibility push(default)
-#endif
+RUBY_SYMBOL_EXPORT_BEGIN
 
 /*
  * Interfaces from extension libraries.
@@ -63,9 +61,7 @@ RUBY_EXTERN const char ruby_description[];
 RUBY_EXTERN const char ruby_copyright[];
 RUBY_EXTERN const char ruby_engine[];
 
-#if defined __GNUC__ && __GNUC__ >= 4
-#pragma GCC visibility pop
-#endif
+RUBY_SYMBOL_EXPORT_END
 
 #if defined(__cplusplus)
 #if 0
