@@ -58,6 +58,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liblegacy", "lib\legacy\msv
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libreactor", "lib\reactor\msvc\vs2013\libreactor.vcxproj", "{B4A3A8E8-4C40-49F1-81C2-453BCB0545C6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhlxml", "lib\hltypes\hlxml\msvc\vs2013\libhlxml.vcxproj", "{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtinyxml", "lib\hltypes\lib\tinyxml\msvc\vs2013\libtinyxml.vcxproj", "{C406DAEC-0886-4771-8DEA-9D7329B46CC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -132,6 +136,14 @@ Global
 		{B4A3A8E8-4C40-49F1-81C2-453BCB0545C6}.Debug|Win32.Build.0 = Debug|Win32
 		{B4A3A8E8-4C40-49F1-81C2-453BCB0545C6}.Release|Win32.ActiveCfg = Release|Win32
 		{B4A3A8E8-4C40-49F1-81C2-453BCB0545C6}.Release|Win32.Build.0 = Release|Win32
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Debug|Win32.Build.0 = Debug|Win32
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Release|Win32.ActiveCfg = Release|Win32
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Release|Win32.Build.0 = Release|Win32
+		{C406DAEC-0886-4771-8DEA-9D7329B46CC1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C406DAEC-0886-4771-8DEA-9D7329B46CC1}.Debug|Win32.Build.0 = Debug|Win32
+		{C406DAEC-0886-4771-8DEA-9D7329B46CC1}.Release|Win32.ActiveCfg = Release|Win32
+		{C406DAEC-0886-4771-8DEA-9D7329B46CC1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
