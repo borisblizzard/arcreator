@@ -106,16 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\..\shaders\pixelShader-Default.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">2.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">2.0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>2.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\..\shaders\vertexShader-Default.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">Vertex</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugS|Win32'">2.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">Vertex</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Win32'">2.0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>2.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

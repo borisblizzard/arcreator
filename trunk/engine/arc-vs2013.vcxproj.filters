@@ -5,53 +5,11 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\System">
-      <UniqueIdentifier>{1fb8b26e-e015-4d13-ae73-ee42046612c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{ca484e89-d786-4c0d-aa06-971cb5d876f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scene">
-      <UniqueIdentifier>{b684b8af-55d4-455b-87f8-65a3d6c0587c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\System">
-      <UniqueIdentifier>{96ba1d03-f640-43c5-80a9-cdf5666044bd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{3a39f6b0-da11-4ddd-b1ca-c65af0ca7407}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu">
-      <UniqueIdentifier>{14f66a4f-a29b-4581-ab34-9319bf5499a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu">
-      <UniqueIdentifier>{5583ad95-ebe1-43d8-b0e2-04efac73ec61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scene">
-      <UniqueIdentifier>{8be34c51-f9ad-4a42-81e4-b79fe957b2dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu\Overlay">
-      <UniqueIdentifier>{6832671c-4ba2-41d9-95b1-c638a4ac42a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu\Overlay">
-      <UniqueIdentifier>{ba96eb54-06c5-4405-a3c9-66c0d81f4049}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu\Game">
-      <UniqueIdentifier>{62f8c751-e96c-4351-934b-7c2ebad0c329}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu\Game">
-      <UniqueIdentifier>{830064bf-0e0c-40a8-a1e3-896b31a15bc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu\Dialog">
-      <UniqueIdentifier>{29e25301-1d75-4f30-b8e0-5ec2ec461085}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu\Dialog">
-      <UniqueIdentifier>{7eca6f11-2d17-4bf3-b47b-0c90611d21c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu\Widget">
-      <UniqueIdentifier>{a1a4bed2-4d5f-4ca6-ab89-172c8b87c10b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menu\Widget">
-      <UniqueIdentifier>{2e4ed2ca-d2a4-4c16-bb84-ea558346cadc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

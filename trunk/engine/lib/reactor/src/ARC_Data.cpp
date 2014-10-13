@@ -413,7 +413,7 @@ namespace reactor
 		{
 			file.open(StringValueCStr(filename), hfile::WRITE);
 		}
-		catch (hltypes::_file_not_found e)
+		catch (hltypes::_file_could_not_open&)
 		{
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}
@@ -445,7 +445,7 @@ namespace reactor
 		{
 			file.open(StringValueCStr(filename));
 		}
-		catch (hltypes::_file_not_found e)
+		catch (hltypes::_file_could_not_open&)
 		{
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}

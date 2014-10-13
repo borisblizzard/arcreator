@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include <april/RenderSystem.h>
 #include <gtypes/Matrix4.h>
 #include <gtypes/Rectangle.h>

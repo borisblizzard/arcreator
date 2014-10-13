@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include <hltypes/harray.h>
 
 #include "CodeSnippets.h"
