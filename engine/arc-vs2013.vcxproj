@@ -29,18 +29,9 @@
   <Import Project="lib\hltypes\msvc\vs2013\props-generic\build-defaults.props" />
   <Import Project="util\props-vs2013\build-defaults.props" />
   <Import Project="util\props-vs2013\configuration.props" />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PreprocessorDefinitions>_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <PreprocessorDefinitions>_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <TargetName>Game</TargetName>
+  </PropertyGroup>
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc">
       <ExcludedFromBuild Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">true</ExcludedFromBuild>

@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include <april/PixelShader.h>
 #include <hltypes/hlog.h>
 #include <hltypes/hstring.h>

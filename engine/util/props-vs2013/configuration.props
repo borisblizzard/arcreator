@@ -2,16 +2,25 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
     <Link>
-      <AdditionalDependencies>libhltypes.lib;libgtypes.lib;libhlxml.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libaprilparticle.lib;libapriluiparticle.lib;libxal.lib;libxalutil.lib;libcags.lib;libcachies.lib;libliteser.lib;libgamesys.lib;libscedge.lib;libcatime.lib;libaprilvideo.lib;libcpromo.lib;libtheoraplayer.lib;libtheora.lib;libpng.lib;libjpeg.lib;libtinyxml.lib;libfreetype.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;zlib1.lib;d3d9.lib;dsound.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libhltypes.lib;libgtypes.lib;libhlxml.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilparticle.lib;libxal.lib;liblegacy.lib;libreactor.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
     </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">
-    <ClCompile>
-      <PreprocessorDefinitions>_FACEBOOK;_G5;_PUSH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>-lxpromo_wrapper;-lxpromo;-lpush_wrapper;-lcfacebook;-lcpromo;-laprilvideo;-ltheoraplayer;-ltheora;-lcatime;-lscedge;-lgamesys;-lliteser;-lcachies;-lcags;-lxalutil;-lxal;-lapriluiparticle;-laprilparticle;-laprilui;-latresttf;-latres;-lapril;-lhlxml;-lgtypes;-lhltypes;-lzip;-lpng;-ljpeg;-lfreetype;-ltremor;-logg;-ltinyxml;-lOpenSLES;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
+    <PostBuildEvent Condition="'$(WholeProgramOptimization)'!='true'">
+      <Command>xcopy lib\lib\msvc120\*.dll $(OutDir)..\..\ /d /y
+xcopy lib\lib\msvc120\Microsoft.VC120.CRT\* $(OutDir)..\..\ /d /y
+xcopy $(OutDir)..\..\*.dll $(OutDir) /d /y
+</Command>
+    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(WholeProgramOptimization)'=='true'">
+      <Command>xcopy lib\lib\msvc120\*.dll $(OutDir)..\..\ /d /y
+xcopy lib\lib\msvc120\Microsoft.VC120.CRT\* $(OutDir)..\..\ /d /y
+xcopy $(OutDir)..\..\*.dll $(OutDir) /d /y
+
+mkdir $(OutDir)..\..\ARC_$(Configuration)
+copy $(OutDir)Game.exe $(OutDir)..\..\ARC_$(Configuration)
+copy $(OutDir)..\..\*.dll $(OutDir)..\..\ARC_$(Configuration)
+xcopy arc.cfg $(OutDir)..\..\ARC_$(Configuration) /y
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
 </Project>

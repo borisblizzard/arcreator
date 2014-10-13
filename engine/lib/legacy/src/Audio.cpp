@@ -120,7 +120,7 @@ namespace legacy
 				bgmPitch = pitch;
 			}
 		}
-		catch (hltypes::exception e)
+		catch (hltypes::exception& e)
 		{
 			hlog::error(legacy::logTag, "File could not be played: " + filename);
 			hlog::error(legacy::logTag, e.message());
@@ -193,7 +193,7 @@ namespace legacy
 				bgsPitch = pitch;
 			}
 		}
-		catch (hltypes::exception e)
+		catch (hltypes::exception& e)
 		{
 			hlog::write(legacy::logTag, "File could not be played: " + filename);
 			hlog::write(legacy::logTag, e.message());
@@ -264,7 +264,7 @@ namespace legacy
 				mePlayer->setPitch(pitch / 100.0f);
 			}
 		}
-		catch (hltypes::exception e)
+		catch (hltypes::exception& e)
 		{
 			hlog::write(legacy::logTag, "File could not be played: " + filename);
 			hlog::write(legacy::logTag, e.message());
@@ -336,7 +336,7 @@ namespace legacy
 			player->setPitch(pitch / 100.0f);
 			sePlayers += player;
 		}
-		catch (hltypes::exception e)
+		catch (hltypes::exception& e)
 		{
 			hlog::write(legacy::logTag, "File could not be played: " + filename);
 			hlog::write(legacy::logTag, e.message());

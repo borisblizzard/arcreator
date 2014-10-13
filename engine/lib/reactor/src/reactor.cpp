@@ -11,10 +11,7 @@
 #include <atres/atres.h>
 #include <atres/Renderer.h>
 #include <atresttf/atresttf.h>
-#include <atresttf/FontResourceTtf.h>
-#ifndef LEGACY_ONLY
-#include <aprilui/aprilui.h>
-#endif
+#include <atresttf/FontTtf.h>
 #include <hltypes/exception.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
@@ -179,13 +176,10 @@ namespace reactor
 			april::createWindow(resolution[0], resolution[1], fullscreen, reactor::system->Title);
 			atres::init();
 			atresttf::init();
-#ifndef LEGACY_ONLY
-			aprilui::init();
-#endif
 #ifndef _NOSOUND
-			xal::init(XAL_AS_DEFAULT, april::window->getBackendId(), true);
+			xal::init(xal::AS_DEFAULT, april::window->getBackendId(), true);
 #else
-			xal::init(XAL_AS_DISABLED, april::window->getBackendId(), false);
+			xal::init(xal::AS_DISABLED, april::window->getBackendId(), false);
 #endif
 			// april
 			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
@@ -198,12 +192,6 @@ namespace reactor
 			reactor::pixelShader = april::rendersys->createPixelShader("system/pixelShader-Default.cso");
 			// atres
 			atres::renderer->setGlobalOffsets(true);
-			// aprilui
-#ifndef LEGACY_ONLY
-			aprilui::setLimitCursorToViewport(false);
-			aprilui::setViewport(viewport);
-			aprilui::setTextureIdleUnloadTime(TEXTURE_UNLOAD_TIME);
-#endif
 			// xal
 			// reactor related data
 			hlog::write(reactor::logTag, "Initializing ARC Reactor Engine.");
@@ -235,9 +223,6 @@ namespace reactor
 			delete reactor::input;
 			delete reactor::transitionManager;
 			xal::destroy();
-#ifndef LEGACY_ONLY
-			aprilui::destroy();
-#endif
 			atresttf::destroy();
 			atres::destroy();
 			april::destroy();
