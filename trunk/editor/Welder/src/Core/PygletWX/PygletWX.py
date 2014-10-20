@@ -1,8 +1,15 @@
 import wx
 from wx import glcanvas
 import pyglet
+
+# this line is very important, we're tricking pyglet into thinking there is a context avalible
+# but we can't make it work with the shadow window that alows sharing of
+# object between contexts
 pyglet.options['shadow_window'] = False
+
+# now that that is set we can import gl and get on our way
 from pyglet import gl
+
 
 class PygletGLPanel(wx.Panel):
 
@@ -13,13 +20,13 @@ class PygletGLPanel(wx.Panel):
         # Forcing a no full repaint to stop flickering
         style = style | wx.NO_FULL_REPAINT_ON_RESIZE
         self.FIRST_PAINT = False
-        #call super function
+        # call super function
         super(PygletGLPanel, self).__init__(parent, id, pos, size, style)
-        #init gl canvas data
+        # init gl canvas data
         self.GLinitialized = False
-        attribList = (glcanvas.WX_GL_RGBA, # RGBA
-                      glcanvas.WX_GL_DOUBLEBUFFER, # Double Buffered
-                      glcanvas.WX_GL_DEPTH_SIZE, 24) # 24 bit
+        attribList = (glcanvas.WX_GL_RGBA,  # RGBA
+                      glcanvas.WX_GL_DOUBLEBUFFER,  # Double Buffered
+                      glcanvas.WX_GL_DEPTH_SIZE, 24)  # 24 bit
         # Create the canvas
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.canvas = glcanvas.GLCanvas(self, attribList=attribList)
@@ -29,14 +36,15 @@ class PygletGLPanel(wx.Panel):
         self.SetSizer(self.sizer)
         self.Layout()
         # bind events
-        self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
+        self.canvas.Bind(
+            wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
         self.canvas.Bind(wx.EVT_SIZE, self.processSizeEvent)
         self.canvas.Bind(wx.EVT_PAINT, self.processPaintEvent)
-        
+
     #==========================================================================
     # Canvas Proxy Methods
     #==========================================================================
-   
+
     def GetGLExtents(self):
         '''Get the extents of the OpenGL canvas.'''
         return self.canvas.GetClientSize()
@@ -48,14 +56,14 @@ class PygletGLPanel(wx.Panel):
     #==========================================================================
     # wxPython Window Handlers
     #==========================================================================
-   
+
     def processEraseBackgroundEvent(self, event):
         '''Process the erase background event.'''
-        pass # Do nothing, to avoid flashing on MSWin
+        pass  # Do nothing, to avoid flashing on MSWin
 
     def processSizeEvent(self, event):
         '''Process the resize event.'''
-        
+
         if wx.VERSION >= (2, 9):
             wx.CallAfter(self.doSetViewport)
         else:
@@ -93,67 +101,66 @@ class PygletGLPanel(wx.Panel):
                 self.OnReshape(size.width, size.height)
                 self.canvas.Refresh(False)
 
-
     def PrepareGL(self):
-        if wx.VERSION >= (2,9):
+        if wx.VERSION >= (2, 9):
             self.canvas.SetCurrent(self.context)
         else:
             self.canvas.SetCurrent()
 
-        #initialize OpenGL only if we need to
+        # initialize OpenGL only if we need to
         if not self.GLinitialized:
             self.OnInitGL()
             self.GLinitialized = True
             size = self.GetGLExtents()
             self.OnReshape(size.width, size.height)
-            
+
         self.pygletcontext.set_current()
-    
+
     def processPaintEvent(self, event):
         '''Process the drawing event.'''
         if not self.FIRST_PAINT:
-            self.FIRST_PAINT = True 
+            self.FIRST_PAINT = True
         self.PrepareGL()
         self.OnDraw()
         event.Skip()
-        
+
     def Destroy(self):
-        #clean up the pyglet OpenGL context
+        # clean up the pyglet OpenGL context
         self.pygletcontext.destroy()
-        #call the super metho
+        # call the super metho
         super(wx.Panel, self).Destroy()
 
     #==========================================================================f
     # GLFrame OpenGL Event Handlers
     #==========================================================================
- 
+
     def OnInitGL(self):
         '''Initialize OpenGL for use in the window.'''
-        #create a pyglet context for this panel
+        # create a pyglet context for this panel
         #self.pygletcontext = gl.Context(gl.current_context)
         if pyglet.version > "1.1.4":
             self.pygletcontext = PygletWXContext()
         else:
             self.pygletcontext = gl.Context()
         self.pygletcontext.set_current()
-        #normal gl init
+        # normal gl init
         gl.glEnable(gl.GL_BLEND)
         gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA)
         gl.glEnable(gl.GL_TEXTURE_2D)
         gl.glClearColor(1, 1, 1, 1)
-        
-        #create objects to draw
+
+        # create objects to draw
         self.create_objects()
-                                         
+
     def OnReshape(self, width, height):
         '''Reshape the OpenGL viewport based on the dimensions of the window.'''
-        #CORRECT WIDTH AND HEIGHT
+        # CORRECT WIDTH AND HEIGHT
         if width <= 0:
             width = 1
         if height <= 0:
             height = 1
         if self.GLinitialized:
-            self.pygletcontext.set_current()    
+            self.pygletcontext.set_current()
         gl.glViewport(0, 0, width, height)
         gl.glMatrixMode(gl.GL_PROJECTION)
         gl.glLoadIdentity()
@@ -161,68 +168,66 @@ class PygletGLPanel(wx.Panel):
         gl.glMatrixMode(gl.GL_MODELVIEW)
         if self.GLinitialized:
             self.update_object_resize(width, height)
-            
-            
+
     def OnDraw(self, *args, **kwargs):
         "Draw the window."
-        #clear the context
-        gl.glClear(gl.GL_COLOR_BUFFER_BIT|gl.GL_DEPTH_BUFFER_BIT)
-        #draw objects
+        # clear the context
+        gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
+        # draw objects
         self.draw_objects()
-        #update screen
+        # update screen
         self.SwapBuffers()
-            
+
     #==========================================================================
     # To be implemented by a sub class
     #==========================================================================
-   
+
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
         pass
-        
+
     def update_object_resize(self, width, height):
         '''called when the window receives only if opengl is initialized'''
         pass
-        
+
     def draw_objects(self):
         '''called in the middle of ondraw after the buffer has been cleared'''
         pass
 
 
 class PygletWXContext(gl.Context):
-    
+
     def __init__(self, config=None, context_share=None):
         self.config = config
         self.context_share = context_share
         self.canvas = None
-        
+
         if context_share:
             self.object_space = context_share.object_space
         else:
             self.object_space = gl.ObjectSpace()
-    
-    
+
     def attach(self, canvas=None):
         pass
 
     def detach(self):
         pass
-    
-    def set_current(self):        
+
+    def set_current(self):
         # XXX not per-thread
         gl.current_context = self
-        
+
         # XXX
         gl.gl_info.set_active_context()
         gl.glu_info.set_active_context()
-        
+
         # Implement workarounds
         if not self._info:
             self._info = gl.gl_info.GLInfo()
             self._info.set_active_context()
             for attr, check in self._workaround_checks:
                 setattr(self, attr, check(self._info))
-        
+
         # Release textures and buffers on this context scheduled for deletion.
         # Note that the garbage collector may introduce a race condition,
         # so operate on a copy of the textures/buffers and remove the deleted
@@ -237,10 +242,11 @@ class PygletWXContext(gl.Context):
             buffers = (gl.GLuint * len(buffers))(*buffers)
             gl.glDeleteBuffers(len(buffers), buffers)
             self.object_space._doomed_buffers[0:len(buffers)] = []
-    
-#--------------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
 # EditorGLPanel
-#--------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
+
 
 class EditorGLPanel(PygletGLPanel):
 
@@ -298,25 +304,37 @@ class EditorGLPanel(PygletGLPanel):
     def _createContextMenu(self):
         """Creates the context menu on demand"""
         self._contextMenu = wx.Menu()
-        self.menuItemCropAndShrink = wx.MenuItem(self._contextMenu, 0, "Crop and Shrink", "Oversized images will be scaled and cropped evenly", wx.ITEM_RADIO)
+        self.menuItemCropAndShrink = wx.MenuItem(
+            self._contextMenu, 0, "Crop and Shrink", "Oversized images will be scaled and cropped evenly", wx.ITEM_RADIO)
         self._contextMenu.AppendItem(self.menuItemCropAndShrink)
         self.menuItemCropAndShrink.Check(True)
-        self.menuItemShrink = wx.MenuItem(self._contextMenu, 1, "Shrink", "Oversized images will scale to the windows size while maintaining aspect ratio", wx.ITEM_RADIO)
+        self.menuItemShrink = wx.MenuItem(
+            self._contextMenu, 1, "Shrink", "Oversized images will scale to the windows size while maintaining aspect ratio", wx.ITEM_RADIO)
         self._contextMenu.AppendItem(self.menuItemShrink)
-        self.menuItemStretchAspect = wx.MenuItem(self._contextMenu, 2, "Stretch Aspect", "Images will expand to fill the window while maintaining aspect ratio", wx.ITEM_RADIO)
+        self.menuItemStretchAspect = wx.MenuItem(
+            self._contextMenu, 2, "Stretch Aspect", "Images will expand to fill the window while maintaining aspect ratio", wx.ITEM_RADIO)
         self._contextMenu.AppendItem(self.menuItemStretchAspect)
-        self.menuItemCrop = wx.MenuItem(self._contextMenu, 3, "Crop", "Image will be cropped to the window's size", wx.ITEM_RADIO)
+        self.menuItemCrop = wx.MenuItem(
+            self._contextMenu, 3, "Crop", "Image will be cropped to the window's size", wx.ITEM_RADIO)
         self._contextMenu.AppendItem(self.menuItemCrop)
-        self.menuItemStretch = wx.MenuItem(self._contextMenu, 4, "Stretch", "Image will be stretched to fill the window and ignore the aspect ratio", wx.ITEM_RADIO)
+        self.menuItemStretch = wx.MenuItem(
+            self._contextMenu, 4, "Stretch", "Image will be stretched to fill the window and ignore the aspect ratio", wx.ITEM_RADIO)
         self._contextMenu.AppendItem(self.menuItemStretch)
-        self.menuItemNone = wx.MenuItem(self._contextMenu, 5, "None", "No resizing, cropping, or centering will be performed", wx.ITEM_RADIO)
+        self.menuItemNone = wx.MenuItem(
+            self._contextMenu, 5, "None", "No resizing, cropping, or centering will be performed", wx.ITEM_RADIO)
         self._contextMenu.AppendItem(self.menuItemNone)
-        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged, id=self.menuItemCropAndShrink.GetId())
-        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged, id=self.menuItemShrink.GetId())
-        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged, id=self.menuItemStretchAspect.GetId())
-        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged, id=self.menuItemCrop.GetId())
-        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged, id=self.menuItemStretch.GetId())
-        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged, id=self.menuItemNone.GetId())
+        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged,
+                  id=self.menuItemCropAndShrink.GetId())
+        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged,
+                  id=self.menuItemShrink.GetId())
+        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged,
+                  id=self.menuItemStretchAspect.GetId())
+        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged,
+                  id=self.menuItemCrop.GetId())
+        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged,
+                  id=self.menuItemStretch.GetId())
+        self.Bind(wx.EVT_MENU, self.menuItem_SelectionChanged,
+                  id=self.menuItemNone.GetId())
 
     def ChangeImage(self, pilImage):
         """Changes the displayed image"""
@@ -342,9 +360,9 @@ class EditorGLPanel(PygletGLPanel):
         if not self.GLinitialized:
             return
 
-        #clear the screen
+        # clear the screen
         gl.glClearColor(0.93, 0.93, 0.93, 1)
-        gl.glClear(gl.GL_COLOR_BUFFER_BIT|gl.GL_DEPTH_BUFFER_BIT)
+        gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
 
         if self._image is None:
             return

@@ -42,12 +42,9 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.spinCtrlInitialLevel.SetRange(1, ma)
         self.spinCtrlFinalLevel.SetRange(1, ma)
         self.spinCtrlLevel.SetRange(1, ma)
-        self.glCanvasCharacter.canvas.Bind(wx.EVT_LEFT_DCLICK,
-                                           Kernel.Protect(self.glCanvasCharacter_DoubleClick))
-        self.glCanvasBattler.canvas.Bind(wx.EVT_LEFT_DCLICK,
-                                         Kernel.Protect(self.glCanvasBattler_DoubleClick))
-        self.parameterGraph.canvas.Bind(wx.EVT_LEFT_DCLICK,
-                                        Kernel.Protect(self.parameterGraph_DoubleClicked))
+        self.glCanvasCharacter.canvas.Bind(wx.EVT_LEFT_DCLICK, Kernel.Protect(self.glCanvasCharacter_DoubleClick))
+        self.glCanvasBattler.canvas.Bind(wx.EVT_LEFT_DCLICK, Kernel.Protect(self.glCanvasBattler_DoubleClick))
+        self.parameterGraph.canvas.Bind(wx.EVT_LEFT_DCLICK, Kernel.Protect(self.parameterGraph_DoubleClicked))
 
         actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
         # Initialize the selected actor attribute
