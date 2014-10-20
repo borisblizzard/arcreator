@@ -7,6 +7,6 @@
 
     },
     "provides": {
-        "PyXAL": "=_PyXAL"
+        "PyXAL": ""
     }
 }

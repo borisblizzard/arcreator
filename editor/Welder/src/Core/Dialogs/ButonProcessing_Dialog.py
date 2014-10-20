@@ -7,10 +7,10 @@ import Kernel
 
 
 # Implementing ButonProcessing_Dialog
-from PyitectConsumes import ButtonProcessing_Dialog_Template
+from PyitectConsumes import ButonProcessing_Dialog_Template
 
 
-class ButonProcessing_Dialog(ButtonProcessing_Dialog_Template):
+class ButonProcessing_Dialog(ButonProcessing_Dialog_Template):
 
     def __init__(self, parent):
         ButonProcessing_Dialog_Template.__init__(self, parent)

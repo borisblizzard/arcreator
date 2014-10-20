@@ -1,7 +1,8 @@
 import sys, os, stat, subprocess, shutil, time
 
-purge_exts = [".pyo", ".pyc", ".pyd", ".cpp"]
-exclude_names = ["PyXAL"]
+purge_exts = [".pyo", ".pyc", ".pyd", ".cpp", ".c"]
+purge_names = ["build", "cythonized_source", "__pycache__"]
+exclude_names = ["PyXAL", "lib", "Welder.c"]
 
 def scandir(dir):
     print("Scanning: %s" % dir)
@@ -11,7 +12,7 @@ def scandir(dir):
             continue
         root, ext = os.path.splitext(file)
         path = os.path.join(dir, file)
-        if os.path.isfile(path) and ext in purge_exts:
+        if (os.path.isfile(path) and ext in purge_exts) or (root in purge_names):
             files.append(path)
         elif os.path.isdir(path):
             files.extend(scandir(path))
@@ -19,10 +20,10 @@ def scandir(dir):
 
 
 print("Beginning Scan:\n")
-purge_names = scandir("./src/")
+to_purge = scandir("./src/")
 
 print("\nListing Files:\n")
-for name in purge_names:
+for name in to_purge:
     print("Will Delete: %s" % name)
 
 answer = input("Delete the listed files? (y/N): ")
@@ -42,7 +43,10 @@ if not answer:
 
 if flag:
     print("\nBeginning Purge:\n")
-    for name in purge_names:
+    for name in to_purge:
         print("Deleteing: %s" % name)
-        os.remove(name)
+        if os.path.isdir(name):
+            shutil.rmtree(name)
+        else:
+            os.remove(name)
 print("DONE")
