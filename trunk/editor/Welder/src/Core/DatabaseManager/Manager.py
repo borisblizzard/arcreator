@@ -415,7 +415,7 @@ class DatabaseManager(object):
         count = 0
         parameters = defaults
         if DatabaseManager.ARC_FORMAT:
-            config = Kernel.GlobalObjects['Welder_config']
+            config = Kernel.Config
             parameters.extend(config.getlist('GameSetup', 'Parameters'))
         else:
             parameters.extend(['STR', 'DEX', 'AGI', 'INT'])

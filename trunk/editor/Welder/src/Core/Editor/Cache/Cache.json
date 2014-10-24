@@ -2,7 +2,7 @@
     "name": "Cache",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "__init_.py",
+    "file" : "__init__.py",
     "consumes": {
 
     },

@@ -1,5 +1,5 @@
 global AddParameter_Dialog, AnimationCellBatch_Dialog, AnimationCellProperties_Dialog, AnimationEntireSlide_Dialog, AnimationTiming_Dialog
-global AnimationTweening_Dialog, BattleAnimation_Dialog, BattleProcessing_Dialog, BattleTest_Dialog, ButonProcessing_Dialog, ButtonProcessing_Dialog
+global AnimationTweening_Dialog, BattleAnimation_Dialog, BattleProcessing_Dialog, BattleTest_Dialog, ButtonProcessing_Dialog, ButtonProcessing_Dialog
 global CallCommonEvent_Dialog, ChangeAccess_Dialog, ChangeActorClass_Dialog, ChangeActorGraphic_Dialog, ChangeActorName_Dialog, ChangeBlending_Dialog
 global ChangeEquipment_Dialog, ChangeFogOpacity_Dialog, ChangeFrequency_Dialog, ChangeHP_Dialog, ChangelGold_Dialog, ChangelPartyEquipment_Dialog
 global ChangeMapSettings_Dialog, ChangeMaximum_Dialog, ChangeParameters_Dialog, ChangePartyMember_Dialog, ChangePictureColorTone_Dialog, ChangeSkills_Dialog
@@ -22,7 +22,6 @@ from .AnimationTweening_Dialog import AnimationTweening_Dialog
 from .BattleAnimation_Dialog import BattleAnimation_Dialog
 from .BattleProcessing_Dialog import BattleProcessing_Dialog
 from .BattleTest_Dialog import BattleTest_Dialog
-from .ButonProcessing_Dialog import ButonProcessing_Dialog
 from .ButtonProcessing_Dialog import ButtonProcessing_Dialog
 from .CallCommonEvent_Dialog import CallCommonEvent_Dialog
 from .ChangeAccess_Dialog import ChangeAccess_Dialog
