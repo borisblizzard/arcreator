@@ -75,12 +75,6 @@ namespace legacy
 		/// @param[in] keycode An integer indentifying the keyboard key.
 		/// @return bool Boolean state of key being triggered repeatedly.
 		static bool isRepeated(unsigned char keycode);
-		/// @brief Key Down input callback.
-		/// @param[in] value An integer indentifying the keyboard key.
-		static void onKeyDown(unsigned int value);
-		/// @brief Key Up input callback.
-		/// @param[in] value An integer indentifying the keyboard key.
-		static void onKeyUp(unsigned int value);
 
 	};
 	

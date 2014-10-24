@@ -36,9 +36,6 @@ namespace legacy
 		/// @param[in] value The new value.
 		static inline void setFocused(bool value) { focused = value; }
 
-		/// @brief Toggles the FPS display.
-		static void toggleFpsDisplay();
-
 		/// @brief Initializes.
 		static void init();
 		/// @brief Destroys.
@@ -95,25 +92,25 @@ namespace legacy
 		static bool running;
 		/// @brief Flag whether window is in focus.
 		static bool focused;
-		/// @brief Timer for frame limiation.
+		/// @brief Timer for time delta.
 		static april::Timer* timer;
-		/// @brief FPS display flag.
-		static bool fpsDisplay;
-		/// @brief Timer for FPS counting.
-		static april::Timer* fpsTimer;
-		/// @brief FPS time;
-		static float fpsTime;
+		/// @brief FPS.
+		static int fps;
 		/// @brief FPS count.
 		static int fpsCount;
+		/// @brief FPS timer.
+		static float fpsTimer;
+		/// @brief FPS resolution.
+		static float fpsResolution;
 		/// @brief Window title;
 		static hstr windowTitle;
 		
 		/// @brief Waits for the frame sync for FPS limitation.
-		static void _waitForFrameSync();
+		static void _waitForFrameSync(float timeDelta);
 		/// @brief Handles focus change and application finish.
 		static void _handleFocusChange();
 		/// @brief Updates FPS counter.
-		static void _updateFpsCounter(float time);
+		static void _updateFpsCounter(float timeDelta);
 
 	};
 
