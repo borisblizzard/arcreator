@@ -19,8 +19,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
         """Basic constructor for the ScriptSettings_Dialog"""
         ScriptSettings_Dialog_Template.__init__(self, parent)
         global Config
-        Config = deepcopy(Kernel.GlobalObjects.get_value(
-            'Welder_config').get_section('ScriptEditor'))
+        Config = Kernel.Config.getUnified()['ScriptEditor']
         self.ScriptControl = scriptcontrol
         self.InstalledFonts = sorted(wx.FontEnumerator.GetFacenames())
         self.comboBoxFont.AppendItems(self.InstalledFonts)
@@ -38,7 +37,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
         """Parses the user defined format string for the style, and returns it"""
         SM = Kernel.System.load("ScriptEditorManager")
         key = self.GetStyle(index)[1]
-        fstring = Config.get(key)
+        fstring = SM(key)
         style = ScintillaStyle()
         for format in fstring.split(','):
             if format.startswith('fore:'):
@@ -101,16 +100,14 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
     def RefreshEditorPage(self):
         """Refreshes the controls to reflect the selected style"""
         SM = Kernel.System.load("ScriptEditorManager")
-        self.spinCtrlTabWidth.SetValue(int(Config.get('tab_width')))
-        self.spinCtrlEdgeColumn.SetValue(int(Config.get('edge_column')))
-        self.checkBoxCaret.SetValue(Config.get('show_caret').lower() == 'true')
-        self.checkBoxIndentGuides.SetValue(
-            Config.get('indent_guides').lower() == 'true')
-        self.checkBoxBraceMatch.SetValue(
-            Config.get('brace_match').lower() == 'true')
-        self.spinCtrlCaretAlpha.SetValue(int(Config.get('caret_alpha')))
-        fore = SM.ParseColor(Config.get('caret_fore'))
-        back = SM.ParseColor(Config.get('caret_back'))
+        self.spinCtrlTabWidth.SetValue(int(Config['tab_width']))
+        self.spinCtrlEdgeColumn.SetValue(int(Config['edge_column']))
+        self.checkBoxCaret.SetValue(Config['show_caret'])
+        self.checkBoxIndentGuides.SetValue(Config['indent_guides'])
+        self.checkBoxBraceMatch.SetValue(Config['brace_match'])
+        self.spinCtrlCaretAlpha.SetValue(int(Config['caret_alpha']))
+        fore = SM.ParseColor(Config['caret_fore'])
+        back = SM.ParseColor(Config['caret_back'])
         self.panelCaretFore.SetBackgroundColour(fore)
         self.panelCaretBack.SetBackgroundColour(back)
         self.textCtrlCaretFore.ChangeValue(

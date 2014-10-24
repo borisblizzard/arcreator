@@ -21,7 +21,7 @@ class Skill_Dialog(Skill_Dialog_Template):
         self.spinCtrlLevel.SetRange(1, maxlevel)
         self.spinCtrlLevel.SetValue(level)
 
-        config = Kernel.GlobalObjects['Welder_config']
+        config = Kernel.Config
         digits = len(config.get('GameObjects', 'Skills'))
 
         if ARC_FORMAT:

@@ -82,7 +82,7 @@ class EditorMainWindow(wx.Frame):
         # start The autosave Time
         self.AutoSaveTimer = wx.Timer(self)
         # TODO: fix autosave
-        #save_intervel = Kernel.GlobalObjects["Welder_config"].getint("Main", "Autosave")
+        #save_intervel = Kernel.Config.getint("Main", "Autosave")
         #self.Bind(wx.EVT_TIMER, self.ProcessAutoSave, self.AutoSaveTimer)
         #self.AutoSaveTimer.Start(save_intervel * 60000, False)
 
