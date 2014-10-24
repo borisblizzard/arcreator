@@ -173,7 +173,11 @@ namespace reactor
 		{
 			april::init(april::RS_DEFAULT, april::WS_DEFAULT);
 			april::createRenderSystem();
-			april::createWindow(resolution[0], resolution[1], fullscreen, reactor::system->Title);
+			april::Window::Options options;
+			// TODO - activate this when all texture reloads have been fixed
+			//options.hotkeyFullscreen = reactor::system->Parameters.try_get_by_key(CFG_FULLSCREEN_HOTKEY, true);
+			options.fpsCounter = true;
+			april::createWindow(resolution[0], resolution[1], fullscreen, reactor::system->Title, options);
 			atres::init();
 			atresttf::init();
 #ifndef _NOSOUND
@@ -181,6 +185,10 @@ namespace reactor
 #else
 			xal::init(xal::AS_DISABLED, april::window->getBackendId(), false);
 #endif
+			// reactor related data
+			hlog::write(reactor::logTag, "Initializing ARC Reactor Engine.");
+			reactor::input = new reactor::Input();
+			reactor::transitionManager = new reactor::TransitionManager();
 			// april
 			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
 			april::rendersys->setOrthoProjection(viewport);
@@ -192,11 +200,6 @@ namespace reactor
 			reactor::pixelShader = april::rendersys->createPixelShader("system/pixelShader-Default.cso");
 			// atres
 			atres::renderer->setGlobalOffsets(true);
-			// xal
-			// reactor related data
-			hlog::write(reactor::logTag, "Initializing ARC Reactor Engine.");
-			reactor::input = new reactor::Input();
-			reactor::transitionManager = new reactor::TransitionManager();
 		}
 		catch (hltypes::exception& e)
 		{

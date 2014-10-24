@@ -75,20 +75,6 @@ namespace legacy
 		return false;
 	}
 
-	void Input::onKeyDown(unsigned int keycode)
-	{
-		keys[keycode] = true;
-		if (keycode == april::AK_F2)
-		{
-			Graphics::toggleFpsDisplay();
-		}
-	}
-
-	void Input::onKeyUp(unsigned int keycode)
-	{
-		keys[keycode] = false;
-	}
-
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/

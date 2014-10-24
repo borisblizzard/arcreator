@@ -42,38 +42,27 @@ namespace legacy
 	bool Graphics::running;
 	bool Graphics::focused;
 	april::Timer* Graphics::timer;
-	bool Graphics::fpsDisplay;
-	april::Timer* Graphics::fpsTimer;
-	float Graphics::fpsTime;
+	int Graphics::fps;
 	int Graphics::fpsCount;
+	float Graphics::fpsTimer;
+	float Graphics::fpsResolution;
 	hstr Graphics::windowTitle;
 
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 	
-	void Graphics::toggleFpsDisplay()
+	void Graphics::_waitForFrameSync(float timeDelta)
 	{
-		if (legacy::isDebugMode())
-		{
-			fpsDisplay = !fpsDisplay;
-			april::window->setFps(0);
-			april::window->setTitle(windowTitle);
-		}
-	}
-
-	void Graphics::_waitForFrameSync()
-	{
-		float difference = timer->diff();
 #ifndef _DEBUG
-		float waitTime = 1000.0f / frameRate - difference;
-		difference = waitTime;
+		float waitTime = 1000.0f / frameRate - hmax(timeDelta, 16.666667f);
+		timeDelta = waitTime;
 		if (waitTime > 0.0f)
 		{
 			hthread::sleep(waitTime);
 		}
 #endif
-		xal::mgr->update(difference * 0.001f);
+		xal::mgr->update(timeDelta * 0.001f);
 	}
 
 	void Graphics::_handleFocusChange()
@@ -103,21 +92,31 @@ namespace legacy
 		}
 	}
 
-	void Graphics::_updateFpsCounter(float time)
+	void Graphics::_updateFpsCounter(float timeDelta)
 	{
-		if (fpsDisplay)
+		if (!legacy::isDebugMode())
 		{
-			if (time - fpsTime > 1000.0f)
+			return;
+		}
+		fpsTimer += timeDelta;
+		if (fpsTimer > 0.0f)
+		{
+			++fpsCount;
+			if (fpsTimer >= fpsResolution)
 			{
-				april::window->setFps(fpsCount);
-				april::window->setTitle(windowTitle);
+				fps = (int)(fpsCount / fpsTimer);
 				fpsCount = 0;
-				fpsTime = time;
+				fpsTimer = 0.0f;
+				april::window->setFps(fps);
+				april::window->setTitle(windowTitle); // to update the FPS display on Win32
 			}
-			else
-			{
-				fpsCount++;
-			}
+		}
+		else
+		{
+			fps = 0;
+			fpsCount = 0;
+			april::window->setFps(fps);
+			april::window->setTitle(windowTitle); // to update the FPS display on Win32
 		}
 	}
 
@@ -132,18 +131,18 @@ namespace legacy
 		height = window->getHeight();
 		active = true;
 		frameCount = 0;
-		frameRate = (int)legacy::parameters.try_get_by_key(CFG_FRAME_RATE, "40");
+		frameRate = hmax((int)legacy::parameters.try_get_by_key(CFG_FRAME_RATE, "40"), 1);
 		running = true;
 		focused = true;
 		renderQueue = new RenderQueue();
 		timer = new april::Timer();
 		timer->update();
 		timer->diff();
-		fpsDisplay = false;
-		fpsTimer = new april::Timer();
-		fpsTime = fpsTimer->getTime();
+		fps = 0;
 		fpsCount = 0;
-		windowTitle = window->getTitle();
+		fpsTimer = 0.0f;
+		fpsResolution = 0.5f;
+		windowTitle = april::window->getTitle();
 		Renderable::CounterProgress = 0;
 	}
 
@@ -151,7 +150,6 @@ namespace legacy
 	{
 		delete renderQueue;
 		delete timer;
-		delete fpsTimer;
 	}
 
 	void Graphics::createRubyInterface()
@@ -212,7 +210,6 @@ namespace legacy
 	VALUE Graphics::rb_update(VALUE self)
 	{
 		_handleFocusChange();
-		float time = fpsTimer->getTime();
 		if (active)
 		{
 			april::rendersys->clear();
@@ -222,8 +219,9 @@ namespace legacy
 		}
 		frameCount++;
 		TRY_RUN_GC;
-		_updateFpsCounter(time);
-		_waitForFrameSync();
+		float timeDelta = timer->diff();
+		_updateFpsCounter(timeDelta);
+		_waitForFrameSync(timeDelta);
 		return Qnil;
 	}
 
@@ -287,14 +285,13 @@ namespace legacy
 		image = april::rendersys->takeScreenshot(april::Image::FORMAT_RGBA);
 		april::Texture* newScreen = april::rendersys->createTexture(image->w, image->h, image->data, april::Image::FORMAT_RGBA);
 		delete image;
-		float time;
 		TRY_RUN_GC;
+		float timeDelta;
 		if (filename == "")
 		{
 			// fade between old and new screen
 			for_iter (i, 0, duration)
 			{
-				time = fpsTimer->getTime();
 				_handleFocusChange();
 				april::rendersys->clear();
 				april::rendersys->setTexture(oldScreen);
@@ -304,8 +301,9 @@ namespace legacy
 				april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 				april::rendersys->presentFrame();
 				frameCount++;
-				_updateFpsCounter(time);
-				_waitForFrameSync();
+				timeDelta = timer->diff();
+				_updateFpsCounter(timeDelta);
+				_waitForFrameSync(timeDelta);
 			}
 		}
 		else if (vague >= 0) // skip if vague is not 0 or greater
@@ -321,7 +319,6 @@ namespace legacy
 			// fade between old and new screen
 			for_iter (i, 0, duration)
 			{
-				time = fpsTimer->getTime();
 				_handleFocusChange();
 				april::rendersys->clear();
 				april::rendersys->setTexture(oldScreen);
@@ -331,8 +328,9 @@ namespace legacy
 				april::rendersys->drawTexturedRect(drawRect, srcRect);
 				april::rendersys->presentFrame();
 				frameCount++;
-				_updateFpsCounter(time);
-				_waitForFrameSync();
+				timeDelta = timer->diff();
+				_updateFpsCounter(timeDelta);
+				_waitForFrameSync(timeDelta);
 			}
 			delete transition;
 		}

@@ -8,6 +8,7 @@
 #define CFG_TITLE "Title"
 #define CFG_RESOLUTION "Resolution"
 #define CFG_FULLSCREEN "Fullscreen"
+#define CFG_FULLSCREEN_HOTKEY "FullscreenHotkey"
 #define CFG_FRAME_RATE "FrameRate"
 #define CFG_INACTIVE_AUDIO "InactiveAudio"
 #define CFG_FONT_BASE_SIZE "FontBaseSize"
