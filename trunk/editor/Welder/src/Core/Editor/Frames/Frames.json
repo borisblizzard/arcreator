@@ -2,7 +2,7 @@
     "name": "Frames",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Frames.py",
+    "file" : "__init__.py",
     "consumes": {
         "IconManager": "",
         "MainWindowLayout": "",

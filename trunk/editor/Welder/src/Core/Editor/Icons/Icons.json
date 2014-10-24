@@ -2,7 +2,7 @@
     "name": "Icons",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Icons.py",
+    "file" : "__init__.py",
     "consumes": {
 
     },

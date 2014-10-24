@@ -2,7 +2,7 @@
     "name": "Layouts",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Layouts.py",
+    "file" : "__init__.py",
     "consumes": {
     	"PanelManager": ""
     },

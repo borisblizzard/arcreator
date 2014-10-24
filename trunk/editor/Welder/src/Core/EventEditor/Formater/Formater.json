@@ -2,7 +2,7 @@
     "name": "EventEditorFormater",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Fromater.py",
+    "file" : "__init__.py",
     "consumes": {
 
     },

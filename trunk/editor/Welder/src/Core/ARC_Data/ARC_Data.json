@@ -2,13 +2,13 @@
     "name": "ARC_Data",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "ARC_Data.py",
+    "file" : "__init__.py.py",
     "consumes": {
 
     },
     "provides": {
         "ARC_Dump": "",
-        "ARCDataDumpFunction": "=Dump",
-        "ARCDataLoadFunction": "=Load"
+        "ARCDataDumpFunction": "",
+        "ARCDataLoadFunction": ""
     }
 }

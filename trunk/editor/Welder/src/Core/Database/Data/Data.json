@@ -2,7 +2,7 @@
     "name": "DataHandelers",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Data.py",
+    "file" : "__init__.py",
     "consumes": {
         "NewProject_Dialog": "",
         "ARCProjectCreator": "",
@@ -10,9 +10,9 @@
         "ARCProjectSaver": ""
     },
     "provides": {
-        "NewProjectHandler": "=NewProject",
-        "OpenProjectHandler": "=OpenProject",
-        "SaveProjectHandler": "=SaveProject",
-        "SaveProjectASHandler": "=SaveProjectAS"
+        "NewProjectHandler": "",
+        "OpenProjectHandler": "",
+        "SaveProjectHandler": "",
+        "SaveProjectASHandler": ""
     }
 }
