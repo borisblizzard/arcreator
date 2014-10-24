@@ -2,7 +2,7 @@
     "name": "MapEditorTilemap",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Tilemap.py",
+    "file" : "__init__.py",
     "consumes": {
 
     },

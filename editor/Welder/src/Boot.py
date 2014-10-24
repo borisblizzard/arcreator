@@ -24,7 +24,7 @@ from pathlib import Path
 import wx
 
 import Kernel
-import Welder
+import WelderInfo
 
 import wx.lib.inspection
 
@@ -61,7 +61,7 @@ class ARCSplashScreen(wx.Frame):
         gauge_size = (self.bmp.GetWidth() / 2 + 32, 14)
         gauge_pos = (16, self.bmp.GetHeight() - 20)
 
-        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", textctl_pos, textctl_size, 
+        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", textctl_pos, textctl_size,
             wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_DONTWRAP)
         self.gaugectl = wx.Gauge(self, wx.ID_ANY, 100, gauge_pos, gauge_size, wx.GA_HORIZONTAL)
         self.gaugectl.Pulse()
@@ -91,9 +91,9 @@ class ARCSplashScreen(wx.Frame):
 
         dc.DrawBitmap(self.bmp, 0, 0, True)
 
-        string1 = "Version: %s" % Welder.VERSION
+        string1 = "Version: %s" % WelderInfo.VERSION
         string2 = "\n %s %s (%s)" % (
-            Welder.COPYRIGHT, Welder.AUTHOR, Welder.EMAIL)
+            WelderInfo.COPYRIGHT, WelderInfo.AUTHOR, WelderInfo.EMAIL)
 
         dc.SetFont(wx.Font(wx.FontInfo(9)))
         dc.SetTextBackground(wx.Colour(0, 0, 0))

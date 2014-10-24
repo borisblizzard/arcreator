@@ -2,7 +2,7 @@
     "name": "DatabaseActions",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "DatabaseActions.py",
+    "file" : "__init__.py.py",
     "consumes": {
         "Table": "",
         "ActionTemplate": ""

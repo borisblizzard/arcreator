@@ -2,7 +2,7 @@
     "name": "ScriptEditorManager",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Manager.py",
+    "file" : "__init__.py",
     "consumes": {
         "Script": ""
     },

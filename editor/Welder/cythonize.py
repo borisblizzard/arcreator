@@ -139,70 +139,89 @@ ingoreNames = ["__init__.py", "setup.py", "__main__.py", "_ext.py", "Logo.py", "
 testFiles = ["Map_Test.py", "PyXAL_Test.py", "Database_Test.py"]
 
 
-def builder(path):
-    os.chdir(path)
-    print("Building %s" % path)
-    if Path(path).name == "PyXAL":
-        ext = Extension(
-            "_PyXal",
-            ["_PyXal.pyx"],
-            language="c++",
-            include_dirs=["src/include"],
-            library_dirs=["src/lib"],
-            libraries=["libhltypes", "libxal"]
-        ),
-    else:
-        ext = ["*.py"]
-    setup(
-        name='ARC Welder',
-        ext_modules=cythonize(ext, exclude=["__init__.py"])
-    )
+class Package:
 
-
-class PackageCythonizer:
-
-    def __init__(self, path):
+    def __init__(self, path, folder, ext, excludes=[]):
         self.path = Path(path).resolve()
+        self.ext = ext
+        self.excludes = excludes
+        self.folder = folder
+
+    def build(self):
+        os.chdir(str(self.path))
+        t = time.time()
+        exclude = self.excludes + [self.folder + "/__init__.py", self.folder + "/on_enable.py"]
+        setup(
+            name='ARC Welder',
+            ext_modules=cythonize(self.ext, exclude=exclude)
+        )
+        print("Time spent Compiling %s: %s Seconds" % (self.path, time.time() - t))
+
+
+class Packager:
+
+    def __init__(self, path, excludes):
+        self.path = Path(path).resolve()
+        self.excludes = excludes
         self.packages = []
         self.scanfolder(self.path)
 
     def scanfolder(self, path):
         if not path.is_dir():
             raise RuntimeError("Path '%s' is not a directory" % str(self.path))
+        if path.name in self.excludes:
+            return
         files = [f.name for f in path.iterdir() if not f.is_dir()]
         if "__init__.py" in files:
             # this is a package
-            self.add_package(str(path))
+            self.add_package(path)
         else:
             for f in path.iterdir():
                 if f.is_dir():
                     self.scanfolder(f)
 
     def add_package(self, path):
-        self.packages.append(path)
+        p = Package(path.parent, path.name, [path.name + "/*.py"])
+        self.packages.append(p)
+
+
+def builder(package):
+    package.build()
+
+
+class Cythonizer:
+
+    def __init__(self, packages):
+        self.packages = packages
 
     def build(self):
 
         ncpus = num_cpus()
 
+        t = time.time()
+
         if ncpus > 1:
             import multiprocessing.pool
             # fix keyboard interupt
-            from multiprocessing.pool import IMapIterator
+            # from multiprocessing.pool import IMapIterator
 
-            def wrapper(func):
-                def wrap(self, timeout=None):
-                    # Note: the timeout of 1 googol seconds introduces a rather subtle
-                    # bug for Python scripts intended to run many times the age of the universe.
-                    return func(self, timeout=timeout if timeout is not None else 1e100)
-                return wrap
-            IMapIterator.next = wrapper(IMapIterator.next)
+            # def wrapper(func):
+            #     def wrap(self, timeout=None):
+            #         # Note: the timeout of 1 googol seconds introduces a rather subtle
+            #         # bug for Python scripts intended to run many times the age of the universe.
+            #         return func(self, timeout=timeout if timeout is not None else 1e100)
+            #     return wrap
+            # IMapIterator.next = wrapper(IMapIterator.next)
 
             with multiprocessing.pool.Pool(ncpus) as pool:
-                list(pool.imap(builder, self.packages))
+                pool.map(builder, self.packages)
         else:
             for path in self.packages:
                 builder(path)
+
+        print("TOTAL Time spent Compiling: %s Seconds" % (time.time() - t))
+
+
 
 # def ensure_path(path):
 #     if path != "" and not os.path.exists(path) or not os.path.isdir(path):
@@ -245,9 +264,37 @@ class PackageCythonizer:
 
 if __name__ == '__main__':
 
-    plugins = PackageCythonizer("src/Core")
+    plugins = Packager("src/Core", ["PyXAL"])
 
-    plugins.build()
+    extra_plugins = [
+        Package(
+            "src/Core/PyXAL",
+            "PyXAL",
+            Extension(
+                "_PyXal",
+                ["_PyXal.pyx"],
+                language="c++",
+                include_dirs=["src/include"],
+                library_dirs=["src/lib"],
+                libraries=["libhltypes", "libxal"]
+            )
+        )
+    ]
+
+    packages = plugins.packages + extra_plugins
+
+    welder_pkg = Package(
+        "src",
+        "src",
+        ["*.py"],
+        ["build_lib.py"]
+    )
+
+    packages.append(welder_pkg)
+
+    cythonizer = Cythonizer(packages)
+
+    cythonizer.build()
 
     # setup(
     #     name='ARC Welder',

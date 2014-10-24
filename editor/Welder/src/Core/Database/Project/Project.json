@@ -2,7 +2,7 @@
     "name": "Project",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Project.py",
+    "file" : "__init__.py",
     "consumes": {
         "ARCDataDumpFunction": "",
         "ARCDataLoadFunction": ""
