@@ -317,7 +317,7 @@ namespace reactor
 		{
 			return rb_str_new2(StringValueCStr(obj));
 		}
-		hstr value = file.load_hstr();
+		hstr value = file.load_string();
 		obj = rb_str_new2(value.c_str());
 		__MAP(strings, obj);
 		return obj;
