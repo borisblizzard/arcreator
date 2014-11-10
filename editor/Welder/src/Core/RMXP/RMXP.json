@@ -3,7 +3,7 @@
     "author": "Ryex",
     "version": "1.0.0",
     "file" : "__init__.py",
-    "on_enable": "bind_events.py",
+    "on_enable": "on_enable.py",
     "consumes": {
         "Table": "",
         "Color": "",
