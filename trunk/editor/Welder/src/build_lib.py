@@ -4,7 +4,7 @@ import shutil
 import platform
 import sysconfig
 import zipfile
-from distutils.sysconfig import get_python_lib
+from pathlib import Path
 
 compiled_dir = None
 
@@ -77,24 +77,25 @@ source_exts = ["", ".py"]
 exclud_ext = [".pyc", ".pyo", ".egg-info", '.dist-info']
 
 
-
 def ensure_dir(f):
     d = os.path.dirname(f)
     if not os.path.exists(d):
         os.makedirs(d)
 
+
 def copy_file(path, to):
     ensure_dir(to)
+    print("Copying: ", path, " -> ", str(Path(to).relative_to(Path.cwd())))
     shutil.copyfile(path, to)
     shutil.copystat(path, to)
-
 
 
 def add_dep(path, files, prefix=""):
     fil = os.path.basename(path)
     root, ext = os.path.splitext(fil)
-    if (ext in dep_exts) or (ext in source_exts) or (not ext in exclud_ext):
+    if (ext in dep_exts) or (ext in source_exts) or (ext not in exclud_ext):
         files[os.path.join(prefix, fil)] = path
+
 
 def scan_dep(path, files, prefix=""):
     if os.path.isdir(path):
@@ -108,6 +109,7 @@ def scan_dep(path, files, prefix=""):
     elif os.path.isfile(path):
         add_dep(path, files, prefix)
 
+
 def scan_library(folder, files):
     for fil in os.listdir(folder):
         path = os.path.join(folder, fil)
@@ -118,10 +120,11 @@ def scan_library(folder, files):
             prefix = fil
         scan_dep(path, files, prefix)
 
+
 def scan_needed_location(folder, files):
     for fil in os.listdir(folder):
         path = os.path.join(folder, fil)
-        if not fil in site_needed:
+        if fil not in site_needed:
             continue
         prefix = ""
         if os.path.isdir(path):
@@ -130,7 +133,7 @@ def scan_needed_location(folder, files):
 
 
 def copy_needed_site():
-    dest_folder = os.path.abspath(os.path.join(".", "lib", "site-packages"))
+    dest_folder = os.path.abspath(os.path.join(dirName, "lib", "site-packages"))
     prefix_mapping = {}
     locations = sys.path
 
@@ -142,17 +145,17 @@ def copy_needed_site():
 
     for fil, path in prefix_mapping.items():
         to = os.path.join(dest_folder, fil)
-        print("copying %s ==> %s" % (path, to))
         copy_file(path, to)
 
+
 def copy_std_lib():
-    dest_folder = os.path.abspath(os.path.join(".", "lib"))
+    dest_folder = os.path.abspath(os.path.join(dirName, "lib"))
     files = {}
     scan_library(lib_dir, files)
     for fil, path in files.items():
         to = os.path.join(dest_folder, fil)
-        print("copying %s ==> %s" % (path, to))
         copy_file(path, to)
+
 
 def zip_std_lib():
     f = zipfile.ZipFile("python.zip", mode="w", compression=zipfile.ZIP_DEFLATED)
@@ -164,9 +167,10 @@ def zip_std_lib():
 
     f.close()
 
+
 def copy_compiled():
 
-    dest_folder = os.path.abspath(os.path.join(".", "lib", compiled_folder))
+    dest_folder = os.path.abspath(os.path.join(dirName, "lib", compiled_folder))
     print("scanning %s" % compiled_dir)
     for fil in os.listdir(compiled_dir):
         path = os.path.join(compiled_dir, fil)
@@ -176,8 +180,8 @@ def copy_compiled():
             if ext in dep_exts:
                 to = os.path.join(dest_folder, fil)
                 path = os.path.join(compiled_dir, fil)
-                print("copying %s ==> %s" % (path, to))
                 copy_file(path, to)
+
 
 def copy_pyhton_lib():
     files = []
@@ -194,16 +198,15 @@ def copy_pyhton_lib():
         libdir = sysconfig.get_config_var('LIBDIR') + sysconfig.get_config_var("multiarchsubdir")
         files.append(os.path.join(libdir, libname))
     else:
-        #osx
+        # osx
         pass
-        
-    dest_folder = os.path.abspath(".")
+
+    dest_folder = os.path.abspath(dirName)
     for path in files:
         if os.path.exists(path):
             fil = os.path.basename(path)
             root, ext = os.path.splitext(fil)
             to = os.path.join(dest_folder, fil)
-            print("copying %s ==> %s" % (path, to))
             copy_file(path, to)
 
 print("========================================")
