@@ -104,7 +104,7 @@ namespace legacy
 	{
 		RB_SELF2CPP(Tone, tone);
 		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", tone->red, tone->green, tone->blue, tone->gray);
-		return rb_str_new2(result.c_str());
+		return rb_str_new2(result.cStr());
 	}
 
 	VALUE Tone::create(int argc, VALUE* argv)

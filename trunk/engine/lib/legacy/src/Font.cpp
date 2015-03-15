@@ -90,9 +90,9 @@ namespace legacy
 	void Font::generate(Font* font)
 	{
 		hstr fontName = font->_getAtresTtfName();
-		if (!atres::renderer->hasFont(fontName) && !_missingFonts.contains(fontName))
+		if (!atres::renderer->hasFont(fontName) && !_missingFonts.has(fontName))
 		{
-			float baseSize = (float)legacy::parameters.try_get_by_key(CFG_FONT_BASE_SIZE, "50");
+			float baseSize = (float)legacy::parameters.tryGet(CFG_FONT_BASE_SIZE, "50");
 			atresttf::FontTtf* font = new atresttf::FontTtf("", fontName, baseSize, 1.0f);
 			if (font->isLoaded())
 			{
@@ -231,7 +231,7 @@ namespace legacy
 	VALUE Font::rb_getName(VALUE self)
 	{
 		RB_SELF2CPP(Font, font);
-		return rb_str_new2(font->name.c_str());
+		return rb_str_new2(font->name.cStr());
 	}
 
 	VALUE Font::rb_setName(VALUE self, VALUE value)
@@ -299,7 +299,7 @@ namespace legacy
 
 	VALUE Font::rb_getDefaultName(VALUE classe)
 	{
-		return rb_str_new2(defaultName.c_str());
+		return rb_str_new2(defaultName.cStr());
 	}
 
 	VALUE Font::rb_setDefaultName(VALUE classe, VALUE value)

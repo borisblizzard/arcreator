@@ -55,7 +55,7 @@ namespace reactor
 		{
 			username += (char)(name[i] > 0x80 ? 0x40 + (name[i] % 26) : name[i]);
 		}
-		path += hsprintf("/%s/%s/%s", SYSTEM_PATH_BASE, title.c_str(), username.c_str());
+		path += hsprintf("/%s/%s/%s", SYSTEM_PATH_BASE, title.cStr(), username.cStr());
 #elif defined(__APPLE__)
 		{	// curly braces in order to localize variables
 #if !TARGET_OS_IPHONE
@@ -95,16 +95,16 @@ namespace reactor
 #else
 			hstr xcode_configuration;
 #endif
-			if (xcode_configuration != "App Store" || hdir::exists(hsprintf("%s/%s/%s", path.c_str(), SYSTEM_PATH_BASE, title.c_str()))
+			if (xcode_configuration != "App Store" || hdir::exists(hsprintf("%s/%s/%s", path.cStr(), SYSTEM_PATH_BASE, title.cStr()))
 			{
 				path += hsprintf("/%s", SYSTEM_PATH_BASE);
 			}
-			path += hsprintf("/%s", title.c_str());
+			path += hsprintf("/%s", title.cStr());
 		}
 #endif
 		hdir::create(path);
 		path += "/";
-		hfile::create_new(path + "log.txt");
+		hfile::createNew(path + "log.txt");
 		return path;
 	}
 
@@ -121,8 +121,9 @@ namespace reactor
 		result[CFG_GAME_VERSION] = "1.0.0";
 		if (hfile::exists(filename))
 		{
-			hfile f(filename);
-			harray<hstr> lines = f.read_lines();
+			hfile f;
+			f.open(filename);
+			harray<hstr> lines = f.readLines();
 			f.close();
 			// ignore file header. utf-8 encoded text files have 2-3 char markers
 			while (lines[0].size() > 0 && lines[0][0] < 0)

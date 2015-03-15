@@ -88,6 +88,7 @@ namespace legacy
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		grect orthoProjection = april::rendersys->getOrthoProjection();
 		if (this->x != 0 || this->y != 0) 
 		{
 			april::rendersys->translate((float)this->x, (float)this->y);
@@ -101,6 +102,7 @@ namespace legacy
 			april::rendersys->scale(this->zoom.x, this->zoom.y, 1.0f);
 		}
 		this->_render();
+		april::rendersys->setOrthoProjection(orthoProjection);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}

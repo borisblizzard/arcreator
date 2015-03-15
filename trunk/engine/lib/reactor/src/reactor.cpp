@@ -12,7 +12,7 @@
 #include <atres/Renderer.h>
 #include <atresttf/atresttf.h>
 #include <atresttf/FontTtf.h>
-#include <hltypes/exception.h>
+#include <hltypes/hexception.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hlog.h>
@@ -81,7 +81,7 @@ namespace reactor
 			}
 			data += StringValueCStr(string);
 		}
-		hstr text = data.join(delimiter);
+		hstr text = data.joined(delimiter);
 		hlog::write(reactor::logTag, text);
 		return Qnil;
 	}
@@ -111,7 +111,7 @@ namespace reactor
 				string = rb_inspect(rb_ary_shift(args));
 				data += StringValueCStr(string);
 			}
-			text = data.join(delimiter);
+			text = data.joined(delimiter);
 		}
 		hlog::write(reactor::logTag, text);
 		april::messageBox(reactor::system->Title, text, april::MESSAGE_BUTTON_OK, april::MESSAGE_STYLE_INFO);
@@ -164,7 +164,7 @@ namespace reactor
 		bool fullscreen = (bool)reactor::system->Parameters[CFG_FULLSCREEN];
 		debugMode = false;
 		bool result = true;
-		srand(get_system_time());
+		srand((unsigned int)htime());
 		if ((bool)reactor::system->Parameters[CFG_LOGGING])
 		{
 			hlog::setFilename(reactor::system->Path + "log.txt");
@@ -201,9 +201,9 @@ namespace reactor
 			// atres
 			atres::renderer->setGlobalOffsets(true);
 		}
-		catch (hltypes::exception& e)
+		catch (hexception& e)
 		{
-			hlog::error(reactor::logTag, e.message());
+			hlog::error(reactor::logTag, e.getMessage());
 			result = false;
 		}
 		catch (hstr e)
@@ -219,21 +219,23 @@ namespace reactor
 		bool result = true;
 		try
 		{
+			hlog::write(reactor::logTag, "Destroying ARC Reactor Engine.");
 			delete reactor::vertexShader;
 			delete reactor::pixelShader;
-			hlog::write(reactor::logTag, "Destroying ARC Reactor Engine.");
 			// destroy other
 			delete reactor::input;
 			delete reactor::transitionManager;
+			atres::renderer->destroyAllFonts();
 			xal::destroy();
 			atresttf::destroy();
 			atres::destroy();
 			april::destroy();
 			delete reactor::system;
+			hlog::finalize();
 		}
-		catch (hltypes::exception& e)
+		catch (hexception& e)
 		{
-			hlog::error(reactor::logTag, e.message());
+			hlog::error(reactor::logTag, e.getMessage());
 			result = false;
 		}
 		catch (hstr e)
@@ -264,7 +266,7 @@ namespace reactor
 		foreach (hstr, it, files)
 		{
 			parts = (*it).split("-", 1, true);
-			if (parts.size() == 2 && parts[0].size() == 4 && parts[0].is_number() && parts[1].ends_with(".rb"))
+			if (parts.size() == 2 && parts[0].size() == 4 && parts[0].isNumber() && parts[1].endsWith(".rb"))
 			{
 				scripts += "./Data/Scripts/" + (*it);
 			}
@@ -282,7 +284,7 @@ namespace reactor
 		// loading scripts
 		foreach (hstr, it, scripts)
 		{
-			rb_load(rb_str_new2((*it).c_str()), 0);
+			rb_load(rb_str_new2((*it).cStr()), 0);
 		}
 		//rb_load(rb_str_new2("test.rb"), 0);
 		legacy::destroy();
@@ -302,7 +304,7 @@ namespace reactor
 		const char** cArgs = new const char*[args.size()];
 		for_iter (i, 0, args.size())
 		{
-			cArgs[i] = args[i].c_str();
+			cArgs[i] = args[i].cStr();
 		}
 		int argc = args.size();
 		char** argv = (char**)cArgs;
@@ -313,7 +315,7 @@ namespace reactor
 		RUBY_INIT_STACK;
 		ruby_init();
 		ruby_init_loadpath();
-		ruby_script(reactor::system->Parameters[CFG_TITLE].c_str());
+		ruby_script(reactor::system->Parameters[CFG_TITLE].cStr());
 #ifndef _DEBUG
 		if (args.size() >= 2 && args[1].lower() == "-debug")
 #endif
@@ -343,9 +345,9 @@ namespace reactor
 			// ALT+F4 exit or window close button exit
 			hlog::write(reactor::logTag, "Application Exit.");
 		}
-		catch (hltypes::exception& e)
+		catch (hexception& e)
 		{
-			hlog::error(reactor::logTag, e.message());
+			hlog::error(reactor::logTag, e.getMessage());
 		}
 		catch (hstr e)
 		{

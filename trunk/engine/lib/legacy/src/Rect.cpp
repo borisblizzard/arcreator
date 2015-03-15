@@ -107,7 +107,7 @@ namespace legacy
 	{
 		RB_SELF2CPP(Rect, rect);
 		hstr result = hsprintf("(%d,%d,%d,%d)", rect->x, rect->y, rect->width, rect->height);
-		return rb_str_new2(result.c_str());
+		return rb_str_new2(result.cStr());
 	}
 
 	VALUE Rect::create(VALUE x, VALUE y, VALUE width, VALUE height)

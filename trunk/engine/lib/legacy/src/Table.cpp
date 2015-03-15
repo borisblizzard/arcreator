@@ -228,11 +228,11 @@ namespace legacy
 		VALUE arg1 = Qnil;
 		VALUE arg2 = Qnil;
 		VALUE arg3 = Qnil;
-		rb_scan_args(argc, argv, hstr(table->dimensions).c_str(), &arg1, &arg2, &arg3);
+		rb_scan_args(argc, argv, hstr(table->dimensions).cStr(), &arg1, &arg2, &arg3);
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
-		if (!is_between_ie(x, 0, table->xSize) || !is_between_ie(y, 0, table->ySize) || !is_between_ie(z, 0, table->zSize))
+		if (!hbetweenIE(x, 0, table->xSize) || !hbetweenIE(y, 0, table->ySize) || !hbetweenIE(z, 0, table->zSize))
 		{
 			return Qnil;
 		}
@@ -246,7 +246,7 @@ namespace legacy
 		VALUE arg2 = Qnil;
 		VALUE arg3 = Qnil;
 		VALUE arg4 = Qnil;
-		rb_scan_args(argc, argv, hstr(table->dimensions + 1).c_str(), &arg1, &arg2, &arg3, &arg4);
+		rb_scan_args(argc, argv, hstr(table->dimensions + 1).cStr(), &arg1, &arg2, &arg3, &arg4);
 		int x = NUM2INT(arg1);
 		int y = 0;
 		int z = 0;
@@ -266,7 +266,7 @@ namespace legacy
 			z = NUM2INT(arg3);
 			value = NUM2INT(arg4);
 		}
-		if (!is_between_ie(x, 0, table->xSize) || !is_between_ie(y, 0, table->ySize) || !is_between_ie(z, 0, table->zSize))
+		if (!hbetweenIE(x, 0, table->xSize) || !hbetweenIE(y, 0, table->ySize) || !hbetweenIE(z, 0, table->zSize))
 		{
 			return Qnil;
 		}
@@ -315,7 +315,7 @@ namespace legacy
 		}
 		// convert data array into data stream
 		hstr format = "LLLLL" + hstr('S', size);
-		VALUE byte_string = rb_f_ary_pack(data, format.c_str());
+		VALUE byte_string = rb_f_ary_pack(data, format.cStr());
 		return byte_string;
 	}
 
@@ -335,7 +335,7 @@ namespace legacy
 		RB_VAR2CPP(rb_table, Table, table);
 		// loading data entries
 		sliced_string = rb_str_substr(value, 20, size * 2);
-		data = rb_f_str_unpack(sliced_string, hstr('S', size).c_str());
+		data = rb_f_str_unpack(sliced_string, hstr('S', size).cStr());
 		for_iter (i, 0, size)
 		{
 			table->data[i] = (short)NUM2INT(rb_ary_shift(data));
@@ -359,7 +359,7 @@ namespace legacy
 			rb_ary_push(data, INT2FIX(table->data[i]));
 		}
 		// convert data array into data stream
-		VALUE byte_string = rb_f_ary_pack(data, ("VVVV" + hstr('v', size)).c_str());
+		VALUE byte_string = rb_f_ary_pack(data, ("VVVV" + hstr('v', size)).cStr());
 		return byte_string;
 	}
 
@@ -379,7 +379,7 @@ namespace legacy
 		RB_VAR2CPP(rb_table, Table, table);
 		// loading data entries
 		sliced_string = rb_str_substr(value, 16, size * 2);
-		data = rb_f_str_unpack(sliced_string, hstr('v', size).c_str());
+		data = rb_f_str_unpack(sliced_string, hstr('v', size).cStr());
 		for_iter (i, 0, size)
 		{
 			table->data[i] = (short)NUM2INT(rb_ary_shift(data));
