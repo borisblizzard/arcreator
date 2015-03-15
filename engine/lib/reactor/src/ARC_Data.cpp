@@ -14,7 +14,7 @@
 #define __MAP(data, obj) (data += obj)
 #define __FIND_MAPPED(data, id) (id < data.size() ? data[id] : Qnil)
 #define __DUMP_INT32(obj) (file.dump(obj))
-#define __LOAD_INT32 (file.load_int())
+#define __LOAD_INT32 (file.loadInt32())
 
 #define MAX_BUFFER_SIZE 32768
 
@@ -66,7 +66,7 @@ namespace reactor
 	void ARC_Data::createRubyInterface()
 	{
 		rb_mARC_Data = rb_define_module_under(rb_mARC, "Data");
-		rb_define_const(rb_mARC_Data, "Version", rb_str_new2(Version.c_str()));
+		rb_define_const(rb_mARC_Data, "Version", rb_str_new2(Version.cStr()));
 		rb_define_module_function(rb_mARC_Data, "dump", RUBY_METHOD_FUNC(&ARC_Data::rb_dump), 2);
 		rb_define_module_function(rb_mARC_Data, "load", RUBY_METHOD_FUNC(&ARC_Data::rb_load), 1);
 	}
@@ -77,7 +77,7 @@ namespace reactor
 
 	void ARC_Data::_resetSerializer()
 	{
-		if (file.is_open())
+		if (file.isOpen())
 		{
 			file.close();
 		}
@@ -114,7 +114,7 @@ namespace reactor
 
 	bool ARC_Data::__try_map_identity(harray<VALUE>& data, VALUE obj)
 	{
-		int index = data.index_of(obj); // compares actual VALUEs which are basically Object#object_id
+		int index = data.indexOf(obj); // compares actual VALUEs which are basically Object#object_id
 		if (index < 0)
 		{
 			__DUMP_INT32(data.size());
@@ -149,12 +149,12 @@ namespace reactor
 		if (rb_obj_is_kind_of(obj, rb_cHash)) return ARC_Data::_dump_hash(obj);
 		if (rb_obj_is_kind_of(obj, rb_cObject)) return ARC_Data::_dump_object(obj);
 		VALUE class_name = rb_class_name(rb_class_of(obj));
-		rb_raise(rb_eARC_Error, hsprintf("ERROR: %s cannot be dumped!", StringValueCStr(class_name)).c_str());
+		rb_raise(rb_eARC_Error, hsprintf("ERROR: %s cannot be dumped!", StringValueCStr(class_name)).cStr());
 	}
 		
 	VALUE ARC_Data::_load()
 	{
-		unsigned char type = file.load_uchar();
+		unsigned char type = file.loadUint8();
 		if (type == Types[rb_cNilClass]) return ARC_Data::_load_nil();
 		if (type == Types[rb_cFalseClass]) return ARC_Data::_load_false();
 		if (type == Types[rb_cTrueClass]) return ARC_Data::_load_true();
@@ -165,7 +165,7 @@ namespace reactor
 		if (type == Types[rb_cArray]) return ARC_Data::_load_array();
 		if (type == Types[rb_cHash]) return ARC_Data::_load_hash();
 		if (type == Types[rb_cObject]) return ARC_Data::_load_object();
-		rb_raise(rb_eARC_Error, hsprintf("ERROR: Unknown type 0x%02X detected!", type).c_str());
+		rb_raise(rb_eARC_Error, hsprintf("ERROR: Unknown type 0x%02X detected!", type).cStr());
 		return Qnil;
 	}
 
@@ -255,7 +255,7 @@ namespace reactor
 				int size = NUM2INT(rb_f_size(data));
 				__DUMP_INT32(size);
 				unsigned char* raw_data = (unsigned char*)StringValuePtr(data);
-				file.write_raw(raw_data, size);
+				file.writeRaw(raw_data, size);
 			}
 			else
 			{
@@ -272,8 +272,8 @@ namespace reactor
 				variableNames.sort();
 				foreach (hstr, it, variableNames)
 				{
-					ARC_Data::_dump(rb_str_new2((*it).replace("@", "").c_str()));
-					ARC_Data::_dump(rb_iv_get(obj, (*it).c_str()));
+					ARC_Data::_dump(rb_str_new2((*it).replaced("@", "").cStr()));
+					ARC_Data::_dump(rb_iv_get(obj, (*it).cStr()));
 				}
 			}
 		}
@@ -306,7 +306,7 @@ namespace reactor
 		
 	VALUE ARC_Data::_load_float()
 	{
-		return rb_float_new((double)file.load_float());
+		return rb_float_new((double)file.loadFloat());
 	}
 	
 	VALUE ARC_Data::_load_string()
@@ -317,8 +317,8 @@ namespace reactor
 		{
 			return rb_str_new2(StringValueCStr(obj));
 		}
-		hstr value = file.load_string();
-		obj = rb_str_new2(value.c_str());
+		hstr value = file.loadString();
+		obj = rb_str_new2(value.cStr());
 		__MAP(strings, obj);
 		return obj;
 	}
@@ -379,7 +379,7 @@ namespace reactor
 			{
 				data = new unsigned char[size];
 			}
-			file.read_raw(data, size);
+			file.readRaw(data, size);
 			obj = rb_funcall_1(classe, "_arc_load", rb_str_new((const char*)data, size));
 			__MAP(objects, obj);
 			if (size > MAX_BUFFER_SIZE)
@@ -398,7 +398,7 @@ namespace reactor
 			variable = ARC_Data::_load();
 			variableName = "@" + hstr(StringValueCStr(variable));
 			value = ARC_Data::_load();
-			rb_iv_set(obj, variableName.c_str(), value);
+			rb_iv_set(obj, variableName.cStr(), value);
 		}
 		return obj;
 	}
@@ -413,7 +413,7 @@ namespace reactor
 		{
 			file.open(StringValueCStr(filename), hfile::WRITE);
 		}
-		catch (hltypes::_file_could_not_open&)
+		catch (hltypes::_FileCouldNotOpenException&)
 		{
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}
@@ -445,7 +445,7 @@ namespace reactor
 		{
 			file.open(StringValueCStr(filename));
 		}
-		catch (hltypes::_file_could_not_open&)
+		catch (hltypes::_FileCouldNotOpenException&)
 		{
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}
@@ -455,10 +455,10 @@ namespace reactor
 		hstr header;
 		if (!failed)
 		{
-			chars[0] = (char)file.load_uchar();
-			chars[1] = (char)file.load_uchar();
-			chars[2] = (char)file.load_uchar();
-			chars[3] = (char)file.load_uchar();
+			chars[0] = (char)file.loadUint8();
+			chars[1] = (char)file.loadUint8();
+			chars[2] = (char)file.loadUint8();
+			chars[3] = (char)file.loadUint8();
 			header = hstr(chars);
 			failed = (Header != header);
 		}
@@ -470,7 +470,7 @@ namespace reactor
 				rb_gc_enable();
 			}
 			rb_raise(rb_eARC_Error, hsprintf("ERROR: ARC::Data header mismatch! Excepted: \"%s\" Found: \"%s\"",
-				Header.c_str(), header.c_str()).c_str());
+				Header.cStr(), header.cStr()).cStr());
 			return Qnil;
 		}
 		failed = (file.size() < 6);
@@ -479,8 +479,8 @@ namespace reactor
 		hstr version;
 		if (!failed)
 		{
-			major = file.load_uchar();
-			minor = file.load_uchar();
+			major = file.loadUint8();
+			minor = file.loadUint8();
 			version = hstr((int)major) + "." + hstr((int)minor);
 			failed = (Version != version);
 		}
@@ -492,7 +492,7 @@ namespace reactor
 				rb_gc_enable();
 			}
 			rb_raise(rb_eARC_Error, hsprintf("ERROR: ARC::Data version mismatch! Excepted: \"%s\" Found: \"%s\"",
-				Version.c_str(), version.c_str()).c_str());
+				Version.cStr(), version.cStr()).cStr());
 			return Qnil;
 		}
 		int exception;

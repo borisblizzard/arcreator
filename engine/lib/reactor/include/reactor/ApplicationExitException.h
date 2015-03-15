@@ -1,13 +1,13 @@
 #ifndef REACTOR_APPLICATION_EXIT_EXCEPTION_H
 #define REACTOR_APPLICATION_EXIT_EXCEPTION_H
 
-#include <hltypes/exception.h>
+#include <hltypes/hexception.h>
 
 #include "reactorExport.h"
 
 namespace reactor
 {
-	class reactorExport ApplicationExitException : public hltypes::exception
+	class reactorExport ApplicationExitException : public hexception
 	{
 	public:
 		ApplicationExitException();

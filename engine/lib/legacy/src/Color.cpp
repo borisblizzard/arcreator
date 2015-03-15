@@ -119,7 +119,7 @@ namespace legacy
 	{
 		RB_SELF2CPP(Color, color);
 		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", color->red, color->green, color->blue, color->alpha);
-		return rb_str_new2(result.c_str());
+		return rb_str_new2(result.cStr());
 	}
 
 	VALUE Color::create(int argc, VALUE* argv)

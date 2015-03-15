@@ -108,11 +108,13 @@ namespace legacy
 		this->_renderToTexture();
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		grect orthoProjection = april::rendersys->getOrthoProjection();
 		if (this->rect->x != 0 || this->rect->y != 0)
 		{
 			april::rendersys->translate((float)this->rect->x, (float)this->rect->y);
 		}
 		this->_render();
+		april::rendersys->setOrthoProjection(orthoProjection);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -121,6 +123,7 @@ namespace legacy
 	{
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		grect orthoProjection = april::rendersys->getOrthoProjection();
 		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
@@ -136,6 +139,7 @@ namespace legacy
 		}
 		this->renderQueue->draw();
 		april::rendersys->setRenderTarget(target);
+		april::rendersys->setOrthoProjection(orthoProjection);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -206,7 +210,7 @@ namespace legacy
 	{
 		if (argc != 1 && argc != 4)
 		{
-			rb_raise(rb_eArgError, hsprintf("Wrong number of arguments: %d for 1 or 4", argc).c_str());
+			rb_raise(rb_eArgError, hsprintf("Wrong number of arguments: %d for 1 or 4", argc).cStr());
 		}
 		RB_SELF2CPP(Viewport, viewport);
 		viewport->initialize(argc, argv);

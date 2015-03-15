@@ -365,7 +365,7 @@ namespace legacy
 	VALUE Renderable::rb_arcDump(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		rb_raise(rb_eTypeError, ("Can't arc-dump: " + renderable->typeName).c_str());
+		rb_raise(rb_eTypeError, ("Can't arc-dump: " + renderable->typeName).cStr());
 		return Qnil;
 	}
 

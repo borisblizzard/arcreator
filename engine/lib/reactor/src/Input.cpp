@@ -218,7 +218,7 @@ namespace reactor
 		hstr result = REACTOR_INPUT_STATE_DEFAULT;
 		if (this->stateStack.size() > 0)
 		{
-			result = this->stateStack.remove_last();
+			result = this->stateStack.removeLast();
 		}
 		return result;
 	}

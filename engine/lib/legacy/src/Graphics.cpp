@@ -6,6 +6,7 @@
 #include <april/Timer.h>
 #include <april/Window.h>
 #include <gtypes/Rectangle.h>
+#include <hltypes/hlog.h>
 #include <hltypes/hltypesUtil.h>
 #include <hltypes/hthread.h>
 #include <xal/AudioManager.h>
@@ -55,14 +56,14 @@ namespace legacy
 	void Graphics::_waitForFrameSync(float timeDelta)
 	{
 #ifndef _DEBUG
-		float waitTime = 1000.0f / frameRate - hmax(timeDelta, 16.666667f);
-		timeDelta = waitTime;
+		float waitTime = hmax(1.0f / frameRate - hmax(timeDelta, 0.01666667f), 0.0f);
+		timeDelta += waitTime;
 		if (waitTime > 0.0f)
 		{
-			hthread::sleep(waitTime);
+			hthread::sleep(waitTime * 1000.0f);
 		}
 #endif
-		xal::mgr->update(timeDelta * 0.001f);
+		xal::manager->update(timeDelta);
 	}
 
 	void Graphics::_handleFocusChange()
@@ -76,10 +77,10 @@ namespace legacy
 			april::window->checkEvents();
 			return;
 		}
-		bool inactiveAudio = (bool)legacy::parameters.try_get_by_key(CFG_INACTIVE_AUDIO, "false");
+		bool inactiveAudio = (bool)legacy::parameters.tryGet(CFG_INACTIVE_AUDIO, "false");
 		if (!inactiveAudio)
 		{
-			xal::mgr->suspendAudio();
+			xal::manager->suspendAudio();
 		}
 		while (!focused)
 		{
@@ -88,7 +89,7 @@ namespace legacy
 		}
 		if (!inactiveAudio)
 		{
-			xal::mgr->resumeAudio();
+			xal::manager->resumeAudio();
 		}
 	}
 
@@ -131,7 +132,7 @@ namespace legacy
 		height = window->getHeight();
 		active = true;
 		frameCount = 0;
-		frameRate = hmax((int)legacy::parameters.try_get_by_key(CFG_FRAME_RATE, "40"), 1);
+		frameRate = hmax((int)legacy::parameters.tryGet(CFG_FRAME_RATE, "40"), 10);
 		running = true;
 		focused = true;
 		renderQueue = new RenderQueue();

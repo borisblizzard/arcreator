@@ -31,7 +31,7 @@ namespace legacy
 
 	bool Input::isTriggered(unsigned char keycode)
 	{
-		if (!conversions.has_key(keycode))
+		if (!conversions.hasKey(keycode))
 		{
 			return false;
 		}
@@ -47,7 +47,7 @@ namespace legacy
 
 	bool Input::isPressed(unsigned char keycode)
 	{
-		if (!conversions.has_key(keycode))
+		if (!conversions.hasKey(keycode))
 		{
 			return false;
 		}
@@ -63,11 +63,11 @@ namespace legacy
 
 	bool Input::isRepeated(unsigned char keycode)
 	{
-		if (!conversions.has_key(keycode))
+		if (!conversions.hasKey(keycode))
 		{
 			return false;
 		}
-		if (repeatedKey >= 0 && conversions[keycode].contains(repeatedKey) &&
+		if (repeatedKey >= 0 && conversions[keycode].has(repeatedKey) &&
 			(repeatedCount == 1 || repeatedCount == 16))
 		{
 			return true;
@@ -153,7 +153,7 @@ namespace legacy
 		{
 			controlKeys += it->second;
 		}
-		controlKeys.removed_duplicates();
+		controlKeys.removeDuplicates();
 		controlKeys.sort();
 		repeatedKey = -1;
 		repeatedCount = 0;

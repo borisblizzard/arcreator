@@ -1,6 +1,6 @@
 #include <ruby.h>
 
-#include <hltypes/exception.h>
+#include <hltypes/hexception.h>
 #include <hltypes/harray.h>
 #include <hltypes/hlog.h>
 #include <hltypes/hltypesUtil.h>
@@ -43,15 +43,15 @@ namespace legacy
 
 	void Audio::init()
 	{
-		xal::mgr->setIdlePlayerUnloadTime(300.0f);
-		xal::mgr->createCategory(CATEGORY_BGM, xal::STREAMED, xal::DISK);
-		xal::mgr->createSoundsFromPath(PATH_BGM, CATEGORY_BGM, PATH_BGM);
-		xal::mgr->createCategory(CATEGORY_BGS, xal::STREAMED, xal::DISK);
-		xal::mgr->createSoundsFromPath(PATH_BGS, CATEGORY_BGS, PATH_BGS);
-		xal::mgr->createCategory(CATEGORY_ME, xal::MANAGED, xal::DISK);
-		xal::mgr->createSoundsFromPath(PATH_ME, CATEGORY_ME, PATH_ME);
-		xal::mgr->createCategory(CATEGORY_SE, xal::MANAGED, xal::DISK);
-		xal::mgr->createSoundsFromPath(PATH_SE, CATEGORY_SE, PATH_SE);
+		xal::manager->setIdlePlayerUnloadTime(300.0f);
+		xal::manager->createCategory(CATEGORY_BGM, xal::STREAMED, xal::DISK);
+		xal::manager->createSoundsFromPath(PATH_BGM, CATEGORY_BGM, PATH_BGM);
+		xal::manager->createCategory(CATEGORY_BGS, xal::STREAMED, xal::DISK);
+		xal::manager->createSoundsFromPath(PATH_BGS, CATEGORY_BGS, PATH_BGS);
+		xal::manager->createCategory(CATEGORY_ME, xal::MANAGED, xal::DISK);
+		xal::manager->createSoundsFromPath(PATH_ME, CATEGORY_ME, PATH_ME);
+		xal::manager->createCategory(CATEGORY_SE, xal::MANAGED, xal::DISK);
+		xal::manager->createSoundsFromPath(PATH_SE, CATEGORY_SE, PATH_SE);
 		bgmPlayer = NULL;
 		bgmPitch = 100;
 		bgsPlayer = NULL;
@@ -110,7 +110,7 @@ namespace legacy
 			}
 			if (bgmPlayer == NULL && filename != "")
 			{
-				bgmPlayer = xal::mgr->createPlayer(filename);
+				bgmPlayer = xal::manager->createPlayer(filename);
 				bgmPlayer->play(0.0f, true);
 			}
 			if (bgmPlayer != NULL)
@@ -120,10 +120,10 @@ namespace legacy
 				bgmPitch = pitch;
 			}
 		}
-		catch (hltypes::exception& e)
+		catch (hexception& e)
 		{
 			hlog::error(legacy::logTag, "File could not be played: " + filename);
-			hlog::error(legacy::logTag, e.message());
+			hlog::error(legacy::logTag, e.getMessage());
 		}
 		return Qnil;
 	}
@@ -160,7 +160,7 @@ namespace legacy
 		if (bgmPlayer != NULL)
 		{
 			bgmPlayer->stop();
-			xal::mgr->destroyPlayer(bgmPlayer);
+			xal::manager->destroyPlayer(bgmPlayer);
 			bgmPlayer = NULL;
 		}
 		return Qnil;
@@ -183,7 +183,7 @@ namespace legacy
 			}
 			if (bgsPlayer == NULL && filename != "")
 			{
-				bgsPlayer = xal::mgr->createPlayer(filename);
+				bgsPlayer = xal::manager->createPlayer(filename);
 				bgsPlayer->play(0.0f, true);
 			}
 			if (bgsPlayer != NULL)
@@ -193,10 +193,10 @@ namespace legacy
 				bgsPitch = pitch;
 			}
 		}
-		catch (hltypes::exception& e)
+		catch (hexception& e)
 		{
 			hlog::write(legacy::logTag, "File could not be played: " + filename);
-			hlog::write(legacy::logTag, e.message());
+			hlog::write(legacy::logTag, e.getMessage());
 		}
 		return Qnil;
 	}
@@ -233,7 +233,7 @@ namespace legacy
 		if (bgsPlayer != NULL)
 		{
 			bgsPlayer->stop();
-			xal::mgr->destroyPlayer(bgsPlayer);
+			xal::manager->destroyPlayer(bgsPlayer);
 			bgsPlayer = NULL;
 		}
 		return Qnil;
@@ -255,7 +255,7 @@ namespace legacy
 			}
 			if (mePlayer == NULL && filename != "")
 			{
-				mePlayer = xal::mgr->createPlayer(filename);
+				mePlayer = xal::manager->createPlayer(filename);
 				mePlayer->play();
 			}
 			if (mePlayer != NULL)
@@ -264,10 +264,10 @@ namespace legacy
 				mePlayer->setPitch(pitch / 100.0f);
 			}
 		}
-		catch (hltypes::exception& e)
+		catch (hexception& e)
 		{
 			hlog::write(legacy::logTag, "File could not be played: " + filename);
-			hlog::write(legacy::logTag, e.message());
+			hlog::write(legacy::logTag, e.getMessage());
 		}
 		return Qnil;
 	}
@@ -304,7 +304,7 @@ namespace legacy
 		if (mePlayer != NULL)
 		{
 			mePlayer->stop();
-			xal::mgr->destroyPlayer(mePlayer);
+			xal::manager->destroyPlayer(mePlayer);
 			mePlayer = NULL;
 		}
 		return Qnil;
@@ -324,22 +324,22 @@ namespace legacy
 		{
 			if (!(*it)->isPlaying())
 			{
-				xal::mgr->destroyPlayer(*it);
+				xal::manager->destroyPlayer(*it);
 				sePlayers -= (*it);
 			}
 		}
 		try
 		{
-			xal::Player* player = xal::mgr->createPlayer(filename);
+			xal::Player* player = xal::manager->createPlayer(filename);
 			player->play();
 			player->setGain(volume / 100.0f);
 			player->setPitch(pitch / 100.0f);
 			sePlayers += player;
 		}
-		catch (hltypes::exception& e)
+		catch (hexception& e)
 		{
 			hlog::write(legacy::logTag, "File could not be played: " + filename);
-			hlog::write(legacy::logTag, e.message());
+			hlog::write(legacy::logTag, e.getMessage());
 		}
 		return Qnil;
 	}
@@ -349,7 +349,7 @@ namespace legacy
 		foreach (xal::Player*, it, sePlayers)
 		{
 			(*it)->stop();
-			xal::mgr->destroyPlayer(*it);
+			xal::manager->destroyPlayer(*it);
 		}
 		sePlayers.clear();
 		return Qnil;

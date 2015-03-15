@@ -180,11 +180,13 @@ namespace legacy
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		grect orthoProjection = april::rendersys->getOrthoProjection();
 		if (this->x != 0 || this->y != 0)
 		{
 			april::rendersys->translate((float)this->x, (float)this->y);
 		}
 		this->_render();
+		april::rendersys->setOrthoProjection(orthoProjection);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -402,7 +404,6 @@ namespace legacy
 
 	void Window::_updateCursorSprite()
 	{
-		//Rect* srcRect = this->cursorSprite->getSrcRect();
 		// remove bitmap if no windowskin or cursorRect has an incorrect size
 		if (this->windowskin == NULL || this->cursorRect->width <= 0 || this->cursorRect->height <= 0)
 		{

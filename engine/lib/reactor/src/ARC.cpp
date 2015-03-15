@@ -35,7 +35,7 @@ namespace reactor
 	void ARC::createRubyInterface()
 	{
 		rb_mARC = rb_define_module("ARC");
-		rb_define_const(rb_mARC, "Version", rb_str_new2(Version.c_str()));
+		rb_define_const(rb_mARC, "Version", rb_str_new2(Version.cStr()));
 		rb_define_module_function(rb_mARC, "system_path", RUBY_METHOD_FUNC(&ARC::rb_getSystemPath), 0);
 		rb_define_module_function(rb_mARC, "cfg_parameters", RUBY_METHOD_FUNC(&ARC::rb_getCfgParameters), 0);
 		rb_define_module_function(rb_mARC, "backend_id", RUBY_METHOD_FUNC(&ARC::rb_getBackendId), 0);
@@ -47,7 +47,7 @@ namespace reactor
 
 	VALUE ARC::rb_getSystemPath(VALUE self)
 	{
-		return rb_str_new2(reactor::system->Path.c_str());
+		return rb_str_new2(reactor::system->Path.cStr());
 	}
 
 	VALUE ARC::rb_getCfgParameters(VALUE self)
@@ -55,7 +55,7 @@ namespace reactor
 		VALUE result = rb_hash_new();
 		foreach_m (hstr, it, reactor::system->Parameters)
 		{
-			rb_hash_aset(result, rb_str_new2(it->first.c_str()), rb_str_new2(it->second.c_str()));
+			rb_hash_aset(result, rb_str_new2(it->first.cStr()), rb_str_new2(it->second.cStr()));
 		}
 		return result;
 	}

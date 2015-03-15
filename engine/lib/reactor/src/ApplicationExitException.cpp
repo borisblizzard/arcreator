@@ -5,7 +5,7 @@
 namespace reactor
 {
 	ApplicationExitException::ApplicationExitException() :
-		hltypes::exception("Application has existed", __FILE__, __LINE__)
+		hexception("Application has existed", __FILE__, __LINE__)
 	{
 	}
 

@@ -9,17 +9,21 @@
       <Command>xcopy lib\lib\msvc120\*.dll $(OutDir)..\..\ /d /y
 xcopy lib\lib\msvc120\Microsoft.VC120.CRT\* $(OutDir)..\..\ /d /y
 xcopy $(OutDir)..\..\*.dll $(OutDir) /d /y
+xcopy $(OutDir)..\..\*.cso $(OutDir)system\ /d /y
 </Command>
     </PostBuildEvent>
     <PostBuildEvent Condition="'$(WholeProgramOptimization)'=='true'">
       <Command>xcopy lib\lib\msvc120\*.dll $(OutDir)..\..\ /d /y
 xcopy lib\lib\msvc120\Microsoft.VC120.CRT\* $(OutDir)..\..\ /d /y
 xcopy $(OutDir)..\..\*.dll $(OutDir) /d /y
+xcopy $(OutDir)..\..\*.cso $(OutDir)system\ /d /y
 
 mkdir $(OutDir)..\..\ARC_$(Configuration)
+mkdir $(OutDir)..\..\ARC_$(Configuration)\system
 copy $(OutDir)Game.exe $(OutDir)..\..\ARC_$(Configuration)
 copy $(OutDir)..\..\*.dll $(OutDir)..\..\ARC_$(Configuration)
-xcopy arc.cfg $(OutDir)..\..\ARC_$(Configuration) /y
+copy $(OutDir)..\..\*.cso $(OutDir)..\..\ARC_$(Configuration)\system
+xcopy arc.cfg $(OutDir)..\..\ARC_$(Configuration)\ /y
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
