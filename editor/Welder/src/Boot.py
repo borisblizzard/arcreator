@@ -140,8 +140,8 @@ class ARCSplashScreen(wx.Frame):
         # load the plugin configuration
         try:
             programpath = Path(
-                Kernel.GlobalObjects["Program_Dir"], "Plugins.cfg")
-            userpath = Path(Kernel.GetConfigFolder(), "Plugins.cfg")
+                Kernel.GlobalObjects["Program_Dir"], "plugins.cfg")
+            userpath = Path(Kernel.GetConfigFolder(), "plugins.cfg")
 
             if programpath.exists():
                 with programpath.open() as f:
@@ -152,14 +152,13 @@ class ARCSplashScreen(wx.Frame):
         except:
             # we can theoreticly continue even with out plugin defaults, log
             # and continue
-            Kernel.Log(
-                "Error Loading Plugin Configuration", "[Main]", True, True)
+            Kernel.Log("Error Loading Plugin Configuration", "[Main]", True, True)
 
         # load the genral configuration
         try:
             programpath = Path(
-                Kernel.GlobalObjects["Program_Dir"], "Welder.cfg")
-            userpath = Path(Kernel.GetConfigFolder(), "Welder.cfg")
+                Kernel.GlobalObjects["Program_Dir"], "welder.cfg")
+            userpath = Path(Kernel.GetConfigFolder(), "welder.cfg")
 
             if programpath.exists():
                 with programpath.open() as f:

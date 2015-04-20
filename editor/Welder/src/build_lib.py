@@ -195,7 +195,7 @@ def copy_pyhton_lib():
             files.append(os.path.join(syswow64path, dllname))
     elif sys.platform == 'linux':
         libname = sysconfig.get_config_var("INSTSONAME")
-        libdir = sysconfig.get_config_var('LIBDIR') + sysconfig.get_config_var("multiarchsubdir")
+        libdir = sysconfig.get_config_var('LIBDIR') + (sysconfig.get_config_var("multiarchsubdir") or "")
         files.append(os.path.join(libdir, libname))
     else:
         # osx

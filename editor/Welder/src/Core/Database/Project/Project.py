@@ -29,30 +29,6 @@ class Project(object):
         self.load_func = None
         self.save_func = None
 
-    def addAdvancedHandler(self, handler, name):
-        self.addFolderToZip[name] = handler
-
-    def removeAdvancedHandler(self, name):
-        del self.advanced_handlers[name]
-
-    def testAdvancedHandlersLoad(self, key):
-        for handler in self.advanced_handlers.values():
-            if handler.test():
-                handler.loadData(key)
-                handler.finalize()
-                return True
-            else:
-                return False
-
-    def testAdvancedHandlersSave(self, key):
-        for handler in self.advanced_handlers.values():
-            if handler.test():
-                handler.finalize()
-                handler.saveData(key)
-                return True
-            else:
-                return False
-
     def setLoadFunc(self, func):
         self.load_func = func
 
@@ -80,17 +56,17 @@ class Project(object):
             return None
 
     def getDataCopy(self, key):
-        if key in self._data:
-            return copy.copy(self._data[key][1])
+        data = self.getData(key)
+        if data is not None:
+            return copy.copy(data)
         else:
-            Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
             return None
 
     def getDataDeepcopy(self, key):
-        if key in self._data:
-            return copy.deepcopy(self._data[key][1])
+        data = self.getData(key)
+        if data is not None:
+            return copy.deepcopy(data)
         else:
-            Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
             return None
 
     def hasData(self, key):
@@ -108,8 +84,7 @@ class Project(object):
             return self._deferred_data[key][1]
         else:
             try:
-                if not self.testAdvancedHandlersLoad(key):
-                    self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
+                self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
                 return self._deferred_data[key][1]
             except Exception:
                 Kernel.Log("Warning: Deferred data '%s' does not exist. Returned None" % key, "[Project]")
@@ -181,14 +156,13 @@ class Project(object):
         self.setChangedDeferredData("Map%03d" % id_num, value)
 
     def hasDataChanged(self):
-        changed_flag = False
-        for key, value in list(self._data.items()):
+        for key, value in self._data.items():
             if value[0]:
-                changed_flag = True
-        for key, vlaue in list(self._deferred_data.items()):
+                return True
+        for key, vlaue in self._deferred_data.items():
             if value[0]:
-                changed_flag = True
-        return changed_flag
+                return True
+        return False
 
     def hasInfoChanged(self):
         changed_flag = False
@@ -241,12 +215,10 @@ class Project(object):
     def saveProject(self, full=False):
         for key in self._data:
             if full or self.getChangedData(key):
-                if not self.testAdvancedHandlersSave(key):
-                    self.saveData(key)
+                self.saveData(key)
         for key in self._deferred_data:
             if full or self.getChangedDeferredData(key):
-                if not self.testAdvancedHandlersSave(key):
-                    self.saveDeferredData(key)
+                self.saveDeferredData(key)
         self.saveInfo()
 
     def loadProject(self, backup=True):
@@ -261,12 +233,11 @@ class Project(object):
             files = filelist.split("|")
             for file_name in files:
                 if file_name != "":
-                    if not self.testAdvancedHandlersLoad(file_name):
-                        if (self.load_func != None) and isinstance(self.load_func, collections.Callable):
-                            self.setData(file_name, Kernel.Protect(self.load_func)(os.path.dirname(self.project_path), file_name), False)
-                        else:
-                            self.setData(file_name, None, False)
-                            Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
+                    if (self.load_func != None) and isinstance(self.load_func, collections.Callable):
+                        self.setData(file_name, Kernel.Protect(self.load_func)(os.path.dirname(self.project_path), file_name), False)
+                    else:
+                        self.setData(file_name, None, False)
+                        Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
         else:
             Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")
 

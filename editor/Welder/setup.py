@@ -294,6 +294,12 @@ class Distributer:
     def get_dest(self, dest, path):
         return dest / str(path).replace(str(self.path) + os.path.sep, "")
 
+def lib_name(libname):
+    if os.name == 'nt':
+        return "lib" + libname
+    else:
+        return libname
+
 
 if __name__ == '__main__':
 
@@ -309,7 +315,7 @@ if __name__ == '__main__':
                 language="c++",
                 include_dirs=["src/include"],
                 library_dirs=["src/lib"],
-                libraries=["libhltypes", "libxal"]
+                libraries=[lib_name("hltypes"), lib_name("xal")]
             )
         )
     ]
