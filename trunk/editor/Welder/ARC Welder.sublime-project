@@ -2,16 +2,16 @@
     "folders":
     [
         {
+            "name": "ARC Welder",
             "path": ".",
-            "folder_exclude_patterns": ["__pycache__", "src", "tests", "Welder.xcodeproj", "VS_Project"]
+            "folder_exclude_patterns": ["__pycache__", "src", "Welder.xcodeproj", "VS_Project"]
         },
-        {
+        {   
+            "name": "ARC Welder Source",
             "path": "src",
-            "folder_exclude_patterns": ["__pycache__"]
+            "folder_exclude_patterns": ["__pycache__", "lib", "build"],
+            "file_include_patterns": ["*.py", "*.ico", "welder.c", "*.png", "*.cfg", "*.json"]
         },
-        {
-            "path": "tests"
-        }
     ],
     "build_systems":[
         {   
@@ -37,7 +37,7 @@
             },
             "flake8": {
                 "@python": 3.4,
-                "max-line-length": 120,
+                //"max-line-length": 120,
                 "max-complexity": 12,
                 "ignore": "E262, E265"
             }

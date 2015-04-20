@@ -36,9 +36,17 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
             Kernel.Log(
                 'Database opened before Project has been initialized', '[Database:SKILLS]', True)
             self.Destroy()
+
+        try:
+            note_font = str(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        except KeyError as e:
+            Kernel.Log("Bad Config Value", error=True)
+            note_font = "Arial"
+
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        font.SetFaceName(note_font)
+
         self.textCtrlNotes.SetFont(font)
         DM.DrawButtonIcon(self.bitmapButtonAudioTest, 'play_button', True)
         self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
@@ -59,12 +67,23 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def refreshSkillList(self):
         """Refreshes the values in the skill wxListBox control"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Skills'])
+        try:
+            digits = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            digits = 9999
+
         DM.FillControl(self.listBoxSkills, DataSkills, digits, [])
 
     def refreshAnimations(self):
         """Refreshes the choices in the user and target animation controls"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Animations'])
+        try:
+            digits = int(Kernel.Config.getUnified()['GameObjects']['Animations'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            digits = 9999
+
+        
         DM.FillControl(
             self.comboBoxTargetAnimation, DataAnimations, digits, ['(None)'])
         DM.FillControl(
@@ -84,7 +103,13 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def refreshCommonEvents(self):
         """Refreshes the common events in the combo box"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['CommonEvents'])
+        try:
+            digits = int(Kernel.Config.getUnified()['GameObjects']['CommonEvents'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            digits = 999
+
+        
         DM.FillControl(
             self.comboBoxCommonEvent, DataCommonEvents, digits, ['(None)'])
 
@@ -157,12 +182,24 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         self.refreshValues()
 
     def setRanges(self):
-        self.ParameterControls[0].SetRange(
-            0, int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP']))
-        max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
-        self.ParameterControls[1].SetRange(-max, max)
+        try:
+            actor_sp_max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            actor_sp_max = 999
+
+        try:
+            actor_peram_max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            actor_peram_max = 9999
+
+        self.ParameterControls[0].SetRange(0, actor_sp_max)
+        
+        self.ParameterControls[1].SetRange(-actor_peram_max, actor_peram_max)
+
         for i in range(2, len(self.ParameterControls)):
-            self.ParameterControls[i].SetRange(0, max)
+            self.ParameterControls[i].SetRange(0, actor_peram_max)
 
     def listBoxSkills_SelectionChanged(self, event):
         """Changes the selected skill and update the values on the panel"""
@@ -174,13 +211,24 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
-        DM.ChangeDataCapacity(self, self.listBoxSkills, DataSkills, max)
+        try:
+            skills_max = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            skills_max = 9999   
+        
+        DM.ChangeDataCapacity(self, self.listBoxSkills, DataSkills, skills_max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected skill's name"""
+        try:
+            skills_max = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            skills_max = 9999   
+        
         DM.updateObjectName(self.SelectedSkill, event.GetString(),
-                            self.listBoxSkills, len(Kernel.Config.getUnified()['GameObjects']['Skills']))
+                            self.listBoxSkills, skills_max)
 
     def bitmapButtonIcon_Clicked(self, event):
         """Opens dialog to select an icon for the selected skill"""

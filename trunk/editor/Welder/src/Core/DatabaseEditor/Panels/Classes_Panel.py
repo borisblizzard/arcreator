@@ -42,20 +42,42 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
             Kernel.Log(
                 'Database opened before Project has been initialized', '[Database:CLASSES]', True)
             self.Destroy()
+
+        try:
+            positions = list(Kernel.Config.getUnified()['GameSetup']['Positions'])
+        except Exception as e:
+            Kernel.Log("Bad Config VAlue", error=True)
+            positions = [
+              "Front",
+              "Middle",
+              "Back"
+            ]
+
+        try:
+            max_per = int(Kernel.Config.getUnified()['DatabaseLimits']['ParameterPercent'])
+        except Exception as e:
+            Kernel.Log("Bad Confi Value", error=True)
+            max_per = 100
+
+        try:
+            note_font = str(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            note_font = "Arial"
+
         self.listCtrlSkills.InsertColumn(0, "Level", width=64)
         self.listCtrlSkills.InsertColumn(1, "Skill", width=160)
         if DM.ARC_FORMAT:
-            max = int(Kernel.Config.getUnified()['DatabaseLimits']['ParameterPercent'])
-            self.spinCtrlElements.SetRange(-max, max)
-            self.spinCtrlStates.SetRange(-max, max)
+            self.spinCtrlElements.SetRange(-max_per, max_per)
+            self.spinCtrlStates.SetRange(-max_per, max_per)
         else:
             self.spinCtrlElements.SetRange(0, 5)
             self.spinCtrlStates.SetRange(0, 5)
-        positions = list(Kernel.Config.getUnified()['GameSetup']['Positions'])
+
         self.comboBoxPosition.AppendItems(positions)
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        font.SetFaceName(note_font)
         self.textCtrlNotes.SetFont(font)
         self.SelectedClass = DataClasses[DM.FixedIndex(class_index)]
         self.refreshAll()
@@ -77,7 +99,12 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
 
     def refreshClassList(self):
         """Refreshes the values in the class wxListBox control"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Classes'])
+        try:
+            digits = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            digits = 999
+        
         DM.FillControl(self.listBoxClasses, DataClasses, digits, [])
 
     def refreshWeapons(self):
@@ -98,27 +125,23 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
 
     def refreshSkills(self):
         """Clears and refreshes the list of skills in the list control"""
+        try:
+            digits = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            digits = 9999
+
         self.listCtrlSkills.DeleteAllItems()
         self.SelectedClass.learnings = sorted(
-            self.SelectedClass.learnings, cmp=self.LearningsSort)
+            self.SelectedClass.learnings, key=lambda learning: learning.level)
         for i, skill in enumerate(self.SelectedClass.learnings):
             if not DM.ARC_FORMAT and i == 0:
                 pass
             self.listCtrlSkills.InsertStringItem(
                 i, "".join(['Lv. ', str(skill.level)]))
-            digits = len(Kernel.Config.getUnified()['GameObjects']['Skills'])
             name = "".join(
                 [str(skill.skill_id).zfill(digits), ': ', DataSkills[skill.skill_id].name])
             self.listCtrlSkills.SetStringItem(i, 1, name)
-
-    def LearningsSort(self, learning1, learning2):
-        """Sorting method to sort class learnings by level"""
-        if learning1.level > learning2.level:
-            return 1
-        elif learning1.level < learning2.level:
-            return -1
-        else:
-            return 0
 
     def refreshValues(self):
         """updates the values of all the controls to reflect the selected Class"""
@@ -161,13 +184,24 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
-        DM.ChangeDataCapacity(self, self.listBoxClasses, DataClasses, max)
+        try:
+            max_classes = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            max_classes = 999
+
+        DM.ChangeDataCapacity(self, self.listBoxClasses, DataClasses, max_classes)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected actor's name"""
+        try:
+            max_classes = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            max_classes = 999
+
         DM.updateObjectName(self.SelectedClass, event.GetString(),
-                            self.listBoxClasses, len(Kernel.Config.getUnified()['GameObjects']['Classes']))
+                            self.listBoxClasses, max_classes)
 
     def checkListWeapons_CheckChanged(self, event):
         """Adds/Removes the weapon from the class weapon set as needed"""
@@ -239,12 +273,18 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
 
     def StartSkillDialog(self, index=-1):
         """Opens the skill selection dialog"""
+        try:
+            maxlvl = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
+        except Exception as e:
+            Kernel.Log("Bad Config Value", error=True)
+            maxlvl = 999
+
         edit = (index != -1 and index < len(self.SelectedClass.learnings))
         lvl = skill_id = 1
         if edit:
             lvl = self.SelectedClass.learnings[index].level
             skill_id = self.SelectedClass.learnings[index].skill_id
-        maxlvl = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
+        
         dialog = Skill_Dialog(self, DataSkills, maxlvl, lvl, skill_id)
         if dialog.ShowModal() == wx.ID_OK:
             if edit:

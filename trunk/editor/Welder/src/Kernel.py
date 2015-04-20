@@ -364,7 +364,8 @@ def GetPluginFolder():
 def DeleteLog():
     try:
         logpath = os.path.join(GetLogFolder(), "Welder.log")
-        os.remove(logpath) 
+        if os.path.exists(logpath):
+            os.remove(logpath) 
     except Exception:
         # an error clearing out the log? interesting but not all that important,
         print("[Kernel] There has been an error")

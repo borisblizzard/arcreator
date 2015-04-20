@@ -389,7 +389,7 @@ class DatabaseManager(object):
             if pilImage is not None:
                 image = wx.EmptyImage(pilImage.size[0], pilImage.size[1])
                 image.SetData(pilImage.convert("RGB").tostring())
-                image.SetAlphaData(pilImage.convert("RGBA").tostring()[3::4])
+                image.SetAlpha(pilImage.convert("RGBA").tostring()[3::4])
                 bitmap = wx.BitmapFromImage(image)
             else:
                 bitmap = wx.EmptyBitmap(1, 1)

@@ -1,8 +1,7 @@
-setuptools
 pyitect
-cython
 numpy
 pillow
-http://pyglet.googlecode.com/archive/tip.zip
+pyglet
 https://github.com/Ryex/Rabbyt/archive/0.8.3-3-cythonpy3.zip
-#http://wxpython.org/Phoenix/snapshot-builds/wxPython_Phoenix-3.0.2.dev77646.tar.gz
+-f http://wxpython.org/Phoenix/snapshot-builds/ 
+wxPython_Phoenix>=3.0.3.dev 
