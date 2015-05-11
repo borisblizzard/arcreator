@@ -1,0 +1,19 @@
+{
+    "name": "Project",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "__init__.py",
+    "consumes": {
+        "ARCDataDumpFunction": "",
+        "ARCDataLoadFunction": ""
+    },
+    "provides": {
+        "Project": "",
+        "AdvancedDataHandler": "",
+        "ARCProjectCreator": "",
+        "ARCProjectSaveFunction": "",
+        "ARCProjectLoadFunction": "",
+        "ARCProjectSaver": "",
+        "ARCProjectLoader": ""
+    }
+}

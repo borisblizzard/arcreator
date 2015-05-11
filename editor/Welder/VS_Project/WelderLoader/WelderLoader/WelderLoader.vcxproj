@@ -321,16 +321,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\Welder.c" />
+    <ClCompile Include="..\..\..\Launcher\welder.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource1.h" />
+    <Image Include="..\..\..\Launcher\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Welder1.rc" />
+    <ClInclude Include="resource2.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\src\icon.ico" />
+    <ResourceCompile Include="Welder2.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
