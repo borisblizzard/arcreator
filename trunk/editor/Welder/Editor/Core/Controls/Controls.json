@@ -1,0 +1,22 @@
+{
+    "name": "CoreControls",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "__init__.py",
+    "consumes": {
+        "ScriptEditorManager": "",
+        "PanelBase": "",
+        "RGSS1_RPG": "",
+        "RTPFunctions": ""
+    },
+    "provides": {
+        "ImageCheckList": "",
+        "ParameterGraph": "",
+        "ParameterPanel": "",
+        "ParameterPlotGraphics": "",
+        "WaveFormPanel": "",
+        "ProportionalSplitter": "",
+        "ScriptTextCtrl": ""
+    }
+}
+
