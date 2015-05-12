@@ -4,36 +4,13 @@ import subprocess
 import time
 import traceback
 from pathlib import Path
-from setuptools import setup
+from distutils.dist import Distribution
+from distutils.command.build_ext import build_ext as BuildExt
 from distutils.extension import Extension
 import distutils.log
 from Cython.Build import cythonize
 
-
-class bcolors:
-
-    def __init__(self):
-        self.enable()
-
-    def disable(self):
-        self.HEADER = ''
-        self.OKBLUE = ''
-        self.OKGREEN = ''
-        self.WARNING = ''
-        self.FAIL = ''
-        self.ENDC = ''
-
-    def enable(self):
-        self.HEADER = '\033[35m'
-        self.OKBLUE = '\033[34m'
-        self.OKGREEN = '\033[32m'
-        self.WARNING = '\033[33m'
-        self.FAIL = '\033[31m'
-        self.ENDC = '\033[0m'
-
-COLORS = bcolors()
-COLORS.disable()
-COLORS_ENABLED = False
+from . import log
 
 
 def available_cpu_count():
@@ -176,22 +153,39 @@ class Package:
         self.ext = ext
         self.excludes = excludes
         self.folder = folder
+        self.cmd = None
+        self.make_cmd()
 
     def build(self):
         # set log verbosity to print everything
         distutils.log.set_verbosity(3)
-
+        cwd = os.getcwd()
         os.chdir(str(self.path))
         t = time.time()
-        print(COLORS.OKGREEN + "Cythoning", self.path, COLORS.ENDC)
-        setup(
-            name='ARC Welder',
-            ext_modules=cythonize(self.ext, exclude=self.excludes)
+        log.log("Cythoning " + str(self.path) + "\n", log.GREEN)
+        self.cmd.ensure_finalized()
+        self.cmd.run()
+        log.log("Finished Compiling " + str(self.path) + "\n", log.GREEN)
+        log.log(
+            "Time spent Compiling %s: %s Seconds\n" %
+            (self.path, time.time() - t),
+            log.BLUE
         )
-        print(COLORS.OKGREEN + "Finished Compiling",
-              str(self.path) + COLORS.ENDC)
-        print(COLORS.OKBLUE + "Time spent Compiling %s: %s Seconds" %
-              (self.path, time.time() - t) + COLORS.ENDC)
+        os.chdir(cwd)
+
+    def make_cmd(self):
+        cwd = os.getcwd()
+        os.chdir(str(self.path))
+        dist = Distribution(
+            {
+                "name": 'ARC Welder',
+                "ext_modules": cythonize(self.ext, exclude=self.excludes)
+            }
+        )
+        dist.parse_config_files()
+        self.cmd = BuildExt(dist)
+        self.cmd.inplace = True
+        os.chdir(cwd)
 
 
 class Packager:
@@ -239,12 +233,6 @@ def _init_multiprocessing_helper():
     global COLORS_ENABLED
     import signal
     signal.signal(signal.SIGINT, signal.SIG_IGN)
-    if COLORS_ENABLED:
-        try:
-            import colorama
-            colorama.init()
-        except ImportError:
-            pass
 
 
 class Cythonizer:
@@ -256,8 +244,7 @@ class Cythonizer:
 
         ncpus = num_cpus()
 
-        print(COLORS.OKBLUE + "Building useing ",
-              ncpus, "threads" + COLORS.ENDC)
+        log.log("Building useing " + str(ncpus) + " threads\n", log.BLUE)
 
         t = time.time()
 
@@ -304,15 +291,15 @@ class Cythonizer:
             for path in self.packages:
                 results.append(builder(path))
 
-        print(COLORS.OKBLUE + "TOTAL Time spent Compiling: %s Seconds" %
-              (time.time() - t) + COLORS.ENDC)
+        log.log(
+            "TOTAL Time spent Compiling: %s Seconds\n" %
+            (time.time() - t),
+            log.BLUE)
         errors = [r for r in results if r]
         if errors:
-            print(COLORS.FAIL + "There were some errors:\n" + COLORS.ENDC,
-                  *errors)
-            return True
+            return ''.join(errors)
         else:
-            print(COLORS.OKGREEN, "There were no errors", COLORS.ENDC)
+            log.log("There were no errors", log.GREEN)
         return False
 
 
@@ -356,16 +343,6 @@ def build(path):
 
     return cythonizer.build()
 
-
-def enable_colors(colors=False):
-    global COLORS_ENABLED
-    global COLORS
-    if colors:
-        COLORS.enable()
-        COLORS_ENABLED = True
-    else:
-        COLORS.disable()
-        COLORS_ENABLED = False
 
 if __name__ == '__main__':
 

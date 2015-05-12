@@ -6,6 +6,19 @@ from wx.lib.embeddedimage import PyEmbeddedImage
 catalog = {}
 index = []
 
+copy = PyEmbeddedImage(
+    b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dE'
+    b'AP8A/wD/oL2nkwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAAd0SU1FB9sKFgQ3JCDiupcAAAAZ'
+    b'dEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAABAElEQVQ4y2NkQAItQeb/GfCA'
+    b'mnUnGdHFWJA1Z0+qZGBgYGD48ekqw9dnagwMDAwMHx7eZNixdTNDcosfAwMDw390Q1jQTRSY'
+    b'XY7CPysXy8DAwAA3EKcLYOBDaieqgTd+MzAwbGb48PAmYQN+fLrKILFyEYqCH+FxDAwMDAw7'
+    b'tm7GGgaMyGEQkVXCIKzBCpecmtfOQChQcYZB62UBBmIClQU5+lZM62FgYBAgKVBZsEUfzBZi'
+    b'ApUFnx+JCVQWSMi2Y02BX5+pobjgx6erGKmSBVcShYULehjctW3Bn5AIBaqH3E38BuAL1OxJ'
+    b'lQx3d15BUc/EQAJ4e+M3A86USG62BgBGopePASKOEQAAAABJRU5ErkJggg==')
+index.append('copy')
+catalog['copy'] = copy
+
+#----------------------------------------------------------------------
 actors = PyEmbeddedImage(
     b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dE'
     b'AP8A/wD/oL2nkwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAAd0SU1FB9sKFgQ5OzNpmuwAAAAZ'
@@ -298,19 +311,6 @@ commonEvents = PyEmbeddedImage(
     b'E925bNbT4Eaq0DqHVjq0ygA/Y4WmG9536uEAAAAASUVORK5CYII=')
 index.append('commonEvents')
 catalog['commonEvents'] = commonEvents
-
-#----------------------------------------------------------------------
-copy = PyEmbeddedImage(
-    b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dE'
-    b'AP8A/wD/oL2nkwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAAd0SU1FB9sKFgQ3JCDiupcAAAAZ'
-    b'dEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAABAElEQVQ4y2NkQAItQeb/GfCA'
-    b'mnUnGdHFWJA1Z0+qZGBgYGD48ekqw9dnagwMDAwMHx7eZNixdTNDcosfAwMDw390Q1jQTRSY'
-    b'XY7CPysXy8DAwAA3EKcLYOBDaieqgTd+MzAwbGb48PAmYQN+fLrKILFyEYqCH+FxDAwMDAw7'
-    b'tm7GGgaMyGEQkVXCIKzBCpecmtfOQChQcYZB62UBBmIClQU5+lZM62FgYBAgKVBZsEUfzBZi'
-    b'ApUFnx+JCVQWSMi2Y02BX5+pobjgx6erGKmSBVcShYULehjctW3Bn5AIBaqH3E38BuAL1OxJ'
-    b'lQx3d15BUc/EQAJ4e+M3A86USG62BgBGopePASKOEQAAAABJRU5ErkJggg==')
-index.append('copy')
-catalog['copy'] = copy
 
 #----------------------------------------------------------------------
 cut = PyEmbeddedImage(

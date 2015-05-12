@@ -8,43 +8,7 @@ import distutils.dep_util
 import distutils.log
 import traceback
 
-
-class bcolors:
-
-    def __init__(self):
-        self.enable()
-
-    def disable(self):
-        self.HEADER = ''
-        self.OKBLUE = ''
-        self.OKGREEN = ''
-        self.WARNING = ''
-        self.FAIL = ''
-        self.ENDC = ''
-
-    def enable(self):
-        self.HEADER = '\033[35m'
-        self.OKBLUE = '\033[34m'
-        self.OKGREEN = '\033[32m'
-        self.WARNING = '\033[33m'
-        self.FAIL = '\033[31m'
-        self.ENDC = '\033[0m'
-
-COLORS = bcolors()
-COLORS.disable()
-COLORS_ENABLED = False
-
-
-def enable_colors(colors=False):
-    global COLORS_ENABLED
-    global COLORS
-    if colors:
-        COLORS.enable()
-        COLORS_ENABLED = True
-    else:
-        COLORS.disable()
-        COLORS_ENABLED = False
-
+from . import log
 
 # pulled form distutils and modified a bit
 def get_libraries(extralibs=[], debug=False):
@@ -192,19 +156,17 @@ def build(folder, out_dir, debug=False, force=False):
     # no need to compile if we are up-to-date
     if not (force or
             distutils.dep_util.newer_group(sources, target_path, 'newer')):
-        print(
-            COLORS.OKGREEN +
+        log.log(
             "Skipping Launcher build, " + str(target_path)
-            + " is up-to-date"
-            + COLORS.ENDC
+            + " is up-to-date\n",
+            log.GREEN
         )
         # there was no error
         return False
     else:
-        print(
-            COLORS.OKBLUE + "Starting Launcher build: "
-            + str(target_path)
-            + COLORS.ENDC
+        log.log(
+            "Starting Launcher build: " + str(target_path) + "\n",
+            log.BLUE
         )
     # ensure paths exist
     if not os.path.isdir(out_path):
@@ -239,8 +201,7 @@ def build(folder, out_dir, debug=False, force=False):
     except Exception:
         return traceback.format_exc()
 
-    print(COLORS.OKGREEN + "Build of launcher compleated" +
-          COLORS.ENDC)
+    log.log("Build of launcher compleated\n", log.GREEN)
     # there was no error
     return False
 

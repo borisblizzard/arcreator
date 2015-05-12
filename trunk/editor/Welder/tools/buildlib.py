@@ -7,6 +7,8 @@ import zipfile
 import traceback
 from pathlib import Path
 
+from . import log
+
 compiled_dir = None
 
 version = sys.version_info
@@ -15,32 +17,6 @@ try:
     dirName = os.path.dirname(os.path.abspath(__file__))
 except:
     dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
-
-
-class bcolors:
-
-    def __init__(self):
-        self.enable()
-
-    def disable(self):
-        self.HEADER = ''
-        self.OKBLUE = ''
-        self.OKGREEN = ''
-        self.WARNING = ''
-        self.FAIL = ''
-        self.ENDC = ''
-
-    def enable(self):
-        self.HEADER = '\033[35m'
-        self.OKBLUE = '\033[34m'
-        self.OKGREEN = '\033[32m'
-        self.WARNING = '\033[33m'
-        self.FAIL = '\033[31m'
-        self.ENDC = '\033[0m'
-
-COLORS = bcolors()
-COLORS.disable()
-COLORS_ENABLED = False
 
 
 def RemoveVersionNumbers(libName):
@@ -119,16 +95,9 @@ def ensure_dir(f):
 
 def copy_file(path, to):
     ensure_dir(to)
-    print(
-        COLORS.WARNING + "Copying:",
-        path + COLORS.ENDC,
-        " -> ",
-        COLORS.OKGREEN +
-        str(Path(to).relative_to(Path.cwd()))
-        + COLORS.ENDC
-    )
-    shutil.copyfile(path, to)
-    shutil.copystat(path, to)
+    log.log("Copying: " + path + " ->", log.WARN)
+    log.log("\t" + str(Path(to).relative_to(Path.cwd())), log.GREEN)
+    shutil.copy2(path, to)
 
 
 def add_dep(path, files, prefix=""):
@@ -140,7 +109,7 @@ def add_dep(path, files, prefix=""):
 
 def scan_dep(path, files, prefix=""):
     if os.path.isdir(path):
-        print(COLORS.OKBLUE + "Scanning", path + COLORS.ENDC)
+        log.log("Scanning " + path, log.BLUE)
         for fil in os.listdir(path):
             fil_path = os.path.join(path, fil)
             if os.path.isdir(fil_path):
@@ -182,7 +151,7 @@ def copy_needed_site(dest):
     for path in locations:
         if os.path.exists(path) and os.path.isdir(path):
             files = {}
-            print(COLORS.OKBLUE + "Scanning", path + COLORS.ENDC)
+            log.log("Scanning " + path, log.BLUE)
             scan_needed_location(path, files)
             prefix_mapping.update(files)
 
@@ -206,7 +175,8 @@ def zip_std_lib(dest):
     files = {}
     scan_library(lib_dir, files)
     for fil, path in files.items():
-        print(COLORS.OKGREEN + "/" + fil + COLORS.ENDC)
+        log.log("Zipping: " + path + " ->", log.WARN)
+        log.log("\t/" + fil, log.GREEN)
         f.write(path, fil)
 
     f.close()
@@ -215,7 +185,7 @@ def zip_std_lib(dest):
 def copy_binaries(dest):
 
     dest_folder = os.path.abspath(os.path.join(dest, "lib", binary_folder))
-    print(COLORS.OKBLUE + ("scanning %s" % binary_dir) + COLORS.ENDC)
+    log.log("scanning %s" % binary_dir, log.BLUE)
     for fil in os.listdir(binary_dir):
         path = os.path.join(binary_dir, fil)
         if os.path.isfile(path):
@@ -257,36 +227,36 @@ def copy_python_lib(dest):
 def build(dest):
 
     try:
-        print(
-            COLORS.HEADER +
+        log.log(
             "========================================\n"
             "Ziping Python Standard Library\n"
-            "========================================"
-            + COLORS.ENDC)
+            "========================================",
+            log.HEAD
+        )
         zip_std_lib(dest)
 
-        print(
-            COLORS.HEADER +
+        log.log(
             "========================================\n"
             "Copying Python Binaries\n"
-            "========================================"
-            + COLORS.ENDC)
+            "========================================",
+            log.HEAD
+        )
         copy_binaries(dest)
 
-        print(
-            COLORS.HEADER +
+        log.log(
             "========================================\n"
             "Copying Python Needed site-packages\n"
-            "========================================"
-            + COLORS.ENDC)
+            "========================================",
+            log.HEAD
+        )
         copy_needed_site(dest)
 
-        print(
-            COLORS.HEADER +
+        log.log(
             "========================================\n"
             "Copying Python Shared libary\n"
-            "========================================"
-            + COLORS.ENDC)
+            "========================================",
+            log.HEAD
+        )
         copy_python_lib(dest)
     except Exception:
         return traceback.format_exc()
@@ -294,16 +264,6 @@ def build(dest):
     # there was no error
     return False
 
-
-def enable_colors(colors=False):
-    global COLORS_ENABLED
-    global COLORS
-    if colors:
-        COLORS.enable()
-        COLORS_ENABLED = True
-    else:
-        COLORS.disable()
-        COLORS_ENABLED = False
 
 if __name__ == '__main__':
 
