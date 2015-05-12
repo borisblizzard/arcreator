@@ -27,20 +27,18 @@ int _CRT_glob = 0;
 // 1 : ?
 // 2 : malloc failure
 // 3 : mbstowcs failure
-// 4 : error gettign exe path
+// 4 : error getting exe path
 int main(int argc, char** argv)
 {
-    char *exepath, *pypath, *pypath_sep;
+    char *exepath, *pypath, *pypath_sep, *exepathdirname;
     wchar_t **wargv, *wfileName, *wexepath, *wpypath;
     int i, size, PATHLENMAX;
     int status;
 #if defined(__APPLE__)
     uint32_t exepathsize;
-    char *exepathdirname;
 #endif
 #if defined(__linux__)
     ssize_t linkreadlen;
-    char *exepathdirname;
 #endif
 
     // in truth we can never know what the true max path length is on windows 
@@ -52,7 +50,6 @@ int main(int argc, char** argv)
     ShowWindow( GetConsoleWindow(), SW_HIDE );
 #endif
 
-
     /*
     Set Flags
      */
@@ -63,49 +60,47 @@ int main(int argc, char** argv)
     setlocale(LC_CTYPE, "");
 
     //get the folder of the exe
+    exepath = (char *)calloc(PATHLENMAX, sizeof(char));
+    if (!exepath) {
+        status = 2;
+        goto cleanup1;
+    }
+#if defined(_WIN32) || defined(__APPLE__) || defined(__linux__)
+
 #if defined(_WIN32)
-    exepath = (char *)malloc(sizeof(char) * PATHLENMAX);
-    if (!exepath)
-        return 2;
     GetModuleFileName(NULL, exepath, PATHLENMAX);
     PathRemoveFileSpec(exepath);
-    size = strlen(exepath);
-    wexepath = (wchar_t *)malloc(sizeof(wchar_t) * (size + 1));
-    if (!wexepath)
-        return 2;
-    status = mbstowcs(wexepath, exepath, size + 1);
-    if (status < 0)
-        return 3;
+    exepathdirname = exepath;
 #elif defined(__APPLE__)
-    exepath = (char *)malloc(sizeof(char) * PATHLENMAX);
     exepathsize = PATHLENMAX;
-    if (_NSGetExecutablePath(exepath, exepathsize) != 0)
-        return 4;
+    if (_NSGetExecutablePath(exepath, exepathsize) != 0) {
+        status = 4;
+        goto cleanup2;
+    }
     exepathdirname = dirname(exepath);
-    size = strlen(exepathdirname);
-    wexepath = (wchar_t *)malloc(sizeof(wchar_t) * (size + 1));
-    if (!wexepath)
-        return 2;
-    status = mbstowcs(wexepath, exepathdirname, size + 1);
-    if (status < 0)
-        return 3;
 #elif defined(__linux__)
-    exepath = (char *)malloc(sizeof(char) * PATHLENMAX);
     linkreadlen = readlink("/proc/self/exe", exepath, PATHLENMAX);
     if (linkreadlen != -1) {
         exepath[linkreadlen] = '\0';
     }
     else {
-        return 4;
+        status = 4;
+        goto cleanup2;
     }
     exepathdirname = dirname(exepath);
+#endif 
+
     size = strlen(exepathdirname);
-    wexepath = (wchar_t *)malloc(sizeof(wchar_t) * (size + 1));
-    if (!wexepath)
-        return 2;
+    wexepath = (wchar_t *)calloc((size + 1), sizeof(wchar_t));
+    if (!wexepath) {
+        status = 2;
+        goto cleanup2;
+    }
     status = mbstowcs(wexepath, exepathdirname, size + 1);
-    if (status < 0)
-        return 3;
+    if (status < 0) {
+        status = 3;
+        goto cleanup3;
+    } 
 #else
     wexepath = L".";
 #endif 
@@ -114,14 +109,22 @@ int main(int argc, char** argv)
 
     //Py_SetPythonHome(wexepath);
 
-    pypath_sep = (char *)malloc(sizeof(char) * 2);
+    pypath_sep = (char *)calloc(2, sizeof(char) );
+    if (!pypath_sep) {
+        status = 2;
+        goto cleanup3;
+    }
 #if defined(_WIN32)
     strcpy(pypath_sep, ";");
 #else
     strcpy(pypath_sep, ":");
 #endif
 
-    pypath = (char *)malloc(sizeof(char) * (PATHLENMAX * 5 + 5));
+    pypath = (char *)calloc((PATHLENMAX * 5 + 5), sizeof(char));
+    if (!pypath) {
+        status = 2;
+        goto cleanup4;
+    }
     
     strcpy(pypath, exepath);
     strcat(pypath, pypath_sep);
@@ -149,25 +152,35 @@ int main(int argc, char** argv)
     // "<exepath>:<exepath>/python.zip:<exepath>/lib"
 
     size = strlen(pypath);
-    wpypath = (wchar_t *)malloc(sizeof(wchar_t)* (size + 1));
-    if (!wpypath)
-        return 2;
+    wpypath = (wchar_t *)calloc((size + 1), sizeof(wchar_t));
+    if (!wpypath) {
+        status = 2;
+        goto cleanup5;
+    }
     status = mbstowcs(wpypath, pypath, size + 1);
-    if (status < 0)
-        return 3;
+    if (status < 0) {
+        status = 3;
+        goto cleanup6;
+    }
 
 
-    wargv = (wchar_t **)PyMem_Malloc(sizeof(wchar_t*) * argc);
-    if (!wargv)
-        return 2;
+    wargv = (wchar_t **)calloc(argc, sizeof(wchar_t*));
+    if (!wargv) {
+        status = 2;
+        goto cleanup6;
+    }
     for (i = 0; i < argc; i++) {
         size = strlen(argv[i]);
-        wargv[i] = (wchar_t *)PyMem_Malloc(sizeof(wchar_t)* (size + 1));
-        if (!wargv[i])
-            return 2;
+        wargv[i] = (wchar_t *)calloc((size + 1), sizeof(wchar_t));
+        if (!wargv[i]) {
+            status = 2;
+            goto cleanup7;
+        }
         status = mbstowcs(wargv[i], argv[i], size + 1);
-        if (status < 0)
-            return 3;
+        if (status < 0) {
+            status = 3;
+            goto cleanup7;
+        }
     }
 
     Py_SetProgramName(wargv[0]);
@@ -200,9 +213,23 @@ int main(int argc, char** argv)
     }
     
     Py_Finalize();
-
-    free(wexepath);
-    free(exepath);
+cleanup7:
+    for (i = 0; i < argc; i++) {
+        if (wargv[i] != NULL) {
+            free(wargv[i]);
+        }
+    }
+    free(wargv);
+cleanup6:
+    free(wpypath);
+cleanup5:
+    free(pypath);
+cleanup4:
     free(pypath_sep);
+cleanup3:
+    free(exepath); 
+cleanup2:
+    free(wexepath);
+cleanup1:
     return status;
 }
