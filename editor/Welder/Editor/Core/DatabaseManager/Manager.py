@@ -7,21 +7,22 @@ import Kernel
 
 from PyitectConsumes import RTPCache, IconManager, PyXAL, RTPFunctions
 
+
 class DatabaseManager(object):
 
     ARC_FORMAT = False
-    
+
     TEXT_COLOR = wx.Colour(241, 243, 248)
     GRADIENT_LEFT = wx.Colour(100, 100, 100)
     GRADIENT_RIGHT = wx.Colour(60, 60, 60)
 
     PYXAL = None
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
-    def RenderImage( glCanvas, filename, hue=0, type='battler'):
+    def RenderImage(glCanvas, filename, hue=0, type='battler'):
         """Draws the character/battler graphic to the static bitmap.
-        
+
         Arguments:
         glCanvas -- The wxStaticBitmap that will be drawn on
         filename -- The string path to the image to use as the source
@@ -30,24 +31,26 @@ class DatabaseManager(object):
 
         Returns:
         None
-        
+
         """
 
         try:
-            if type == 'character': img = RTPCache.Character(filename, hue)
-            elif type == 'battler': img = RTPCache.Battler(filename, hue)
+            if type == 'character':
+                img = RTPCache.Character(filename, hue)
+            elif type == 'battler':
+                img = RTPCache.Battler(filename, hue)
         except:
             img = None
             message = str.format('Image \"{}\" cannot be found', filename)
             Kernel.Log(message, '[Cache]', True, False)
         glCanvas.ChangeImage(img)
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
-    def DrawHeaderBitmap( staticBitmap, text, font=None, textcolor=None, 
-            gradient1=None, gradient2=None ):
+    def DrawHeaderBitmap(staticBitmap, text, font=None, textcolor=None,
+                         gradient1=None, gradient2=None):
         """Draws text on a static bitmap control and applies a gradient color fill
-        
+
         Arguments:
         staticBitmap -- The wxStaticBitmap that will be drawn on
         text -- The string of text to draw
@@ -55,22 +58,27 @@ class DatabaseManager(object):
         textcolor -- The wxColor that will be used to draw the text
         gradient1 -- A wxColor that will be the gradient color on the left
         gradient2 -- A wxColor that will be the gradient color on the right
-        
+
         Returns:
         None
 
         """
         memDC = wx.MemoryDC()
         bmpsize = staticBitmap.GetClientSize()
-        bmp = wx.EmptyBitmap(bmpsize[0], bmpsize[1])
+        bmp = wx.Bitmap(bmpsize[0], bmpsize[1])
         memDC.SelectObject(bmp)
-        memDC.Clear()	
-        if textcolor == None: textcolor = DatabaseManager.TEXT_COLOR
-        if gradient1 == None: gradient1 = DatabaseManager.GRADIENT_LEFT
-        if gradient2 == None: gradient2 = DatabaseManager.GRADIENT_RIGHT
-        if font == None: font = wx.Font(10, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, 
-                    wx.FONTWEIGHT_NORMAL, faceName='Ethnocentric') # TODO: Change this?
-        memDC.SetFont(font)	
+        memDC.Clear()
+        if textcolor is None:
+            textcolor = DatabaseManager.TEXT_COLOR
+        if gradient1 is None:
+            gradient1 = DatabaseManager.GRADIENT_LEFT
+        if gradient2 is None:
+            gradient2 = DatabaseManager.GRADIENT_RIGHT
+        if font is None:
+            # TODO: Change this?
+            font = wx.Font(10, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL,
+                           wx.FONTWEIGHT_NORMAL, faceName='Ethnocentric')
+        memDC.SetFont(font)
         memDC.SetTextForeground(textcolor)
         textsize = memDC.GetTextExtent(text)
         x = (bmpsize[0] - textsize[0]) / 2
@@ -82,14 +90,14 @@ class DatabaseManager(object):
         del (memDC)
         del (bmp)
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
     def GetAddSubImageList():
         """ Creates a wxImageList for a plus/minus/empty check box and returns it.
-        
+
         Returns:
         A wxImageList of plus/minus/empty check bitmaps
-        
+
         """
         imageList = wx.ImageList(14, 12)
         imageList.Add(IconManager.getBitmap('checkEmpty'))
@@ -97,39 +105,40 @@ class DatabaseManager(object):
         imageList.Add(IconManager.getBitmap('checkMinus'))
         return imageList
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
     def GetNormalCheckImageList():
         """Returns the icons for a "normal" checkbox
-        
+
         Returns:
         A two element ImageList of a an empty and checked checkbox
-        
+
         """
         imageList = wx.ImageList(14, 12)
         imageList.Add(IconManager.getBitmap('checkEmpty'))
         imageList.Add(IconManager.getBitmap('checkGreen'))
         return imageList
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
-    def FixedIndex( index ):
+    def FixedIndex(index):
         """Returns the correct starting index for game data structure depending on the current format
 
         Arguments:
         index -- An integer to format
-        
+
         Returns:
         An integer formatted to to be compatible with current game data structure
-        
+
         """
-        if DatabaseManager.ARC_FORMAT: return index
+        if DatabaseManager.ARC_FORMAT:
+            return index
         return index + 1
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
-    def FillControl(wxContainer, dataSource=[], digits=3, defaults=[], 
-            start=0, fixed=True, clear=True):
+    def FillControl(wxContainer, dataSource=[], digits=3, defaults=[],
+                    start=0, fixed=True, clear=True):
         """Fills the control with items from the data source and numbers them.
 
         Arguments:
@@ -151,13 +160,13 @@ class DatabaseManager(object):
             start = DatabaseManager.FixedIndex(start)
         defaults.extend([
             ''.join([str(i).zfill(digits), ': ',
-            dataSource[i].name]) for i in range(start, len(dataSource))])
+                     dataSource[i].name]) for i in range(start, len(dataSource))])
         wxContainer.AppendItems(defaults)
-    
-    #----------------------------------------------------------------------------------
+
+    #--------------------------------------------------------------------------
     @staticmethod
     def FillWithoutNumber(wxContainer, dataSource=[], defaults=[],
-            start=0, fixed=True, clear=True):
+                          start=0, fixed=True, clear=True):
         """Fills the control with items from the data source without numbering.
 
         Arguments:
@@ -176,23 +185,23 @@ class DatabaseManager(object):
             wxContainer.Clear()
         if fixed:
             start = DatabaseManager.FixedIndex(start)
-        defaults.extend([dataSource[i].name for i in range(start, len(dataSource))])
+        defaults.extend(
+            [dataSource[i].name for i in range(start, len(dataSource))])
         wxContainer.AppendItems(defaults)
 
-    #----------------------------------------------------------------------------------
-    @staticmethod
-    def ChangeDataCapacity(parent, wxList, data, maxAllowed ):
+    #--------------------------------------------------------------------------
+    def ChangeDataCapacity(parent, wxList, data, maxAllowed):
         """Creates the Change Maximum dialog and changes the capacity of data
-        
+
         Arguments:
         parent -- The parent that will be assigned to the dialog
         wxList -- The wxList that is associated with the data
         data -- A list of RPG data classes
         maxAllowed -- The maximum capacity allowed
-        
+
         Returns:
         None
-        
+
         """
         from ChangeMaximum_Dialog import ChangeMaximum_Dialog
         currentMax = wxList.GetCount()
@@ -200,7 +209,7 @@ class DatabaseManager(object):
         dialog = ChangeMaximum_Dialog(parent, currentMax, 1, maxAllowed)
         if dialog.ShowModal() == wx.ID_OK:
             newMax = dialog.spinCtrlMaximum.GetValue()
-            if newMax != currentMax: 
+            if newMax != currentMax:
                 if newMax > currentMax:
                     data.extend([None for i in range(newMax - currentMax)])
                     start = currentMax + 1
@@ -217,45 +226,47 @@ class DatabaseManager(object):
                     wxList.SetSelection(index)
         dialog.Destroy()
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
     def ChooseAudio(parent, rpgfile=None, directory=None):
         """Creates the Choose Audio dialog
-        
+
         Arguments:
         folder -- The root folder that contains audio files to populate the list
         audio -- The RPG.AudioFile instance that is currently defined
-        
+
         Returns:
         Returns the chosen RPG.AudioFile
 
         """
         from .AudioPlayer_Panel import AudioPlayer_Panel
-        dialog = wx.Dialog(parent, style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+        dialog = wx.Dialog(
+            parent, style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         panel = AudioPlayer_Panel(dialog, rpgfile, directory)
         panel.Layout()
         dialog.Fit()
-        
+
         if dialog.ShowModal() == wx.ID_OK:
             return panel.GetAudio()
         dialog.Destroy()
 
-    #----------------------------------------------------------------------------------
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
     def ChooseGraphic(parent, folder, current, hue=None):
         """Creates the Choose Graphic dialog
-        
+
         Arguments:
         folder -- The root folder that contains audio files to populate the list
         audio -- The RPG.AudioFile instance that is currently defined
-        
+
         Returns:
         Returns the chosen RPG.AudioFile
 
         """
-        
-        dlg = Kernel.System.load("ChooseGraphic_Dialog")(parent, folder, current, hue)
+
+        dlg = Kernel.System.load("ChooseGraphic_Dialog")(
+            parent, folder, current, hue)
         if dlg.ShowModal() == wx.ID_OK:
             if hue is not None:
                 filename, hue = dlg.GetSelection()
@@ -265,36 +276,37 @@ class DatabaseManager(object):
                 return filename
         dlg.Destroy()
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
     def GetAudioLabel(rpgaudio):
         """Returns a formatted string for displaying the audio file
-        
+
         Arguments:
         rpgaudio -- An RPG.AudioFile instance
 
         Returns:
         String representation of the audio file
-        
+
         """
         if rpgaudio.name == '':
             label = '(None)'
         else:
-            label = str.format('{0} (V:{1}, P:{2})', 
-                rpgaudio.name, rpgaudio.volume, rpgaudio.pitch)
+            label = str.format('{0} (V:{1}, P:{2})',
+                               rpgaudio.name, rpgaudio.volume, rpgaudio.pitch)
         return label
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
     def getPyXAL():
         return PyXAL
 
-    #----------------------------------------------------------------------------------
-    @staticmethod 
+    #--------------------------------------------------------------------------
+    @staticmethod
     def QuickPlay(rpgaudio, folder):
 
         try:
-            path = RTPFunctions.FindAudioFile(os.path.join('Audio', folder), rpgaudio.name)
+            path = RTPFunctions.FindAudioFile(
+                os.path.join('Audio', folder), rpgaudio.name)
             if path == '':
                 return
             PyXAL = DatabaseManager.getPyXAL()
@@ -303,10 +315,11 @@ class DatabaseManager(object):
             player.play()
             player.setPitch(rpgaudio.pitch / 100.0)
             player.setGain(rpgaudio.volume / 100.0)
-            Timer(sound.getDuration(), DatabaseManager._DestroyQuickPlay, 
-                [PyXAL, player, sound]).start()
+            Timer(sound.getDuration(), DatabaseManager._DestroyQuickPlay,
+                  [PyXAL, player, sound]).start()
         except:
-            Kernel.Log('QuickPlay failed to play sound file.', '[PyXAL]', False, True)
+            Kernel.Log(
+                'QuickPlay failed to play sound file.', '[PyXAL]', False, True)
 
     @staticmethod
     def _DestroyQuickPlay(pyxal, player, sound):
@@ -316,7 +329,7 @@ class DatabaseManager(object):
         del (sound)
         del (player)
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
     def updateObjectName(object, name, listbox, digits):
         """updates the selected object's name and updates the associated wxListBox
@@ -333,12 +346,13 @@ class DatabaseManager(object):
         """
         index = listbox.GetSelection()
         object.name = name
-        listbox.SetString(index, 
-            ''.join([str(DatabaseManager.FixedIndex(index)).zfill(digits), ': ', name]))
+        listbox.SetString(index, ''.join(
+            [str(DatabaseManager.FixedIndex(index)).zfill(digits), ': ', name]
+        ))
 
-    #----------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------
     @staticmethod
-    def ChangeSkillStates( object, index, value ):
+    def ChangeSkillStates(object, index, value):
         """Changes the skill's add/remove state, and updates the custom check list
 
         Arguments:
@@ -354,22 +368,22 @@ class DatabaseManager(object):
             return
         state_id = DatabaseManager.FixedIndex(index)
         if value == 0:
-            if state_id in object.minus_state_set: 
+            if state_id in object.minus_state_set:
                 object.minus_state_set.remove(state_id)
-            elif state_id in object.plus_state_set: 
+            elif state_id in object.plus_state_set:
                 object.plus_state_set.remove(state_id)
         if value == 1:
-            if state_id in object.minus_state_set: 
+            if state_id in object.minus_state_set:
                 object.minus_state_set.remove(state_id)
             object.plus_state_set.append(state_id)
         if value == -1:
-            if state_id in object.plus_state_set: 
+            if state_id in object.plus_state_set:
                 object.plus_state_set.remove(state_id)
             object.minus_state_set.append(state_id)
 
-    #----------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------
     @staticmethod
-    def DrawButtonIcon( button, filename, from_resource ):
+    def DrawButtonIcon(button, filename, from_resource):
         """Draws a bitmap on a button from an embedded resource or file
 
         Arguments:
@@ -387,15 +401,15 @@ class DatabaseManager(object):
         else:
             pilImage = RTPCache.Icon(filename)
             if pilImage is not None:
-                image = wx.EmptyImage(pilImage.size[0], pilImage.size[1])
+                image = wx.Image(pilImage.size[0], pilImage.size[1])
                 image.SetData(pilImage.convert("RGB").tostring())
                 image.SetAlpha(pilImage.convert("RGBA").tostring()[3::4])
                 bitmap = wx.BitmapFromImage(image)
             else:
-                bitmap = wx.EmptyBitmap(1, 1)
+                bitmap = wx.Bitmap(1, 1)
         button.SetBitmapLabel(bitmap)
 
-    #----------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------
     @staticmethod
     def CreateParameterControls(parent, event, suffix, rowcount=4, defaults=[]):
         """Creates spin controls for the passed parameters, adds them to the parent
@@ -421,7 +435,8 @@ class DatabaseManager(object):
             parameters.extend(['STR', 'DEX', 'AGI', 'INT'])
         objectList = []
         mainsizer = parent.GetSizer()
-        rows = [parameters[i:i+rowcount] for i in range(0, len(parameters), rowcount)]
+        rows = [parameters[i:i + rowcount]
+                for i in range(0, len(parameters), rowcount)]
         percent = 100 / rowcount
         # Iterate through each of the rows and create the controls
         for row in rows:
@@ -432,43 +447,50 @@ class DatabaseManager(object):
                 row.append(None)
                 proportion = percent * (rowcount - n)
             for param in row:
-                if param != None:
+                if param is not None:
                     if count < threshold:
-                        label = wx.StaticText( parent, wx.ID_ANY, param)
+                        label = wx.StaticText(parent, wx.ID_ANY, param)
                     else:
-                        label = wx.StaticText( parent, wx.ID_ANY, param + suffix)
+                        label = wx.StaticText(
+                            parent, wx.ID_ANY, param + suffix)
                     count += 1
-                    label.Wrap( -1 )
-                    labelsizer.Add( label, percent, wx.ALL, 5 )
-                    spinctrl = wx.SpinCtrl( parent, -1, '', style=wx.SP_ARROW_KEYS|wx.SP_WRAP)
+                    label.Wrap(-1)
+                    labelsizer.Add(label, percent, wx.ALL, 5)
+                    spinctrl = wx.SpinCtrl(
+                        parent, -1, '', style=wx.SP_ARROW_KEYS | wx.SP_WRAP)
                     spinctrl.Bind(wx.EVT_SPINCTRL, Kernel.Protect(event))
                     objectList.append(spinctrl)
-                    spinsizer.Add( spinctrl, percent, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+                    spinsizer.Add(
+                        spinctrl,
+                        percent,
+                        wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND,
+                        5
+                    )
                 else:
                     # Create a dummy filler
-                    dummy = wx.StaticText( parent, wx.ID_ANY, '')
+                    dummy = wx.StaticText(parent, wx.ID_ANY, '')
                     dummy.Wrap(-1)
                     labelsizer.Add(dummy, proportion, wx.ALL, 5)
                     spinsizer.Add(dummy, proportion, wx.ALL, 5)
-            mainsizer.Add( labelsizer, 0, wx.EXPAND, 5 )
-            mainsizer.Add( spinsizer, 0, wx.EXPAND, 5 )
-        #parent.Layout()
+            mainsizer.Add(labelsizer, 0, wx.EXPAND, 5)
+            mainsizer.Add(spinsizer, 0, wx.EXPAND, 5)
+        # parent.Layout()
         #parent.SetVirtualSizeHints(-1, -1, parent.GetClientSize().GetWidth() - 32)
         #parent.SetSizer ( mainsizer )
         return objectList
 
-    #----------------------------------------------------------------------------------
-    @staticmethod 
+    #-------------------------------------------------------------------------
+    @staticmethod
     def gcd(num1, num2):
         """ Calculates the greatest common denominator of two numbers
-        
+
         Arguments:
         num1 -- The first input number
         num2 -- The second input number
 
         Returns:
         The greatest common denominator of the two numbers
-        
+
         """
         if num1 > num2:
             for i in range(1, num2 + 1):
@@ -484,27 +506,27 @@ class DatabaseManager(object):
             result = num1 * num2 / num1
             return result
 
-    #----------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------
     @staticmethod
     def lcm(num1, num2):
         """Returns the lowest common multiple of two numbers
-        
+
         Arguments:
         num1 -- The first input number
         num2 -- The second input number
 
         Returns:
         The greatest lowest common multiple of the two numbers
-        
+
         """
         result = num1 * num2 / DatabaseManager.gcd(num1, num2)
         return result
 
-    #----------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------
     @staticmethod
     def CalculateParameter(min, max, speed, level, initLvl, fnlLvl):
         """Calculates the parameter value of a curve at the passed level
-        
+
         Arguments:
         min -- The lowest value value at the starting point of the curve
         max -- The greatest value at the end of the curve
@@ -515,13 +537,14 @@ class DatabaseManager(object):
 
         Returns:
         The calculated value for the curve at the passed level
-        
+
         """
         p_range, l_range = max - min, float(fnlLvl - initLvl)
         linear = ceil(min + p_range * ((level - initLvl) / l_range))
-        if speed == 0: return linear
+        if speed == 0:
+            return linear
         if speed < 0:
-          curve = ceil(min + p_range * (((level - initLvl) / l_range) ** 2))
+            curve = ceil(min + p_range * (((level - initLvl) / l_range) ** 2))
         else:
-          curve = ceil(max - p_range * (((fnlLvl - level) / l_range) ** 2))
+            curve = ceil(max - p_range * (((fnlLvl - level) / l_range) ** 2))
         return ((curve * abs(speed) + linear * (10 - abs(speed))) / 10)

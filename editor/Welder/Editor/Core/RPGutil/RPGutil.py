@@ -14,12 +14,14 @@ from struct import pack, unpack
 
 
 class Table(object):
+
     """a three dimensional table object"""
     _arc_class_path = "Table"
-    
+
     def __init__(self, *args):
         if len(args) != 1 and len(args) != 2 and len(args) != 3:
-            raise TypeError("wrong number of arguments (%d for 1, 2 or 3)" % len(args))
+            raise TypeError(
+                "wrong number of arguments (%d for 1, 2 or 3)" % len(args))
         self.dim = len(args)
         self.xsize = args[0]
         if len(args) >= 2:
@@ -27,7 +29,7 @@ class Table(object):
         else:
             self.ysize = 1
         if len(args) == 3:
-            self.zsize = args[2] 
+            self.zsize = args[2]
         else:
             self.zsize = 1
         if self.dim == 3:
@@ -42,17 +44,21 @@ class Table(object):
     def __getitem__(self, key):
         if isinstance(key, int):
             if self.dim > 1:
-                raise TypeError("wrong number of arguments (%d for %d)" % (1, self.dim))
+                raise TypeError(
+                    "wrong number of arguments (%d for %d)" % (1, self.dim))
         elif len(key) != self.dim:
-            raise TypeError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
+            raise TypeError(
+                "wrong number of arguments (%d for %d)" % (len(key), self.dim))
         return self._data[key]
 
     def __setitem__(self, key, value):
         if isinstance(key, int):
             if self.dim > 1:
-                raise TypeError("wrong number of arguments (%d for %d)" % (1, self.dim))
+                raise TypeError(
+                    "wrong number of arguments (%d for %d)" % (1, self.dim))
         elif len(key) != self.dim:
-            raise TypeError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
+            raise TypeError(
+                "wrong number of arguments (%d for %d)" % (len(key), self.dim))
         try:
             self._data[key] = value
         except:
@@ -61,14 +67,15 @@ class Table(object):
     def resize(self, *args):
         # should work to increase and decrease the table size
         if len(args) != self.dim:
-            raise TypeError("wrong number of arguments (%d for %d)" % (len(args), self.dim))
+            raise TypeError(
+                "wrong number of arguments (%d for %d)" % (len(args), self.dim))
         self.xsize = args[0]
         if len(args) >= 2:
             self.ysize = args[1]
         else:
             self.ysize = 1
         if len(args) == 3:
-            self.zsize = args[2] 
+            self.zsize = args[2]
         else:
             self.zsize = 1
         newdata = numpy.zeros(self.getShape(), dtype=numpy.int16)
@@ -102,13 +109,14 @@ class Table(object):
             if self.zsize >= shape[2]:
                 mask[2] = shape[2]
             else:
-                mask[2] = self.zsize  
-            newdata[:mask[0], :mask[1], :mask[2]] = self._data[:mask[0], :mask[1], :mask[2]]
+                mask[2] = self.zsize
+            newdata[:mask[0], :mask[1], :mask[2]] = self._data[
+                :mask[0], :mask[1], :mask[2]]
         self._data = newdata
-        
+
     def _arc_dump(self, d=0):
         s = pack("<IIII", self.dim, self.xsize, self.ysize, self.zsize)
-        data = self._data.flatten('F').tolist() 
+        data = self._data.flatten('F').tolist()
         s += pack("<" + ("h" * (self.xsize * self.ysize * self.zsize)), *data)
         return s
 
@@ -116,7 +124,8 @@ class Table(object):
     def _arc_load(s):
         dim, nx, ny, nz = unpack("<IIII", s[0:16])
         size = nx * ny * nz
-        data = numpy.array(unpack("<" + ("h" * size), s[16:16 + size * 2]), dtype=numpy.int16)
+        data = numpy.array(
+            unpack("<" + ("h" * size), s[16:16 + size * 2]), dtype=numpy.int16)
         if dim == 3:
             t = Table(nx, ny, nz)
             shape = (nx, ny, nz)
@@ -141,6 +150,7 @@ class Table(object):
 
 
 class Color(object):
+
     """a bare bones color object"""
     _arc_class_path = "Color"
 
@@ -197,6 +207,7 @@ class Color(object):
 
 
 class Tone(object):
+
     """a bare bones tone class"""
     _arc_class_path = "Tone"
 
@@ -244,11 +255,9 @@ class Tone(object):
         self.blue = blue
         self.gray = gray
 
-    def _arc_dump(self, d = 0):
+    def _arc_dump(self, d=0):
         return pack("<ffff", self.red, self.green, self.blue, self.gray)
 
     @staticmethod
     def _arc_load(s):
         return Tone(*unpack("<ffff", s))
-
-

@@ -12,7 +12,9 @@ class IconManager(object):
     @staticmethod
     def getIcon(name):
         if name in IconManager._catalog:
+            wx.Log.EnableLogging(False)
             return IconManager._catalog[name].GetIcon()
+            wx.Log.EnableLogging(True)
         else:
             Kernel.Log(
                 "Warning: Icon '%s' requested but not found, "
@@ -25,7 +27,9 @@ class IconManager(object):
     @staticmethod
     def getBitmap(name):
         if name in IconManager._catalog:
+            wx.Log.EnableLogging(False)
             return IconManager._catalog[name].GetBitmap()
+            wx.Log.EnableLogging(True)
         else:
             Kernel.Log(
                 "Warning: Bitmap '%s' requested but not found, "
@@ -37,7 +41,9 @@ class IconManager(object):
     @staticmethod
     def getImage(name):
         if name in IconManager._catalog:
+            wx.Log.EnableLogging(False)
             return IconManager._catalog[name].GetImage()
+            wx.Log.EnableLogging(True)
         else:
             Kernel.Log(
                 "Warning: Image '%s' requested but not found, "

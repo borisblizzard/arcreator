@@ -11,8 +11,10 @@ import sys
 import os
 
 # process .pth files
-for path in sys.path:
+paths = sys.path[:]
+for path in paths:
     if os.path.isdir(path):
+        print("Processing site Dirs", path)
         site.addsitedir(path)
 
 import os
@@ -38,9 +40,9 @@ class ARCSplashScreen(wx.Frame):
         self.hasShape = False
         self.delta = wx.Point(0, 0)
 
-        # icon = Path(Kernel.GlobalObjects["Program_Dir"], 'icon.ico')
-        # ico = wx.Icon(str(icon), wx.BITMAP_TYPE_ICO)
-        # self.SetIcon(ico)
+        icon = Path(Kernel.GlobalObjects["Program_Dir"], 'icon.ico')
+        ico = wx.Icon(str(icon), wx.BITMAP_TYPE_ICO)
+        self.SetIcon(ico)
 
         # Load the image
         splash = Path(Kernel.GlobalObjects["Program_Dir"], 'splash.png')
