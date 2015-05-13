@@ -102,7 +102,7 @@ class EditorMainWindow(wx.Frame):
         self.menubar = MainMenuBar(self)
         self.SetMenuBar(self.menubar)  # Adding the MenuBar to the Frame.
         if "MainMenuBar" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["MainMenuBar"] =  self.menubar
+            Kernel.GlobalObjects["MainMenuBar"] = self.menubar
         else:
             Kernel.GlobalObjects.request_new_key(
                 "MainMenuBar", "CORE", self.menubar)
@@ -111,7 +111,7 @@ class EditorMainWindow(wx.Frame):
         self.statusbar = MainStatusBar(self)
         self.SetStatusBar(self.statusbar)
         if "MainStatusBar" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["MainStatusBar"] =  self.menubar
+            Kernel.GlobalObjects["MainStatusBar"] = self.menubar
         else:
             Kernel.GlobalObjects.request_new_key(
                 "MainStatusBar", "CORE", self.statusbar)
@@ -141,12 +141,16 @@ class EditorMainWindow(wx.Frame):
     def ProcessClose(self):
         # handle an open project
         Kernel.System.fire_event("CoreExitMainWindow")
-        if "ProjectOpen" in Kernel.GlobalObjects and Kernel.GlobalObjects["ProjectOpen"] and "PROJECT" in Kernel.GlobalObjects:
+        if ("ProjectOpen" in Kernel.GlobalObjects and
+                Kernel.GlobalObjects["ProjectOpen"] and
+                "PROJECT" in Kernel.GlobalObjects):
             current_project = Kernel.GlobalObjects["PROJECT"]
-            if current_project.hasDataChanged() or current_project.hasInfoChanged():
-                message = "There are unsaved changes in the currently open project. Do you want to save these changes?"
+            if (current_project.hasDataChanged() or
+                    current_project.hasInfoChanged()):
+                message = "There are unsaved changes in the currently open project. Do you wish to save these changes?"
                 caption = "There is an open project"
-                dlg = wx.MessageDialog(self, message, caption, style=wx.YES_NO | wx.YES_DEFAULT)
+                dlg = wx.MessageDialog(
+                    self, message, caption, style=wx.YES_NO | wx.YES_DEFAULT)
                 result = dlg.ShowModal()
                 dlg.Destroy()
                 if result == wx.YES:

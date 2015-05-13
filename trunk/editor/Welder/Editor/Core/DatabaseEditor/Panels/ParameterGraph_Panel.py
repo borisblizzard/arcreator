@@ -13,6 +13,8 @@ from PyitectConsumes import GenerateCurve_Dialog
 
 from PyitectConsumes import PanelBase, ParameterGraph_Panel_Template
 
+from PyitectConsumes import itertoolset
+
 # --------------------------------------------------------------------------------------
 # ParameterGraph_Panel
 # --------------------------------------------------------------------------------------
@@ -24,7 +26,7 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
         """Basic constructor for the ParameterGraph_Panel"""
         ParameterGraph_Panel_Template.__init__(self, parent)
         global Config
-        
+
         self.Data = deepcopy(actor.parameters)
         self.Actor = actor
         self.TabNames = ['MaxHP', 'MaxSP']
@@ -94,7 +96,7 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
         if not self.checkBoxScaled.GetValue():
             maxValue = self.GetValueMax(self.PageIndex)
         else:
-            maxValue = max(zip(*data)[1])
+            maxValue = max(itertoolset.nth(zip(*data), 1))
         self.interactiveGraph.SetData(data, name, color,
                                       maxvalue=maxValue, maxlevel=self.Actor.final_level,
                                       minlevel=self.Actor.initial_level)

@@ -1,10 +1,11 @@
 import wx
 import wx.lib.plot as plot
-from .ParameterPlotGraphics import ParameterPlotGraphics    
+from .ParameterPlotGraphics import ParameterPlotGraphics
 
-#--------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # ParameterGraph
-#--------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+
 
 class ParameterGraph(plot.PlotCanvas):
 
@@ -17,19 +18,19 @@ class ParameterGraph(plot.PlotCanvas):
         self.SetFontSizeAxis(6)
         self.SetXSpec('min')
         self.SetYSpec('min')
-        self.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
+        self.SetCursor(wx.Cursor(wx.CURSOR_ARROW))
         self.SetEnableAntiAliasing(True)
         self.DrawColor = color
         self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.DoNothing)
         if data is not None:
             self.SetData(data)
 
-    def DoNothing( self, event ):
+    def DoNothing(self, event):
         """Prevent flickering on Windows"""
         pass
 
-    def SetData(self, data=None, statName='', color=None, maxvalue=None, 
-            maxlevel=None, minlevel=1):
+    def SetData(self, data=None, statName='', color=None, maxvalue=None,
+                maxlevel=None, minlevel=1):
         """Sets the data to plot and draws the graph"""
         if data is None:
             data = [(0, 0), (1, 0)]
@@ -42,5 +43,5 @@ class ParameterGraph(plot.PlotCanvas):
         if maxlevel is not None:
             xLim = [minlevel, maxlevel]
         gc = ParameterPlotGraphics([line], xLabel='Level', yLabel=statName,
-            XLimit=xLim, YLimit=yLim)
+                                   XLimit=xLim, YLimit=yLim)
         self.Draw(gc)

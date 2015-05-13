@@ -1,4 +1,4 @@
-from .Formater import EventCommandFormat
+from .Formater import EventCommandFormater
 from .Formater import EventHTMLFormater
 from .Formater import Command000Formater
 from .Formater import Command101Formater

@@ -43,7 +43,8 @@
         "AudioPlayer_Panel_Template": "",
         "Weapons_Panel_Template": "",
         "Enemies_Panel_Template": "",
-        "States_Panel_Template": ""
+        "States_Panel_Template": "",
+        "itertoolset": ""
     },
     "provides": {
         "Actors_Panel": "",
