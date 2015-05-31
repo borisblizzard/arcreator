@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.2
+/// @version 3.4
 /// 
 /// @section LICENSE
 /// 
@@ -13,8 +13,10 @@
 #ifndef XAL_PLAYER_H
 #define XAL_PLAYER_H
 
+#include <hltypes/hmutex.h>
 #include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
+#include <hltypes/hmutex.h>
 
 #include "xalExport.h"
 
@@ -31,9 +33,6 @@ namespace xal
 	public:
 		friend class AudioManager;
 
-		/// @brief Destructor.
-		virtual ~Player();
-
 		float getGain();
 		void setGain(float value);
 		float getPitch();
@@ -41,13 +40,14 @@ namespace xal
 		HL_DEFINE_GET(Sound*, sound, Sound);
 		hstr getName();
 		hstr getFilename();
-		hstr getRealFilename();
 		float getDuration();
 		int getSize();
+		int getBufferSize();
+		int getSourceSize();
 		float getTimePosition();
 		unsigned int getSamplePosition();
 		Category* getCategory();
-
+		
 		/// @return True if the Sound is playing.
 		/// @note This is false if the Sound is fading out even tough it is still "playing".
 		bool isPlaying();
@@ -64,6 +64,11 @@ namespace xal
 		/// @param[in] looping Whether the Sound should be looped once it is done playing.
 		/// @note Ignored if the Sound is already playing. Prevents pause/stop without pausing/stopping the Sound if called during fade-out.
 		void play(float fadeTime = 0.0f, bool looping = false);
+		/// @brief Starts playing the Sound asynchronously.
+		/// @param[in] fadetime How long to fade-in the Sound.
+		/// @param[in] looping Whether the Sound should be looped once it is done playing.
+		/// @note Ignored if the Sound is already playing. Prevents pause/stop without pausing/stopping the Sound if called during fade-out.
+		void playAsync(float fadeTime = 0.0f, bool looping = false);
 		/// @brief Stops the Sound completely.
 		/// @param[in] fadetime How long to fade-out the Sound.
 		void stop(float fadeTime = 0.0f);
@@ -103,10 +108,16 @@ namespace xal
 		/// @brief How long this Player has been idle.
 		/// @note Used for memory cleaning.
 		float idleTime;
+		/// @brief Flag whether async playing was queued.
+		bool asyncPlayQueued;
+		/// @brief Mutex for access of async playing flag.
+		hmutex asyncPlayMutex;
 
 		/// @brief Constructor.
 		/// @param[in] sound The Sound to play.
 		Player(Sound* sound);
+		/// @brief Destructor.
+		virtual ~Player();
 
 		/// @note This method is not thread-safe and is for internal usage only.
 		float _getGain();
@@ -116,14 +127,24 @@ namespace xal
 		float _getPitch();
 		/// @note This method is not thread-safe and is for internal usage only.
 		void _setPitch(float value);
+		/// @brief Returns whether the Sound is playing or is asynchronously queued for playing.
+		/// @retunr True if the Sound is playing or is asynchronously queued for playing.
+		/// @note This method is not thread-safe and is for internal usage only.
+		bool _isPlaying();
+		/// @brief Returns whether the Player is waiting to be played after an asynchronous buffer load.
+		/// @retunr True if the Player is waiting to be played after an asynchronous buffer load.
+		/// @note This method is not thread-safe and is for internal usage only.
+		bool _isAsyncPlayQueued();
 
-		/// @brief updates the Player.
+		/// @brief Updates the Player.
 		/// @param[in] timeDelta Time since the last update.
 		/// @note This method is not thread-safe and is for internal usage only.
 		virtual void _update(float timeDelta);
 
 		/// @note This method is not thread-safe and is for internal usage only.
 		void _play(float fadeTime = 0.0f, bool looping = false);
+		/// @note This method is not thread-safe and is for internal usage only.
+		void _playAsync(float fadeTime = 0.0f, bool looping = false);
 		/// @note This method is not thread-safe and is for internal usage only.
 		void _stop(float fadeTime = 0.0f);
 		/// @note This method is not thread-safe and is for internal usage only.
@@ -138,6 +159,9 @@ namespace xal
 		/// @brief Position of the playback buffer.
 		/// @note This is implemented by the audio-system.
 		inline virtual unsigned int _systemGetBufferPosition() { return 0; }
+		/// @brief Whether this implementation needs to correct the streamed buffer position.
+		/// @note This is implemented by the audio-system.
+		inline virtual bool _systemNeedsStreamedBufferPositionCorrection() { return true; }
 		/// @brief Offset within the buffer.
 		/// @note This is implemented by the audio-system.
 		inline virtual float _systemGetOffset() { return 0.0f; }
@@ -151,12 +175,12 @@ namespace xal
 		/// @brief Prepares the underlying Buffer for playback.
 		/// @note This is implemented by the audio-system.
 		inline virtual void _systemPrepareBuffer() { }
-		/// @brief updates the current gain of the Player in the audio-system.
+		/// @brief Updates the current gain of the Player in the audio-system.
 		/// @note This is implemented by the audio-system.
-		inline virtual void _systemupdateGain() { }
-		/// @brief updates the current pitch of the Player in the audio-system.
+		inline virtual void _systemUpdateGain() { }
+		/// @brief Updates the current pitch of the Player in the audio-system.
 		/// @note This is implemented by the audio-system.
-		inline virtual void _systemupdatePitch() { }
+		inline virtual void _systemUpdatePitch() { }
 		/// @brief Starts playback in the audio-system.
 		/// @note This is implemented by the audio-system.
 		inline virtual void _systemPlay() { }
@@ -164,10 +188,13 @@ namespace xal
 		/// @return How many bytes have been played since the last update.
 		/// @note This is implemented by the audio-system.
 		inline virtual int _systemStop() { return 0; }
-		/// @brief updates streaming processing in streamed Sounds.
+		/// @brief Updates non-streaming processing in non-streamed Sounds.
+		/// @note This is implemented by the audio-system.
+		inline virtual void _systemUpdateNormal() { }
+		/// @brief Updates streaming processing in streamed Sounds.
 		/// @return How many bytes have been played since the last update.
 		/// @note This is implemented by the audio-system.
-		inline virtual int _systemupdateStream() { return 0; }
+		inline virtual int _systemUpdateStream() { return 0; }
 
 	private:
 		/// @brief Internal implementation for actually stopping the playback.

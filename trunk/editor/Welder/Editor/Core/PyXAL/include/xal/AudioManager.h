@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.2
+/// @version 3.4
 /// 
 /// @section LICENSE
 /// 
@@ -17,6 +17,7 @@
 #include <hltypes/hltypesUtil.h>
 #include <hltypes/hmap.h>
 #include <hltypes/hmutex.h>
+#include <hltypes/hstream.h>
 #include <hltypes/hstring.h>
 #include <hltypes/hthread.h>
 
@@ -42,14 +43,16 @@ namespace xal
 	{
 		/// @brief Buffers data upon player creation, keeps results in memory.
 		FULL = 0,
+		/// @brief Buffers data upon player creation asynchronously, keeps results in memory.
+		ASYNC = 1,
 		/// @brief Buffers when first need arises, keeps results in memory.
-		LAZY = 1,
+		LAZY = 2,
 		/// @brief Buffers when first need arises, clears memory after a timeout.
-		MANAGED = 2,
+		MANAGED = 3,
 		/// @brief Buffers when first need arises, clears memory after usage.
-		ON_DEMAND = 3,
+		ON_DEMAND = 4,
 		/// @brief Buffers in streamed mode.
-		STREAMED = 4
+		STREAMED = 5
 	};
 
 	enum SourceMode
@@ -92,16 +95,13 @@ namespace xal
 		HL_DEFINE_GETSET(float, idlePlayerUnloadTime, IdlePlayerUnloadTime);
 		HL_DEFINE_GET(hstr, deviceName, DeviceName);
 		inline bool isThreaded() { return (this->thread != NULL); }
-		HL_DEFINE_GET(float, updateTime, updateTime);
+		HL_DEFINE_GET(float, updateTime, UpdateTime);
 		HL_DEFINE_GET(float, globalGain, GlobalGain);
 		void setGlobalGain(float value);
 		harray<Player*> getPlayers();
+		hmap<hstr, Sound*> getSounds();
 
-		/// @brief Threaded update call.
-		/// @param[in] thread The Thread instance calling.
-		/// @note This is used for threaded update only and should never be called from the outside.
-		static void update(hthread* thread);
-		/// @brief updates all audio processing.
+		/// @brief Updates all audio processing.
 		/// @param[in] timeDelta Time since the call of this method in seconds.
 		/// @note timeDelta is usually the time since the last frame in games. You don't have to call this if threaded update is enabled.
 		void update(float timeDelta);
@@ -171,6 +171,13 @@ namespace xal
 		/// @param[in] gain The gain of the Sound.
 		/// @note If the audio manager is suspended, this does nothing.
 		void play(chstr soundName, float fadeTime = 0.0f, bool looping = false, float gain = 1.0f);
+		/// @brief Plays a Sound in a fire-and-forget fashion asynchronously.
+		/// @param[in] soundName Name of the Sound.
+		/// @param[in] fadeTime Time how long to fade in the Sound.
+		/// @param[in] looping Whether the Sound should be looped.
+		/// @param[in] gain The gain of the Sound.
+		/// @note If the audio manager is suspended, this does nothing.
+		void playAsync(chstr soundName, float fadeTime = 0.0f, bool looping = false, float gain = 1.0f);
 		/// @brief Stops all Sound instances that were played in a fire-and-forget fashion.
 		/// @param[in] soundName Name of the Sound.
 		/// @param[in] fadeTime Time how long to fade out the Sounds.
@@ -288,18 +295,14 @@ namespace xal
 		void _setGlobalGain(float value);
 		/// @note This method is not thread-safe and is for internal usage only.
 		harray<Player*> _getPlayers();
+		/// @note This method is not thread-safe and is for internal usage only.
+		hmap<hstr, Sound*> _getSounds();
 
 		/// @note Starts the thread for threaded update.
 		void _startThreading();
-		/// @note This method is not thread-safe and is for internal usage only.
-		void _clear();
 		
 		/// @note This method is not thread-safe and is for internal usage only.
 		virtual void _update(float timeDelta);
-		/// @brief Locks the mutex for thread synchronization.
-		virtual void _lock();
-		/// @brief Unlocks the mutex for thread synchronization.
-		virtual void _unlock();
 
 		/// @note This method is not thread-safe and is for internal usage only.
 		Category* _createCategory(chstr name, BufferMode bufferMode, SourceMode sourceMode);
@@ -340,10 +343,12 @@ namespace xal
 		/// @note This method is not thread-safe and is for internal usage only.
 		virtual Player* _createSystemPlayer(Sound* sound) = 0;
 		/// @note This method is not thread-safe and is for internal usage only.
-		virtual Source* _createSource(chstr filename, Category* category, Format format);
+		virtual Source* _createSource(chstr filename, SourceMode sourceMode, BufferMode bufferMode, Format format);
 
 		/// @note This method is not thread-safe and is for internal usage only.
 		void _play(chstr soundName, float fadeTime, bool looping, float gain);
+		/// @note This method is not thread-safe and is for internal usage only.
+		void _playAsync(chstr soundName, float fadeTime, bool looping, float gain);
 		/// @note This method is not thread-safe and is for internal usage only.
 		void _stop(chstr soundName, float fadeTime);
 		/// @note This method is not thread-safe and is for internal usage only.
@@ -370,12 +375,9 @@ namespace xal
 		virtual void _resumeAudio();
 
 		/// @brief Depending on the audio manager implementation, this method may convert audio data to the appropriate format (bit rate, channel number, sampling rate).
-		/// @param[in] buffer Buffer object that describes the data.
+		/// @param[in] source Source object that holds the data.
 		/// @param[in,out] stream The data stream buffer.
-		/// @param[in,out] streamSize The size of the stream itself.
-		/// @param[in] dataSize The size of the data within the stream.
-		/// @return dataSize if no conversion was done or a positive integer for the size of the new data.
-		virtual int _convertStream(Buffer* buffer, unsigned char** stream, int *streamSize, int dataSize) { return dataSize; }
+		virtual void _convertStream(Source* source, hstream& stream) { }
 
 		/// @brief Special additional processing for suspension, required for some implementations.
 		/// @note This method is not thread-safe and is for internal usage only.
@@ -384,10 +386,13 @@ namespace xal
 		/// @note This method is not thread-safe and is for internal usage only.
 		inline virtual void _resumeSystem() { }
 
+		/// @brief Threaded update call.
+		/// @param[in] thread The Thread instance calling.
+		static void _update(hthread* thread);
+
 	};
 	
-	xalExport extern xal::AudioManager* mgr;
-
+	xalExport extern xal::AudioManager* manager;
 }
 
 #endif

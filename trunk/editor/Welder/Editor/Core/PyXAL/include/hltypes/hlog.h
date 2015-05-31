@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -14,8 +14,9 @@
 #define HLTYPES_LOG_H
 
 #include "harray.h"
-#include "hstring.h"
 #include "hltypesExport.h"
+#include "hstring.h"
+#include "hmutex.h"
 
 namespace hltypes
 {
@@ -38,32 +39,32 @@ namespace hltypes
 
 		/// @brief Checks if log level Write is turned on.
 		/// @return True if log level Write is turned on.
-		static inline bool isLevelWrite() { return level_write; }
+		static inline bool isLevelWrite() { return levelWrite; }
 		/// @brief Sets the log level Write.
 		/// @param[in] value Whether to turn it on or off.
-		static inline void setLevelWrite(bool value) { level_write = value; }
+		static inline void setLevelWrite(bool value) { levelWrite = value; }
 		/// @brief Checks if log level Error is turned on.
 		/// @return True if log level Error is turned on.
-		static inline bool isLevelError() { return level_error; }
+		static inline bool isLevelError() { return levelError; }
 		/// @brief Sets the log level Error.
 		/// @param[in] value Whether to turn it on or off.
-		static inline void setLevelError(bool value) { level_error = value; }
+		static inline void setLevelError(bool value) { levelError = value; }
 		/// @brief Checks if log level Warn is turned on.
 		/// @return True if log level Warn is turned on.
-		static inline bool isLevelWarn() { return level_warn; }
+		static inline bool isLevelWarn() { return levelWarn; }
 		/// @brief Sets the log level Warn.
 		/// @param[in] value Whether to turn it on or off.
-		static inline void setLevelWarn(bool value) { level_warn = value; }
+		static inline void setLevelWarn(bool value) { levelWarn = value; }
 		/// @brief Checks if log level Debug is turned on.
 		/// @return True if log level Debug is turned on.
-		static inline bool isLevelDebug() { return level_debug; }
+		static inline bool isLevelDebug() { return levelDebug; }
 		/// @brief Sets the log level Debug.
 		/// @param[in] value Whether to turn it on or off.
-		static inline void setLevelDebug(bool value) { level_debug = value; }
+		static inline void setLevelDebug(bool value) { levelDebug = value; }
 		/// @brief Sets the current tag filters.
 		/// @param[in] value New tag filters.
 		/// @note If value is an empty Array, the no filtering will be used.
-		static inline void setTagFilters(Array<String> value) { tag_filters = value; }
+		static inline void setTagFilters(Array<String> value) { tagFilters = value; }
 		/// @brief Sets all logging levels at once.
 		/// @param[in] write Value for Log level Write.
 		/// @param[in] write Value for Log level Error.
@@ -78,7 +79,7 @@ namespace hltypes
 		/// @brief Sets the callback function that is called after logging.
 		/// @param[in] function Callback function.
 		/// @note The callback is called in a thread-safe manner.
-		static inline void setCallbackFunction(void (*function)(const String&, const String&)) { callback_function = function; }
+		static inline void setCallbackFunction(void (*function)(const String&, const String&)) { callbackFunction = function; }
 
 		/// @brief Logs a message on the log level Write.
 		/// @param[in] tag The message tag.
@@ -119,19 +120,25 @@ namespace hltypes
 
 	protected:
 		/// @brief Flag for Write level logging.
-		static bool level_write;
+		static bool levelWrite;
 		/// @brief Flag for Error level logging.
-		static bool level_error;
+		static bool levelError;
 		/// @brief Flag for Warn level logging.
-		static bool level_warn;
+		static bool levelWarn;
 		/// @brief Flag for Debug level logging.
-		static bool level_debug;
+		static bool levelDebug;
 		/// @brief Filters for tags that should be logged.
-		static Array<String> tag_filters;
+		static Array<String> tagFilters;
 		/// @brief Filename for logging to files.
 		static String filename;
 		/// @brief Callback function for logging.
-		static void (*callback_function)(const String&, const String&);
+		static void(*callbackFunction)(const String&, const String&);
+		/// @brief Mutex to ensure thread-safe handling
+		static Mutex mutex;
+		/// @brief Used for segmented Win32 log files.
+		static int fileIndex;
+		/// @brief Used for segmented Win32 log files.
+		static String fileExtension;
 
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
@@ -145,7 +152,11 @@ namespace hltypes
 		/// @param[in] message The message to log.
 		/// @param[in] level Log level (required for Android).
 		/// @return True if the message could be logged.
-		static bool _system_log(const String& tag, const String& message, int level);
+		static bool _systemLog(const String& tag, const String& message, int level);
+		/// @brief Used for segmented Win32 log files.
+		static String _makeFilename(const String& filename, int index);
+		/// @brief Used for segmented Win32 log files.
+		static String _makeCurrentFilename(const String& filename);
 
 	};
 }

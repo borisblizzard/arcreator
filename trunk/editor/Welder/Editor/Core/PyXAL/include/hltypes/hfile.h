@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -22,7 +22,6 @@
 
 namespace hltypes
 {
-	template <class T> class Array;
 	/// @brief Provides high level file handling.
 	/// @note When writing, \\r may be used, but \\r will be removed during read.
 	class hltypesExport File : public FileBase
@@ -31,8 +30,7 @@ namespace hltypes
 		/// @brief Constructor that immediately opens a file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		File(const String& filename, AccessMode access_mode = READ, unsigned char encryption_offset = 0);
+		DEPRECATED_ATTRIBUTE File(const String& filename, AccessMode access_mode = READ);
 		/// @brief Basic constructor.
 		File();
 		/// @brief Destructor.
@@ -40,9 +38,8 @@ namespace hltypes
 		/// @brief Opens a file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
 		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
-		void open(const String& filename, AccessMode access_mode = READ, unsigned char encryption_offset = 0);
+		void open(const String& filename, AccessMode access_mode = READ);
 		/// @brief Closes file.
 		void close();
 		
@@ -53,17 +50,17 @@ namespace hltypes
 		/// @brief Creates a file or clears the file if it already exists.
 		/// @param[in] filename Name of the file.
 		/// @return True if a new file was created or cleared. False if file could not be created.
-		static bool create_new(const String& filename);
+		static bool createNew(const String& filename);
 		/// @brief Removes a file.
 		/// @param[in] filename Name of the file.
 		/// @return True if file exists and was removed.
 		static bool remove(const String& filename);
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
-		/// @param[in] case_sensitive Whether to check case sensitive files if file was not found (costly).
+		/// @param[in] caseSensitive Whether to check case sensitive files if file was not found (costly).
 		/// @return True if file exists.
-		/// @note Disabling case_sensitive is somewhat costly if the given file is not found at first.
-		static bool exists(const String& filename, bool case_sensitive = true);
+		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& filename, bool caseSensitive = true);
 		/// @brief Clears a file recursively.
 		/// @param[in] filename Name of the file.
 		/// @return True if file was cleared. False if file does not exist or is already empty.
@@ -89,9 +86,6 @@ namespace hltypes
 		/// @return True if file was copied. False if old file does not exist or file with the new name already exists.
 		/// @note If path does not exist, it will be created.
 		static bool copy(const String& old_filename, const String& new_filename, bool overwrite = false);
-		/// @brief Opens file, gets size and closes file.
-		/// @see size
-		static long hsize(const String& filename);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(int count)
 		static String hread(const String& filename, int count);
@@ -107,31 +101,41 @@ namespace hltypes
 		/// @brief Gets the file information provided by the OS.
 		/// @param[in] filename The filename of the file.
 		/// @return File information provided by the OS.
-		static FileInfo get_info(const String& filename);
-		
+		static FileInfo hinfo(const String& filename);
+
+		DEPRECATED_ATTRIBUTE static bool create_new(const String& filename) { return File::createNew(filename); }
+		DEPRECATED_ATTRIBUTE static FileInfo get_info(const String& filename) { return File::hinfo(filename); }
+		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return File::hinfo(filename).size; } // use hinfo like this to get the size
+
 	protected:
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
-		long _read(void* buffer, int size, int count);
+		int _read(void* buffer, int count);
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		long _write(const void* buffer, int size, int count);
+		int _write(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
-		bool _is_open();
+		bool _isOpen();
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
-		long _position();
+		int64_t _position();
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
-		void _seek(long offset, SeekMode seek_mode = CURRENT);
+		/// @param[in] seekMode Seeking mode.
+		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
+
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		File(const File& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		File& operator=(File& other);
 
 	};
 }

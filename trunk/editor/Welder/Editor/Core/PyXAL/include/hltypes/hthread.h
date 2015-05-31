@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -13,11 +13,8 @@
 #ifndef HLTYPES_THREAD_H
 #define HLTYPES_THREAD_H
 
-#ifndef _WIN32
-#include <pthread.h>
-#endif
-
 #include "hltypesExport.h"
+#include "hstring.h"
 
 namespace hltypes
 {
@@ -27,12 +24,16 @@ namespace hltypes
 	public:
 		/// @brief Basic constructor.
 		/// @param[in] function Function pointer for the callback.
-		Thread(void (*function)(Thread*));
+		/// @param[in] name Name for the thread.
+		Thread(void (*function)(Thread*), const String& name = "");
 		/// @brief Destructor.
 		virtual ~Thread();
 		/// @brief Sets function.
 		/// @param[in] value New function.
 		inline void setFunction(void (*value)(Thread*)) { this->function = value; }
+		/// @brief Gets the thread name.
+		/// @return Thread name.
+		inline String getName() { return this->name; }
 		/// @brief Gets whether the thread is running.
 		/// @return True if the thread is running.
 		inline bool isRunning() { return this->running; }
@@ -49,17 +50,28 @@ namespace hltypes
 		/// @brief Joins thread.
 		void join();
 		/// @brief Puts current thread to sleep.
-		/// @param[in] miliseconds How long to sleep in miliseconds.
-		static void sleep(float miliseconds);
+		/// @param[in] milliseconds How long to sleep in milliseconds.
+		static void sleep(float milliseconds);
 		
 	protected:
 		/// @brief The callback function of the thread.
 		void (*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
 		void* id;
+		/// @brief Thread name.
+		/// @note Usually used for debugging purposes.
+		String name;
 		/// @brief Flag that determines whether the thread is running or not.
 		volatile bool running;
 		
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		Thread(const Thread& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		Thread& operator=(Thread& other);
+
 	};
 }
 

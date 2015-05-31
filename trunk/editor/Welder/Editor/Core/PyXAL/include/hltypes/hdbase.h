@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -24,14 +24,14 @@ namespace hltypes
 	class hltypesExport DirBase
 	{
 	public:
-		/// @brief Gets the base directory of a filename/directory.
-		/// @param[in] path The path.
-		/// @return Base directory of the given filename/directory.
-		static String basedir(const String& path);
 		/// @brief Gets the base filename/directory without the prepended directory path.
 		/// @param[in] path The path.
 		/// @return Base filename/directory without the prepended directory path.
-		static String basename(const String& path);
+		static String baseName(const String& path);
+		/// @brief Gets the base directory name of a filename/directory.
+		/// @param[in] path The path.
+		/// @return Base directory name of the given filename/directory.
+		static String baseDir(const String& path);
 		/// @brief Changes all platform-specific directory separators to / and removal of duplicate /.
 		/// @param[in] path The path.
 		/// @return Path with all platform-specific directory separators changed to /.
@@ -44,31 +44,37 @@ namespace hltypes
 		/// @brief Joins two paths taking into consideration slashes at both ends.
 		/// @param[in] path1 First path.
 		/// @param[in] path2 Second path.
-		/// @param[in] systemize_result Whether to systemize the resulting path as well.
+		/// @param[in] systemizeResult Whether to systemize the resulting path as well.
 		/// @return Joined path.
-		static String join_path(const String& path1, const String& path2, bool systemize_result = false);
+		static String joinPath(const String& path1, const String& path2, bool systemizeResult = false);
 		/// @brief Joins an array of paths taking into consideration slashes at both ends.
 		/// @param[in] paths Array of paths.
-		/// @param[in] systemize_result Whether to systemize the resulting path as well.
+		/// @param[in] systemizeResult Whether to systemize the resulting path as well.
 		/// @return Joined path.
-		static String join_paths(Array<String> paths, bool systemize_result = false);
+		static String joinPaths(Array<String> paths, bool systemizeResult = false);
 		/// @brief Splits a non-systemized path into its segments.
 		/// @param[in] path The path.
 		/// @return Split path.
-		static Array<String> split_path(const String& path);
+		static Array<String> splitPath(const String& path);
+
+		DEPRECATED_ATTRIBUTE static String basename(const String& path) { return DirBase::baseName(path); }
+		DEPRECATED_ATTRIBUTE static String basedir(const String& path) { return DirBase::baseDir(path); }
+		DEPRECATED_ATTRIBUTE static String join_path(const String& path1, const String& path2, bool systemizeResult = false) { return DirBase::joinPath(path1, path2, systemizeResult); }
+		DEPRECATED_ATTRIBUTE static String join_paths(Array<String> paths, bool systemizeResult = false) { return DirBase::joinPaths(paths, systemizeResult); }
+		DEPRECATED_ATTRIBUTE static Array<String> split_path(const String& path) { return DirBase::splitPath(path); }
 
 	protected:
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		DirBase() { }
+		inline DirBase() { }
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		virtual ~DirBase() { }
+		inline virtual ~DirBase() { }
 
 		/// @brief Prepends the directory name to each path entry.
 		/// @param[in] dirname Directory name.
 		/// @param[in] entries Directory entries.
-		static void _prepend_directory(const String& dirname, Array<String>& entries);
+		static void _prependDirectory(const String& dirname, Array<String>& entries);
 	
 	};
 }

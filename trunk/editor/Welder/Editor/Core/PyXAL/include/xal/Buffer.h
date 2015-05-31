@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.2
+/// @version 3.4
 /// 
 /// @section LICENSE
 /// 
@@ -14,6 +14,7 @@
 #define XAL_BUFFER_H
 
 #include <hltypes/hltypesUtil.h>
+#include <hltypes/hstream.h>
 #include <hltypes/hstring.h>
 
 #include "AudioManager.h"
@@ -21,6 +22,7 @@
 
 namespace xal
 {
+	class BufferAsync;
 	class Player;
 	class Sound;
 	class Source;
@@ -30,6 +32,7 @@ namespace xal
 	{
 	public:
 		friend class AudioManager;
+		friend class BufferAsync;
 
 		/// @brief Constructor.
 		/// @param[in] sound Sound object for which to create the buffer.
@@ -39,8 +42,9 @@ namespace xal
 
 		HL_DEFINE_GET(hstr, filename, Filename);
 		HL_DEFINE_GET(int, fileSize, FileSize);
-		HL_DEFINE_GET(unsigned char*, stream, Stream);
+		inline hstream& getStream() { return this->stream; }
 		HL_DEFINE_GET(Source*, source, Source);
+		HL_DEFINE_GET(float, idleTime, IdleTime);
 
 		int getSize();
 		int getChannels();
@@ -48,6 +52,10 @@ namespace xal
 		int getBitsPerSample();
 		float getDuration();
 		Format getFormat();
+		/// @return True if the Buffer's data is loaded.
+		bool isLoaded();
+		/// @return True if the Buffer's data is queued for asynchronous loading.
+		bool isAsyncLoadQueued();
 		/// @return True if the Buffer accesses streamed data.
 		bool isStreamed();
 		/// @return True if the Buffer's data is managed.
@@ -57,6 +65,9 @@ namespace xal
 
 		/// @brief Prepares the Buffer by pre-loaded meta-data and getting Sources ready to provide audio data.
 		void prepare();
+		/// @brief Prepares the Buffer by pre-loaded meta-data and getting Sources ready to provide audio data asynchronously.
+		/// @return True if the Buffer was queued successfully.
+		bool prepareAsync();
 		/// @brief Loads audio data from the Source.
 		/// @param[in] looping Whether the data should be loaded in a looped manner.
 		/// @param[in] size The maximum number of bytes to load.
@@ -88,11 +99,9 @@ namespace xal
 		/// @note This is only used by some audio systems.
 		int calcInputSize(int size);
 		/// @brief Reads the raw PCM data from the buffer.
-		/// @param[in] size The byte-size of the data in the audio system.
-		/// @param[out] output The buffer where to store the PCM data. It should be uninitialized. It will be set to NULL.
-		/// @return The byte-size of the read data.
+		/// @param[out] output The data stream where to store the PCM data.
 		/// @note If the Source does not provide data as PCM, it will always be converted to PCM.
-		int readPcmData(unsigned char** output);
+		void readPcmData(hstream& output);
 
 	protected:
 		/// @brief Filename of the source.
@@ -104,11 +113,13 @@ namespace xal
 		/// @brief Whether the underlying source was loaded.
 		bool loaded;
 		/// @brief Current data provided by the buffer.
-		unsigned char* stream;
-		/// @brief Size of the currently provided data.
-		int streamSize;
-		/// @brief Size of all the data.
-		int dataSize;
+		hstream stream;
+		/// @brief Flag for whether an asynchronous load was queued.
+		bool asyncLoadQueued;
+		/// @brief Flag for whether asynchronously loaded data should be discarded.
+		bool asyncLoadDiscarded;
+		/// @brief Mutex for access of asynchronously loaded data.
+		hmutex asyncLoadMutex;
 		/// @brief Connected Source from which data is read.
 		Source* source;
 		/// @brief Whether meta-data has been loaded.
@@ -120,7 +131,7 @@ namespace xal
 		/// @brief Sampling rate of the Source's audio data.
 		int samplingRate;
 		/// @brief Number of bits per sample of the Source's audio data.
-		int bitPerSample;
+		int bitsPerSample;
 		/// @brief Duration of the audio data in seconds.
 		float duration;
 		/// @brief List of bound Player instances.
@@ -128,8 +139,8 @@ namespace xal
 		harray<Player*> boundPlayers;
 		/// @brief How much time has passed since the last access of this buffer (in seconds).
 		float idleTime;
-
-		/// @brief updates the Buffer.
+		
+		/// @brief Updates the Buffer.
 		/// @param[in] timeDelta Time passed since the last update.
 		void _update(float timeDelta);
 		/// @brief Tries to load meta-data from the Source.
@@ -137,6 +148,17 @@ namespace xal
 		/// @brief Tries to free up memory.
 		/// @return True if any memory was freed.
 		bool _tryClearMemory();
+
+		/// @brief Loads the async data from the disk into a stream.
+		/// @return True if there is a stream ready. False if loading was canceled in the meantime.
+		bool _prepareAsyncStream();
+		/// @brief Decodes the asynchronously loaded data.
+		/// @param[in] stream The stream from which to decode the data.
+		void _decodeFromAsyncStream();
+		/// @brief Waits for the Buffer to load asynchronously.
+		/// @param[in] timeout Max time to wait.
+		/// @note A timeout value of 0.0 means indefinitely.
+		void _waitForAsyncLoad(float timeout = 0.0f);
 
 	};
 

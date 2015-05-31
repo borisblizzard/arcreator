@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -13,6 +13,7 @@
 #ifndef HLTYPES_FILE_BASE_H
 #define HLTYPES_FILE_BASE_H
 
+#include <stdint.h>
 #include <stdio.h>
 
 #include "hsbase.h"
@@ -26,14 +27,13 @@ namespace hltypes
 	struct hltypesExport FileInfo
 	{
 		/// @brief File size.
-		/// @note Only files up to 4 GB for now.
-		unsigned long size;
+		int64_t size;
 		/// @brief The time the file was created.
-		unsigned long creation_time;
+		int64_t creationTime;
 		/// @brief The time the file was last accessed.
-		unsigned long access_time;
+		int64_t accessTime;
 		/// @brief The time the file was last modified.
-		unsigned long modification_time;
+		int64_t modificationTime;
 
 		/// @brief Constructor.
 		FileInfo();
@@ -42,7 +42,6 @@ namespace hltypes
 
 	};
 	
-	template <class T> class Array;
 	/// @brief Provides a base for high level file handling.
 	/// @note When writing, \\r may be used, but \\r will be removed during read.
 	class hltypesExport FileBase : public StreamBase
@@ -68,11 +67,9 @@ namespace hltypes
 		
 		/// @brief Constructor with filename.
 		/// @param[in] filename Name of the file (may include path).
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		FileBase(const String& filename, unsigned char encryption_offset = 0);
+		FileBase(const String& filename);
 		/// @brief Basic constructor.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		FileBase(unsigned char encryption_offset = 0);
+		FileBase();
 		/// @brief Destructor.
 		~FileBase();
 
@@ -86,11 +83,14 @@ namespace hltypes
 		/// @brief Gets the extension of the filename.
 		/// @param[in] filename The path.
 		/// @return Extension of the filename.
-		static String extension_of(const String& path);
+		static String extensionOf(const String& path);
 		/// @brief Gets the filename with the extension (with the prepended directory path).
 		/// @param[in] filename The path.
 		/// @return Filename with the extension (with the prepended directory path).
-		static String no_extension(const String& path);
+		static String withoutExtension(const String& path);
+
+		DEPRECATED_ATTRIBUTE static String extension_of(const String& path) { return FileBase::extensionOf(path); }
+		DEPRECATED_ATTRIBUTE static String no_extension(const String& path) { return FileBase::withoutExtension(path); }
 
 	protected:
 		/// @brief Current filename.
@@ -105,45 +105,53 @@ namespace hltypes
 		/// @brief Opens an OS file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
+		/// @param[in] repeats Number of repeated attempts to access a file.
+		/// @param[in] timeout Timeout in miliseconds between repeated attempts to access a file.
 		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
-		void _fopen(const String& filename, AccessMode access_mode, unsigned char encryption_offset, int repeats, float timeout);
+		void _fopen(const String& filename, AccessMode access_mode, int repeats, float timeout);
 		/// @brief Closes file.
 		void _fclose();
 		/// @brief Reads data from the file.
 		/// @param[in] src Destination data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
-		long _fread(void* buffer, int size, int count);
+		int _fread(void* buffer, int count);
 		/// @brief Writes data to the file.
 		/// @param[in] src Source data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		long _fwrite(const void* buffer, int size, int count);
+		int _fwrite(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
-		bool _fis_open();
+		virtual bool _fisOpen();
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
-		long _fposition();
+		int64_t _fposition();
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
-		void _fseek(long offset, SeekMode seek_mode = CURRENT);
+		/// @param[in] seekMode Seeking mode.
+		/// @return True if successful.
+		bool _fseek(int64_t offset, SeekMode seekMode = CURRENT);
 
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
-		/// @param[in] case_sensitive Whether to check case sensitive files if file was not found.
+		/// @param[in] caseSensitive Whether to check case sensitive files if file was not found.
 		/// @return True if file exists.
-		/// @note Disabling case_sensitive is somewhat costly if the given file is not found at first.
-		static bool _fexists(const String& filename, bool case_sensitive = true);
+		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
+		static bool _fexists(const String& filename, bool caseSensitive = true);
 
 		/// @brief Defines the number of repeated attempts to access a file.
 		static int repeats;
 		/// @brief Defines the timeout in miliseconds between repeated attempts to access a file.
 		static float timeout;
+
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		FileBase(const FileBase& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		FileBase& operator=(FileBase& other);
 
 	};
 
