@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -13,6 +13,7 @@
 #ifndef HLTYPES_STREAM_BASE_H
 #define HLTYPES_STREAM_BASE_H
 
+#include <stdint.h>
 #include <stdio.h>
 
 #include "harray.h"
@@ -21,6 +22,8 @@
 
 namespace hltypes
 {
+	class Stream;
+
 	template <class T> class Array;
 	/// @brief Provides a base class for streaming.
 	class hltypesExport StreamBase
@@ -38,26 +41,27 @@ namespace hltypes
 		};
 		
 		/// @brief Basic constructor.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		StreamBase(unsigned char encryption_offset = 0);
+		StreamBase();
 		/// @brief Destructor.
 		virtual ~StreamBase();
 
 		/// @brief Checks if data is "open".
 		/// @return True if data is "open".
-		bool is_open();
+		bool isOpen();
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
-		void seek(long offset, SeekMode seek_mode = CURRENT);
+		/// @param[in] seekMode Seeking mode.
+		/// @return True if successful.
+		bool seek(int64_t offset, SeekMode seekMode = CURRENT);
 		/// @brief Seeks to position 0.
-		void rewind();
+		/// @return True if successful.
+		bool rewind();
 		/// @brief Gets current position in data.
 		/// @return Current position in data.
-		long position();
+		int64_t position();
 		/// @brief Gets size of the data in bytes.
 		/// @return Size of the data in bytes.
-		long size();
+		int64_t size();
 		/// @brief Checks if data has reached the end.
 		/// @return True if data has reached the end.
 		bool eof();
@@ -75,11 +79,11 @@ namespace hltypes
 		/// @brief Reads one line from the stream.
 		/// @return The read line.
 		/// @note \\n is not included in the returned String.
-		String read_line();
+		String readLine();
 		/// @brief Reads all lines from the stream.
 		/// @return Array with read lines.
 		/// @note \\n is not included in the read lines.
-		Array<String> read_lines();
+		Array<String> readLines();
 		/// @brief Writes string to the stream.
 		/// @param[in] text String to write.
 		void write(const String& text);
@@ -88,10 +92,10 @@ namespace hltypes
 		void write(const char* text);
 		/// @brief Writes string to the stream and appends \\n at the end.
 		/// @param[in] text String to write.
-		void write_line(const String& text);
+		void writeLine(const String& text);
 		/// @brief Writes string to the stream and appends \\n at the end.
 		/// @param[in] text C-type string to write.
-		void write_line(const char* text);
+		void writeLine(const char* text);
 		/// @brief Writes formatted string to the stream.
 		/// @param[in] format C-type string containing format.
 		/// @param[in] ... Formatting arguments.
@@ -101,139 +105,186 @@ namespace hltypes
 		/// @param[in] count Number of bytes to read.
 		/// @return Number of bytes read.
 		/// @note If return value differs from parameter count, it can indicate a reading error or that end of file has been reached.
-		int read_raw(void* buffer, int count);
+		int readRaw(void* buffer, int count);
 		/// @brief Writes raw data to the stream.
 		/// @param[in] buffer Pointer to raw data buffer.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
-		int write_raw(void* buffer, int count);
+		virtual int writeRaw(void* buffer, int count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
-		int write_raw(StreamBase& other, int count);
+		virtual int writeRaw(StreamBase& stream, int count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @return Number of bytes written.
-		int write_raw(StreamBase& other);
+		virtual int writeRaw(StreamBase& stream);
+		/// @brief Writes raw data to the stream from another stream.
+		/// @param[in] stream Another stream.
+		/// @param[in] count Number of bytes to write.
+		/// @return Number of bytes written.
+		virtual int writeRaw(Stream& stream, int count);
+		/// @brief Writes raw data to the stream from another stream.
+		/// @param[in] stream Another stream.
+		/// @return Number of bytes written.
+		virtual int writeRaw(Stream& stream);
 
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param c Character to dump.
-		void dump(char c);
+		/// @param c char to dump.
+		/// @note Not using uint8_t because it is problematic with int8_t which is signed char and not char.
+		virtual void dump(char c);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param c Unsigned character to dump.
-		void dump(unsigned char c);
+		/// @param c unsigned char to dump.
+		/// @note Not using uint8_t because it is problematic with int8_t which is signed char and not char.
+		virtual void dump(unsigned char c);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param i Int to dump.
-		void dump(int i);
+		/// @param s short to dump.
+		virtual void dump(short s);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param i Unsigned int to dump.
-		void dump(unsigned int i);
+		/// @param s unsigned short int to dump.
+		virtual void dump(unsigned short s);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param l Long to dump.
-		void dump(long l);
+		/// @param i int to dump.
+		virtual void dump(int i);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param l Unsigned long to dump.
-		void dump(unsigned long l);
+		/// @param i unsigned int to dump.
+		virtual void dump(unsigned int i);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param s Short int to dump.
-		void dump(short s);
+		/// @param l int64 to dump.
+		virtual void dump(int64_t l);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param s Unsigned short int to dump.
-		void dump(unsigned short s);
+		/// @param l unsigned int64 to dump.
+		virtual void dump(uint64_t l);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param f Float to dump.
-		void dump(float f);
+		virtual void dump(float f);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param d Double to dump.
-		void dump(double d);
+		virtual void dump(double d);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param b Bool to dump.
-		void dump(bool b);
+		virtual void dump(bool b);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param str String to dump.
-		void dump(const String& str);
+		/// @param string String to dump.
+		virtual void dump(const String& string);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c C-type string to dump.
-		void dump(const char* c);
+		virtual void dump(const char* c);
 
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded character.
-		char load_char();
+		/// @return Loaded char.
+		virtual char loadInt8();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned character.
-		unsigned char load_uchar();
+		/// @return Loaded unsigned char.
+		virtual unsigned char loadUint8();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded int.
-		int load_int();
+		/// @return Loaded short.
+		virtual short loadInt16();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned int.
-		unsigned int load_uint();
+		/// @return Loaded unsigned short.
+		virtual unsigned short loadUint16();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded long.
-		long load_long();
+		/// @return Loaded int32.
+		virtual int loadInt32();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned long.
-		unsigned long load_ulong();
+		/// @return Loaded unsigned int32.
+		virtual unsigned int loadUint32();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded short int.
-		short load_short();
+		/// @return Loaded int64.
+		virtual int64_t loadInt64();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned short int.
-		unsigned short load_ushort();
+		/// @return Loaded unsigned int64.
+		virtual uint64_t loadUint64();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded float.
-		float load_float();
+		virtual float loadFloat();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded double.
-		double load_double();
+		virtual double loadDouble();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded bool.
-		bool load_bool();
+		virtual bool loadBool();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
-		String load_hstr();
-		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded String.
-		String load_string();
+		virtual String loadString();
 		
+		DEPRECATED_ATTRIBUTE inline bool is_open()											{ return this->isOpen(); }
+		DEPRECATED_ATTRIBUTE inline String read_line()										{ return this->readLine(); }
+		DEPRECATED_ATTRIBUTE inline Array<String> read_lines()								{ return this->readLines(); }
+		DEPRECATED_ATTRIBUTE inline void write_line(const String& text)						{ this->writeLine(text); }
+		DEPRECATED_ATTRIBUTE inline void write_line(const char* text)						{ this->writeLine(text); }
+		DEPRECATED_ATTRIBUTE inline int read_raw(void* buffer, int count)					{ return this->readRaw(buffer, count); }
+		DEPRECATED_ATTRIBUTE virtual inline int write_raw(void* buffer, int count)			{ return this->writeRaw(buffer, count); }
+		DEPRECATED_ATTRIBUTE virtual inline int write_raw(StreamBase& stream, int count)	{ return this->writeRaw(stream, count); }
+		DEPRECATED_ATTRIBUTE virtual inline int write_raw(StreamBase& stream)				{ return this->writeRaw(stream); }
+		DEPRECATED_ATTRIBUTE virtual inline int write_raw(Stream& stream, int count)		{ return this->writeRaw(stream, count); }
+		DEPRECATED_ATTRIBUTE virtual inline int write_raw(Stream& stream)					{ return this->writeRaw(stream); }
+
+		DEPRECATED_ATTRIBUTE virtual inline char load_char()				{ return this->loadInt8(); }
+		DEPRECATED_ATTRIBUTE virtual inline unsigned char load_uchar()		{ return this->loadUint8(); }
+		DEPRECATED_ATTRIBUTE virtual inline char load_int8()				{ return this->loadInt8(); }
+		DEPRECATED_ATTRIBUTE virtual inline unsigned char load_uint8()		{ return this->loadUint8(); }
+		DEPRECATED_ATTRIBUTE virtual inline short load_short()				{ return this->loadInt16(); }
+		DEPRECATED_ATTRIBUTE virtual inline unsigned short load_ushort()	{ return this->loadUint16(); }
+		DEPRECATED_ATTRIBUTE virtual inline short load_int16()				{ return this->loadInt16(); }
+		DEPRECATED_ATTRIBUTE virtual inline unsigned short load_uint16()	{ return this->loadUint16(); }
+		DEPRECATED_ATTRIBUTE virtual inline int load_int()					{ return this->loadInt32(); }
+		DEPRECATED_ATTRIBUTE virtual inline unsigned int load_uint()		{ return this->loadUint32(); }
+		DEPRECATED_ATTRIBUTE virtual inline int load_int32()				{ return this->loadInt32(); }
+		DEPRECATED_ATTRIBUTE virtual inline unsigned int load_uint32()		{ return this->loadUint32(); }
+		DEPRECATED_ATTRIBUTE virtual inline int64_t load_long()				{ return this->loadInt64(); }
+		DEPRECATED_ATTRIBUTE virtual inline uint64_t load_ulong()			{ return this->loadUint64(); }
+		DEPRECATED_ATTRIBUTE virtual inline int64_t load_int64()			{ return this->loadInt64(); }
+		DEPRECATED_ATTRIBUTE virtual inline uint64_t load_uint64()			{ return this->loadUint64(); }
+		DEPRECATED_ATTRIBUTE virtual inline float load_float()				{ return this->loadFloat(); }
+		DEPRECATED_ATTRIBUTE virtual inline double load_double()			{ return this->loadDouble(); }
+		DEPRECATED_ATTRIBUTE virtual inline bool load_bool()				{ return this->loadBool(); }
+		DEPRECATED_ATTRIBUTE virtual inline String load_hstr()				{ return this->loadString(); }
+		DEPRECATED_ATTRIBUTE virtual inline String load_string()			{ return this->loadString(); }
+
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
-		long data_size;
-		/// @brief Byte value offset while reading/writing that serves as simple binary encryption.
-		unsigned char encryption_offset;
+		int64_t dataSize;
 
-		/// @brief updates internal data size.
-		virtual void _update_data_size();
+		/// @brief Updates internal data size.
+		virtual void _updateDataSize();
 		/// @brief Checks if object can be used.
-		virtual void _check_availability();
+		virtual void _validate();
 
 		/// @brief Gets special descriptor.
 		/// @return Special descriptor.
 		virtual inline String _descriptor() { return "stream"; }
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
-		virtual long _read(void* buffer, int size, int count) = 0;
+		virtual int _read(void* buffer, int count) = 0;
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		virtual long _write(const void* buffer, int size, int count) = 0;
+		virtual int _write(const void* buffer, int count) = 0;
 		/// @brief Checks if data is "open".
 		/// @return True if data is "open".
-		virtual bool _is_open() = 0;
+		virtual bool _isOpen() = 0;
 		/// @brief Gets current position in data.
 		/// @return Current position in data.
-		virtual long _position() = 0;
+		virtual int64_t _position() = 0;
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
-		virtual void _seek(long offset, SeekMode seek_mode = CURRENT) = 0;
+		/// @param[in] seekMode Seeking mode.
+		/// @return True if successful.
+		virtual bool _seek(int64_t offset, SeekMode seekMode = CURRENT) = 0;
+
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		StreamBase(const StreamBase& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		StreamBase& operator=(StreamBase& other);
 
 	};
 }

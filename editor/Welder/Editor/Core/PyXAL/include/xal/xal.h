@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.2
+/// @version 3.4
 /// 
 /// @section LICENSE
 /// 
@@ -23,8 +23,6 @@
 #define XAL_AS_OPENSLES "OpenSLES"
 #define XAL_AS_SDL "SDL"
 #define XAL_AS_XAUDIO2 "XAudio2"
-#define XAL_AS_AVFOUNDATION "AVFoundation"
-#define XAL_AS_COREAUDIO "CoreAudio"
 
 namespace xal
 {
@@ -39,9 +37,7 @@ namespace xal
 		AS_OPENAL = 3,
 		AS_OPENSLES = 4,
 		AS_SDL = 5,
-		AS_XAUDIO2 = 6,
-		AS_AVFOUNDATION = 7,
-		AS_COREAUDIO = 8
+		AS_XAUDIO2 = 6
 	};
 
 	/// @brief Initializes XAL.

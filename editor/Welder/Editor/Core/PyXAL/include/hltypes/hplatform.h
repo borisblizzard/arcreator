@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -39,9 +39,9 @@
 #using <Windows.winmd>
 #endif
 #include <wrl.h>
-#define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).w_str().c_str())
+#define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).wStr().c_str())
 #define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
-#define _HL_PSTR_TO_HSTR(string) hstr::from_unicode((string)->Data())
+#define _HL_PSTR_TO_HSTR(string) hltypes::String::fromUnicode((string)->Data())
 #define _HL_TRY_DELETE(name) \
 	if (name != NULL) \
 	{ \
@@ -51,7 +51,7 @@
 #define _HL_TRY_DELETE_ARRAY(name) \
 	if (name != NULL) \
 	{ \
-		delete [] name; \
+		delete[] name; \
 		name = NULL; \
 	}
 #define _HL_TRY_RELEASE(name) \
@@ -71,7 +71,7 @@ namespace hltypes
 	/// @param[in] tag The message tag.
 	/// @param[in] message The message to log.
 	/// @param[in] level Log level (required for Android).
-	void _platform_print(const String& tag, const String& message, int level);
+	void _platformPrint(const String& tag, const String& message, int level);
 
 }
 

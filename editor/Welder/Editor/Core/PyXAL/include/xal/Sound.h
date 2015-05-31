@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.2
+/// @version 3.4
 /// 
 /// @section LICENSE
 /// 
@@ -38,12 +38,13 @@ namespace xal
 
 		HL_DEFINE_GET(hstr, name, Name);
 		HL_DEFINE_GET(hstr, filename, Filename);
-		HL_DEFINE_GET(hstr, realFilename, RealFilename);
 		HL_DEFINE_GET(Category*, category, Category);
 		HL_DEFINE_GET(Buffer*, buffer, Buffer);
 
 		/// @return Byte-size of the audio data.
 		int getSize();
+		/// @return source byte size
+		int getSourceSize();
 		/// @return Number of channels in the audio data.
 		int getChannels();
 		/// @return Sampling rate of the audio data.
@@ -56,30 +57,23 @@ namespace xal
 		Format getFormat();
 		/// @return True if the Sounds's Buffer accesses streamed data.
 		bool isStreamed();
+		/// @return True if the Sounds's Buffer is loaded.
+		bool isLoaded();
 
 		/// @brief Reads the raw PCM data from the buffer.
-		/// @param[in] size The byte-size of the data in the audio system.
-		/// @param[out] output The buffer where to store the PCM data. It should be uninitialized. It will be set to NULL.
-		/// @return The byte-size of the read data.
+		/// @param[out] output The data stream where to store the PCM data.
 		/// @note If the underlying Source does not provide data as PCM, it will always be converted to PCM.
-		int readPcmData(unsigned char** output);
+		void readPcmData(hstream& output);
 
 	protected:
 		/// @brief Name of the Sound.
 		hstr name;
 		/// @brief Logical filename of the Sound.
 		hstr filename;
-		/// @brief Actual filename of the Sound.
-		/// @note This member includes the path as well as file extension.
-		hstr realFilename;
 		/// @brief Category to which the Sound is assigned.
 		Category* category;
-		/// @brief Buffer instance that handles
+		/// @brief Buffer instance that handles decoded data.
 		Buffer* buffer;
-
-		/// @return Finds the linked filename from an XLN file.
-		/// @note TODO - will be possibly removed in the future
-		hstr _findLinkedFile();
 
 	};
 

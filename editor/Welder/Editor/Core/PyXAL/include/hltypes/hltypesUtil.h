@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -14,15 +14,16 @@
 #define HLTYPES_UTIL_H
 
 #include <math.h>
+#include <stdint.h>
 
 #include "hltypesExport.h"
 #include "hstring.h"
 
 namespace hltypes
 {
-	template <class T> class Array;
+	class Stream;
 	class StreamBase;
-	extern hstr logTag;
+	extern String logTag;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
@@ -56,7 +57,7 @@ namespace hltypes
 /// @note This uses atan2.
 #define datan(value) (atan2(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
-#define HL_E_TOLERANCE 0.01
+#define HL_E_TOLERANCE 0.0001
 
 /// @brief Utility macro for quick getter definition.
 /// @param[in] type Variable type.
@@ -198,11 +199,17 @@ namespace hltypes
 /// @brief Gets the number of seconds passed since 1970/01/01 UTC.
 /// @return Number of seconds passed since 1970/01/01 UTC.
 /// @note Useful for rand operations, like setting the rand generator with srand().
-hltypesFnExport unsigned int get_system_time();
+hltypesFnExport uint64_t htime();
 /// @brief Gets the number of miliseconds passed since the system boot.
 /// @brief Number of miliseconds passed since the system boot.
 /// @note Useful for rand operations, like setting the rand generator with srand().
-hltypesFnExport unsigned int get_system_tick_count();
+/// @note Not all platforms actually support uint64 so be careful with this.
+hltypesFnExport uint64_t htickCount();
+/// @brief Gets an environment variable as String.
+/// @param[in] env The environment variable.
+/// @return Environment variable as String.
+/// @note May not be available on all platforms (e.g. WinRT does not support it).
+hltypesFnExport hltypes::String henv(const hltypes::String& name);
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
@@ -291,6 +298,10 @@ hltypesFnExport int habs(int value);
 /// @brief Gets absolute value.
 /// @param[in] value The value to be absoluted.
 /// @return Absoluted value.
+hltypesFnExport int64_t habs(int64_t value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
 hltypesFnExport long habs(long value);
 /// @brief Gets absolute value.
 /// @param[in] value The value to be absoluted.
@@ -309,6 +320,11 @@ hltypesFnExport long double habs(long double value);
 /// @param[in] m Modulo value.
 /// @return The always-positive value of i mod m.
 hltypesFnExport int hmod(int i, int m);
+/// @brief Gets the always-positive value of i mod m.
+/// @param[in] i Integer value.
+/// @param[in] m Modulo value.
+/// @return The always-positive value of i mod m.
+hltypesFnExport int64_t hmod(int64_t i, int64_t m);
 /// @brief Gets the always-positive value of f mod m.
 /// @param[in] f Float value.
 /// @param[in] m Modulo value.
@@ -374,12 +390,12 @@ hltypesFnExport int hhypotSquared(int a, int b);
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport float hhypotSquaredf(int a, int b);
+hltypesFnExport float hhypotfSquared(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The double squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport double hhypotSquaredd(int a, int b);
+hltypesFnExport double hhypotdSquared(int a, int b);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
@@ -400,31 +416,46 @@ hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @param[in] b Second double value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE);
-/// @brief Gets an environment variable as String.
-/// @param[in] env The environment variable.
-/// @return Environment variable as String.
-hltypesFnExport hstr get_environment_variable(chstr name);
-
-// DEPRECATED
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basedir(chstr path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basename(chstr path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr systemize_path(chstr path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr normalize_path(chstr path);
+/// @brief Returns the next power-of-two value of the given number.
+/// @param[in] value the number to check.
+/// @return The next power-of-two value of the given number.
+hltypesFnExport int hpotceil(int value);
+/// @brief Returns the next power-of-two value of the given number.
+/// @param[in] value the number to check.
+/// @return The next power-of-two value of the given number.
+hltypesFnExport int64_t hpotceil(int64_t value);
+/// @brief Returns the previous power-of-two value of the given number.
+/// @param[in] value the number to check.
+/// @return The previous power-of-two value of the given number.
+hltypesFnExport int hpotfloor(int value);
+/// @brief Returns the previous power-of-two value of the given number.
+/// @param[in] value the number to check.
+/// @return The previous power-of-two value of the given number.
+hltypesFnExport int64_t hpotfloor(int64_t value);
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.
 /// @return CRC32 value of the stream.
-hltypesFnExport unsigned int calc_crc32(unsigned char* data, long size);
+hltypesFnExport unsigned int hcrc32(const unsigned char* data, unsigned int size);
 /// @brief Calculates CRC32 from a StreamBase.
 /// @param[in] stream StreamBase from which to calculate the CRC32.
 /// @param[in] size Number of bytes to read for CRC32.
 /// @return CRC32 value of the StreamBase.
-hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, long size);
+hltypesFnExport unsigned int hcrc32(hltypes::StreamBase* stream, unsigned int size);
 /// @brief Calculates CRC32 from a StreamBase.
 /// @param[in] stream StreamBase from which to calculate the CRC32.
 /// @return CRC32 value of the StreamBase.
-hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
+hltypesFnExport unsigned int hcrc32(hltypes::StreamBase* stream);
+/// @brief Calculates CRC32 from a Stream.
+/// @param[in] stream Stream from which to calculate the CRC32.
+/// @param[in] size Number of bytes to read for CRC32.
+/// @return CRC32 value of the Stream.
+hltypesFnExport unsigned int hcrc32(hltypes::Stream* stream, unsigned int size);
+/// @brief Calculates CRC32 from a Stream.
+/// @param[in] stream Stream from which to calculate the CRC32.
+/// @return CRC32 value of the Stream.
+hltypesFnExport unsigned int hcrc32(hltypes::Stream* stream);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.
@@ -477,8 +508,9 @@ inline int hsgn(T value)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is between minimum and maximum.
+/// @note The "II" at the end indicates "inclusive minimum, inclusive maximum".
 template <class T>
-inline bool is_between(T value, T min, T max)
+inline bool hbetweenII(T value, T min, T max)
 {
 	return (value >= min && value <= max);
 }
@@ -487,8 +519,9 @@ inline bool is_between(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is between minimum and maximum.
+/// @note The "EE" at the end indicates "exclusive minimum, exclusive maximum".
 template <class T>
-inline bool is_within(T value, T min, T max)
+inline bool hbetweenEE(T value, T min, T max)
 {
 	return (value > min && value < max);
 }
@@ -497,8 +530,9 @@ inline bool is_within(T value, T min, T max)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is inside of minimum and maximum.
+/// @note The "IE" at the end indicates "inclusive minimum, exclusive maximum".
 template <class T>
-inline bool is_in_range(T value, T min, T max)
+inline bool hbetweenIE(T value, T min, T max)
 {
 	return (value >= min && value < max);
 }
@@ -507,10 +541,31 @@ inline bool is_in_range(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is inside of minimum and maximum.
+/// @note The "EI" at the end indicates "exclusive minimum, inclusive maximum".
 template <class T>
-inline bool is_inside(T value, T min, T max) // I'd like to be inside
+inline bool hbetweenEI(T value, T min, T max)
 {
 	return (value > min && value <= max);
 }
+
+DEPRECATED_ATTRIBUTE hltypesFnExport uint64_t get_system_time();
+DEPRECATED_ATTRIBUTE hltypesFnExport uint64_t get_system_tick_count();
+DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String get_environment_variable(const hltypes::String& name);
+DEPRECATED_ATTRIBUTE hltypesFnExport float hhypot_squared(float a, float b);
+DEPRECATED_ATTRIBUTE hltypesFnExport double hhypot_squared(double a, double b);
+DEPRECATED_ATTRIBUTE hltypesFnExport int hhypot_squared(int a, int b);
+DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotf_squared(int a, int b);
+DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotd_squared(int a, int b);
+DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(unsigned char* data, unsigned int size);
+DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, unsigned int size);
+DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ii(T value, T min, T max) { return hbetweenII(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ee(T value, T min, T max) { return hbetweenEE(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ie(T value, T min, T max) { return hbetweenIE(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ei(T value, T min, T max) { return hbetweenEI(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_between(T value, T min, T max) { return hbetweenII(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_within(T value, T min, T max) { return hbetweenEE(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_in_range(T value, T min, T max) { return hbetweenIE(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_inside(T value, T min, T max) { return hbetweenEI(value, min, max); }
 
 #endif

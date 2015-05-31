@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -30,33 +30,33 @@ namespace hltypes
 		friend class Resource;
 
 		/// @brief Checks if a resource directory exists.
-		/// @param[in] dirname Name of the resource directory.
-		/// @param[in] case_sensitive Whether to check case sensitive files if file was not found.
+		/// @param[in] dirName Name of the resource directory.
+		/// @param[in] caseSensitive Whether to check case sensitive files if file was not found.
 		/// @return True if resource directory exists.
-		/// @note Disabling case_sensitive is somewhat costly if the given file is not found at first.
-		static bool exists(const String& dirname, bool case_sensitive = true);
+		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& dirName, bool caseSensitive = true);
 		/// @brief Gets all resource directory entries in the given resource directory.
-		/// @param[in] dirname Name of the resource directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource entries.
+		/// @param[in] dirName Name of the resource directory.
+		/// @param[in] prependDir Whether the same parent path should be appended to the resource entries.
 		/// @return Array of all resource directory entries.
 		/// @note Entries include "." and "..".
-		static Array<String> entries(const String& dirname, bool prepend_dir = false);
+		static Array<String> entries(const String& dirName, bool prependDir = false);
 		/// @brief Gets all physical resource directory contents in the given resource directory.
-		/// @param[in] dirname Name of the resource directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource contents.
+		/// @param[in] dirName Name of the resource directory.
+		/// @param[in] prependDir Whether the same parent path should be appended to the resource contents.
 		/// @return Array of all resource directory contents.
 		/// @note Contents do not include "." and "..".
-		static Array<String> contents(const String& dirname, bool prepend_dir = false);
+		static Array<String> contents(const String& dirName, bool prependDir = false);
 		/// @brief Gets all resource directories in the given directory.
-		/// @param[in] dirname Name of the resource directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource directory paths.
+		/// @param[in] dirName Name of the resource directory.
+		/// @param[in] prependDir Whether the same parent path should be appended to the resource directory paths.
 		/// @return Array of all resource directories.
-		static Array<String> directories(const String& dirname, bool prepend_dir = false);
+		static Array<String> directories(const String& dirName, bool prependDir = false);
 		/// @brief Gets all resource files in the given directory.
-		/// @param[in] dirname Name of the directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
+		/// @param[in] dirName Name of the directory.
+		/// @param[in] prependDir Whether the same parent path should be appended to the file paths.
 		/// @return Array of all files.
-		static Array<String> files(const String& dirname, bool prepend_dir = false);
+		static Array<String> files(const String& dirName, bool prependDir = false);
 
 	protected:
 		/// @brief Cache for directory entries.
@@ -77,15 +77,15 @@ namespace hltypes
 		/// @param[in,out] path The resource path which gets modified.
 		/// @param[in] prefix Prefix to check.
 		/// @return True if prefix matches.
-		static bool _check_dir_prefix(String& path, const String& prefix);
+		static bool _checkDirPrefix(String& path, const String& prefix);
 		/// @brief Gets the file listing within the resource archive.
 		/// @return True File listing within the resource archive.
 		/// @note This is usually only used when ZIP resources are being used.
-		static Array<String> _get_internal_files();
+		static Array<String> _getInternalFiles();
 		/// @brief Removes CWD from resource paths.
 		/// @param[in] paths The resource paths.
 		/// @return Resource paths without the CWD.
-		static Array<String> _remove_cwd(Array<String> paths);
+		static Array<String> _removeCwd(Array<String> paths);
 
 	};
 }
