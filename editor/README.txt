@@ -65,6 +65,7 @@
           pip install setuptools
 	  pip install cython
 	  pip install pyitect
+          pip install numpy
 	  pip install pillow
 	  pip install pyglet
 	  pip install https://github.com/Ryex/Rabbyt/archive/0.8.3-3-cythonpy3.zip
