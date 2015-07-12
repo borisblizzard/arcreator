@@ -163,10 +163,7 @@
 /engine/*.lnk
 /engine/*.mk
 /engine/*.user
-/engine/*.ncb
 /engine/*.suo
-/engine/*.tags
-/engine/*.session
 /engine/*.sdf
 /engine/*.opensdf
 /engine/*.log
@@ -174,7 +171,6 @@
 /engine/log
 /engine/ipch
 /engine/Debug
-/engine/_ReSharper.arc_2010
 
 # /engine/Data/Scripts/
 
@@ -184,10 +180,7 @@
 /engine/lib/legacy/*.lnk
 /engine/lib/legacy/*.mk
 /engine/lib/legacy/*.user
-/engine/lib/legacy/*.ncb
 /engine/lib/legacy/*.suo
-/engine/lib/legacy/*.tags
-/engine/lib/legacy/*.session
 /engine/lib/legacy/*.sdf
 /engine/lib/legacy/*.opensdf
 /engine/lib/legacy/bin
@@ -196,10 +189,7 @@
 /engine/lib/reactor/*.lnk
 /engine/lib/reactor/*.mk
 /engine/lib/reactor/*.user
-/engine/lib/reactor/*.ncb
 /engine/lib/reactor/*.suo
-/engine/lib/reactor/*.tags
-/engine/lib/reactor/*.session
 /engine/lib/reactor/*.sdf
 /engine/lib/reactor/*.opensdf
 /engine/lib/reactor/bin
