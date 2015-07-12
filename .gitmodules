@@ -1,0 +1,3 @@
+[submodule "engine/lib/gtypes"]
+	path = engine/lib/gtypes
+	url = https://github.com/AprilAndFriends/gtypes.git
