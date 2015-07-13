@@ -1,0 +1,4 @@
+[Project]
+Title=EventTest
+[Files]
+list=Actors|Classes|Skills|Items|Weapons|Armors|Enemies|Troops|States|Animations|Tilesets|CommonEvents|System|MapInfos
