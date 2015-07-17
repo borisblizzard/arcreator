@@ -213,7 +213,6 @@ class Packager:
     def add_package(self, path):
         excludes = self.excludes + [
             path.name + "/__init__.py",
-            path.name + "/on_enable.py",
             path.name + "/GenImages.py"]
         p = Package(
             path.parent, path.name, [path.name + "/*.py"], excludes=excludes)

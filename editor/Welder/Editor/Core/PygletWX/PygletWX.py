@@ -11,6 +11,10 @@ pyglet.options['shadow_window'] = False
 from pyglet import gl
 
 
+def on_enable():
+    print("forcing PygletWX load to ensure proper pyglet import")
+
+
 class PygletGLPanel(wx.Panel):
 
     '''A simple class for using pyglet OpenGL with wxPython.'''
