@@ -789,6 +789,9 @@
     <EmbeddedResource Include="Files\Default.7z" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assemblies\ARCed.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assemblies\Dejavu.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2020,43 +2023,6 @@
     <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ARCed.Controls\ARCed.Controls.csproj">
-      <Project>{E302ABFC-CB38-4FC6-A223-561B3B64B229}</Project>
-      <Name>ARCed.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
-      <Project>{0890E629-23C8-462E-B836-AA05ABD22E17}</Project>
-      <Name>ARCed.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.Plugins\ARCed.Plugins.csproj">
-      <Project>{1E120825-9105-41C8-80F6-F4BDFCC1A9DA}</Project>
-      <Name>ARCed.Plugins</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.Project\ARCed.Project.csproj">
-      <Project>{CB4B14CC-7F28-47E3-8BAE-8ACB3B80CFAA}</Project>
-      <Name>ARCed.Project</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.Scintilla\ARCed.Scintilla.csproj">
-      <Project>{A4955F62-9543-48A1-80B4-5EC0D52F07B5}</Project>
-      <Name>ARCed.Scintilla</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
-      <Project>{0E258A7C-61C2-4945-96A2-447D39E705DA}</Project>
-      <Name>ARCed.UI</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.Xna\ARCed.Xna.csproj">
-      <Project>{A8CABA22-80D4-48A9-B3D0-EF358D12F301}</Project>
-      <Name>ARCed.Xna</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -2078,7 +2044,36 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ARCed.Controls\ARCed.Controls.csproj">
+      <Project>{E302ABFC-CB38-4FC6-A223-561B3B64B229}</Project>
+      <Name>ARCed.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
+      <Project>{0890E629-23C8-462E-B836-AA05ABD22E17}</Project>
+      <Name>ARCed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Plugins\ARCed.Plugins.csproj">
+      <Project>{1E120825-9105-41C8-80F6-F4BDFCC1A9DA}</Project>
+      <Name>ARCed.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Project\ARCed.Project.csproj">
+      <Project>{CB4B14CC-7F28-47E3-8BAE-8ACB3B80CFAA}</Project>
+      <Name>ARCed.Project</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Scintilla\ARCed.Scintilla.csproj">
+      <Project>{A4955F62-9543-48A1-80B4-5EC0D52F07B5}</Project>
+      <Name>ARCed.Scintilla</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
+      <Project>{0E258A7C-61C2-4945-96A2-447D39E705DA}</Project>
+      <Name>ARCed.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Xna\ARCed.Xna.csproj">
+      <Project>{A8CABA22-80D4-48A9-B3D0-EF358D12F301}</Project>
+      <Name>ARCed.Xna</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

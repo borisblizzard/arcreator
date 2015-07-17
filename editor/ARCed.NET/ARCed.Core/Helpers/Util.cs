@@ -37,9 +37,16 @@ namespace ARCed.Helpers
                 {
                     _rpgTypes = new TypeMap();
                     foreach (var type in GetTypesInNamespace(ARCedCoreAssembly, "RPG"))
-                        _rpgTypes[type.ToString()] = type;
-                    _rpgTypes.Add("Table", typeof(Table));
-                    _rpgTypes.Add("Color", typeof(Color));
+                    {
+                        if (type.Name == "Table")
+                            _rpgTypes["Table"] = type;
+                        else if (type.Name == "Color")
+                            _rpgTypes["Color"] = type;
+                        else
+                            _rpgTypes[type.ToString()] = type;
+                    }
+                    //_rpgTypes.Add("Table", typeof(Table));
+                    //_rpgTypes.Add("Color", typeof(Color));
                 }
                 return _rpgTypes;
             }
