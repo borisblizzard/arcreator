@@ -6,6 +6,7 @@ import Kernel
 
 from PyitectConsumes import PanelManager
 
+
 class MainWindowLayout(object):
 
     def __init__(self, parent, aui_mgr):
@@ -14,18 +15,27 @@ class MainWindowLayout(object):
         self.aui_mgr = aui_mgr
         self.mgr = PanelManager(self.parent, self.aui_mgr)
         if "PanelManager" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["PanelManager"] =  self.mgr
+            Kernel.GlobalObjects["PanelManager"] = self.mgr
         else:
-            Kernel.GlobalObjects.request_new_key("PanelManager", "CORE", self.mgr)
+            Kernel.GlobalObjects.request_new_key(
+                "PanelManager",
+                "CORE",
+                self.mgr
+            )
 
         self.CreateToolbars()
         self.CreateStartPanel()
         self.layout = ARCModeLayout()
-        
 
     def CreateToolbars(self):
-        self.maintoolbar = self.mgr.dispatchPanel("MainToolbar", "Main Toolbar")
-        self.databasetoolbar = self.mgr.dispatchPanel("DatabaseToolbar", "Database Toolbar")
+        self.maintoolbar = self.mgr.dispatchPanel(
+            "MainToolbar",
+            "Main Toolbar"
+        )
+        self.databasetoolbar = self.mgr.dispatchPanel(
+            "DatabaseToolbar",
+            "Database Toolbar"
+        )
 
     def CreateStartPanel(self):
         self.startPanel = self.mgr.dispatchPanel("StartPanel", "Start Panel")
@@ -37,9 +47,10 @@ class MainWindowLayout(object):
 
     def Refresh(self):
         self.layout.Refresh()
-        
+
+
 class ARCModeLayout(object):
-    
+
     def __init__(self):
 
         if "PanelManager" in Kernel.GlobalObjects:
@@ -49,9 +60,10 @@ class ARCModeLayout(object):
         self.windows = []
         self.BuildPanes()
 
-
     def BuildPanes(self):
-        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] == True) and "PROJECT" in Kernel.GlobalObjects:
+        if ("ProjectOpen" in Kernel.GlobalObjects and
+                Kernel.GlobalObjects["ProjectOpen"] is True and
+                "PROJECT" in Kernel.GlobalObjects):
             self.CreateTilesetView()
             self.CreateTreeCtrl()
             #self.regesterParts()
@@ -63,11 +75,17 @@ class ARCModeLayout(object):
         self.BuildPanes()
 
     def CreateTilesetView(self):
-        self.tilesetPanel = self.mgr.dispatchPanel("TilesetPanel", "Tileset Panel")
+        self.tilesetPanel = self.mgr.dispatchPanel(
+            "TilesetPanel",
+            "Tileset Panel"
+        )
         self.windows.append("Tileset Panel")
 
     def CreateTreeCtrl(self):
-        self.tilesetPanel = self.mgr.dispatchPanel("MapTreePanel", "Map Tree Panel")
+        self.tilesetPanel = self.mgr.dispatchPanel(
+            "MapTreePanel",
+            "Map Tree Panel"
+        )
         self.windows.append("Map Tree Panel")
 
     def ClearLayout(self):

@@ -14,7 +14,10 @@ import wx.lib.agw.aui as aui
 
 
 import Kernel
-from PyitectConsumes import IconManager, MainWindowLayout, MainStatusBar, MainMenuBar
+from PyitectConsumes import IconManager
+from PyitectConsumes import MainWindowLayout
+from PyitectConsumes import MainStatusBar
+from PyitectConsumes import MainMenuBar
 
 MinEditorSize = (1024, 576)
 
@@ -33,15 +36,21 @@ class AuiManager_DCP_ARC(aui.AuiManager_DCP):
 
         self.hasDummyPane = True
         #dummy = ShadowPanel(self.GetManagedWindow())
-        info = aui.AuiPaneInfo().CenterPane().NotebookDockable(
-            True).Name('dummyCenterPane').DestroyOnClose(True)
+        #info = aui.AuiPaneInfo().CenterPane().NotebookDockable(
+        #    True).Name('dummyCenterPane').DestroyOnClose(True)
         #self.AddPane(dummy, info)
 
 
 class EditorMainWindow(wx.Frame):
 
-    def __init__(self, parent, id=wx.ID_ANY, title="", pos=wx.DefaultPosition,
-                 size=MinEditorSize, style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
+    def __init__(
+            self,
+            parent,
+            id=wx.ID_ANY,
+            title="",
+            pos=wx.DefaultPosition,
+            size=MinEditorSize,
+            style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
@@ -56,7 +65,12 @@ class EditorMainWindow(wx.Frame):
 
         self._mgr = AuiManager_DCP_ARC()
         if wx.Platform == "__WXMSW__":
-            self._mgr.SetArtProvider(aui.ModernDockArt(self))
+            try:
+                import pywin32
+                del pywin32
+                self._mgr.SetArtProvider(aui.ModernDockArt(self))
+            except ImportError:
+                pass
         # tell AuiManager to manage this frame
         self._mgr.SetManagedWindow(self)
         self.layout_mgr = None
@@ -147,7 +161,8 @@ class EditorMainWindow(wx.Frame):
             current_project = Kernel.GlobalObjects["PROJECT"]
             if (current_project.hasDataChanged() or
                     current_project.hasInfoChanged()):
-                message = "There are unsaved changes in the currently open project. Do you wish to save these changes?"
+                message = ("There are unsaved changes in the currently "
+                           "open project. Do you wish to save these changes?")
                 caption = "There is an open project"
                 dlg = wx.MessageDialog(
                     self, message, caption, style=wx.YES_NO | wx.YES_DEFAULT)

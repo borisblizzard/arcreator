@@ -55,7 +55,7 @@
 				"__pycache__"
 			],
 			"name": "ARC Welder",
-			"path": "editor\\Welder"
+			"path": "editor"
 		},
 		{
 			"folder_exclude_patterns":

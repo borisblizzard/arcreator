@@ -9,7 +9,7 @@
    To setup Welder there's a few steps you should follow:
       1) Download ARC from Github
       2) Download and install a compiler
-      3) Download and install Python and all its dependencies
+      3) Download and install Python and all ARC's dependencies
 
    #------------------------------#
    |      1) Downloading ARC      |

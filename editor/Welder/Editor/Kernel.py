@@ -40,13 +40,18 @@ def buildSystem(cfg):
         Log("Plugin '%s' found at '%s'" % (plugin, path))
 
     def onComponentMap(component, plugin, version):
-        Log("\tComponent '%s' mapped from '%s@%s'" % (component, plugin, version[0]))
+        Log("\tComponent '%s' mapped from '%s@%s'"
+            % (component, plugin, version[0]))
 
     def onPluginLoad(plugin, plugin_required, component_needed):
-        Log("Plugin '%s' was loaded by plugin '%s' during a request for the '%s' component" % (plugin, plugin_required, component_needed))
+        Log("Plugin '%s' was loaded by plugin '%s'"
+            " during a request for the '%s' component"
+            % (plugin, plugin_required, component_needed))
 
     def onComponentLoad(component, plugin_required, plugin_loaded):
-        Log("Component '%s' loaded, required by plugin '%s', loaded from plugin '%s'" % (component, plugin_required, plugin_loaded))
+        Log("Component '%s' loaded, required by plugin '%s', "
+            "loaded from plugin '%s'"
+            % (component, plugin_required, plugin_loaded))
 
     global System
     System = pyitect.System(cfg)
@@ -63,8 +68,9 @@ def buildSystem(cfg):
 class GlobalObjectsContainer(object):
 
     '''
-    a storage for global objects where a key is mapped to a list where the first value is
-    a name that represents what created the key and the second value is an object
+    a storage for global objects a key is mapped to a list
+    where the first value is a name that represents what created the key
+    and the second value is an object
     '''
 
     def __init__(self):
@@ -81,9 +87,11 @@ class GlobalObjectsContainer(object):
 
     def request_new_key(self, key, name="PLUGIN", value=None):
         '''
-        find out if a key exits if it does it return a tuple of (False, name) where name is an id for what
+        find out if a key exits if it does it return a tuple of (False, name)
+        where name is an id for what
         made the key. if it is made by a CORE component the name is "CORE"
-        if the key didn't already exist it makes it and store the provided name and value
+        if the key didn't already exist it makes it
+        and stores the provided name and value
         then returns a tuple (True, name)
         '''
         if key in self._objects:
@@ -94,7 +102,7 @@ class GlobalObjectsContainer(object):
 
     def get_name(self, key):
         '''
-        gets a name stored with a key key if a key exists other wise returns None
+        gets a name stored with a key if a key exists. otherwise returns None
         '''
         if key in self._objects:
             return self._objects[key][0]
@@ -361,19 +369,22 @@ def GetPluginFolder():
         os.makedirs(path)
     return path
 
+
 def DeleteLog():
     try:
         logpath = os.path.join(GetLogFolder(), "Welder.log")
         if os.path.exists(logpath):
-            os.remove(logpath) 
+            os.remove(logpath)
     except Exception:
-        # an error clearing out the log? interesting but not all that important,
+        # an error clearing out the log? interesting but not all that important
         print("[Kernel] There has been an error")
         print(traceback.format_exc())
 
+
 def Log(message=None, prefix="[Kernel]", inform=False, error=False):
     '''
-    time stamps a message and writes it to a log file, it can also attach a trace back of the latest error.
+    time stamps a message and writes it to a log file,
+    it can also attach a trace back of the latest error.
     always adds a new line at the end of the message
     '''
     try:
@@ -387,7 +398,12 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
             error_text = " [Error] " + traceback.format_exc()
         else:
             error_text = ""
-        f.write(bytes(time_str + prefix + " " + message + error_text + "\n", 'UTF-8'))
+        f.write(
+            bytes(
+                time_str + prefix + " " + message + error_text + "\n",
+                'UTF-8'
+            )
+        )
         print(prefix + " " + message + error_text)
         f.close()
         if inform:
@@ -403,32 +419,60 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
 class ErrorDialog (wx.Dialog):
 
     def __init__(self, prefix, message, error_text):
-        wx.Dialog.__init__(self, None, -1, "Welder Error " + str(prefix),
-                           wx.DefaultPosition, (480, -1), wx.DEFAULT_DIALOG_STYLE)
+        wx.Dialog.__init__(
+            self,
+            None,
+            wx.ID_ANY,
+            "Welder Error " + str(prefix),
+            wx.DefaultPosition,
+            (480, -1),
+            wx.DEFAULT_DIALOG_STYLE
+        )
 
         mainsizer = wx.BoxSizer(wx.VERTICAL)
         message_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.cp = PCP.PyCollapsiblePane(self, label="Details",
-                                        agwStyle=wx.CP_NO_TLW_RESIZE | wx.CP_USE_STATICBOX)
+        self.cp = PCP.PyCollapsiblePane(
+            self,
+            label="Details",
+            agwStyle=wx.CP_NO_TLW_RESIZE | wx.CP_USE_STATICBOX
+        )
         self.btn = wx.Button(self.cp, -1, "Details")
         self.cp.SetButton(self.btn)
         self.Bind(wx.EVT_COLLAPSIBLEPANE_CHANGED, self.OnPaneChanged, self.cp)
 
-        self.error_bmp = wx.StaticBitmap(self, wx.ID_ANY, wx.ArtProvider.GetBitmap(
-            wx.ART_ERROR, wx.ART_OTHER), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.error_bmp = wx.StaticBitmap(
+            self,
+            wx.ID_ANY,
+            wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER),
+            wx.DefaultPosition,
+            wx.DefaultSize,
+            0
+        )
         message_sizer.Add(self.error_bmp, 0, wx.ALL, 5)
 
         self.message = wx.StaticText(
-            self, wx.ID_ANY, str(message), wx.DefaultPosition, wx.DefaultSize, 0)
+            self,
+            wx.ID_ANY,
+            str(message),
+            wx.DefaultPosition,
+            wx.DefaultSize,
+            0
+        )
         self.message.Wrap(-1)
         message_sizer.Add(
             self.message, 1, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 16)
 
         mainsizer.Add(message_sizer, 0, wx.EXPAND, 5)
 
-        self.details_tb = wx.TextCtrl(self.cp.GetPane(), wx.ID_ANY, str(error_text), 
-            wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_WORDWRAP)
+        self.details_tb = wx.TextCtrl(
+            self.cp.GetPane(),
+            wx.ID_ANY,
+            str(error_text),
+            wx.DefaultPosition,
+            wx.DefaultSize,
+            wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_WORDWRAP
+        )
 
         details_sizer = wx.BoxSizer(wx.VERTICAL)
         details_sizer.Add(self.details_tb, 1, wx.EXPAND | wx.ALL, 2)
