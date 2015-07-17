@@ -38,12 +38,17 @@ class MapTreePanel(wx.Panel, PanelBase):
             if data:
                 map_id, name = data
                 project = Kernel.GlobalObjects["PROJECT"]
-                map = project.getMapData(map_id)
+                map_data = project.getMapData(map_id)
                 tilesets = project.getData("Tilesets")
                 if "PanelManager" in Kernel.GlobalObjects:
-                    Kernel.GlobalObjects["PanelManager"].dispatchPanel("MapEditorPanel", "Map Editor Panel " + str(map_id),
-                                                                                  arguments=[
-                                                                                      map, tilesets],
-                                                                                  info="Name Caption",
-                                                                                  data={"Name": "[" + str(map_id) + "] " + name, "Caption": "[" + str(map_id) + "] " + name})
+                    Kernel.GlobalObjects["PanelManager"].dispatchPanel(
+                        "MapEditorPanel",
+                        "Map Editor Panel " + str(map_id),
+                        arguments=[map_data, tilesets],
+                        info="Name Caption",
+                        data={
+                            "Name": "[" + str(map_id) + "] " + name,
+                            "Caption": "[" + str(map_id) + "] " + name
+                        }
+                    )
         event.Skip()
