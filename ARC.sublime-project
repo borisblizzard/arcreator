@@ -1,0 +1,56 @@
+{
+    "folders":
+    [
+        {
+            "name": "ARC",
+            "path": "."
+        },
+        {
+            "name": "ARC Welder",
+            "path": "editor/Welder",
+            "folder_exclude_patterns": ["__pycache__"],
+        },
+        {   
+            "name": "ARC Reactor",
+            "path": "engine",
+            "folder_exclude_patterns": ["build"]
+        },
+    ],
+    "build_systems":[
+        {   
+            "name": "Welder",
+            "working_dir": "${project_path:${folder}editor/Welder/}",
+            
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+            "cmd": ["python", "${project_path:${folder}}/editor/Welder/make.py"],
+
+            "variants": [
+                { "name": "Run",
+                  "cmd": ["python", "${project_path:${folder}}/editor/Welder/Editor/main.py"],
+                  "shell": true
+                }
+            ]
+
+        }
+    ],
+    "SublimeLinter":
+    {   
+        "@python": 3,
+        "linters":
+        {
+            "clang": {
+               "include_dirs": [
+                   "/usr/include/python3.4m/"
+               ]
+            },
+            "flake8": {
+                //"max-line-length": 120,
+                "max-complexity": 12,
+                "ignore": "E262, E265"
+            }
+        }
+    },
+    "syntax_override": {
+        "\\.py$": ["Python 3", "Python3"]
+    }
+}
