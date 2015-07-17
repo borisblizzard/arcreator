@@ -9,7 +9,7 @@
     "provides": {
         "PanelBase": "",
         "MainToolbar": "",
-        "DatabaseToolbar": "",
+        "EditorToolbar": "",
         "StartPanel": ""
     }
 }

@@ -16,12 +16,16 @@ from PyitectConsumes import Tilemap
 from PyitectConsumes import TilemapMouseSprite
 
 
-
 class TilemapPanel(PygletGLPanel):
 
     def __init__(self, parent, map, tilesets, toolbar, id=wx.ID_ANY):
-        super(TilemapPanel, self).__init__(parent, id, wx.DefaultPosition, wx.Size(800, 600),
-                                           wx.VSCROLL | wx.HSCROLL | wx.SUNKEN_BORDER)
+        super(TilemapPanel, self).__init__(
+            parent,
+            id,
+            wx.DefaultPosition,
+            wx.DefaultSize,
+            wx.VSCROLL | wx.HSCROLL | wx.SUNKEN_BORDER
+        )
 
         # set data
         self.map = map
@@ -139,7 +143,8 @@ class TilemapPanel(PygletGLPanel):
         gl.glViewport(0, 0, size.width, size.height)
         gl.glMatrixMode(gl.GL_PROJECTION)
         gl.glLoadIdentity()
-        gl.glOrtho(0, size.width / self.zoom, 0, size.height / self.zoom, -1, 1)
+        gl.glOrtho(
+            0, size.width / self.zoom, 0, size.height / self.zoom, -1, 1)
         x = (-self.GetScrollPos(wx.HORIZONTAL)) / self.zoom
         y = ((-(self.map.height * 32) + size.height / self.zoom) +
              self.GetScrollPos(wx.VERTICAL) / self.zoom)
@@ -159,7 +164,8 @@ class TilemapPanel(PygletGLPanel):
         self.tilemap = Tilemap(
             self.cache, table, tileset.tileset_name, tileset.autotile_names)
         self.tileGrid = TilemapTileGrid(self.map)
-        self.eventGrid = TilemapEventGrid(self.map, self.cache, tileset.tileset_name)
+        self.eventGrid = TilemapEventGrid(
+            self.map, self.cache, tileset.tileset_name)
         self.mouseSprite = TilemapMouseSprite(self.map)
         self.MouseManager.setSprite(self.mouseSprite)
         self.SetActiveLayer(self.activeLayer, True)

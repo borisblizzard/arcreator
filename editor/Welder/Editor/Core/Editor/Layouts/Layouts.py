@@ -32,9 +32,9 @@ class MainWindowLayout(object):
             "MainToolbar",
             "Main Toolbar"
         )
-        self.databasetoolbar = self.mgr.dispatchPanel(
-            "DatabaseToolbar",
-            "Database Toolbar"
+        self.editortoolbar = self.mgr.dispatchPanel(
+            "EditorToolbar",
+            "Editor Toolbar"
         )
 
     def CreateStartPanel(self):

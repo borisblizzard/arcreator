@@ -29,7 +29,7 @@ class MainStatusBar(wx.StatusBar):
             self,
             wx.ID_ANY,
             10,
-            pos=wx.DefaultPos,
+            pos=wx.DefaultPosition,
             size=wx.DefaultSize,
             style=wx.GA_HORIZONTAL | wx.GA_SMOOTH
         )

@@ -1,5 +1,5 @@
 '''
-Panels 
+Panels
 
 Containes the panel classes dispatched by the Panel Manager
 '''
@@ -43,7 +43,11 @@ class MainToolbar(aui.AuiToolBar):
 
     def __init__(self, parent):
 
-        aui.AuiToolBar.__init__(self, parent, style=wx.TB_FLAT | wx.TB_HORIZONTAL)
+        aui.AuiToolBar.__init__(
+            self,
+            parent,
+            style=wx.TB_FLAT | wx.TB_HORIZONTAL
+        )
 
         self.parent = parent
 
@@ -148,10 +152,10 @@ class MainToolbar(aui.AuiToolBar):
             event.Enable(False)
 
 
-class DatabaseToolbar(aui.AuiToolBar):
+class EditorToolbar(aui.AuiToolBar):
 
     _arc_panel_info_string = "Name Caption ToolbarP Top Row CloseB"
-    _arc_panel_info_data = {"Name": "DatabaseToolbar", "Caption": "Database Tool Bar", "Row": 1, "CloseB": False, }
+    _arc_panel_info_data = {"Name": "EditorToolbar", "Caption": "Database Tool Bar", "Row": 1, "CloseB": False, }
 
     def __init__(self, parent):
 
@@ -163,6 +167,7 @@ class DatabaseToolbar(aui.AuiToolBar):
 
         self.SetToolBitmapSize(wx.Size(16, 16))
 
+        self.mapeditpanel = None
         self.actorspanel = None
         self.classespanel = None
         self.skillspanel = None
@@ -185,6 +190,7 @@ class DatabaseToolbar(aui.AuiToolBar):
 
     def AddTools(self):
         # get bitmaps
+        mapeditbmp = IconManager.getBitmap("mapedit")
         actorsbmp = IconManager.getBitmap("actors")
         classesbmp = IconManager.getBitmap("classes")
         skillsbmp = IconManager.getBitmap("skills")
@@ -201,6 +207,7 @@ class DatabaseToolbar(aui.AuiToolBar):
         scriptbmp = IconManager.getBitmap("script")
 
         # set up ids
+        self.mapeditid = wx.NewId()
         self.actorsid = wx.NewId()
         self.classesid = wx.NewId()
         self.skillsid = wx.NewId()
@@ -217,71 +224,124 @@ class DatabaseToolbar(aui.AuiToolBar):
         self.scriptid = wx.NewId()
 
         # add the tools
-        self.AddSimpleTool(self.actorsid, "Actors", actorsbmp,
-                           "Open the Actors Panel")
-        self.AddSimpleTool(self.classesid, "Classes", classesbmp,
-                           "Open the Classes Panel")
-        self.AddSimpleTool(self.skillsid, "Skills", skillsbmp,
-                           "Open the Skills Panel")
-        self.AddSimpleTool(self.statesid, "States", statesbmp,
-                           "Open the States Panel")
+        self.AddSimpleTool(
+            self.mapeditid,
+            "Map Editor",
+            mapeditbmp,
+            "Open the Map Editor"
+        )
         self.AddSeparator()
-        self.AddSimpleTool(self.itemsid, "Items", itemsbmp,
-                           "Open the Items Panel")
-        self.AddSimpleTool(self.weaponsid, "Weapons", weaponsbmp,
-                           "Open the Weapons Panel")
-        self.AddSimpleTool(self.armorsid, "Armors", armorsbmp,
-                           "Open the Armors Panel")
+        self.AddSimpleTool(
+            self.actorsid,
+            "Actors",
+            actorsbmp,
+            "Open the Actors Panel"
+        )
+        self.AddSimpleTool(
+            self.classesid,
+            "Classes",
+            classesbmp,
+            "Open the Classes Panel"
+        )
+        self.AddSimpleTool(
+            self.skillsid,
+            "Skills",
+            skillsbmp,
+            "Open the Skills Panel"
+        )
+        self.AddSimpleTool(
+            self.statesid,
+            "States",
+            statesbmp,
+            "Open the States Panel"
+        )
         self.AddSeparator()
-        self.AddSimpleTool(self.enemiesid, "Enemies", enemiesbmp,
-                           "Open the Enemies Panel")
-        self.AddSimpleTool(self.troopsid, "Troops", troopsbmp,
-                           "Open the Troops Panel")
+        self.AddSimpleTool(
+            self.itemsid,
+            "Items",
+            itemsbmp,
+            "Open the Items Panel"
+        )
+        self.AddSimpleTool(
+            self.weaponsid,
+            "Weapons",
+            weaponsbmp,
+            "Open the Weapons Panel"
+        )
+        self.AddSimpleTool(
+            self.armorsid,
+            "Armors",
+            armorsbmp,
+            "Open the Armors Panel"
+        )
         self.AddSeparator()
-        self.AddSimpleTool(self.animationsid, "Animations", animationsbmp,
-                           "Open the Animations Panel")
-        self.AddSimpleTool(self.tilesetsid, "Tilesets", tilesetsbmp,
-                           "Open the Tilesets Panel")
+        self.AddSimpleTool(
+            self.enemiesid,
+            "Enemies",
+            enemiesbmp,
+            "Open the Enemies Panel"
+        )
+        self.AddSimpleTool(
+            self.troopsid,
+            "Troops",
+            troopsbmp,
+            "Open the Troops Panel"
+        )
         self.AddSeparator()
-        self.AddSimpleTool(self.commoneventsid, "Common Events", commoneventsbmp,
-                           "Open the Common Events Panel")
-        self.AddSimpleTool(self.systemid, "System", systembmp,
-                           "Open the System Panel")
-        self.AddSimpleTool(self.scriptid, "Scripts", scriptbmp,
-                           "Open the Scripts Panel")
+        self.AddSimpleTool(
+            self.animationsid,
+            "Animations",
+            animationsbmp,
+            "Open the Animations Panel"
+        )
+        self.AddSimpleTool(
+            self.tilesetsid,
+            "Tilesets",
+            tilesetsbmp,
+            "Open the Tilesets Panel"
+        )
+
+        self.AddSeparator()
+        self.AddSimpleTool(
+            self.commoneventsid,
+            "Common Events",
+            commoneventsbmp,
+            "Open the Common Events Panel"
+        )
+        self.AddSimpleTool(
+            self.systemid,
+            "System",
+            systembmp,
+            "Open the System Panel"
+        )
+        self.AddSimpleTool(
+            self.scriptid,
+            "Scripts",
+            scriptbmp,
+            "Open the Scripts Panel"
+        )
 
     def BindEvents(self):
         # self.Bind(wx.EVT_TOOL, self.OnNew, id=self.newid)
-
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.actorsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.classesid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.skillsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.itemsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.weaponsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.armorsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.enemiesid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.troopsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.statesid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.animationsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.tilesetsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.commoneventsid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.systemid)
-        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.scriptid)
-
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.actorsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.classesid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.skillsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.itemsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.weaponsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.armorsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.enemiesid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.troopsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.statesid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.animationsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.tilesetsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.commoneventsid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.systemid)
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.scriptid)
+        tool_ids = [
+            self.actorsid,
+            self.classesid,
+            self.skillsid,
+            self.itemsid,
+            self.weaponsid,
+            self.armorsid,
+            self.enemiesid,
+            self.troopsid,
+            self.statesid,
+            self.animationsid,
+            self.tilesetsid,
+            self.commoneventsid,
+            self.systemid,
+            self.scriptid
+        ]
+        for tool_id in tool_ids:
+            self.Bind(wx.EVT_TOOL, self.paneldispatch, id=tool_id)
+            self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=tool_id)
 
     def uiupdate(self, event):
         if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] is True):
@@ -290,10 +350,12 @@ class DatabaseToolbar(aui.AuiToolBar):
             event.Enable(False)
 
     def paneldispatch(self, event):
-        broken = [self.troopsid, self.animationsid, self.tilesetsid, self.commoneventsid, self.systemid]
         # TODO: refactor to get rid of the gigantic elif branch
-        if event.Id in broken:
-            Kernel.System.fire_event("BrokenDatabasePanel")
+        if event.Id == self.mapeditid:
+            if self.mapeditpanel:
+                self.mgr.RequestUserAttention(self.mapeditpanel)
+            else:
+                self.mapeditpanel = self.mgr.dispatchPanel("MapEditor_Panel", "Map Editor")
         if event.Id == self.actorsid:
             if self.actorspanel:
                 self.mgr.RequestUserAttention(self.actorspanel)
