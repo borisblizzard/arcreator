@@ -344,106 +344,71 @@ class EditorToolbar(aui.AuiToolBar):
             self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=tool_id)
 
     def uiupdate(self, event):
-        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] is True):
+        if ("ProjectOpen" in Kernel.GlobalObjects
+                and (Kernel.GlobalObjects["ProjectOpen"] is True)):
             event.Enable(True)
         else:
             event.Enable(False)
 
     def paneldispatch(self, event):
         # TODO: refactor to get rid of the gigantic elif branch
-        if event.Id == self.mapeditid:
-            if self.mapeditpanel:
-                self.mgr.RequestUserAttention(self.mapeditpanel)
-            else:
-                self.mapeditpanel = self.mgr.dispatchPanel("MapEditor_Panel", "Map Editor")
-        if event.Id == self.actorsid:
-            if self.actorspanel:
-                self.mgr.RequestUserAttention(self.actorspanel)
-            else:
-                self.actorspanel = self.mgr.dispatchPanel("Actors_Panel", "Actors")
-        elif event.Id == self.classesid:
-            if self.classespanel:
-                self.mgr.RequestUserAttention(self.classespanel)
-            else:
-                self.classespanel = self.mgr.dispatchPanel("Classes_Panel", "Classes")
-        elif event.Id == self.skillsid:
-            if self.skillspanel:
-                self.mgr.RequestUserAttention(self.skillspanel)
-            else:
-                self.skillspanel = self.mgr.dispatchPanel("Skills_Panel", "Skills")
-        elif event.Id == self.itemsid:
-            if self.itemspanel:
-                self.mgr.RequestUserAttention(self.itemspanel)
-            else:
-                self.itemspanel = self.mgr.dispatchPanel("Items_Panel", "Items")
-        elif event.Id == self.weaponsid:
-            if self.weaponspanel:
-                self.mgr.RequestUserAttention(self.weaponspanel)
-            else:
-                self.weaponspanel = self.mgr.dispatchPanel("Weapons_Panel", "Weapons")
-        elif event.Id == self.armorsid:
-            if self.armorspanel:
-                self.mgr.RequestUserAttention(self.armorspanel)
-            else:
-                self.armorspanel = self.mgr.dispatchPanel("Armors_Panel", "Armors")
-        elif event.Id == self.enemiesid:
-            if self.enemiespanel:
-                self.mgr.RequestUserAttention(self.enemiespanel)
-            else:
-                self.enemiespanel = self.mgr.dispatchPanel("Enemies_Panel", "Enemies")
-        elif event.Id == self.troopsid:
-            if self.troopspanel:
-                self.mgr.RequestUserAttention(self.troopspanel)
-            else:
-                self.troopspanel = self.mgr.dispatchPanel("Troops_Panel", "Troops")
-        elif event.Id == self.statesid:
-            if self.statespanel:
-                self.mgr.RequestUserAttention(self.statespanel)
-            else:
-                self.statespanel = self.mgr.dispatchPanel("States_Panel", "States")
-        elif event.Id == self.animationsid:
-            if self.animationspanel:
-                self.mgr.RequestUserAttention(self.animationspanel)
-            else:
-                self.animationspanel = self.mgr.dispatchPanel("Animations_Panel", "Animations")
-        elif event.Id == self.tilesetsid:
-            if self.tilesetspanel:
-                self.mgr.RequestUserAttention(self.tilesetspanel)
-            else:
-                self.tilesetspanel = self.mgr.dispatchPanel("Tilesets_Panel", "Tilesets")
-        elif event.Id == self.commoneventsid:
-            if self.commoneventspanel:
-                self.mgr.RequestUserAttention(self.commoneventspanel)
-            else:
-                self.commoneventspanel = self.mgr.dispatchPanel("CommonEvents_Panel", "Common Events")
-        elif event.Id == self.systemid:
-            if self.systempanel:
-                self.mgr.RequestUserAttention(self.systempanel)
-            else:
-                self.systempanel = self.mgr.dispatchPanel("System_Panel", "System")
-        elif event.Id == self.scriptid:
-            if self.scriptpanel:
-                self.mgr.RequestUserAttention(self.scriptpanel)
-            else:
-                self.scriptpanel = self.mgr.dispatchPanel("ScriptEditor_Panel", "Script Editor")
+        panel_infos = {
+            self.mapeditid: ["mapeditpanel", "MapEditor_Panel", "Map Editor"],
+            self.actorsid: ["actorspanel", "Actors_Panel", "Actors"],
+            self.classesid: ["classespanel", "Classes_Panel", "Classes"],
+            self.skillsid: ["skillspanel", "Skills_Panel", "Skills"],
+            self.itemsid: ["itemspanel", "Items_Panel", "Items"],
+            self.weaponsid: ["weaponspanel", "Weapons_Panel", "Weapons"],
+            self.armorsid: ["armorspanel", "Armors_Panel", "Armors"],
+            self.enemiesid: ["enemiespanel", "Enemies_Panel", "Enemies"],
+            self.troopsid: ["troopspanel", "Troops_Panel", "Troops"],
+            self.statesid: ["statespanel", "States_Panel", "States"],
+            self.animationsid: [
+                "animationspanel",
+                "Animations_Panel",
+                "Animations"
+            ],
+            self.tilesetsid: ["tilesetspanel", "Tilesets_Panel", "Tilesets"],
+            self.commoneventsid: [
+                "commoneventspanel",
+                "CommonEvents_Panel",
+                "Common Events"
+            ],
+            self.systemid: ["systempanel", "System_Panel", "System"],
+            self.scriptid: [
+                "scriptpanel",
+                "ScriptEditor_Panel",
+                "Script Editor"
+            ]
+        }
+        info = panel_infos[event.Id]
+        panel = getattr(self, info[0])
+        if panel:
+            self.mgr.RequestUserAttention(panel)
+        else:
+            panel = self.mgr.dispatchPanel(info[1], info[2])
+            setattr(self. info[0], panel)
 
 
 class StartPanel(wx.Panel, PanelBase):
 
-    _arc_panel_info_string = "Name Caption CloseB Center Fixed MinimizeB Maximize MaximizeB Resizable NotebookD DestroyOC Floatable Movable"
-    _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "CaptionV": True, "Movable": False,
-                            "MinimizeB": False, "MaximizeB": False, "CloseB": False, "Floatable": False}
+    _arc_panel_info = {
+        "Name": "Start Panel",
+        "Caption": "Start Panel",
+        "CaptionV": True,
+        "CloseB": False,
+        "Center": True,
+        "Fixed": True,
+        "MinimizeB": False,
+        "Maximize": True,
+        "MaximizeB": False,
+        "Moveable": False,
+        "Resizable": True,
+        "NotebookD": True,
+        "DestroyOC": True,
+        "Floatable": False
+    }
 
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
         self.bindPanelManager()
-
-
-# class ShadowPanel(wx.Panel, PanelBase):
-
-#     _arc_panel_info_string = "Name Caption CloseB CaptionV BestS MinimizeB Floatable Resizable Snappable NotebookD Movable DestroyOC"
-#     _arc_panel_info_data = {"Name": "Shadow Panel", "Caption": "Shadow Panel", "CaptionV": False, "BestS": (1000 - 8, 500), "MinimizeB": False, "CloseB": False, "Floatable" : False,}
-
-#     def __init__(self, parent):
-#         wx.Panel.__init__(self, parent)
-#         self.bindPanelManager()

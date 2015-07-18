@@ -47,23 +47,12 @@
 	[
 		{
 			"name": "ARC",
-			"path": "."
-		},
-		{
 			"folder_exclude_patterns":
 			[
-				"__pycache__"
-			],
-			"name": "ARC Welder",
-			"path": "editor"
-		},
-		{
-			"folder_exclude_patterns":
-			[
+				"__pycache__",
 				"build"
 			],
-			"name": "ARC Reactor",
-			"path": "engine"
+			"path": "."
 		}
 	],
 	"syntax_override":
