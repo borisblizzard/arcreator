@@ -72,8 +72,8 @@ namespace ARCed.Controls
 			_originPoint = _endPoint = new Point(-1, -1);
 		}
 
-		private void RefreshSelection() 
-		{ 
+		private void RefreshSelection()
+		{
 			Rectangle rect = SelectionRectangle;
 			if (_selectRect != rect)
 			{

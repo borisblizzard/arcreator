@@ -62,14 +62,14 @@ namespace ARCed.Controls
 		/// Translates the specified event code and arguments into a formatted string
 		/// </summary>
 		/// <param name="code">Event code.</param>
-        /// <param name="indent">Indent level</param>
+		/// <param name="indent">Indent level</param>
 		/// <param name="args">Array of game event parameters.</param>
 		/// <returns>Formatted string.</returns>
 		private void Translate(int code, int indent, dynamic args)
 		{
-			AppendText(new string(' ', indent *  4));
+			AppendText(new string(' ', indent * 4));
 			string methodName = String.Format("Command{0}", code);
-			MethodInfo info = typeof(EventTextBox).GetMethod(methodName, 
+			MethodInfo info = typeof(EventTextBox).GetMethod(methodName,
 				BindingFlags.NonPublic | BindingFlags.Instance);
 			if (info != null)
 				info.Invoke(this, new object[] { args });
@@ -209,127 +209,127 @@ namespace ARCed.Controls
 			switch (code)
 			{
 				case 0: // Switch
-				{
-					text = String.Format("Switch [{0}] == {1}",
-						Project.Switches[args[1]].ToString(), args[2] == 0 ? "ON" : "OFF");
-					break;
-				}
+					{
+						text = String.Format("Switch [{0}] == {1}",
+							Project.Switches[args[1]].ToString(), args[2] == 0 ? "ON" : "OFF");
+						break;
+					}
 				case 1: // Variable
-				{
-					string varName = Project.Variables[args[1]].ToString();
-					string oper = new[] { "==", ">=", "<=", ">", "<", "!=" }[args[4]];
-					if (args[2] == 0) // Constant
 					{
-						text = String.Format("Variable [{0}] {1} {2}", varName, oper, args[3]);
+						string varName = Project.Variables[args[1]].ToString();
+						string oper = new[] { "==", ">=", "<=", ">", "<", "!=" }[args[4]];
+						if (args[2] == 0) // Constant
+						{
+							text = String.Format("Variable [{0}] {1} {2}", varName, oper, args[3]);
+						}
+						else // Variable
+						{
+							text = String.Format("Variable [{0}] {1} Variable: [{2}]",
+								varName, oper, Project.Variables[args[3]].ToString());
+						}
+						break;
 					}
-					else // Variable
-					{
-						text = String.Format("Variable [{0}] {1} Variable: [{2}]",
-							varName, oper, Project.Variables[args[3]].ToString());
-					}
-					break;
-				}
 				case 2: // Self-Switch
-				{
-					text = String.Format("Self Switch {0} == {1}", "ABCD"[args[1]], args[2] == 0 ? "ON" : "OFF");
-					break;
-				}
-				case 3: // Timer
-				{
-					int secs = args[1];
-					text = String.Format("Timer {0} min {1} sec or {2}",
-						secs / 60, secs % 60, args[2] == 0 ? "more" : "less");
-					break;
-				}
-				case 4: // Actor
-				{
-					string actorName = Project.Data.Actors[args[1]].ToString();
-					int oper = args[2];
-					switch (oper)
 					{
-						case 0: // In Party
-						{
-							text = String.Format("[{0}] is in party", actorName);
-							break;
-						}
-						case 1: // Name Applied
-						{
-							text = String.Format("[{0}] is name '{1}' applied", actorName, args[3]);
-							break;
-						}
-						case 2: // Skill Learned
-						{
-							text = String.Format("[{0}] is [{1}] learned", actorName,
-								Project.Data.Skills[args[3]].ToString());
-							break;
-						}
-						case 3: // Weapon Equipped
-						{
-							text = String.Format("[{0}] is [{1}] equipped", actorName,
-								Project.Data.Weapons[args[3]].ToString());
-							break;
-						}
-						case 4: // Armor Equipped
-						{
-							text = String.Format("[{0}] is [{1}] equipped", actorName,
-								Project.Data.Armors[args[3]].ToString());
-							break;
-						}
-						case 5: // State Inflicted
-						{
-							text = String.Format("[{0}] is [{1}] inflicted", actorName,
-								Project.Data.States[args[3]].ToString());
-							break;
-						}
+						text = String.Format("Self Switch {0} == {1}", "ABCD"[args[1]], args[2] == 0 ? "ON" : "OFF");
+						break;
 					}
-					break;
-				}
+				case 3: // Timer
+					{
+						int secs = args[1];
+						text = String.Format("Timer {0} min {1} sec or {2}",
+							secs / 60, secs % 60, args[2] == 0 ? "more" : "less");
+						break;
+					}
+				case 4: // Actor
+					{
+						string actorName = Project.Data.Actors[args[1]].ToString();
+						int oper = args[2];
+						switch (oper)
+						{
+							case 0: // In Party
+								{
+									text = String.Format("[{0}] is in party", actorName);
+									break;
+								}
+							case 1: // Name Applied
+								{
+									text = String.Format("[{0}] is name '{1}' applied", actorName, args[3]);
+									break;
+								}
+							case 2: // Skill Learned
+								{
+									text = String.Format("[{0}] is [{1}] learned", actorName,
+										Project.Data.Skills[args[3]].ToString());
+									break;
+								}
+							case 3: // Weapon Equipped
+								{
+									text = String.Format("[{0}] is [{1}] equipped", actorName,
+										Project.Data.Weapons[args[3]].ToString());
+									break;
+								}
+							case 4: // Armor Equipped
+								{
+									text = String.Format("[{0}] is [{1}] equipped", actorName,
+										Project.Data.Armors[args[3]].ToString());
+									break;
+								}
+							case 5: // State Inflicted
+								{
+									text = String.Format("[{0}] is [{1}] inflicted", actorName,
+										Project.Data.States[args[3]].ToString());
+									break;
+								}
+						}
+						break;
+					}
 				case 5: // Enemy
-				{
-					// TODO: Implement once event builder is complete for easier testing
-					break;
-				}
+					{
+						// TODO: Implement once event builder is complete for easier testing
+						break;
+					}
 				case 6: // Character
-				{
-					// TODO: Implement once event builder is complete for easier testing
-					break;
-				}
+					{
+						// TODO: Implement once event builder is complete for easier testing
+						break;
+					}
 				case 7: // Gold
-				{
-					text = String.Format("Gold {0} or {1}", args[1],
-						args[2] == 0 ? "more" : "less");
-					break;
-				}
+					{
+						text = String.Format("Gold {0} or {1}", args[1],
+							args[2] == 0 ? "more" : "less");
+						break;
+					}
 				case 8: // Item in Inventory
-				{
-					text = String.Format("[{0}] in inventory",
-						Project.Data.Items[args[1]].ToString());
-					break;
-				}
+					{
+						text = String.Format("[{0}] in inventory",
+							Project.Data.Items[args[1]].ToString());
+						break;
+					}
 				case 9: // Weapon in Inventory
-				{
-					text = String.Format("[{0}] in inventory",
-						Project.Data.Weapons[args[1]].ToString());
-					break;
-				}
+					{
+						text = String.Format("[{0}] in inventory",
+							Project.Data.Weapons[args[1]].ToString());
+						break;
+					}
 				case 10: // Armor in Inventory
-				{
-					text = String.Format("[{0}] in inventory",
-						Project.Data.Armors[args[1]].ToString());
-					break;
-				}
+					{
+						text = String.Format("[{0}] in inventory",
+							Project.Data.Armors[args[1]].ToString());
+						break;
+					}
 				case 11: // Button
-				{
-					var buttons = new[] { "", "", "Down", "", "Left", "", "Right", 
+					{
+						var buttons = new[] { "", "", "Down", "", "Left", "", "Right", 
 						"", "Up", "", "", "A", "B", "C", "X", "Y", "Z", "L", "R" };
-					text = String.Format("The {0} button is being pressed", buttons[args[1]]);
-					break;
-				}
+						text = String.Format("The {0} button is being pressed", buttons[args[1]]);
+						break;
+					}
 				case 12: // Script
-				{
-					text = String.Format("Script: {0}", args[1]);
-					break;
-				}
+					{
+						text = String.Format("Script: {0}", args[1]);
+						break;
+					}
 			}
 			if (!String.IsNullOrEmpty(text))
 				this.AppendText(text, Color.Blue);
@@ -478,32 +478,32 @@ namespace ARCed.Controls
 			switch (operCode)
 			{
 				case 0: // Constant
-				operand = args[4].ToString(); break;
+					operand = args[4].ToString(); break;
 				case 1: // Variable
-				operand = String.Format("Variable [{0}]", Project.Variables[args[4]].ToString());
-				break;
+					operand = String.Format("Variable [{0}]", Project.Variables[args[4]].ToString());
+					break;
 				case 2: // Random
-				operand = String.Format("Random No. ({0}..{1}", args[4], args[5]);
-				break;
+					operand = String.Format("Random No. ({0}..{1}", args[4], args[5]);
+					break;
 				case 3: // Item
-				operand = String.Format("[{0}] In Inventory", Project.Data.Items[args[4]].ToString());
-				break;
+					operand = String.Format("[{0}] In Inventory", Project.Data.Items[args[4]].ToString());
+					break;
 				case 4: // Actor
-				string actor = Project.Data.Actors[args[4]].ToString();
-				string param = new[] { "Level", "EXP", "HP", "SP", "MaxHP", "MaxSP",
+					string actor = Project.Data.Actors[args[4]].ToString();
+					string param = new[] { "Level", "EXP", "HP", "SP", "MaxHP", "MaxSP",
 						"STR", "DEX", "AGI", "INT", "ATK", "PDEF", "MDEF", "EVA" }[args[5]];
-				operand = String.Format("[{0}]'s {1}", actor, param);
-				break;
+					operand = String.Format("[{0}]'s {1}", actor, param);
+					break;
 				case 5: // Enemy
-				// TODO: Implement
-				break;
+					// TODO: Implement
+					break;
 				case 6: // Character
-				// TODO: Implement
-				break;
+					// TODO: Implement
+					break;
 				case 7: // Other
-				operand = new[] { "Map ID", "Party Members", "Gold", "Steps",
+					operand = new[] { "Map ID", "Party Members", "Gold", "Steps",
 						"Play Time", "Timer", "Save Count" }[args[4]];
-				break;
+					break;
 			}
 			this.AppendText(String.Format("{0} {1} {2}", var, oper, operand), Color.Red);
 		}
@@ -765,16 +765,16 @@ namespace ARCed.Controls
 			switch (code)
 			{
 				case 0: // Panorama
-				text += String.Format("Panorama = '{0}', {1}", args[1], args[2]);
-				break;
+					text += String.Format("Panorama = '{0}', {1}", args[1], args[2]);
+					break;
 				case 1: // Fog
-				string blend = new[] { "Normal", "Add", "Sub" }[args[4]];
-				text += String.Format("Fog = {0}, {1}, {2}, {3}, {4}, {5}, {6}",
-					args[1], args[2], args[3], blend, args[5], args[6], args[7]);
-				break;
+					string blend = new[] { "Normal", "Add", "Sub" }[args[4]];
+					text += String.Format("Fog = {0}, {1}, {2}, {3}, {4}, {5}, {6}",
+						args[1], args[2], args[3], blend, args[5], args[6], args[7]);
+					break;
 				case 2: // Battleback
-				text += String.Format("Battleback = '{0}'", args[1]);
-				break;
+					text += String.Format("Battleback = '{0}'", args[1]);
+					break;
 			}
 			this.AppendText(text, Color.Brown);
 		}
@@ -1637,11 +1637,11 @@ namespace ARCed.Controls
 				case 12: return "1 Step Forward";
 				case 13: return "1 Step Backward";
 				case 14:
-				int x = cmd.parameters[0];
-				int y = cmd.parameters[1];
-				string oper1 = x >= 0 ? "+" : "";
-				string oper2 = y >= 0 ? "+" : "";
-				return String.Format("Jump: {0}{1}, {2}{3}", oper1, x, oper2, y);
+					int x = cmd.parameters[0];
+					int y = cmd.parameters[1];
+					string oper1 = x >= 0 ? "+" : "";
+					string oper2 = y >= 0 ? "+" : "";
+					return String.Format("Jump: {0}{1}, {2}{3}", oper1, x, oper2, y);
 				case 15: return String.Format("Wait: {0} frame(s)", cmd.parameters[0]);
 				case 16: return "Turn Down";
 				case 17: return "Turn Left";
@@ -1669,8 +1669,8 @@ namespace ARCed.Controls
 				case 39: return "Always on Top ON";
 				case 40: return "Always on Top OFF";
 				case 41:
-				var p = cmd.parameters;
-				return String.Format("Graphic: '{0}', {1}, {2}, {3}", p[0], p[1], p[2], p[3]);
+					var p = cmd.parameters;
+					return String.Format("Graphic: '{0}', {1}, {2}, {3}", p[0], p[1], p[2], p[3]);
 				case 42: return String.Format("Change Opacity: {0}", cmd.parameters[0]);
 				case 43: return String.Format("Change Blending: {0}", new[] { "Normal", "Add", "Sub" }[cmd.parameters[0]]);
 				case 44: return String.Format("SE: {0}", cmd.parameters[0]);
@@ -1687,23 +1687,23 @@ namespace ARCed.Controls
 		/// <returns>Formatted name of item</returns>
 		private static string GetItemName(int type, int id)
 		{
-		    switch (type)
-		    {
-		        case 0:
-		            return Project.Data.Items[id].ToString();
-		        case 1:
-		            return Project.Data.Weapons[id].ToString();
-		        case 2:
-		            return Project.Data.Armors[id].ToString();
-                default:
-		            return "";
-		    }
+			switch (type)
+			{
+				case 0:
+					return Project.Data.Items[id].ToString();
+				case 1:
+					return Project.Data.Weapons[id].ToString();
+				case 2:
+					return Project.Data.Armors[id].ToString();
+				default:
+					return "";
+			}
 		}
 
-	    #endregion
+		#endregion
 
-		private void EventTextBoxClick(object sender, EventArgs e) 
-		{ 
+		private void EventTextBoxClick(object sender, EventArgs e)
+		{
 			this.HighlightCurrentLine();
 		}
 

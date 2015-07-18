@@ -14,7 +14,7 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public int Position
 		{
-			get 
+			get
 			{
 				int count = 0;
 				foreach (RadioButton radio in this.groupBoxPosition.Controls)
@@ -36,13 +36,13 @@ namespace ARCed.EventBuilder
 		public int WindowVisibility
 		{
 			get { return this.radioButtonShow.Checked ? 0 : 1; }
-			set 
+			set
 			{
 				if (value == 0) this.radioButtonShow.Checked = true;
 				else this.radioButtonHide.Checked = true;
 			}
 		}
-		
+
 		/// <summary>
 		/// Default constructor
 		/// </summary>

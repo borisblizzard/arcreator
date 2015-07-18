@@ -112,11 +112,11 @@ namespace ARCed.Controls
 			}
 		}
 
-        private int _x, _y, _width, _height;
-        private Font _nfont;
-	    private int _maxwid;
+		private int _x, _y, _width, _height;
+		private Font _nfont;
+		private int _maxwid;
 		int _memFontCount;
-        private Image _ttimg;
+		private Image _ttimg;
 
 		protected override void OnDropDown(EventArgs e)
 		{

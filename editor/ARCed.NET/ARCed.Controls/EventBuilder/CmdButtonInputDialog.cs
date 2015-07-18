@@ -16,9 +16,10 @@ namespace ARCed.EventBuilder
 		public int VariableId
 		{
 			get { return this.comboBoxVariables.SelectedIndex + 1; }
-			set {
-			    this.comboBoxVariables.SelectedIndex = 
-                    value < this.comboBoxVariables.Items.Count ? value : 0;
+			set
+			{
+				this.comboBoxVariables.SelectedIndex =
+					value < this.comboBoxVariables.Items.Count ? value : 0;
 			}
 		}
 

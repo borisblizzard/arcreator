@@ -12,7 +12,7 @@ namespace ARCed.EventBuilder
 		/// <summary>
 		/// Gets or sets the lines of text in the form's text control.
 		/// </summary>
-		public string[] Lines 
+		public string[] Lines
 		{
 			get { return this.textBoxText.Lines; }
 			set { this.textBoxText.Lines = value; }

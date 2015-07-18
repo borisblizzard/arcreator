@@ -20,7 +20,7 @@ namespace ARCed.EventBuilder
 			set { this.SetChoices(value); }
 		}
 
-		public int CancelIndex 
+		public int CancelIndex
 		{
 			get { return this.GetIndex(); }
 			set { this.SetIndex(value); }

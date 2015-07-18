@@ -20,10 +20,10 @@ namespace ARCed.EventBuilder
 	/// <summary>
 	/// Static class for building event commands. 
 	/// </summary>
-	public static class EventCommandEditor 
+	public static class EventCommandEditor
 	{
 		private static Cmd EmptyCommand { get { return new Cmd(0, 1, new Params()); } }
-		
+
 		/// <summary>
 		/// Starts the appropriate dialog, if any, and returns a user-defined command based 
 		/// on the specified code and indent level.
@@ -62,7 +62,7 @@ namespace ARCed.EventBuilder
 		}
 
 		#region Page 1
-	
+
 		/// <summary>
 		/// Show Text
 		/// </summary>
@@ -106,8 +106,8 @@ namespace ARCed.EventBuilder
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
 					var choices = new Params();
-				    choices.AddRange(dialog.Choices);
-				    if (choices.Count == 0) choices.Add("");
+					choices.AddRange(dialog.Choices);
+					if (choices.Count == 0) choices.Add("");
 					commands.Clear();
 					commands.Add(new Cmd(102, 0, new Params { choices, dialog.CancelIndex }));
 					for (int i = 0; i < choices.Count; i++)
@@ -152,7 +152,7 @@ namespace ARCed.EventBuilder
 			}
 			return null;
 		}
-		
+
 		/// <summary>
 		/// Change Text Options
 		/// </summary>
@@ -170,7 +170,7 @@ namespace ARCed.EventBuilder
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
 					commands.Clear();
-					commands.Add(new Cmd(104, 0, 
+					commands.Add(new Cmd(104, 0,
 						new Params { dialog.Position, dialog.WindowVisibility }));
 					return commands;
 				}
@@ -215,7 +215,7 @@ namespace ARCed.EventBuilder
 					commands.Clear();
 					commands.Add(new Cmd(106, 0, new Params { dialog.Frames }));
 					return commands;
-				}					
+				}
 			}
 			return null;
 		}
@@ -229,14 +229,14 @@ namespace ARCed.EventBuilder
 		{
 			string[] lines;
 			using (var dialog = new CmdCommentDialog())
-			{ 
+			{
 				if (commands.Count > 0)
 				{
 					lines = new string[commands.Count];
 					for (int i = 0; i < commands.Count; i++)
 						lines[i] = commands[i].parameters[0];
 					dialog.Lines = lines;
-				}		
+				}
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
 					commands.Clear();
@@ -245,7 +245,7 @@ namespace ARCed.EventBuilder
 					for (int i = 1; i < lines.Length; i++)
 						commands.Add(new Cmd(408, 0, new Params { lines[i] }));
 					return commands;
-				}		
+				}
 			}
 			return null;
 		}
