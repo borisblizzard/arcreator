@@ -9,239 +9,240 @@ using System.Drawing;
 
 namespace ARCed.Scintilla
 {
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class Indicator : ScintillaHelperBase
-    {
-        #region Fields
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class Indicator : ScintillaHelperBase
+	{
+		#region Fields
 
-        private int _number;
+		private int _number;
 
-        #endregion Fields
-
-
-        #region Methods
-
-        public override bool Equals(object obj)
-        {
-            if (!IsSameHelperFamily(obj))
-                return false;
-
-            return ((Indicator)obj).Number == this.Number;
-        }
+		#endregion Fields
 
 
-        private Color GetDefaultColor()
-        {
-            if (this._number == 0)
-                return Color.FromArgb(0, 127, 0);
-            else if (this._number == 1)
-                return Color.FromArgb(0, 0, 255);
-            else if (this._number == 2)
-                return Color.FromArgb(255, 0, 0);
-            else
-                return Color.FromArgb(0, 0, 0);
-        }
+		#region Methods
+
+		public override bool Equals(object obj)
+		{
+			if (!IsSameHelperFamily(obj))
+				return false;
+
+			return ((Indicator)obj).Number == this.Number;
+		}
 
 
-        private IndicatorStyle GetDefaultStyle()
-        {
-            if (this._number == 0)
-                return IndicatorStyle.Squiggle;
-            else if (this._number == 1)
-                return IndicatorStyle.TT;
-            else
-                return IndicatorStyle.Plain;
-        }
+		private Color GetDefaultColor()
+		{
+			if (this._number == 0)
+				return Color.FromArgb(0, 127, 0);
+			else if (this._number == 1)
+				return Color.FromArgb(0, 0, 255);
+			else if (this._number == 2)
+				return Color.FromArgb(255, 0, 0);
+			else
+				return Color.FromArgb(0, 0, 0);
+		}
 
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+		private IndicatorStyle GetDefaultStyle()
+		{
+			if (this._number == 0)
+				return IndicatorStyle.Squiggle;
+			else if (this._number == 1)
+				return IndicatorStyle.TT;
+			else
+				return IndicatorStyle.Plain;
+		}
 
 
-        public void Reset()
-        {
-            this.ResetColor();
-            this.ResetIsDrawnUnder();
-            this.ResetStyle();
-        }
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 
 
-        public void ResetColor()
-        {
-            this.Color = this.GetDefaultColor();
-        }
+		public void Reset()
+		{
+			this.ResetColor();
+			this.ResetIsDrawnUnder();
+			this.ResetStyle();
+		}
 
 
-        public void ResetIsDrawnUnder()
-        {
-            this.IsDrawnUnder = false;
-        }
+		public void ResetColor()
+		{
+			this.Color = this.GetDefaultColor();
+		}
 
 
-        public void ResetStyle()
-        {
-            this.Style = this.GetDefaultStyle();
-        }
+		public void ResetIsDrawnUnder()
+		{
+			this.IsDrawnUnder = false;
+		}
 
 
-        public Range Search()
-        {
-            return this.Search(Scintilla.GetRange());
-        }
+		public void ResetStyle()
+		{
+			this.Style = this.GetDefaultStyle();
+		}
 
 
-        public Range Search(Range searchRange)
-        {
-            int foundStart = NativeScintilla.IndicatorEnd(this._number, searchRange.Start);
-            int foundEnd = NativeScintilla.IndicatorEnd(this._number, foundStart);
-            if (foundStart < 0 || foundStart > searchRange.End || foundStart == foundEnd)
-                return null;
+		public Range Search()
+		{
+			return this.Search(Scintilla.GetRange());
+		}
 
 
-            return new Range(foundStart, foundEnd, Scintilla);
-        }
+		public Range Search(Range searchRange)
+		{
+			int foundStart = NativeScintilla.IndicatorEnd(this._number, searchRange.Start);
+			int foundEnd = NativeScintilla.IndicatorEnd(this._number, foundStart);
+			if (foundStart < 0 || foundStart > searchRange.End || foundStart == foundEnd)
+				return null;
 
 
-        public Range Search(Range searchRange, Range startingAfterRange)
-        {
-            int start = startingAfterRange.End;
-            if (start > NativeScintilla.GetTextLength())
-                return null;
-
-            int foundStart = NativeScintilla.IndicatorEnd(this._number, start);
-            int foundEnd = NativeScintilla.IndicatorEnd(this._number, foundStart);
-            if (foundStart < 0 || foundStart > searchRange.End || foundStart == foundEnd)
-                return null;
-            
-            return new Range(foundStart, foundEnd, Scintilla);
-        }
+			return new Range(foundStart, foundEnd, Scintilla);
+		}
 
 
-        public List<Range> SearchAll()
-        {
-            return this.SearchAll(Scintilla.GetRange());
-        }
+		public Range Search(Range searchRange, Range startingAfterRange)
+		{
+			int start = startingAfterRange.End;
+			if (start > NativeScintilla.GetTextLength())
+				return null;
+
+			int foundStart = NativeScintilla.IndicatorEnd(this._number, start);
+			int foundEnd = NativeScintilla.IndicatorEnd(this._number, foundStart);
+			if (foundStart < 0 || foundStart > searchRange.End || foundStart == foundEnd)
+				return null;
+
+			return new Range(foundStart, foundEnd, Scintilla);
+		}
 
 
-        public List<Range> SearchAll(Range searchRange)
-        {
-            Range foundRange = Scintilla.GetRange(-1, -1);
-
-            var ret = new List<Range>();
-            do
-            {
-                foundRange = this.Search(searchRange, foundRange);
-                if (foundRange != null)
-                    ret.Add(foundRange);
-            }
-            while (foundRange != null);
-            return ret;
-        }
+		public List<Range> SearchAll()
+		{
+			return this.SearchAll(Scintilla.GetRange());
+		}
 
 
-        internal bool ShouldSerialize()
-        {
-            return this.ShouldSerializeColor() ||
-                this.ShouldSerializeIsDrawnUnder() ||
-                this.ShouldSerializeStyle();
-        }
+		public List<Range> SearchAll(Range searchRange)
+		{
+			Range foundRange = Scintilla.GetRange(-1, -1);
+
+			var ret = new List<Range>();
+			do
+			{
+				foundRange = this.Search(searchRange, foundRange);
+				if (foundRange != null)
+					ret.Add(foundRange);
+			}
+			while (foundRange != null);
+			return ret;
+		}
 
 
-        private bool ShouldSerializeColor()
-        {
-            return this.Color != this.GetDefaultColor();
-        }
+		internal bool ShouldSerialize()
+		{
+			return this.ShouldSerializeColor() ||
+				this.ShouldSerializeIsDrawnUnder() ||
+				this.ShouldSerializeStyle();
+		}
 
 
-        private bool ShouldSerializeIsDrawnUnder()
-        {
-            return this.IsDrawnUnder;
-        }
+		private bool ShouldSerializeColor()
+		{
+			return this.Color != this.GetDefaultColor();
+		}
 
 
-        private bool ShouldSerializeStyle()
-        {
-            return this.Style != this.GetDefaultStyle();
-        }
+		private bool ShouldSerializeIsDrawnUnder()
+		{
+			return this.IsDrawnUnder;
+		}
 
 
-        public override string ToString()
-        {
-            return "Indicator" + this._number;
-        }
-
-        #endregion Methods
+		private bool ShouldSerializeStyle()
+		{
+			return this.Style != this.GetDefaultStyle();
+		}
 
 
-        #region Properties
+		public override string ToString()
+		{
+			return "Indicator" + this._number;
+		}
 
-        public Color Color
-        {
-            get
-            {
-                if (Scintilla.ColorBag.ContainsKey(this + ".Color"))
-                    return Scintilla.ColorBag[this + ".Color"];
-
-                return Utilities.RgbToColor(NativeScintilla.IndicGetFore(this._number));
-            }
-            set
-            {
-                Scintilla.ColorBag[this + ".Color"] = value;
-                NativeScintilla.IndicSetFore(this._number, Utilities.ColorToRgb(value));
-            }
-        }
+		#endregion Methods
 
 
-        public bool IsDrawnUnder
-        {
-            get
-            {
-                return NativeScintilla.IndicGetUnder(this._number);
-            }
-            set
-            {
-                NativeScintilla.IndicSetUnder(this._number, value);
-            }
-        }
+		#region Properties
+
+		public Color Color
+		{
+			get
+			{
+				if (Scintilla.ColorBag.ContainsKey(this + ".Color"))
+					return Scintilla.ColorBag[this + ".Color"];
+
+				return Utilities.RgbToColor(NativeScintilla.IndicGetFore(this._number));
+			}
+			set
+			{
+				Scintilla.ColorBag[this + ".Color"] = value;
+				NativeScintilla.IndicSetFore(this._number, Utilities.ColorToRgb(value));
+			}
+		}
 
 
-        public int Number
-        {
-            get
-            {
-                return this._number;
-            }
-            set
-            {
-                this._number = value;
-            }
-        }
+		public bool IsDrawnUnder
+		{
+			get
+			{
+				return NativeScintilla.IndicGetUnder(this._number);
+			}
+			set
+			{
+				NativeScintilla.IndicSetUnder(this._number, value);
+			}
+		}
 
 
-        public IndicatorStyle Style
-        {
-            get
-            {
-                return (IndicatorStyle)NativeScintilla.IndicGetStyle(this._number);
-            }
-            set
-            {
-                NativeScintilla.IndicSetStyle(this._number, (int)value);
-            }
-        }
-
-        #endregion Properties
+		public int Number
+		{
+			get
+			{
+				return this._number;
+			}
+			set
+			{
+				this._number = value;
+			}
+		}
 
 
-        #region Constructors
+		public IndicatorStyle Style
+		{
+			get
+			{
+				return (IndicatorStyle)NativeScintilla.IndicGetStyle(this._number);
+			}
+			set
+			{
+				NativeScintilla.IndicSetStyle(this._number, (int)value);
+			}
+		}
 
-        internal Indicator(int number, Scintilla scintilla) : base(scintilla)
-        {
-            this._number = number;
-        }
+		#endregion Properties
 
-        #endregion Constructors
-    }
+
+		#region Constructors
+
+		internal Indicator(int number, Scintilla scintilla)
+			: base(scintilla)
+		{
+			this._number = number;
+		}
+
+		#endregion Constructors
+	}
 }

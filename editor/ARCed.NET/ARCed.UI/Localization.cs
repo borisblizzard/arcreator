@@ -12,14 +12,15 @@ namespace ARCed.UI
 	{
 		private bool m_initialized;
 
-		public LocalizedDescriptionAttribute(string key) : base(key)
+		public LocalizedDescriptionAttribute(string key)
+			: base(key)
 		{
 		}
 
 		public override string Description
 		{
 			get
-			{	
+			{
 				if (!this.m_initialized)
 				{
 					string key = base.Description;
@@ -38,7 +39,8 @@ namespace ARCed.UI
 	[AttributeUsage(AttributeTargets.All)]
 	internal sealed class LocalizedCategoryAttribute : CategoryAttribute
 	{
-		public LocalizedCategoryAttribute(string key) : base(key)
+		public LocalizedCategoryAttribute(string key)
+			: base(key)
 		{
 		}
 

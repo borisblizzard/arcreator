@@ -8,155 +8,156 @@ using System.Windows.Forms;
 
 namespace ARCed.Scintilla
 {
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class Scrolling : TopLevelHelper
-    {
-        #region Methods
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class Scrolling : TopLevelHelper
+	{
+		#region Methods
 
-        internal void ResetEndAtLastLine()
-        {
-            this.EndAtLastLine = true;
-        }
-
-
-        internal void ResetHorizontalWidth()
-        {
-            this.HorizontalWidth = 2000;
-        }
+		internal void ResetEndAtLastLine()
+		{
+			this.EndAtLastLine = true;
+		}
 
 
-        private void ResetScrollBars()
-        {
-            this.ScrollBars = ScrollBars.Both;
-        }
+		internal void ResetHorizontalWidth()
+		{
+			this.HorizontalWidth = 2000;
+		}
 
 
-        internal void ResetXOffset()
-        {
-            this.XOffset = 0;
-        }
+		private void ResetScrollBars()
+		{
+			this.ScrollBars = ScrollBars.Both;
+		}
 
 
-        public void ScrollBy(int columns, int lines)
-        {
-            NativeScintilla.LineScroll(columns, lines);
-        }
+		internal void ResetXOffset()
+		{
+			this.XOffset = 0;
+		}
 
 
-        public void ScrollToCaret()
-        {
-            NativeScintilla.ScrollCaret();
-        }
+		public void ScrollBy(int columns, int lines)
+		{
+			NativeScintilla.LineScroll(columns, lines);
+		}
 
 
-        internal bool ShouldSerialize()
-        {
-            return this.ShouldSerializeEndAtLastLine() ||
-                this.ShouldSerializeHorizontalWidth() ||
-                this.ShouldSerializeScrollBars() ||
-                this.ShouldSerializeXOffset();
-        }
+		public void ScrollToCaret()
+		{
+			NativeScintilla.ScrollCaret();
+		}
 
 
-        private bool ShouldSerializeEndAtLastLine()
-        {
-            return !this.EndAtLastLine;
-        }
+		internal bool ShouldSerialize()
+		{
+			return this.ShouldSerializeEndAtLastLine() ||
+				this.ShouldSerializeHorizontalWidth() ||
+				this.ShouldSerializeScrollBars() ||
+				this.ShouldSerializeXOffset();
+		}
 
 
-        private bool ShouldSerializeHorizontalWidth()
-        {
-            return this.HorizontalWidth != 2000;
-        }
+		private bool ShouldSerializeEndAtLastLine()
+		{
+			return !this.EndAtLastLine;
+		}
 
 
-        private bool ShouldSerializeScrollBars()
-        {
-            return this.ScrollBars != ScrollBars.Both;
-        }
+		private bool ShouldSerializeHorizontalWidth()
+		{
+			return this.HorizontalWidth != 2000;
+		}
 
 
-        private bool ShouldSerializeXOffset()
-        {
-            return this.XOffset != 0;
-        }
-
-        #endregion Methods
+		private bool ShouldSerializeScrollBars()
+		{
+			return this.ScrollBars != ScrollBars.Both;
+		}
 
 
-        #region Properties
+		private bool ShouldSerializeXOffset()
+		{
+			return this.XOffset != 0;
+		}
 
-        public bool EndAtLastLine
-        {
-            get
-            {
-                return NativeScintilla.GetEndAtLastLine();
-            }
-            set
-            {
-                NativeScintilla.SetEndAtLastLine(value);
-            }
-        }
+		#endregion Methods
 
 
-        public int HorizontalWidth
-        {
-            get
-            {
-                return NativeScintilla.GetScrollWidth();
-            }
-            set
-            {
-                NativeScintilla.SetScrollWidth(value);
-            }
-        }
+		#region Properties
+
+		public bool EndAtLastLine
+		{
+			get
+			{
+				return NativeScintilla.GetEndAtLastLine();
+			}
+			set
+			{
+				NativeScintilla.SetEndAtLastLine(value);
+			}
+		}
 
 
-        public ScrollBars ScrollBars
-        {
-            get
-            {
-                bool h = NativeScintilla.GetHScrollBar();
-                bool v = NativeScintilla.GetVScrollBar();
-
-                if (h && v)
-                    return ScrollBars.Both;
-                else if (h)
-                    return ScrollBars.Horizontal;
-                else if (v)
-                    return ScrollBars.Vertical;
-                else
-                    return ScrollBars.None;
-            }
-            set
-            {
-                NativeScintilla.SetHScrollBar((value & ScrollBars.Horizontal) > 0);
-                NativeScintilla.SetVScrollBar((value & ScrollBars.Vertical) > 0);
-            }
-        }
+		public int HorizontalWidth
+		{
+			get
+			{
+				return NativeScintilla.GetScrollWidth();
+			}
+			set
+			{
+				NativeScintilla.SetScrollWidth(value);
+			}
+		}
 
 
-        public int XOffset
-        {
-            get
-            {
-                return NativeScintilla.GetXOffset();
-            }
-            set
-            {
-                NativeScintilla.SetXOffset(value);
-            }
-        }
+		public ScrollBars ScrollBars
+		{
+			get
+			{
+				bool h = NativeScintilla.GetHScrollBar();
+				bool v = NativeScintilla.GetVScrollBar();
 
-        #endregion Properties
+				if (h && v)
+					return ScrollBars.Both;
+				else if (h)
+					return ScrollBars.Horizontal;
+				else if (v)
+					return ScrollBars.Vertical;
+				else
+					return ScrollBars.None;
+			}
+			set
+			{
+				NativeScintilla.SetHScrollBar((value & ScrollBars.Horizontal) > 0);
+				NativeScintilla.SetVScrollBar((value & ScrollBars.Vertical) > 0);
+			}
+		}
 
 
-        #region Constructors
+		public int XOffset
+		{
+			get
+			{
+				return NativeScintilla.GetXOffset();
+			}
+			set
+			{
+				NativeScintilla.SetXOffset(value);
+			}
+		}
 
-        internal Scrolling(Scintilla scintilla) : base(scintilla)
-        {
-        }
+		#endregion Properties
 
-        #endregion Constructors
-    }
+
+		#region Constructors
+
+		internal Scrolling(Scintilla scintilla)
+			: base(scintilla)
+		{
+		}
+
+		#endregion Constructors
+	}
 }

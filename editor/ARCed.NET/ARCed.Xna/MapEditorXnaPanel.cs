@@ -108,7 +108,7 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public Rectangle MapRect
 		{
-			get { return new Rectangle(0, 0, MapPixelWidth, MapPixelHeight);}
+			get { return new Rectangle(0, 0, MapPixelWidth, MapPixelHeight); }
 		}
 
 		/// <summary>
@@ -128,8 +128,8 @@ namespace ARCed.Controls
 		public RPG.MapInfo MapInfo
 		{
 			get { return _mapInfo; }
-			set 
-			{ 
+			set
+			{
 				_mapInfo = value;
 				Invalidate();
 			}
@@ -198,7 +198,7 @@ namespace ARCed.Controls
 									x = 16 * (num % 6);
 									y = 16 * (num / 6);
 									srcRect = new SysRect(x + (frame * 96), y, hw, hw);
-									destRect = new SysRect(w * j + x % w, w * lvl + y % w, hw, hw); 
+									destRect = new SysRect(w * j + x % w, w * lvl + y % w, hw, hw);
 									g.DrawImage(autotile, destRect, srcRect, System.Drawing.GraphicsUnit.Pixel);
 								}
 							}

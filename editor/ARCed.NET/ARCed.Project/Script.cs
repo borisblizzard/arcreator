@@ -13,10 +13,10 @@ namespace ARCed.Scripting
 	/// </summary>
 	public class Script
 	{
-        /// <summary>
-        /// Gets an empty script object.
-        /// </summary>
-        public static readonly Script DummyScript = new Script();
+		/// <summary>
+		/// Gets an empty script object.
+		/// </summary>
+		public static readonly Script DummyScript = new Script();
 
 		#region Private Fields
 
@@ -80,12 +80,13 @@ namespace ARCed.Scripting
 		/// Parametered constructor to load a script after construction
 		/// </summary>
 		/// <param name="filename">The filename of the script to load</param>
-		public Script(string filename) : this()
+		public Script(string filename)
+			: this()
 		{
 			this.Load(filename);
 			filename = Path.GetFileName(filename);
-            if (String.IsNullOrEmpty(filename))
-                return;
+			if (String.IsNullOrEmpty(filename))
+				return;
 			try { this._index = Convert.ToInt32(filename.Substring(0, 4)); }
 			catch { this._index = 0; this.NeedSaved = true; }
 		}
@@ -100,8 +101,8 @@ namespace ARCed.Scripting
 		/// <returns>Flag if save was successful or not</returns>
 		public bool Save()
 		{
-			try 
-			{ 
+			try
+			{
 				File.WriteAllText(this.GetFullPath(), this._text, Encoding.UTF8);
 				this.NeedSaved = false;
 				return true;
@@ -120,13 +121,13 @@ namespace ARCed.Scripting
 			{
 				this._text = File.ReadAllText(filename, Encoding.UTF8).Replace("  ", "\t");
 				filename = Path.GetFileNameWithoutExtension(filename);
-                if (String.IsNullOrEmpty(filename))
-                    return false;
+				if (String.IsNullOrEmpty(filename))
+					return false;
 				this._title = filename.Substring(5, filename.Length - 5);
 				this.NeedSaved = false;
 				return true;
 			}
-			catch 
+			catch
 			{
 				this._text = "";
 				this._title = "";

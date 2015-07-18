@@ -10,7 +10,7 @@ namespace ARCed.UI
 	public class FloatWindowCollection : ReadOnlyCollection<FloatWindow>
 	{
 		internal FloatWindowCollection()
-            : base(new List<FloatWindow>())
+			: base(new List<FloatWindow>())
 		{
 		}
 
@@ -20,12 +20,12 @@ namespace ARCed.UI
 				return Items.IndexOf(fw);
 
 			Items.Add(fw);
-            return Count - 1;
+			return Count - 1;
 		}
 
 		internal void Dispose()
 		{
-			for (int i=Count - 1; i>=0; i--)
+			for (int i = Count - 1; i >= 0; i--)
 				this[i].Close();
 		}
 

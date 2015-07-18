@@ -7,81 +7,82 @@
 
 namespace ARCed.Scintilla
 {
-    /// <summary>
-    ///     Provides data for the FoldChanged event
-    /// </summary>
-    public class FoldChangedEventArgs : ModifiedEventArgs
-    {
-        #region Fields
+	/// <summary>
+	///     Provides data for the FoldChanged event
+	/// </summary>
+	public class FoldChangedEventArgs : ModifiedEventArgs
+	{
+		#region Fields
 
-        private int _line;
-        private readonly int _newFoldLevel;
-        private readonly int _previousFoldLevel;
+		private int _line;
+		private readonly int _newFoldLevel;
+		private readonly int _previousFoldLevel;
 
-        #endregion Fields
-
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets/Sets the Line # that the fold change occured on
-        /// </summary>
-        public int Line
-        {
-            get
-            {
-                return this._line;
-            }
-            set
-            {
-                this._line = value;
-            }
-        }
+		#endregion Fields
 
 
-        /// <summary>
-        ///     Gets the new Fold Level of the line
-        /// </summary>
-        public int NewFoldLevel
-        {
-            get
-            {
-                return this._newFoldLevel;
-            }
-        }
+		#region Properties
+
+		/// <summary>
+		///     Gets/Sets the Line # that the fold change occured on
+		/// </summary>
+		public int Line
+		{
+			get
+			{
+				return this._line;
+			}
+			set
+			{
+				this._line = value;
+			}
+		}
 
 
-        /// <summary>
-        ///     Gets the previous Fold Level of the line
-        /// </summary>
-        public int PreviousFoldLevel
-        {
-            get
-            {
-                return this._previousFoldLevel;
-            }
-
-        }
-
-        #endregion Properties
+		/// <summary>
+		///     Gets the new Fold Level of the line
+		/// </summary>
+		public int NewFoldLevel
+		{
+			get
+			{
+				return this._newFoldLevel;
+			}
+		}
 
 
-        #region Constructors
+		/// <summary>
+		///     Gets the previous Fold Level of the line
+		/// </summary>
+		public int PreviousFoldLevel
+		{
+			get
+			{
+				return this._previousFoldLevel;
+			}
 
-        /// <summary>
-        ///     Initializes a new instance of the FoldChangedEventArgs class.
-        /// </summary>
-        /// <param name="line">Line # that the fold change occured on</param>
-        /// <param name="newFoldLevel">new Fold Level of the line</param>
-        /// <param name="previousFoldLevel">previous Fold Level of the line</param>
-        /// <param name="modificationType">What kind of fold modification occured</param>
-        public FoldChangedEventArgs(int line, int newFoldLevel, int previousFoldLevel, int modificationType) : base(modificationType)
-        {
-            this._line = line;
-            this._newFoldLevel = newFoldLevel;
-            this._previousFoldLevel = previousFoldLevel;
-        }
+		}
 
-        #endregion Constructors
-    }
+		#endregion Properties
+
+
+		#region Constructors
+
+		/// <summary>
+		///     Initializes a new instance of the FoldChangedEventArgs class.
+		/// </summary>
+		/// <param name="line">Line # that the fold change occured on</param>
+		/// <param name="newFoldLevel">new Fold Level of the line</param>
+		/// <param name="previousFoldLevel">previous Fold Level of the line</param>
+		/// <param name="modificationType">What kind of fold modification occured</param>
+		public FoldChangedEventArgs(int line, int newFoldLevel, int previousFoldLevel, int modificationType)
+			: base(modificationType)
+		{
+			this._line = line;
+			this._newFoldLevel = newFoldLevel;
+			this._previousFoldLevel = previousFoldLevel;
+		}
+
+		#endregion Constructors
+	}
 }

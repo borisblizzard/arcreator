@@ -10,38 +10,38 @@ namespace ARCed.UI
 {
 	public sealed class VisibleNestedPaneCollection : ReadOnlyCollection<DockPane>
 	{
-        private readonly NestedPaneCollection _mNestedPanes;
+		private readonly NestedPaneCollection _mNestedPanes;
 
-        internal VisibleNestedPaneCollection(NestedPaneCollection nestedPanes)
-            : base(new List<DockPane>())
-        {
-            this._mNestedPanes = nestedPanes;
-        }
+		internal VisibleNestedPaneCollection(NestedPaneCollection nestedPanes)
+			: base(new List<DockPane>())
+		{
+			this._mNestedPanes = nestedPanes;
+		}
 
 		public NestedPaneCollection NestedPanes
 		{
-			get	{	return this._mNestedPanes;	}
+			get { return this._mNestedPanes; }
 		}
 
 		public INestedPanesContainer Container
 		{
-			get	{	return this.NestedPanes.Container;	}
+			get { return this.NestedPanes.Container; }
 		}
 
 		public DockState DockState
 		{
-			get	{	return this.NestedPanes.DockState;	}
+			get { return this.NestedPanes.DockState; }
 		}
 
 		public bool IsFloat
 		{
-			get	{	return this.NestedPanes.IsFloat;	}
+			get { return this.NestedPanes.IsFloat; }
 		}
 
 		internal void Refresh()
 		{
 			Items.Clear();
-			for (int i=0; i<this.NestedPanes.Count; i++)
+			for (int i = 0; i < this.NestedPanes.Count; i++)
 			{
 				DockPane pane = this.NestedPanes[i];
 				NestedDockingStatus status = pane.NestedDockingStatus;
@@ -75,7 +75,7 @@ namespace ARCed.UI
 
 			NestedDockingStatus statusPane = pane.NestedDockingStatus;
 			DockPane lastNestedPane = null;
-			for (int i=Count - 1; i> IndexOf(pane); i--)
+			for (int i = Count - 1; i > IndexOf(pane); i--)
 			{
 				if (this[i].NestedDockingStatus.PreviousPane == pane)
 				{
@@ -91,7 +91,7 @@ namespace ARCed.UI
 				Items[IndexOf(pane)] = lastNestedPane;
 				NestedDockingStatus lastNestedDock = lastNestedPane.NestedDockingStatus;
 				lastNestedDock.SetDisplayingStatus(true, statusPane.DisplayingPreviousPane, statusPane.DisplayingAlignment, statusPane.DisplayingProportion);
-				for (int i=indexLastNestedPane - 1; i>IndexOf(lastNestedPane); i--)
+				for (int i = indexLastNestedPane - 1; i > IndexOf(lastNestedPane); i--)
 				{
 					NestedDockingStatus status = this[i].NestedDockingStatus;
 					if (status.PreviousPane == pane)
@@ -111,7 +111,7 @@ namespace ARCed.UI
 
 			this[0].NestedDockingStatus.SetDisplayingBounds(this.Container.DisplayingRectangle, this.Container.DisplayingRectangle, Rectangle.Empty);
 
-			for (int i=1; i<Count; i++)
+			for (int i = 1; i < Count; i++)
 			{
 				DockPane pane = this[i];
 				NestedDockingStatus status = pane.NestedDockingStatus;

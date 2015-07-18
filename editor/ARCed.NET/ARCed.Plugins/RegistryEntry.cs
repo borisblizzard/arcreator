@@ -7,9 +7,9 @@ using ARCed.UI;
 
 namespace ARCed.Plugins
 {
-    /// <summary>
-    /// Represents an entry in the plugin registry.
-    /// </summary>
+	/// <summary>
+	/// Represents an entry in the plugin registry.
+	/// </summary>
 	public class RegistryEntry : IPluginClient
 	{
 		/// <summary>
@@ -39,9 +39,9 @@ namespace ARCed.Plugins
 		/// <summary>
 		/// Gets the associated window as dockable content
 		/// </summary>
-// ReSharper disable SuspiciousTypeConversion.Global
-        public DockContent Content { get { return (DockContent)this.Window; } }
-// ReSharper restore SuspiciousTypeConversion.Global
+		// ReSharper disable SuspiciousTypeConversion.Global
+		public DockContent Content { get { return (DockContent)this.Window; } }
+		// ReSharper restore SuspiciousTypeConversion.Global
 
 		private IPluginClient _instance;
 
@@ -69,8 +69,8 @@ namespace ARCed.Plugins
 		{
 			get
 			{
-                var dockContent = (DockContent)this._instance;
-			    if (dockContent != null && (this._instance == null || dockContent.IsDisposed))
+				var dockContent = (DockContent)this._instance;
+				if (dockContent != null && (this._instance == null || dockContent.IsDisposed))
 					this._instance = (IPluginClient)Activator.CreateInstance(this.ClassType);
 				return this._instance;
 			}

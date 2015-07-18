@@ -48,7 +48,7 @@ namespace ARCed.Controls
 
 		#region Private Fields
 
-        private readonly static Dictionary<string, Texture2D> _cache =
+		private readonly static Dictionary<string, Texture2D> _cache =
 			new Dictionary<string, Texture2D>();
 		public static GraphicsDevice GraphicsDevice { get; set; }
 

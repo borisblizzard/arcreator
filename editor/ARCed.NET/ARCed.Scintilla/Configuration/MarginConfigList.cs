@@ -8,85 +8,85 @@ using System.Drawing;
 
 namespace ARCed.Scintilla.Configuration
 {
-    public class MarginConfigList : List<MarginConfig>
-    {
-        #region Fields
+	public class MarginConfigList : List<MarginConfig>
+	{
+		#region Fields
 
-        private Color _foldMarginColor;
-        private Color _foldMarginHighlightColor;
-        private bool? _inherit;
-        private int? _left;
-        private int? _right;
+		private Color _foldMarginColor;
+		private Color _foldMarginHighlightColor;
+		private bool? _inherit;
+		private int? _left;
+		private int? _right;
 
-        #endregion Fields
-
-
-        #region Properties
-
-        public Color FoldMarginColor
-        {
-            get
-            {
-                return this._foldMarginColor;
-            }
-            set
-            {
-                this._foldMarginColor = value;
-            }
-        }
+		#endregion Fields
 
 
-        public Color FoldMarginHighlightColor
-        {
-            get
-            {
-                return this._foldMarginHighlightColor;
-            }
-            set
-            {
-                this._foldMarginHighlightColor = value;
-            }
-        }
+		#region Properties
+
+		public Color FoldMarginColor
+		{
+			get
+			{
+				return this._foldMarginColor;
+			}
+			set
+			{
+				this._foldMarginColor = value;
+			}
+		}
 
 
-        public bool? Inherit
-        {
-            get
-            {
-                return this._inherit;
-            }
-            set
-            {
-                this._inherit = value;
-            }
-        }
+		public Color FoldMarginHighlightColor
+		{
+			get
+			{
+				return this._foldMarginHighlightColor;
+			}
+			set
+			{
+				this._foldMarginHighlightColor = value;
+			}
+		}
 
 
-        public int? Left
-        {
-            get
-            {
-                return this._left;
-            }
-            set
-            {
-                this._left = value;
-            }
-        }
+		public bool? Inherit
+		{
+			get
+			{
+				return this._inherit;
+			}
+			set
+			{
+				this._inherit = value;
+			}
+		}
 
 
-        public int? Right
-        {
-            get
-            {
-                return this._right;
-            }
-            set
-            {
-                this._right = value;
-            }
-        }
+		public int? Left
+		{
+			get
+			{
+				return this._left;
+			}
+			set
+			{
+				this._left = value;
+			}
+		}
 
-        #endregion Properties
-    }
+
+		public int? Right
+		{
+			get
+			{
+				return this._right;
+			}
+			set
+			{
+				this._right = value;
+			}
+		}
+
+		#endregion Properties
+	}
 }

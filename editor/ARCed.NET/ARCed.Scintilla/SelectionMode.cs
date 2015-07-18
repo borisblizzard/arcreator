@@ -7,10 +7,10 @@
 
 namespace ARCed.Scintilla
 {
-    public enum SelectionMode
-    {
-        Stream = 0,
-        Rectangle = 1,
-        Lines = 2,
-    }
+	public enum SelectionMode
+	{
+		Stream = 0,
+		Rectangle = 1,
+		Lines = 2,
+	}
 }

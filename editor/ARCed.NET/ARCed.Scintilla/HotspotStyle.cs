@@ -8,210 +8,211 @@ using System.Drawing;
 
 namespace ARCed.Scintilla
 {
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class HotspotStyle : TopLevelHelper
-    {
-        #region Fields
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class HotspotStyle : TopLevelHelper
+	{
+		#region Fields
 
-        private bool _useActiveForeColor = true;
-        private bool _useActiveBackColor = true;
+		private bool _useActiveForeColor = true;
+		private bool _useActiveBackColor = true;
 
-        #endregion Fields
-
-
-        #region Methods
-
-        private void ResetActiveBackColor()
-        {
-            this.ActiveBackColor = SystemColors.Window;
-        }
+		#endregion Fields
 
 
-        private void ResetActiveForeColor()
-        {
-            this.ActiveForeColor = SystemColors.HotTrack;
-        }
+		#region Methods
+
+		private void ResetActiveBackColor()
+		{
+			this.ActiveBackColor = SystemColors.Window;
+		}
 
 
-        private void ResetActiveUnderline()
-        {
-            this.ActiveUnderline = true;
-        }
+		private void ResetActiveForeColor()
+		{
+			this.ActiveForeColor = SystemColors.HotTrack;
+		}
 
 
-        private void ResetSingleLine()
-        {
-            this.SingleLine = true;
-        }
+		private void ResetActiveUnderline()
+		{
+			this.ActiveUnderline = true;
+		}
 
 
-        private void ResetUseActiveBackColor()
-        {
-            this.UseActiveBackColor = true;
-        }
+		private void ResetSingleLine()
+		{
+			this.SingleLine = true;
+		}
 
 
-        private void ResetUseActiveForeColor()
-        {
-            this.UseActiveForeColor = true;
-        }
+		private void ResetUseActiveBackColor()
+		{
+			this.UseActiveBackColor = true;
+		}
 
 
-        internal bool ShouldSerialize()
-        {
-            return this.ShouldSerializeActiveBackColor() ||
-                this.ShouldSerializeActiveForeColor() ||
-                this.ShouldSerializeActiveUnderline() ||
-                this.ShouldSerializeSingleLine() ||
-                this.ShouldSerializeUseActiveBackColor() ||
-                this.ShouldSerializeUseActiveForeColor();
-        }
+		private void ResetUseActiveForeColor()
+		{
+			this.UseActiveForeColor = true;
+		}
 
 
-        private bool ShouldSerializeActiveBackColor()
-        {
-            return this.ActiveBackColor != SystemColors.Window;
-        }
+		internal bool ShouldSerialize()
+		{
+			return this.ShouldSerializeActiveBackColor() ||
+				this.ShouldSerializeActiveForeColor() ||
+				this.ShouldSerializeActiveUnderline() ||
+				this.ShouldSerializeSingleLine() ||
+				this.ShouldSerializeUseActiveBackColor() ||
+				this.ShouldSerializeUseActiveForeColor();
+		}
 
 
-        private bool ShouldSerializeActiveForeColor()
-        {
-            return this.ActiveForeColor != SystemColors.HotTrack;
-        }
+		private bool ShouldSerializeActiveBackColor()
+		{
+			return this.ActiveBackColor != SystemColors.Window;
+		}
 
 
-        private bool ShouldSerializeActiveUnderline()
-        {
-            return !this.ActiveUnderline;
-        }
+		private bool ShouldSerializeActiveForeColor()
+		{
+			return this.ActiveForeColor != SystemColors.HotTrack;
+		}
 
 
-        private bool ShouldSerializeSingleLine()
-        {
-            return !this.SingleLine;
-        }
+		private bool ShouldSerializeActiveUnderline()
+		{
+			return !this.ActiveUnderline;
+		}
 
 
-        private bool ShouldSerializeUseActiveBackColor()
-        {
-            return !this.UseActiveBackColor;
-        }
+		private bool ShouldSerializeSingleLine()
+		{
+			return !this.SingleLine;
+		}
 
 
-        private bool ShouldSerializeUseActiveForeColor()
-        {
-            return !this.UseActiveForeColor;
-        }
-
-        #endregion Methods
+		private bool ShouldSerializeUseActiveBackColor()
+		{
+			return !this.UseActiveBackColor;
+		}
 
 
-        #region Properties
+		private bool ShouldSerializeUseActiveForeColor()
+		{
+			return !this.UseActiveForeColor;
+		}
 
-        public Color ActiveBackColor
-        {
-            get
-            {
-                if (Scintilla.ColorBag.ContainsKey("HotspotStyle.ActiveBackColor"))
-                    return Scintilla.ColorBag["HotspotStyle.ActiveBackColor"];
-
-                return Utilities.RgbToColor(NativeScintilla.GetHotspotActiveBack());
-            }
-            set
-            {
-                if (value.IsKnownColor)
-                    Scintilla.ColorBag["HotspotStyle.ActiveBackColor"] = value;
-                else
-                    Scintilla.ColorBag.Remove("HotspotStyle.ActiveBackColor");
-
-                NativeScintilla.SetHotspotActiveBack(this._useActiveBackColor, Utilities.ColorToRgb(value));
-            }
-        }
+		#endregion Methods
 
 
-        public Color ActiveForeColor
-        {
-            get
-            {
-                if (Scintilla.ColorBag.ContainsKey("HotspotStyle.ActiveForeColor"))
-                    return Scintilla.ColorBag["HotspotStyle.ActiveForeColor"];
+		#region Properties
 
-                return Utilities.RgbToColor(NativeScintilla.GetHotspotActiveFore());
-            }
-            set
-            {
-                if (value.IsKnownColor)
-                    Scintilla.ColorBag["HotspotStyle.ActiveForeColor"] = value;
-                else
-                    Scintilla.ColorBag.Remove("HotspotStyle.ActiveForeColor");
+		public Color ActiveBackColor
+		{
+			get
+			{
+				if (Scintilla.ColorBag.ContainsKey("HotspotStyle.ActiveBackColor"))
+					return Scintilla.ColorBag["HotspotStyle.ActiveBackColor"];
 
-                NativeScintilla.SetHotspotActiveFore(this._useActiveForeColor, Utilities.ColorToRgb(value));
-            }
-        }
+				return Utilities.RgbToColor(NativeScintilla.GetHotspotActiveBack());
+			}
+			set
+			{
+				if (value.IsKnownColor)
+					Scintilla.ColorBag["HotspotStyle.ActiveBackColor"] = value;
+				else
+					Scintilla.ColorBag.Remove("HotspotStyle.ActiveBackColor");
 
-
-        public bool ActiveUnderline
-        {
-            get
-            {
-                return NativeScintilla.GetHotspotActiveUnderline();
-            }
-            set
-            {
-                NativeScintilla.SetHotspotActiveUnderline(value);
-            }
-        }
+				NativeScintilla.SetHotspotActiveBack(this._useActiveBackColor, Utilities.ColorToRgb(value));
+			}
+		}
 
 
-        public bool SingleLine
-        {
-            get
-            {
-                return NativeScintilla.GetHotspotSingleLine();
-            }
-            set
-            {
-                NativeScintilla.SetHotspotSingleLine(value);
-            }
-        }
+		public Color ActiveForeColor
+		{
+			get
+			{
+				if (Scintilla.ColorBag.ContainsKey("HotspotStyle.ActiveForeColor"))
+					return Scintilla.ColorBag["HotspotStyle.ActiveForeColor"];
+
+				return Utilities.RgbToColor(NativeScintilla.GetHotspotActiveFore());
+			}
+			set
+			{
+				if (value.IsKnownColor)
+					Scintilla.ColorBag["HotspotStyle.ActiveForeColor"] = value;
+				else
+					Scintilla.ColorBag.Remove("HotspotStyle.ActiveForeColor");
+
+				NativeScintilla.SetHotspotActiveFore(this._useActiveForeColor, Utilities.ColorToRgb(value));
+			}
+		}
 
 
-        public bool UseActiveBackColor
-        {
-            get
-            {
-                return this._useActiveBackColor;
-            }
-            set
-            {
-                this._useActiveBackColor = value;
-            }
-        }
+		public bool ActiveUnderline
+		{
+			get
+			{
+				return NativeScintilla.GetHotspotActiveUnderline();
+			}
+			set
+			{
+				NativeScintilla.SetHotspotActiveUnderline(value);
+			}
+		}
 
 
-        public bool UseActiveForeColor
-        {
-            get
-            {
-                return this._useActiveForeColor;
-            }
-            set
-            {
-                this._useActiveForeColor = value;
-            }
-        }
-
-        #endregion Properties
+		public bool SingleLine
+		{
+			get
+			{
+				return NativeScintilla.GetHotspotSingleLine();
+			}
+			set
+			{
+				NativeScintilla.SetHotspotSingleLine(value);
+			}
+		}
 
 
-        #region Constructors
+		public bool UseActiveBackColor
+		{
+			get
+			{
+				return this._useActiveBackColor;
+			}
+			set
+			{
+				this._useActiveBackColor = value;
+			}
+		}
 
-        internal HotspotStyle(Scintilla scintilla) : base(scintilla)
-        {
-            this.ActiveForeColor = SystemColors.HotTrack;
-            this.ActiveBackColor = SystemColors.Window;
-        }
 
-        #endregion Constructors
-    }
+		public bool UseActiveForeColor
+		{
+			get
+			{
+				return this._useActiveForeColor;
+			}
+			set
+			{
+				this._useActiveForeColor = value;
+			}
+		}
+
+		#endregion Properties
+
+
+		#region Constructors
+
+		internal HotspotStyle(Scintilla scintilla)
+			: base(scintilla)
+		{
+			this.ActiveForeColor = SystemColors.HotTrack;
+			this.ActiveBackColor = SystemColors.Window;
+		}
+
+		#endregion Constructors
+	}
 }

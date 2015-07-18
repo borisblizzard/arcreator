@@ -10,17 +10,17 @@ using System.Windows.Forms.Design;
 #endregion
 
 namespace ARCed.UI
-{	
+{
 	internal class DockAreasEditor : UITypeEditor
 	{
 		private class DockAreasEditorControl : UserControl
 		{
-            private readonly CheckBox _checkBoxFloat;
-            private readonly CheckBox _checkBoxDockLeft;
-            private readonly CheckBox _checkBoxDockRight;
-            private readonly CheckBox _checkBoxDockTop;
-            private readonly CheckBox _checkBoxDockBottom;
-            private readonly CheckBox _checkBoxDockFill;
+			private readonly CheckBox _checkBoxFloat;
+			private readonly CheckBox _checkBoxDockLeft;
+			private readonly CheckBox _checkBoxDockRight;
+			private readonly CheckBox _checkBoxDockTop;
+			private readonly CheckBox _checkBoxDockBottom;
+			private readonly CheckBox _checkBoxDockFill;
 			private DockAreas _mOldDockAreas;
 
 			public DockAreas DockAreas
@@ -65,7 +65,7 @@ namespace ARCed.UI
 				this._checkBoxFloat.Text = Strings.DockAreaEditor_FloatCheckBoxText;
 				this._checkBoxFloat.TextAlign = ContentAlignment.MiddleCenter;
 				this._checkBoxFloat.FlatStyle = FlatStyle.System;
-			
+
 				this._checkBoxDockLeft.Appearance = Appearance.Button;
 				this._checkBoxDockLeft.Dock = DockStyle.Left;
 				this._checkBoxDockLeft.Width = 24;
@@ -85,7 +85,7 @@ namespace ARCed.UI
 				this._checkBoxDockBottom.Dock = DockStyle.Bottom;
 				this._checkBoxDockBottom.Height = 24;
 				this._checkBoxDockBottom.FlatStyle = FlatStyle.System;
-			
+
 				this._checkBoxDockFill.Appearance = Appearance.Button;
 				this._checkBoxDockFill.Dock = DockStyle.Fill;
 				this._checkBoxDockFill.FlatStyle = FlatStyle.System;
@@ -137,7 +137,7 @@ namespace ARCed.UI
 
 			this.m_ui.SetStates((DockAreas)value);
 
-            var edSvc = (IWindowsFormsEditorService)sp.GetService(typeof(IWindowsFormsEditorService));
+			var edSvc = (IWindowsFormsEditorService)sp.GetService(typeof(IWindowsFormsEditorService));
 			edSvc.DropDownControl(this.m_ui);
 
 			return this.m_ui.DockAreas;

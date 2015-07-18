@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 
 namespace ARCed.Scintilla
 {
-    // TODO Make internal
-    [StructLayout(LayoutKind.Sequential)]
-    public struct TextRange
-    {
-        public CharacterRange chrg;
-        public IntPtr lpstrText;
-    }
+	// TODO Make internal
+	[StructLayout(LayoutKind.Sequential)]
+	public struct TextRange
+	{
+		public CharacterRange chrg;
+		public IntPtr lpstrText;
+	}
 }

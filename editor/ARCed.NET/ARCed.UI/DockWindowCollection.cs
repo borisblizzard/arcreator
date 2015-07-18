@@ -11,7 +11,7 @@ namespace ARCed.UI
 	public class DockWindowCollection : ReadOnlyCollection<DockWindow>
 	{
 		internal DockWindowCollection(DockPanel dockPanel)
-            : base(new List<DockWindow>())
+			: base(new List<DockWindow>())
 		{
 			Items.Add(new DockWindow(dockPanel, DockState.Document));
 			Items.Add(new DockWindow(dockPanel, DockState.DockLeft));
@@ -20,7 +20,7 @@ namespace ARCed.UI
 			Items.Add(new DockWindow(dockPanel, DockState.DockBottom));
 		}
 
-		public DockWindow this [DockState dockState]
+		public DockWindow this[DockState dockState]
 		{
 			get
 			{

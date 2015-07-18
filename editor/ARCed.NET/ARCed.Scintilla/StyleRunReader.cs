@@ -7,8 +7,8 @@
 
 namespace ARCed.Scintilla
 {
-    internal class StyleRunReader
-    {
-        // Reserved for future use
-    }
+	internal class StyleRunReader
+	{
+		// Reserved for future use
+	}
 }

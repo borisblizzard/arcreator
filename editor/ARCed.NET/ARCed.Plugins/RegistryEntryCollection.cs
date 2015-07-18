@@ -10,7 +10,7 @@ using ARCed.UI;
 namespace ARCed.Plugins
 {
 	/// <summary>
-    /// Container for <see cref="RegistryEntry"/> objects
+	/// Container for <see cref="RegistryEntry"/> objects
 	/// </summary>
 	public class RegistryEntryCollection : List<RegistryEntry>
 	{
@@ -24,7 +24,7 @@ namespace ARCed.Plugins
 			get
 			{
 				var names = this.Select(entry => entry.Name).ToList();
-			    names.Sort();
+				names.Sort();
 				return names;
 			}
 		}
@@ -36,7 +36,7 @@ namespace ARCed.Plugins
 			get
 			{
 				var names = this.Select(entry => entry.ClassName).ToList();
-			    names.Sort();
+				names.Sort();
 				return names;
 			}
 		}

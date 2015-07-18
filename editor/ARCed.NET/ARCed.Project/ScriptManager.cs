@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace ARCed.Scripting
 {
 	/// <summary>
-    /// Class used for managing <see cref="ARCed.Scripting.Script"/> objects. The functionality
+	/// Class used for managing <see cref="ARCed.Scripting.Script"/> objects. The functionality
 	/// is a very loose wrapper for a list.
 	/// </summary>
 	public class ScriptManager
@@ -174,9 +174,9 @@ namespace ARCed.Scripting
 			{
 				var binding = new BindingList<Script>(this.Scripts)
 				{
-				    AllowNew = true
+					AllowNew = true
 				};
-			    return binding;
+				return binding;
 			}
 			set { _scripts = value.ToList(); }
 		}

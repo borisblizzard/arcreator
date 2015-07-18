@@ -8,7 +8,7 @@ namespace ARCed.UI
 {
 	public class DockContentEventArgs : EventArgs
 	{
-        private readonly IDockContent _mContent;
+		private readonly IDockContent _mContent;
 
 		public DockContentEventArgs(IDockContent content)
 		{
@@ -17,7 +17,7 @@ namespace ARCed.UI
 
 		public IDockContent Content
 		{
-			get	{	return this._mContent;	}
+			get { return this._mContent; }
 		}
 	}
 }

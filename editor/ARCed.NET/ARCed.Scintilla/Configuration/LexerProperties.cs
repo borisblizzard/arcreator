@@ -7,29 +7,29 @@ using System.Collections.Generic;
 
 namespace ARCed.Scintilla.Configuration
 {
-    public class LexerPropertiesConfig : Dictionary<string, string>
-    {
-        #region Fields
+	public class LexerPropertiesConfig : Dictionary<string, string>
+	{
+		#region Fields
 
-        private bool? _inherit;
+		private bool? _inherit;
 
-        #endregion Fields
+		#endregion Fields
 
 
-        #region Properties
+		#region Properties
 
-        public bool? Inherit
-        {
-            get
-            {
-                return this._inherit;
-            }
-            set
-            {
-                this._inherit = value;
-            }
-        }
+		public bool? Inherit
+		{
+			get
+			{
+				return this._inherit;
+			}
+			set
+			{
+				this._inherit = value;
+			}
+		}
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

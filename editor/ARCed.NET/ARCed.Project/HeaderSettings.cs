@@ -38,7 +38,7 @@ namespace ARCed.Settings
 		/// Gets or sets the left gradient color using an Html formatted color string
 		/// </summary>
 		[XmlElement("GradientLeft")]
-		public string GradientLeftHtml 
+		public string GradientLeftHtml
 		{
 			get { return ColorTranslator.ToHtml(this.GradientLeft); }
 			set { this.GradientLeft = ColorTranslator.FromHtml(value); }

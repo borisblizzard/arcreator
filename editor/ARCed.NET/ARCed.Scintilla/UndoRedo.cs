@@ -7,104 +7,105 @@ using System.ComponentModel;
 
 namespace ARCed.Scintilla
 {
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class UndoRedo : TopLevelHelper
-    {
-        #region Methods
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class UndoRedo : TopLevelHelper
+	{
+		#region Methods
 
-        public void BeginUndoAction()
-        {
-            NativeScintilla.BeginUndoAction();
-        }
-
-
-        public void EmptyUndoBuffer()
-        {
-            NativeScintilla.EmptyUndoBuffer();
-        }
+		public void BeginUndoAction()
+		{
+			NativeScintilla.BeginUndoAction();
+		}
 
 
-        public void EndUndoAction()
-        {
-            NativeScintilla.EndUndoAction();
-        }
+		public void EmptyUndoBuffer()
+		{
+			NativeScintilla.EmptyUndoBuffer();
+		}
 
 
-        public void Redo()
-        {
-            NativeScintilla.Redo();
-        }
+		public void EndUndoAction()
+		{
+			NativeScintilla.EndUndoAction();
+		}
 
 
-        private void ResetIsUndoEnabled()
-        {
-            this.IsUndoEnabled = true;
-        }
+		public void Redo()
+		{
+			NativeScintilla.Redo();
+		}
 
 
-        internal bool ShouldSerialize()
-        {
-            return this.ShouldSerializeIsUndoEnabled();
-        }
+		private void ResetIsUndoEnabled()
+		{
+			this.IsUndoEnabled = true;
+		}
 
 
-        private bool ShouldSerializeIsUndoEnabled()
-        {
-            return !this.IsUndoEnabled;
-        }
+		internal bool ShouldSerialize()
+		{
+			return this.ShouldSerializeIsUndoEnabled();
+		}
 
 
-        public void Undo()
-        {
-            NativeScintilla.Undo();
-        }
-
-        #endregion Methods
+		private bool ShouldSerializeIsUndoEnabled()
+		{
+			return !this.IsUndoEnabled;
+		}
 
 
-        #region Properties
+		public void Undo()
+		{
+			NativeScintilla.Undo();
+		}
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool CanRedo
-        {
-            get
-            {
-                return NativeScintilla.CanRedo();
-            }
-        }
+		#endregion Methods
 
 
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool CanUndo
-        {
-            get
-            {
-                return NativeScintilla.CanUndo();
-            }
-        }
+		#region Properties
+
+		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public bool CanRedo
+		{
+			get
+			{
+				return NativeScintilla.CanRedo();
+			}
+		}
 
 
-        public bool IsUndoEnabled
-        {
-            get
-            {
-                return NativeScintilla.GetUndoCollection();
-            }
-            set
-            {
-                NativeScintilla.SetUndoCollection(value);
-            }
-        }
-
-        #endregion Properties
+		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public bool CanUndo
+		{
+			get
+			{
+				return NativeScintilla.CanUndo();
+			}
+		}
 
 
-        #region Constructors
+		public bool IsUndoEnabled
+		{
+			get
+			{
+				return NativeScintilla.GetUndoCollection();
+			}
+			set
+			{
+				NativeScintilla.SetUndoCollection(value);
+			}
+		}
 
-        internal UndoRedo(Scintilla scintilla) : base(scintilla)
-        {
-        }
+		#endregion Properties
 
-        #endregion Constructors
-    }
+
+		#region Constructors
+
+		internal UndoRedo(Scintilla scintilla)
+			: base(scintilla)
+		{
+		}
+
+		#endregion Constructors
+	}
 }

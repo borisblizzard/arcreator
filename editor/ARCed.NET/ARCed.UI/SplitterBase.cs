@@ -17,7 +17,7 @@ namespace ARCed.UI
 
 		public override DockStyle Dock
 		{
-			get	{	return base.Dock;	}
+			get { return base.Dock; }
 			set
 			{
 				SuspendLayout();
@@ -36,14 +36,14 @@ namespace ARCed.UI
 					Cursor = Cursors.HSplit;
 				else
 					Cursor = Cursors.Default;
-					
+
 				ResumeLayout();
 			}
 		}
 
 		protected virtual int SplitterSize
 		{
-			get	{	return 0;	}
+			get { return 0; }
 		}
 
 		protected override void OnMouseDown(MouseEventArgs e)
@@ -62,7 +62,7 @@ namespace ARCed.UI
 
 		protected override void WndProc(ref Message m)
 		{
-            // eat the WM_MOUSEACTIVATE message
+			// eat the WM_MOUSEACTIVATE message
 			if (m.Msg == (int)Msgs.WM_MOUSEACTIVATE)
 				return;
 

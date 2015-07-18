@@ -7,64 +7,64 @@ using System.Collections.Generic;
 
 namespace ARCed.Scintilla
 {
-    /// <summary>
-    ///     Mostly behaves like a stack but internally maintains a List for more flexability
-    /// </summary>
-    /// <remarks>
-    ///     FakeStack is not a general purpose datastructure and can only hold NavigationPoint objects
-    /// </remarks>
-    public class FakeStack : List<NavigationPont>
-    {
-        #region Fields
+	/// <summary>
+	///     Mostly behaves like a stack but internally maintains a List for more flexability
+	/// </summary>
+	/// <remarks>
+	///     FakeStack is not a general purpose datastructure and can only hold NavigationPoint objects
+	/// </remarks>
+	public class FakeStack : List<NavigationPont>
+	{
+		#region Fields
 
-        private int _maxCount = 50;
+		private int _maxCount = 50;
 
-        #endregion Fields
-
-
-        #region Methods
-
-        public NavigationPont Pop()
-        {
-            NavigationPont ret = this[Count - 1];
-            RemoveAt(Count - 1);
-            return ret;
-        }
+		#endregion Fields
 
 
-        public void Push(NavigationPont value)
-        {
-            Add(value);
-            if (Count > this.MaxCount)
-                RemoveAt(0);
-        }
+		#region Methods
 
-        #endregion Methods
-
-
-        #region Properties
-
-        public NavigationPont Current
-        {
-            get
-            {
-                return this[Count - 1];
-            }
-        }
+		public NavigationPont Pop()
+		{
+			NavigationPont ret = this[Count - 1];
+			RemoveAt(Count - 1);
+			return ret;
+		}
 
 
-        public int MaxCount
-        {
-            get
-            {
-                return this._maxCount;
-            }
-            set
-            {
-                this._maxCount = value;
-            }
-        }
+		public void Push(NavigationPont value)
+		{
+			Add(value);
+			if (Count > this.MaxCount)
+				RemoveAt(0);
+		}
 
-        #endregion Properties
-    }
+		#endregion Methods
+
+
+		#region Properties
+
+		public NavigationPont Current
+		{
+			get
+			{
+				return this[Count - 1];
+			}
+		}
+
+
+		public int MaxCount
+		{
+			get
+			{
+				return this._maxCount;
+			}
+			set
+			{
+				this._maxCount = value;
+			}
+		}
+
+		#endregion Properties
+	}
 }

@@ -26,15 +26,15 @@ namespace ARCed.Plugins
 
 		#region Public Properties
 
-        /// <summary>
-        /// Gets or sets the Host form
-        /// </summary>
-        public static IPluginHost Host { get; set; }
+		/// <summary>
+		/// Gets or sets the Host form
+		/// </summary>
+		public static IPluginHost Host { get; set; }
 
 		/// <summary>
 		/// Gets a collection of all currently registered plugin content
 		/// </summary>
-		public static RegistryEntryCollection Entries 
+		public static RegistryEntryCollection Entries
 		{
 			get { return _entries ?? (_entries = new RegistryEntryCollection()); }
 		}
@@ -42,7 +42,7 @@ namespace ARCed.Plugins
 		/// <summary>
 		/// Gets a list of loaded plugins
 		/// </summary>
-		public static PluginCollection Plugins 
+		public static PluginCollection Plugins
 		{
 			get { return _plugins ?? (_plugins = new PluginCollection()); }
 		}
@@ -58,8 +58,8 @@ namespace ARCed.Plugins
 		/// <param name="filename"></param>
 		public static void Load(string filename)
 		{
-            if (Host == null)
-                return;
+			if (Host == null)
+				return;
 			var ext = Path.GetExtension(filename);
 			if (File.Exists(filename) && (ext == ".exe" || ext == ".dll"))
 			{
@@ -71,7 +71,7 @@ namespace ARCed.Plugins
 					return;
 				}
 			}
-			MessageBox.Show(String.Format("Plugin \"{0}\" failed to load.", filename), 
+			MessageBox.Show(String.Format("Plugin \"{0}\" failed to load.", filename),
 				"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 		}
 
@@ -81,15 +81,15 @@ namespace ARCed.Plugins
 		/// <remarks>Acceptable formats are "*.exe" and "*.dll"</remarks>
 		public static void LoadAll()
 		{
-		    string[] filters = { "*.dll", "*.exe" };
-		    foreach (var filename in filters.Select(filter => 
-                Directory.GetFiles(PathHelper.PluginDirectory, filter)).SelectMany(files => files))
-		    {
-		        Load(filename);
-		    }
+			string[] filters = { "*.dll", "*.exe" };
+			foreach (var filename in filters.Select(filter =>
+				Directory.GetFiles(PathHelper.PluginDirectory, filter)).SelectMany(files => files))
+			{
+				Load(filename);
+			}
 		}
 
-	    /// <summary>
+		/// <summary>
 		/// Unloads the given plugin and all associated registry entries
 		/// </summary>
 		/// <param name="plugin">Plugin to remove</param>
