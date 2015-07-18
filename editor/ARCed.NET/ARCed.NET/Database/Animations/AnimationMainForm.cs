@@ -38,13 +38,13 @@ namespace ARCed.Database.Animations
 
 		private void AnimationMainForm_Load(object sender, EventArgs e)
 		{
-			// TEST ////////////////////////////////////////////
+			/* TEST ////////////////////////////////////////////
 
 			Project.Data.Animations = new List<dynamic> { null };
 			for (int i = 1; i <= 20; i++)
 				Project.Data.Animations.Add(new Animation { id = i });
 
-			// TEST ////////////////////////////////////////////
+			// TEST ///////////////////////////////////////////*/
 			RefreshObjectList();
 			this.dataObjectList.SelectedIndex = 0;
 			this.listBoxFrames.SelectedIndex = 0;

@@ -142,8 +142,8 @@ namespace ARCed.Database.Skills
 
 		private void InitializeAnimations()
 		{
-#warning Fix this after loading of animations is fixed
-			return;
+            //#warning Fix this after loading of animations is fixed
+			//return;
 			this.comboBoxUserAnimation.BeginUpdate();
 			this.comboBoxTargetAnimation.BeginUpdate();
 			this.comboBoxUserAnimation.Items.Clear();
@@ -151,7 +151,7 @@ namespace ARCed.Database.Skills
 			this.comboBoxUserAnimation.Items.Add("<None>");
 			this.comboBoxTargetAnimation.Items.Add("<None>");
 			string name;
-			foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
+            foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
 			{
 				name = animation.ToString();
 				this.comboBoxUserAnimation.Items.Add(name);
@@ -210,8 +210,8 @@ namespace ARCed.Database.Skills
 
 		private void RefreshAnimations()
 		{
-#warning Fix this after loading of animations is fixed
-			return;
+            //#warning Fix this after loading of animations is fixed
+			//return;
 			this.comboBoxUserAnimation.SelectedIndex = this._skill.animation1_id;
 			this.comboBoxTargetAnimation.SelectedIndex = this._skill.animation2_id;
 		}

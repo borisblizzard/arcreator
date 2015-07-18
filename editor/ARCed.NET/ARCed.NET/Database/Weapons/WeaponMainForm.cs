@@ -80,8 +80,8 @@ namespace ARCed.Database.Weapons
 			SuppressEvents = true;
 			this.textBoxName.Text = this._weapon.name;
 			this.textBoxDescription.Text = this._weapon.description;
-			//comboBoxUserAnimation.SelectedIndex = _armor.animation1_id;
-			//comboBoxTargetAnimation.SelectedIndex = _armor.animation2_id;
+			this.comboBoxUserAnimation.SelectedIndex = this._weapon.animation1_id;
+			this.comboBoxTargetAnimation.SelectedIndex = this._weapon.animation2_id;
 			this.RefreshIcon();
 			this.RefreshParameters();
 			this.RefreshElements();
@@ -112,8 +112,8 @@ namespace ARCed.Database.Weapons
 
 		private void InitializeAnimations()
 		{
-#warning Fix this after loading of animations is fixed
-			return;
+            //#warning Fix this after loading of animations is fixed
+			//return;
 			this.comboBoxUserAnimation.BeginUpdate();
 			this.comboBoxTargetAnimation.BeginUpdate();
 			this.comboBoxUserAnimation.Items.Clear();

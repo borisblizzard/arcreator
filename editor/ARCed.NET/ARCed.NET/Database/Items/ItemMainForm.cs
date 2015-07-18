@@ -142,8 +142,8 @@ namespace ARCed.Database.Items
 
 		private void InitializeAnimations()
 		{
-#warning Fix this after loading of animations is fixed
-			return;
+            //#warning Fix this after loading of animations is fixed
+			//return;
 			this.comboBoxUserAnimation.BeginUpdate();
 			this.comboBoxTargetAnimation.BeginUpdate();
 			this.comboBoxUserAnimation.Items.Clear();
@@ -222,8 +222,8 @@ namespace ARCed.Database.Items
 
 		private void RefreshAnimations()
 		{
-#warning Fix this after loading of animations is fixed
-			return;
+            //#warning Fix this after loading of animations is fixed
+			//return;
 			this.comboBoxUserAnimation.SelectedIndex = this._item.animation1_id;
 			this.comboBoxTargetAnimation.SelectedIndex = this._item.animation2_id;
 		}

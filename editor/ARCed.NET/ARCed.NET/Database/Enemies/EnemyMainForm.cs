@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -56,6 +57,7 @@ namespace ARCed.Database.Enemies
 			this.InitializeComponent();
 			this.InitializeElements();
 			this.InitializeStates();
+            this.InitializeAnimations();
 			RefreshObjectList();
 			this._listViewSorter = new ListViewColumnSorter();
 			this.listViewActions.ListViewItemSorter = this._listViewSorter;
@@ -121,6 +123,8 @@ namespace ARCed.Database.Enemies
 			this.RefreshImages();
 			this.numericUpDownExp.Value = this._enemy.exp;
 			this.numericUpDownGold.Value = this._enemy.gold;
+            this.comboBoxAttackerAnimation.SelectedIndex = this._enemy.animation1_id;
+            this.comboBoxTargetAnimation.SelectedIndex = this._enemy.animation2_id;
 			this.RefreshTreasure();
 			this.RefreshElements();
 			this.RefreshStates();
@@ -147,6 +151,27 @@ namespace ARCed.Database.Enemies
 			for (int i = 1; i < states.Count; i++)
 				this.checkedListStates.AddItem(states[i % states.Count].name);
 		}
+
+        private void InitializeAnimations()
+        {
+            //#warning Fix this after loading of animations is fixed
+            //return;
+            this.comboBoxAttackerAnimation.BeginUpdate();
+            this.comboBoxTargetAnimation.BeginUpdate();
+            this.comboBoxAttackerAnimation.Items.Clear();
+            this.comboBoxTargetAnimation.Items.Clear();
+            this.comboBoxAttackerAnimation.Items.Add("<None>");
+            this.comboBoxTargetAnimation.Items.Add("<None>");
+            string name;
+            foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
+            {
+                name = animation.ToString();
+                this.comboBoxAttackerAnimation.Items.Add(name);
+                this.comboBoxTargetAnimation.Items.Add(name);
+            }
+            this.comboBoxAttackerAnimation.EndUpdate();
+            this.comboBoxTargetAnimation.EndUpdate();
+        }
 
 		private void RefreshActions()
 		{
@@ -418,6 +443,19 @@ namespace ARCed.Database.Enemies
 				pictureBox.SizeMode = mode;
 		}
 
+        private void comboBoxAttackerAnimation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!SuppressEvents)
+                this._enemy.animation1_id = this.comboBoxAttackerAnimation.SelectedIndex;
+        }
+
+        private void comboBoxTargetAnimation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!SuppressEvents)
+                this._enemy.animation2_id = this.comboBoxTargetAnimation.SelectedIndex;
+        }
+
 		#endregion
+
 	}
 }
