@@ -25,7 +25,7 @@ namespace ARCed
 	}
 
 	/// <summary>
-    /// Wrapper for a Dictionary containing name-type pairs
+	/// Wrapper for a Dictionary containing name-type pairs
 	/// </summary>
 	public class TypeMap : Dictionary<string, Type> { }
 
@@ -129,7 +129,7 @@ namespace ARCed
 		{
 			var map = new TypeMap();
 			foreach (var type in assemblies.SelectMany(assembly => assembly.GetTypes()))
-			    map[type.ToString()] = type;
+				map[type.ToString()] = type;
 			return Load(stream, map);
 		}
 
@@ -145,8 +145,8 @@ namespace ARCed
 			CheckHeader();
 			_assemblyTypes = assemblyTypes;
 			_mappedTypes = new TypeMap();
-		    object data;
-            try { data = ArcLoad(); }
+			object data;
+			try { data = ArcLoad(); }
 			finally { Reset(); }
 			return data;
 		}
@@ -191,7 +191,7 @@ namespace ARCed
 			_arrays.Clear();
 			_arrays.Add(null);
 			_hashes.Clear();
-            _hashes.Add(null);
+			_hashes.Add(null);
 			_objects.Clear();
 			_objects.Add(null);
 		}
@@ -234,16 +234,16 @@ namespace ARCed
 			var type = (RubyTypes)_stream.ReadByte();
 			switch (type)
 			{
-				case RubyTypes.NilClass:   return LoadNilClass();
-				case RubyTypes.FalseClass: return LoadFalseClass();
-				case RubyTypes.TrueClass:  return LoadTrueClass();
-				case RubyTypes.Fixnum:     return LoadFixnum();
-				case RubyTypes.Bignum:     return LoadBignum();
-				case RubyTypes.Float:      return LoadFloat();
-				case RubyTypes.String:     return LoadString();
-				case RubyTypes.Array:      return LoadArray();
-				case RubyTypes.Hash:       return LoadHash();
-				case RubyTypes.Object:     return LoadObject();
+				case RubyTypes.NilClass:	return LoadNilClass();
+				case RubyTypes.FalseClass:	return LoadFalseClass();
+				case RubyTypes.TrueClass:	return LoadTrueClass();
+				case RubyTypes.Fixnum:		return LoadFixnum();
+				case RubyTypes.Bignum:		return LoadBignum();
+				case RubyTypes.Float:		return LoadFloat();
+				case RubyTypes.String:		return LoadString();
+				case RubyTypes.Array:		return LoadArray();
+				case RubyTypes.Hash:		return LoadHash();
+				case RubyTypes.Object:		return LoadObject();
 			}
 			string msg = String.Format("Unknown byte identifier: {0}", type);
 			throw new TypeLoadException(msg);
@@ -299,7 +299,7 @@ namespace ARCed
 		/// <returns>Flag if object was mapped</returns>
 		/// <remarks>If object is already mapped, the index it was found in is dumped instead of the
 		/// the whole object</remarks>
-		private static bool TryMapEquality(ref List<dynamic> data, dynamic obj) 
+		private static bool TryMapEquality(ref List<dynamic> data, dynamic obj)
 		{
 			int index = -1;
 			for (int i = 0; i < data.Count; i++)
@@ -328,7 +328,7 @@ namespace ARCed
 		/// <returns>Flag if object was mapped</returns>
 		/// <remarks>If object is already mapped, the index it was found in is dumped instead of the
 		/// the whole object</remarks>
-		private static bool TryMapIdentity(ref List<dynamic> data, dynamic obj) 
+		private static bool TryMapIdentity(ref List<dynamic> data, dynamic obj)
 		{
 			int index = data.IndexOf(obj);
 			if (index < 0)
@@ -370,8 +370,8 @@ namespace ARCed
 			var regex = new Regex(String.Join(@"[\+|\.]", Regex.Split(classPath, "::")));
 			foreach (string typeName in _assemblyTypes.Keys.Where(typeName => regex.Match(typeName).Success))
 			{
-			    _mappedTypes[classPath] = _assemblyTypes[typeName];
-			    return _mappedTypes[classPath];
+				_mappedTypes[classPath] = _assemblyTypes[typeName];
+				return _mappedTypes[classPath];
 			}
 			*/
 			throw new TypeLoadException(String.Format("Type of \"{0}\" cannot be found in loaded assemblies.", classPath));
@@ -385,7 +385,7 @@ namespace ARCed
 		/// <returns>Dynamic object found with the given ID, or null if not found</returns>
 		private static dynamic FindMapping(ref List<dynamic> list, int id)
 		{
-            return id < list.Count ? list[id] : null;
+			return id < list.Count ? list[id] : null;
 		}
 
 		/// <summary>
@@ -436,7 +436,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-        /// Returns <see langword="null"/>.
+		/// Returns <see langword="null"/>.
 		/// </summary>
 		/// <returns>null</returns>
 		private static object LoadNilClass() { return null; }
@@ -464,7 +464,7 @@ namespace ARCed
 		#region TrueClass
 
 		/// <summary>
-        /// Writes <see cref="Boolean"/> to the stream.
+		/// Writes <see cref="Boolean"/> to the stream.
 		/// </summary>
 		private static void DumpTrueClass()
 		{
@@ -472,7 +472,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-        /// Returns <see langword="true"/>.
+		/// Returns <see langword="true"/>.
 		/// </summary>
 		/// <returns>true</returns>
 		private static bool LoadTrueClass() { return true; }
@@ -502,7 +502,7 @@ namespace ARCed
 		#region Bignum
 
 		/// <summary>
-        /// Writes an object to the string as a Ruby Bignum (<see cref="Int32"/>).
+		/// Writes an object to the string as a Ruby Bignum (<see cref="Int32"/>).
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
 		private static void DumpBignum(object obj)
@@ -512,7 +512,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-        /// Reads a <see cref="Int32"/> from the stream
+		/// Reads a <see cref="Int32"/> from the stream
 		/// </summary>
 		/// <returns>Integer value</returns>
 		private static int LoadBignum() { return LoadInt32(); }
@@ -551,7 +551,7 @@ namespace ARCed
 		/// Writes a <see cref="String"/> to the stream
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
-        /// <remarks>Strings are serialized in UTF-8 encoding (<see cref="System.Text.Encoding.UTF8"/>).</remarks>
+		/// <remarks>Strings are serialized in UTF-8 encoding (<see cref="System.Text.Encoding.UTF8"/>).</remarks>
 		private static void DumpString(object obj)
 		{
 			_stream.WriteByte((byte)RubyTypes.String);
@@ -567,7 +567,7 @@ namespace ARCed
 		/// Reads a <see cref="String"/> from the stream
 		/// </summary>
 		/// <returns>String value</returns>
-        /// <remarks>Strings are returned in UTF-8 encoding (<see cref="System.Text.Encoding.UTF8"/>).</remarks>
+		/// <remarks>Strings are returned in UTF-8 encoding (<see cref="System.Text.Encoding.UTF8"/>).</remarks>
 		private static string LoadString()
 		{
 			int id = LoadInt32();
@@ -591,12 +591,12 @@ namespace ARCed
 		private static void DumpArray(dynamic obj)
 		{
 			_stream.WriteByte((byte)RubyTypes.Array);
-            if (TryMapIdentity(ref _arrays, obj))
-            {
-                DumpInt32(obj.Count);
-                foreach (dynamic data in obj)
-                    ArcDump(data);
-            }
+			if (TryMapIdentity(ref _arrays, obj))
+			{
+				DumpInt32(obj.Count);
+				foreach (dynamic data in obj)
+					ArcDump(data);
+			}
 		}
 
 		/// <summary>
@@ -609,8 +609,8 @@ namespace ARCed
 		{
 			int id = LoadInt32();
 			List<dynamic> obj = FindMapping(ref _arrays, id);
-            if (obj != null)
-                return obj;
+			if (obj != null)
+				return obj;
 			int size = LoadInt32();
 			obj = new List<dynamic>(size);
 			for (int i = 0; i < size; i++)
@@ -630,19 +630,19 @@ namespace ARCed
 		private static void DumpHash(dynamic obj)
 		{
 			_stream.WriteByte((byte)RubyTypes.Hash);
-            if (TryMapIdentity(ref _hashes, obj))
-            {
-                DumpInt32(obj.Count);
-                foreach (var kvPair in obj)
-                {
-                    ArcDump(kvPair.Key);
-                    ArcDump(kvPair.Value);
-                }
-            }
+			if (TryMapIdentity(ref _hashes, obj))
+			{
+				DumpInt32(obj.Count);
+				foreach (var kvPair in obj)
+				{
+					ArcDump(kvPair.Key);
+					ArcDump(kvPair.Value);
+				}
+			}
 		}
 
 		/// <summary>
-        /// Reads a <see cref="Hash"/> type from the stream.
+		/// Reads a <see cref="Hash"/> type from the stream.
 		/// </summary>
 		/// <returns>Hash value</returns>
 		private static Hash LoadHash()
@@ -706,9 +706,9 @@ namespace ARCed
 				}
 				PropertyInfo[] properties =
 					objType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-				var variables = properties.Select(info => info.Name).Where(variable => 
-                    !excludes.Contains(variable)).ToList();
-			    variables.Sort();
+				var variables = properties.Select(info => info.Name).Where(variable =>
+					!excludes.Contains(variable)).ToList();
+				variables.Sort();
 				DumpInt32(variables.Count);
 				foreach (var variable in variables)
 				{
@@ -736,14 +736,14 @@ namespace ARCed
 			dynamic obj = FindMapping(ref _objects, id);
 			if (obj != null)
 				return obj;
-            Type type = GetMappedType(mapString);
+			Type type = GetMappedType(mapString);
 			int size = LoadInt32();
 			if (type.GetMethod("_arc_load") != null)
 			{
 				obj = type.InvokeMember(
 					"_arc_load", BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod,
 					null, type, new object[] { _stream.ReadBytes(size) });
-                MapObject(ref _objects, obj);
+				MapObject(ref _objects, obj);
 				return obj;
 			}
 			obj = Activator.CreateInstance(type);
@@ -751,7 +751,7 @@ namespace ARCed
 			dynamic propertyValue;
 			for (int i = 0; i < size; i++)
 			{
-				propertyName = ArcLoad();		
+				propertyName = ArcLoad();
 				propertyValue = ArcLoad();
 				PropertyInfo info = type.GetProperty(propertyName);
 				if (info != null)
