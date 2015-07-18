@@ -80,7 +80,7 @@ namespace ARCed.Helpers
             {
                 if (_coreAssembly == null)
                 {
-                    string path = Path.Combine(PathHelper.AssemblyDir, "ARCed.Core.dll");
+                    string path = Path.Combine(PathHelper.EditorDirectory, "ARCed.Core.dll");
                     _coreAssembly = Assembly.LoadFile(path);
                 }
                 return _coreAssembly;
