@@ -44,7 +44,7 @@ namespace legacy
 	void init(hmap<hstr, hstr> parameters)
 	{
 		legacy::parameters = parameters;
-		hlog::write(legacy::logTag, "Initializing Legacy RGSS.");
+		hlog::write(logTag, "Initializing Legacy RGSS.");
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();
@@ -81,7 +81,7 @@ namespace legacy
 
 	void destroy()
 	{
-		hlog::write(legacy::logTag, "Destroying Legacy RGSS.");
+		hlog::write(logTag, "Destroying Legacy RGSS.");
 		Audio::destroy();
 		Bitmap::destroy();
 		Color::destroy();

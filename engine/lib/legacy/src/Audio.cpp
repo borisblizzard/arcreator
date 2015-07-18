@@ -122,8 +122,8 @@ namespace legacy
 		}
 		catch (hexception& e)
 		{
-			hlog::error(legacy::logTag, "File could not be played: " + filename);
-			hlog::error(legacy::logTag, e.getMessage());
+			hlog::error(logTag, "File could not be played: " + filename);
+			hlog::error(logTag, e.getMessage());
 		}
 		return Qnil;
 	}
@@ -195,8 +195,8 @@ namespace legacy
 		}
 		catch (hexception& e)
 		{
-			hlog::write(legacy::logTag, "File could not be played: " + filename);
-			hlog::write(legacy::logTag, e.getMessage());
+			hlog::write(logTag, "File could not be played: " + filename);
+			hlog::write(logTag, e.getMessage());
 		}
 		return Qnil;
 	}
@@ -266,8 +266,8 @@ namespace legacy
 		}
 		catch (hexception& e)
 		{
-			hlog::write(legacy::logTag, "File could not be played: " + filename);
-			hlog::write(legacy::logTag, e.getMessage());
+			hlog::write(logTag, "File could not be played: " + filename);
+			hlog::write(logTag, e.getMessage());
 		}
 		return Qnil;
 	}
@@ -338,8 +338,8 @@ namespace legacy
 		}
 		catch (hexception& e)
 		{
-			hlog::write(legacy::logTag, "File could not be played: " + filename);
-			hlog::write(legacy::logTag, e.getMessage());
+			hlog::write(logTag, "File could not be played: " + filename);
+			hlog::write(logTag, e.getMessage());
 		}
 		return Qnil;
 	}
