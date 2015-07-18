@@ -789,9 +789,6 @@
     <EmbeddedResource Include="Files\Default.7z" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assemblies\ARCed.Core.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assemblies\Dejavu.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2006,7 +2003,6 @@
     <EmbeddedResource Include="Resources\Variable.png" />
     <EmbeddedResource Include="Resources\Skill.png" />
     <EmbeddedResource Include="Resources\Weapon.png" />
-    <Content Include="Commit Log.txt" />
     <Content Include="x86\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2050,7 +2046,7 @@
       <Name>ARCed.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
-      <Project>{0890E629-23C8-462E-B836-AA05ABD22E17}</Project>
+      <Project>{0890e629-23c8-462e-b836-aa05abd22e17}</Project>
       <Name>ARCed.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ARCed.Plugins\ARCed.Plugins.csproj">

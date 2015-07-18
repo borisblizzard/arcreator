@@ -98,18 +98,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
-      <Project>{0890E629-23C8-462E-B836-AA05ABD22E17}</Project>
-      <Name>ARCed.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
-      <Project>{0E258A7C-61C2-4945-96A2-447D39E705DA}</Project>
-      <Name>ARCed.UI</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -130,6 +118,16 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
+      <Project>{0890e629-23c8-462e-b836-aa05abd22e17}</Project>
+      <Name>ARCed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
+      <Project>{0e258a7c-61c2-4945-96a2-447d39e705da}</Project>
+      <Name>ARCed.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

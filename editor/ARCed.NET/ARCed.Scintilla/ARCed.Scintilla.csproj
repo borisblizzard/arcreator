@@ -37,7 +37,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -487,18 +487,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ARCed.Controls\ARCed.Controls.csproj">
-      <Project>{E302ABFC-CB38-4FC6-A223-561B3B64B229}</Project>
-      <Name>ARCed.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
-      <Project>{0E258A7C-61C2-4945-96A2-447D39E705DA}</Project>
-      <Name>ARCed.UI</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -519,6 +507,16 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARCed.Controls\ARCed.Controls.csproj">
+      <Project>{e302abfc-cb38-4fc6-a223-561b3b64b229}</Project>
+      <Name>ARCed.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
+      <Project>{0e258a7c-61c2-4945-96a2-447d39e705da}</Project>
+      <Name>ARCed.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
