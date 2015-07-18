@@ -87,11 +87,11 @@ namespace ARCed.Core
 		/// </summary>
 		public string RelativePath
 		{
-			get 
+			get
 			{
-			    var path = this.FullPath.Replace(this.Location == Location.Local ? 
-                    System.IO.Directory.GetCurrentDirectory() : Constants.RTPPath, "");
-			    return path.TrimStart('\\', '.');
+				var path = this.FullPath.Replace(this.Location == Location.Local ?
+					System.IO.Directory.GetCurrentDirectory() : Constants.RTPPath, "");
+				return path.TrimStart('\\', '.');
 			}
 		}
 		/// <summary>
@@ -150,12 +150,12 @@ namespace ARCed.Core
 			return String.Compare(this.Name, rsx.Name, StringComparison.Ordinal);
 		}
 
-        /// <summary>
-        /// Compares two objects for equality.
-        /// </summary>
-        /// <param name="obj1">First object to compare</param>
-        /// <param name="obj2">Second object to compare</param>
-        /// <returns>Result of comparison</returns>
+		/// <summary>
+		/// Compares two objects for equality.
+		/// </summary>
+		/// <param name="obj1">First object to compare</param>
+		/// <param name="obj2">Second object to compare</param>
+		/// <returns>Result of comparison</returns>
 		public static int Compare(object obj1, object obj2)
 		{
 			return new ResourceComparer().Compare(obj1, obj2);
@@ -163,15 +163,15 @@ namespace ARCed.Core
 
 		private class ResourceComparer : IComparer
 		{
-            /// <summary>
-            /// Compares two objects for equality.
-            /// </summary>
-            /// <param name="obj1">First object to compare</param>
-            /// <param name="obj2">Second object to compare</param>
-            /// <returns>Result of comparison</returns>
-// ReSharper disable MemberHidesStaticFromOuterClass
+			/// <summary>
+			/// Compares two objects for equality.
+			/// </summary>
+			/// <param name="obj1">First object to compare</param>
+			/// <param name="obj2">Second object to compare</param>
+			/// <returns>Result of comparison</returns>
+			// ReSharper disable MemberHidesStaticFromOuterClass
 			public int Compare(object obj1, object obj2)
-// ReSharper restore MemberHidesStaticFromOuterClass
+			// ReSharper restore MemberHidesStaticFromOuterClass
 			{
 				GameResource rsx1, rsx2;
 				if (obj1 is GameResource)

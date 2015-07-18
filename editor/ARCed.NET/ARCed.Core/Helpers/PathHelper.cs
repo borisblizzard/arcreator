@@ -7,22 +7,22 @@ using System.IO;
 
 namespace ARCed.Helpers
 {
-    /// <summary>
-    /// Static class for getting paths to files/folders used by ARCed.
-    /// </summary>
+	/// <summary>
+	/// Static class for getting paths to files/folders used by ARCed.
+	/// </summary>
 	public static class PathHelper
 	{
 		// Names for folders
-		const string ARC_PROJECT_FOLDER      = "ARC";
-		const string EDITOR_SETTINGS_FOLDER  = "Settings";
-		const string PLUGIN_FOLDER           = "Plugins";
-		const string TEMPLATES_FOLDER        = "Templates";
-		const string SCRIPT_TEMPLATE_FOLDER  = "Scripts";
+		const string ARC_PROJECT_FOLDER = "ARC";
+		const string EDITOR_SETTINGS_FOLDER = "Settings";
+		const string PLUGIN_FOLDER = "Plugins";
+		const string TEMPLATES_FOLDER = "Templates";
+		const string SCRIPT_TEMPLATE_FOLDER = "Scripts";
 		const string PROJECT_TEMPLATE_FOLDER = "Projects";
 		// Names for files
 		const string EDITOR_SETTINGS_FILE = "EditorSettings.xml";
 		const string SCRIPT_SETTINGS_FILE = "ScriptSettings.xml";
-		const string SKIN_SETTINGS_FILE   = "WindowskinSettings.xml";
+		const string SKIN_SETTINGS_FILE = "WindowskinSettings.xml";
 
 		const string X86_FOLDER = "x86";
 		const string X64_FOLDER = "x64";
@@ -31,8 +31,8 @@ namespace ARCed.Helpers
 		const string SCILEXER_32 = "SciLexer.dll";
 		const string SCILEXER_64 = "SciLexer64.dll";
 
-        const string ASSEMBLY_DIRECTORY = "Assemblies";
-        const string PORTABLE_DIRECTORY = "AppData";
+		const string ASSEMBLY_DIRECTORY = "Assemblies";
+		const string PORTABLE_DIRECTORY = "AppData";
 
 		private static string _appDataDir;
 
@@ -45,13 +45,13 @@ namespace ARCed.Helpers
 			{
 				if (_appDataDir == null)
 				{
-                    if (Runtime.Portable)
-                        _appDataDir = Path.Combine(EditorDirectory, PORTABLE_DIRECTORY);
-                    else
-                    {
-                        string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                        _appDataDir = Path.Combine(appdata, "ARCed.NET");
-                    }
+					if (Runtime.Portable)
+						_appDataDir = Path.Combine(EditorDirectory, PORTABLE_DIRECTORY);
+					else
+					{
+						string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+						_appDataDir = Path.Combine(appdata, "ARCed.NET");
+					}
 				}
 				if (!Directory.Exists(_appDataDir))
 					Directory.CreateDirectory(_appDataDir);
@@ -62,31 +62,31 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Gets the full path to the current application
 		/// </summary>
-        public static string EditorPath { get; set; }
+		public static string EditorPath { get; set; }
 
-        /// <summary>
-        /// Gets the full path to the directory of the editor
-        /// </summary>
-        public static string EditorDirectory
-        {
-            get { return Path.GetDirectoryName(EditorPath); }
-        }
+		/// <summary>
+		/// Gets the full path to the directory of the editor
+		/// </summary>
+		public static string EditorDirectory
+		{
+			get { return Path.GetDirectoryName(EditorPath); }
+		}
 
-        /// <summary>
-        /// Gets the path to the folder containing the application's assemblies.
-        /// </summary>
-        public static string AssemblyDir
-        {
-            get { return Path.Combine(EditorDirectory, ASSEMBLY_DIRECTORY); }
-        }
+		/// <summary>
+		/// Gets the path to the folder containing the application's assemblies.
+		/// </summary>
+		public static string AssemblyDir
+		{
+			get { return Path.Combine(EditorDirectory, ASSEMBLY_DIRECTORY); }
+		}
 
 		/// <summary>
 		/// Gets the path to the plugins directory
 		/// </summary>
 		public static string PluginDirectory
 		{
-			get 
-			{ 
+			get
+			{
 				var path = Path.Combine(EditorDirectory, PLUGIN_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
@@ -101,7 +101,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-                var path = Path.Combine(ApplicationData, TEMPLATES_FOLDER);
+				var path = Path.Combine(ApplicationData, TEMPLATES_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
 				return path;
@@ -113,8 +113,8 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static string ProjectTemplateDirectory
 		{
-			get 
-			{ 
+			get
+			{
 				var path = Path.Combine(TemplateDirectory, PROJECT_TEMPLATE_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
@@ -127,7 +127,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static string ScriptTemplateDirectory
 		{
-			get 
+			get
 			{
 				var path = Path.Combine(TemplateDirectory, SCRIPT_TEMPLATE_FOLDER);
 				if (!Directory.Exists(path))
@@ -173,7 +173,7 @@ namespace ARCed.Helpers
 		{
 			get { return Path.Combine(SettingsDirectory, SCRIPT_SETTINGS_FILE); }
 		}
-		
+
 		/// <summary>
 		/// Gets the default directory where projects are saved
 		/// </summary>
@@ -189,27 +189,27 @@ namespace ARCed.Helpers
 			}
 		}
 
-        /// <summary>
-        /// Gets the path to the native 7zip library appropriate for the host machines CPU architecture.
-        /// </summary>
+		/// <summary>
+		/// Gets the path to the native 7zip library appropriate for the host machines CPU architecture.
+		/// </summary>
 		public static string SevenZipLibrary
 		{
-			get 
-            {
-			    return IntPtr.Size == 8 ? Path.Combine(EditorDirectory, X64_FOLDER, SEVENZIP_64) : 
-                    Path.Combine(EditorDirectory, X86_FOLDER, SEVENZIP_32);
+			get
+			{
+				return IntPtr.Size == 8 ? Path.Combine(EditorDirectory, X64_FOLDER, SEVENZIP_64) :
+					Path.Combine(EditorDirectory, X86_FOLDER, SEVENZIP_32);
 			}
 		}
 
-        /// <summary>
-        /// Gets the path to the native Scintilla library appropriate for the host machines CPU architecture.
-        /// </summary>
+		/// <summary>
+		/// Gets the path to the native Scintilla library appropriate for the host machines CPU architecture.
+		/// </summary>
 		public static string SciLexerLibrary
 		{
-			get 
-            {
-			    return IntPtr.Size == 8 ? Path.Combine(EditorDirectory, X64_FOLDER, SCILEXER_64) : 
-                    Path.Combine(EditorDirectory, X86_FOLDER, SCILEXER_32);
+			get
+			{
+				return IntPtr.Size == 8 ? Path.Combine(EditorDirectory, X64_FOLDER, SCILEXER_64) :
+					Path.Combine(EditorDirectory, X86_FOLDER, SCILEXER_32);
 			}
 		}
 	}

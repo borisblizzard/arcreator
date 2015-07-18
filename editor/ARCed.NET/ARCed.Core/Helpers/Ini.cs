@@ -9,9 +9,9 @@ using ARCed.Core.Win32;
 
 namespace ARCed.Core
 {
-    /// <summary>
-    /// Static class for reading/writing keys and values from an .ini file
-    /// </summary>
+	/// <summary>
+	/// Static class for reading/writing keys and values from an .ini file
+	/// </summary>
 	public static class Ini
 	{
 		#region Private Fields

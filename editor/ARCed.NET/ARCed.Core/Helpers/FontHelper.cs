@@ -35,9 +35,9 @@ namespace ARCed.Helpers
 		public static void LoadUserFonts()
 		{
 			var fontDir = Path.Combine(PathHelper.EditorDirectory, "Fonts");
-		    if (!Directory.Exists(fontDir)) return;
-		    foreach (string filename in Directory.GetFiles(fontDir, "*.ttf"))
-		        AddFileFont(filename);
+			if (!Directory.Exists(fontDir)) return;
+			foreach (string filename in Directory.GetFiles(fontDir, "*.ttf"))
+				AddFileFont(filename);
 		}
 
 		/// <summary>
@@ -51,8 +51,8 @@ namespace ARCed.Helpers
 		{
 			var font = GetMemoryFont(familyName, size, style);
 			return font ?? new Font(new FontFamily(familyName), size, style);
-		}	
-	
+		}
+
 		/// <summary>
 		/// Adds a font from an array of bytes
 		/// </summary>
@@ -71,7 +71,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Returns the system's default monospace font
 		/// </summary>
-		public static Font MonoFont 
+		public static Font MonoFont
 		{
 			get
 			{
@@ -94,11 +94,12 @@ namespace ARCed.Helpers
 		/// <returns>Font loaded from memory, or null if font family could not be found.</returns>
 		public static Font GetMemoryFont(string familyName, float size, FontStyle style)
 		{
-		    return (from family in Families where family.Name == familyName 
-                    select new Font(family, size, style)).FirstOrDefault();
+			return (from family in Families
+					where family.Name == familyName
+					select new Font(family, size, style)).FirstOrDefault();
 		}
 
-	    /// <summary>
+		/// <summary>
 		/// Gets a list of names of the system's installed fonts
 		/// </summary>
 		public static List<string> InstalledFonts
@@ -140,9 +141,9 @@ namespace ARCed.Helpers
 		/// <param name="filename">The path of the file</param>
 		public static void AddFileFont(string filename)
 		{
-		    if (_loadedPaths.Contains(filename)) return;
-		    AddFont(File.OpenRead(filename));
-		    NativeMethods.AddFontResourceEx(filename, 0x10, IntPtr.Zero);
+			if (_loadedPaths.Contains(filename)) return;
+			AddFont(File.OpenRead(filename));
+			NativeMethods.AddFontResourceEx(filename, 0x10, IntPtr.Zero);
 		}
 
 		/// <summary>
@@ -151,9 +152,9 @@ namespace ARCed.Helpers
 		/// <param name="resourceName">The full names, including namespaces, of the resource file</param>
 		public static void AddResourceFont(string resourceName)
 		{
-		    if (_loadedPaths.Contains(resourceName)) return;
-		    Assembly assembly = Assembly.GetExecutingAssembly();
-		    AddFont(assembly.GetManifestResourceStream(resourceName));
+			if (_loadedPaths.Contains(resourceName)) return;
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			AddFont(assembly.GetManifestResourceStream(resourceName));
 		}
 
 		/// <summary>
@@ -163,7 +164,7 @@ namespace ARCed.Helpers
 		/// <remarks>The stream will be closed automatically after the font is loaded</remarks>
 		public static void AddFont(Stream stream)
 		{
-		    var ptr = Marshal.AllocCoTaskMem((int)stream.Length);
+			var ptr = Marshal.AllocCoTaskMem((int)stream.Length);
 			var data = new byte[stream.Length];
 			stream.Read(data, 0, (int)stream.Length);
 			Marshal.Copy(data, 0, ptr, (int)stream.Length);
