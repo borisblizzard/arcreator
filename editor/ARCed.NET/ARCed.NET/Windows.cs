@@ -28,7 +28,7 @@ namespace ARCed // INCOMPLETE
 		private static EditorOptionsForm _editorOptionsForm;
 		private static List<ScriptEditorForm> _scriptEditors;
 		private static List<DatabaseWindow> _databaseForms;
-	    private static List<ActorParametersForm> _chartForms; 
+		private static List<ActorParametersForm> _chartForms;
 		private static SkinSettingsForm _skinSettingsForm;
 		private static AutoCompleteForm _autoCompleteForm;
 		private static ScriptSearchForm _scriptSearchForm;
@@ -48,9 +48,9 @@ namespace ARCed // INCOMPLETE
 				_autoCompleteForm, _scriptSearchForm, _calculatorForm,
 				_scriptFindReplaceForm, _chartSettingsForm
 			};
-            // TODO: Clean this crap up
+			// TODO: Clean this crap up
 			contents = (Form[])contents.Concat(_scriptEditors);
-		    contents = (Form[])contents.Concat(_chartForms);
+			contents = (Form[])contents.Concat(_chartForms);
 			foreach (Form content in contents)
 			{
 				if (content != null && !content.IsDisposed)
@@ -65,7 +65,7 @@ namespace ARCed // INCOMPLETE
 		/// </summary>
 		public static ChartSettingsForm ChartSettingsForm
 		{
-			get 
+			get
 			{
 				if (_chartSettingsForm == null || _chartSettingsForm.IsDisposed)
 					_chartSettingsForm = new ChartSettingsForm();
@@ -142,18 +142,18 @@ namespace ARCed // INCOMPLETE
 		public static List<DatabaseWindow> DatabaseForms
 		{
 			get { return _databaseForms ?? (_databaseForms = new List<DatabaseWindow>()); }
-		    set { _databaseForms = value; }
+			set { _databaseForms = value; }
 		}
 
-        /// <summary>
-        /// Gets all instanced of the actor parameter chart forms.
-        /// </summary>
-	    public static List<ActorParametersForm> ChartForms
-	    {
-            get { return _chartForms ?? (_chartForms = new List<ActorParametersForm>()); }
-            set { _chartForms = value; }
-	    }
-             
+		/// <summary>
+		/// Gets all instanced of the actor parameter chart forms.
+		/// </summary>
+		public static List<ActorParametersForm> ChartForms
+		{
+			get { return _chartForms ?? (_chartForms = new List<ActorParametersForm>()); }
+			set { _chartForms = value; }
+		}
+
 		/// <summary>
 		/// Returns the static Find and Replace window used for scripts
 		/// </summary>
@@ -161,11 +161,11 @@ namespace ARCed // INCOMPLETE
 		{
 			get
 			{
-                if (_scriptFindReplaceForm == null || _scriptFindReplaceForm.IsDisposed)
-                {
-                    // TODO: Search all windows for an instance of this window type
-                    _scriptFindReplaceForm = new FindReplaceDialog();
-                }	
+				if (_scriptFindReplaceForm == null || _scriptFindReplaceForm.IsDisposed)
+				{
+					// TODO: Search all windows for an instance of this window type
+					_scriptFindReplaceForm = new FindReplaceDialog();
+				}
 				return _scriptFindReplaceForm;
 			}
 			set { _scriptFindReplaceForm = value; }

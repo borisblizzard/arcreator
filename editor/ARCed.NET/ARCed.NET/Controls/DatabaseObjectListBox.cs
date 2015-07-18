@@ -36,7 +36,7 @@ namespace ARCed.Controls
 		/// </summary>
 		[Category("ARCed")]
 		[Description("Event raised when the index of the control's listbox is changed")]
-		public event ObjectListIndexChangedEventHandler OnListBoxIndexChanged; 
+		public event ObjectListIndexChangedEventHandler OnListBoxIndexChanged;
 
 		#endregion
 
@@ -54,7 +54,7 @@ namespace ARCed.Controls
 		/// Gets or sets the selected index of the listbox on the control
 		/// </summary>
 		[Browsable(false)]
-		public int SelectedIndex 
+		public int SelectedIndex
 		{
 			get { return this.listBoxObjects.SelectedIndex; }
 			set { this.listBoxObjects.SelectedIndex = value; }

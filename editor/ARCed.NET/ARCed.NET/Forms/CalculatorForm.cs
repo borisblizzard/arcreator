@@ -25,7 +25,7 @@ namespace ARCed.Forms
 		Full
 	}
 
-    public partial class CalculatorForm : DockContent
+	public partial class CalculatorForm : DockContent
 	{
 		#region Constants
 		/// <summary>
@@ -37,8 +37,8 @@ namespace ARCed.Forms
 		#region Fields
 
 		private double number1, number2, result;
-        private string function;
-        private bool inputstatus;
+		private string function;
+		private bool inputstatus;
 
 		#endregion
 
@@ -54,7 +54,7 @@ namespace ARCed.Forms
 		/// </summary>
 		public CalculatorMode Mode
 		{
-			get { return this.groupBoxScientific.IsCollapsed ? CalculatorMode.Basic : CalculatorMode.Full; } 
+			get { return this.groupBoxScientific.IsCollapsed ? CalculatorMode.Basic : CalculatorMode.Full; }
 		}
 
 		#endregion
@@ -64,7 +64,7 @@ namespace ARCed.Forms
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public CalculatorForm() 
+		public CalculatorForm()
 		{
 			this.InitializeComponent();
 			this.number1 = this.number2 = 0.0;
@@ -92,36 +92,36 @@ namespace ARCed.Forms
 				this.textBox.Text += (sender as Button).Text;
 		}
 
-        private void buttonEquals_Click(object sender, EventArgs e)
-        {
-            this.CalculateFunction();
-            this.inputstatus = false;
-        }
+		private void buttonEquals_Click(object sender, EventArgs e)
+		{
+			this.CalculateFunction();
+			this.inputstatus = false;
+		}
 
-        private void buttonSquared_Click(object sender, EventArgs e)
-        {
+		private void buttonSquared_Click(object sender, EventArgs e)
+		{
 			double num = this.InputValue;
 			this.textBox.Text = Convert.ToString(num * num);
-            this.inputstatus = false;
-        }
+			this.inputstatus = false;
+		}
 
-        private void buttonCubed_Click(object sender, EventArgs e)
-        {
+		private void buttonCubed_Click(object sender, EventArgs e)
+		{
 			double num = this.InputValue;
-            this.textBox.Text = Convert.ToString(num * num * num);
-            this.inputstatus = false;
-        }
+			this.textBox.Text = Convert.ToString(num * num * num);
+			this.inputstatus = false;
+		}
 
-        private void buttonSquareRoot_Click(object sender, EventArgs e)
-        {
-            this.textBox.Text = Convert.ToString(Math.Sqrt(this.InputValue));
-            this.inputstatus = false;
-        }
+		private void buttonSquareRoot_Click(object sender, EventArgs e)
+		{
+			this.textBox.Text = Convert.ToString(Math.Sqrt(this.InputValue));
+			this.inputstatus = false;
+		}
 
-        private void buttonPi_Click(object sender, EventArgs e)
-        {
-            this.textBox.Text = Convert.ToString(Math.PI);
-        }
+		private void buttonPi_Click(object sender, EventArgs e)
+		{
+			this.textBox.Text = Convert.ToString(Math.PI);
+		}
 
 		private void buttonBackspace_Click(object sender, EventArgs e)
 		{
@@ -143,28 +143,28 @@ namespace ARCed.Forms
 		#region Trig Functions
 
 		private void buttonSine_Click(object sender, EventArgs e)
-        {
+		{
 			this.number1 = this.InputValue;
 			if (this.radioDegree.Checked) this.number1 *= RADIAN;
 			this.textBox.Text = Convert.ToString(Math.Sin(this.number1));
 			this.inputstatus = false;
-        }
+		}
 
-        private void buttonCosine_Click(object sender, EventArgs e)
-        {
+		private void buttonCosine_Click(object sender, EventArgs e)
+		{
 			this.number1 = this.InputValue;
 			if (this.radioDegree.Checked) this.number1 *= RADIAN;
 			this.textBox.Text = Convert.ToString(Math.Cos(this.number1));
 			this.inputstatus = false;
-        }
+		}
 
-        private void buttonTangent_Click(object sender, EventArgs e)
-        {
+		private void buttonTangent_Click(object sender, EventArgs e)
+		{
 			this.number1 = this.InputValue;
 			if (this.radioDegree.Checked) this.number1 *= RADIAN;
 			this.textBox.Text = Convert.ToString(Math.Tan(this.number1));
 			this.inputstatus = false;
-        }
+		}
 
 		private void buttonInverseSine_Click(object sender, EventArgs e)
 		{
@@ -195,40 +195,40 @@ namespace ARCed.Forms
 		#region Scientific Functions
 
 		private void button1DividedBy_Click(object sender, EventArgs e)
-        {
+		{
 			this.textBox.Text = Convert.ToString(1.0 / this.InputValue);
 			this.inputstatus = false;
-        }
+		}
 
-        private void buttonFactor_Click(object sender, EventArgs e)
-        {
-            int num = 1;
-            for (int i = 1; i <= Convert.ToInt32(this.InputValue); i++)
-                num = num * i;
-            this.textBox.Text = Convert.ToString(num);
-            this.inputstatus = false;
-        }
+		private void buttonFactor_Click(object sender, EventArgs e)
+		{
+			int num = 1;
+			for (int i = 1; i <= Convert.ToInt32(this.InputValue); i++)
+				num = num * i;
+			this.textBox.Text = Convert.ToString(num);
+			this.inputstatus = false;
+		}
 
-        private void buttonLog10_Click(object sender, EventArgs e)
-        {
-            this.textBox.Text = Convert.ToString(Math.Log10(this.InputValue));
-            this.inputstatus=false;
-        }
+		private void buttonLog10_Click(object sender, EventArgs e)
+		{
+			this.textBox.Text = Convert.ToString(Math.Log10(this.InputValue));
+			this.inputstatus = false;
+		}
 
-        private void buttonNaturalLog_Click(object sender, EventArgs e)
-        {
-            this.textBox.Text = Convert.ToString(Math.Log(this.InputValue));
-            this.inputstatus = false;
-        }
+		private void buttonNaturalLog_Click(object sender, EventArgs e)
+		{
+			this.textBox.Text = Convert.ToString(Math.Log(this.InputValue));
+			this.inputstatus = false;
+		}
 
 		#endregion
 
 		#region Clipboard Functions
 
 		private void buttonCopy_Click(object sender, EventArgs e)
-        {
+		{
 			Clipboard.SetText(this.textBox.Text);
-        }
+		}
 
 		private void buttonPaste_Click(object sender, EventArgs e)
 		{
@@ -318,4 +318,4 @@ namespace ARCed.Forms
 
 		#endregion
 	}
-} 
+}

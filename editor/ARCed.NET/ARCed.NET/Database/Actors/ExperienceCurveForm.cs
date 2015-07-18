@@ -12,25 +12,25 @@ using RPG;
 
 namespace ARCed.Database.Actors
 {
-    /// <summary>
-    /// Form for displaying and configuring experience tables for an <see cref="RPG.Actor"/>.
-    /// </summary>
+	/// <summary>
+	/// Form for displaying and configuring experience tables for an <see cref="RPG.Actor"/>.
+	/// </summary>
 	public partial class ExperienceCurveForm : DockContent
-    {
-        #region Private Fields
+	{
+		#region Private Fields
 
-        private Actor _actor;
-        private string _fStr;
-        private long[] _expList;
-        private int[] _startValues;
+		private Actor _actor;
+		private string _fStr;
+		private long[] _expList;
+		private int[] _startValues;
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public ExperienceCurveForm()
 		{
 			this.InitializeComponent();
@@ -41,15 +41,15 @@ namespace ARCed.Database.Actors
 				false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        /// <summary>
-        /// Changes the form's associated <see cref="RPG.Actor"/> to represent.
-        /// </summary>
-        /// <param name="actor">RPG.Actor instance</param>
-        public void ChangeActor(Actor actor)
+		/// <summary>
+		/// Changes the form's associated <see cref="RPG.Actor"/> to represent.
+		/// </summary>
+		/// <param name="actor">RPG.Actor instance</param>
+		public void ChangeActor(Actor actor)
 		{
 			this._actor = actor;
 			this.listBoxExperience.ColumnWidth = this._actor.final_level <= 100 ? 96 : 136;
@@ -59,11 +59,11 @@ namespace ARCed.Database.Actors
 			this._startValues = new[] { this._actor.exp_basis, this._actor.exp_inflation };
 		}
 
-        /// <summary>
-        /// Calculates experience levels based on the given basis and inflation rate.
-        /// </summary>
-        /// <param name="basis">Base value</param>
-        /// <param name="inflation">Rate of inflation</param>
+		/// <summary>
+		/// Calculates experience levels based on the given basis and inflation rate.
+		/// </summary>
+		/// <param name="basis">Base value</param>
+		/// <param name="inflation">Rate of inflation</param>
 		public void CalculateInflation(int basis, int inflation)
 		{
 			this._expList = new long[this._actor.final_level + 1];
@@ -78,9 +78,9 @@ namespace ARCed.Database.Actors
 			this._fStr = @"{0," + digits.ToString(CultureInfo.InvariantCulture) + @"}";
 		}
 
-        /// <summary>
-        /// Refreshes the table to display current values.
-        /// </summary>
+		/// <summary>
+		/// Refreshes the table to display current values.
+		/// </summary>
 		public void RefreshTable()
 		{
 			if (this._actor != null)
@@ -106,11 +106,11 @@ namespace ARCed.Database.Actors
 				this.listBoxExperience.Items.Clear();
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void NumericBasisValueChanged(object sender, EventArgs e)
+		private void NumericBasisValueChanged(object sender, EventArgs e)
 		{
 			this.RefreshTable();
 			if (this._actor != null)
@@ -137,7 +137,7 @@ namespace ARCed.Database.Actors
 				string lvl = String.Format("{0,3}:", "L" + (e.Index + 1));
 				string exp = String.Format(this._fStr, this.listBoxExperience.Items[e.Index]);
 				e.Graphics.DrawString(lvl, e.Font, Brushes.Black, e.Bounds);
-				e.Graphics.DrawString(exp, e.Font, 
+				e.Graphics.DrawString(exp, e.Font,
 					this.radioButtonNext.Checked ? Brushes.Green : Brushes.Red, e.Bounds);
 			}
 		}
@@ -151,8 +151,8 @@ namespace ARCed.Database.Actors
 		{
 			this.trackBarBasis.Value = this._startValues[0];
 			this.trackBarInflation.Value = this._startValues[1];
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

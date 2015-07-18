@@ -28,8 +28,7 @@ namespace ARCed.Scripting
 					try { text = String.Format(File.ReadAllText(path), this.textBoxName.Text); }
 					catch { }
 				}
-				var script = new Script
-				{ Title = this.textBoxName.Text, Text = text };
+				var script = new Script { Title = this.textBoxName.Text, Text = text };
 				return script;
 			}
 		}

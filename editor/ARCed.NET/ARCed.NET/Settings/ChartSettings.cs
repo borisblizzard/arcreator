@@ -11,9 +11,9 @@ using System.Xml.Serialization;
 
 namespace ARCed.Settings
 {
-    /// <summary>
-    /// Class containing settings for the look and behavior of charting controls.
-    /// </summary>
+	/// <summary>
+	/// Class containing settings for the look and behavior of charting controls.
+	/// </summary>
 	[Serializable]
 	public class ChartSettings
 	{
@@ -62,10 +62,10 @@ namespace ARCed.Settings
 		/// Gets or sets the list of HTML string colors
 		/// </summary>
 		[XmlElement("Colors")]
-		public List<string> ColorsHtml 
+		public List<string> ColorsHtml
 		{
-            get { return this.Colors.Select(ColorTranslator.ToHtml).ToList(); }
-            set { this.Colors = value.Select(ColorTranslator.FromHtml).ToList(); }
+			get { return this.Colors.Select(ColorTranslator.ToHtml).ToList(); }
+			set { this.Colors = value.Select(ColorTranslator.FromHtml).ToList(); }
 		}
 
 		/// <summary>

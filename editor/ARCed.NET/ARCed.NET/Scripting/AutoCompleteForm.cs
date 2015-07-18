@@ -27,7 +27,7 @@ namespace ARCed.Scripting
 			this.textBoxFillUp.Text = Editor.Settings.Scripting.FillUpCharacters;
 			this.textBoxFillUp.Font = FontHelper.MonoFont;
 			this.numericAutoLength.Value = Editor.Settings.Scripting.AutoCompleteLength;
-			this.listBoxWords.DataSource = this._wordList; 
+			this.listBoxWords.DataSource = this._wordList;
 		}
 
 		public void AddToAutocomplete(string text)

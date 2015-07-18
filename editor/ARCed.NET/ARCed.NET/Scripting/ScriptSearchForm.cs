@@ -53,7 +53,7 @@ namespace ARCed.Scripting
 			var searchScripts = new List<Script>();
 			if (this.searchControl.toolStripComboBox_Scope.SelectedIndex == 0) // Open
 			{
-			    searchScripts.AddRange(Windows.ScriptEditors.Select(form => form.Script));
+				searchScripts.AddRange(Windows.ScriptEditors.Select(form => form.Script));
 			}
 			else // All
 				searchScripts = Project.ScriptManager.Scripts;

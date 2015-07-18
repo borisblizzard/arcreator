@@ -12,9 +12,9 @@ using RPG;
 
 namespace ARCed.Database.Armors
 {
-    /// <summary>
-    /// Main form for configuring Project <see cref="RPG.Armor"/> data.
-    /// </summary>
+	/// <summary>
+	/// Main form for configuring Project <see cref="RPG.Armor"/> data.
+	/// </summary>
 	public sealed partial class ArmorMainForm : DatabaseWindow
 	{
 		#region Private Fields
@@ -30,10 +30,10 @@ namespace ARCed.Database.Armors
 		/// </summary>
 		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
-        /// <summary>
-        /// Gets the data associated with this panel.
-        /// </summary>
-        public override List<dynamic> Data { get { return Project.Data.Armors; } }
+		/// <summary>
+		/// Gets the data associated with this panel.
+		/// </summary>
+		public override List<dynamic> Data { get { return Project.Data.Armors; } }
 
 		#endregion
 
@@ -75,9 +75,9 @@ namespace ARCed.Database.Armors
 			}
 		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.Armor"/>.
-        /// </summary>
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.Armor"/>.
+		/// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -92,34 +92,34 @@ namespace ARCed.Database.Armors
 			SuppressEvents = false;
 		}
 
-#endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void InitializeElements()
-        {
-            this.checkGroupBoxElements.BeginUpdate();
-            this.checkGroupBoxElements.Items.Clear();
-            for (int i = 1; i < Project.Data.System.elements.Count; i++)
-                this.checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
-            this.checkGroupBoxElements.EndUpdate();
-        }
+		private void InitializeElements()
+		{
+			this.checkGroupBoxElements.BeginUpdate();
+			this.checkGroupBoxElements.Items.Clear();
+			for (int i = 1; i < Project.Data.System.elements.Count; i++)
+				this.checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
+			this.checkGroupBoxElements.EndUpdate();
+		}
 
-        private void InitializeStates()
-        {
-            this.checkGroupBoxStates.BeginUpdate();
-            this.comboBoxAutoState.BeginUpdate();
-            this.checkGroupBoxStates.Items.Clear();
-            this.comboBoxAutoState.Items.Clear();
-            this.comboBoxAutoState.Items.Add("<None>");
-            for (int i = 1; i < Project.Data.States.Count; i++)
-            {
-                this.checkGroupBoxStates.Items.Add(Project.Data.States[i].name);
-                this.comboBoxAutoState.Items.Add(Project.Data.States[i].ToString());
-            }
-            this.checkGroupBoxStates.EndUpdate();
-            this.comboBoxAutoState.EndUpdate();
-        }
+		private void InitializeStates()
+		{
+			this.checkGroupBoxStates.BeginUpdate();
+			this.comboBoxAutoState.BeginUpdate();
+			this.checkGroupBoxStates.Items.Clear();
+			this.comboBoxAutoState.Items.Clear();
+			this.comboBoxAutoState.Items.Add("<None>");
+			for (int i = 1; i < Project.Data.States.Count; i++)
+			{
+				this.checkGroupBoxStates.Items.Add(Project.Data.States[i].name);
+				this.comboBoxAutoState.Items.Add(Project.Data.States[i].ToString());
+			}
+			this.checkGroupBoxStates.EndUpdate();
+			this.comboBoxAutoState.EndUpdate();
+		}
 
 		private void RefreshElements()
 		{
@@ -204,31 +204,31 @@ namespace ARCed.Database.Armors
 
 		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    var paramBox = sender as ParamBox;
-		    var value = (int)paramBox.Value;
-		    string propertyName = paramBox.RpgAttribute;
-		    typeof(Armor).GetProperty(propertyName).SetValue(this._armor, value, null);
+			if (SuppressEvents) return;
+			var paramBox = sender as ParamBox;
+			var value = (int)paramBox.Value;
+			string propertyName = paramBox.RpgAttribute;
+			typeof(Armor).GetProperty(propertyName).SetValue(this._armor, value, null);
 		}
 
 		private void CheckGroupBoxElementsOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    int id = e.Index + 1;
-		    if (e.NewValue == CheckState.Checked && !this._armor.guard_element_set.Contains(id))
-		        this._armor.guard_element_set.Add(id);
-		    else if (e.NewValue == CheckState.Unchecked && this._armor.guard_element_set.Contains(id))
-		        this._armor.guard_element_set.Remove(id);
+			if (SuppressEvents) return;
+			int id = e.Index + 1;
+			if (e.NewValue == CheckState.Checked && !this._armor.guard_element_set.Contains(id))
+				this._armor.guard_element_set.Add(id);
+			else if (e.NewValue == CheckState.Unchecked && this._armor.guard_element_set.Contains(id))
+				this._armor.guard_element_set.Remove(id);
 		}
 
 		private void CheckGroupBoxStatesOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    int id = e.Index + 1;
-		    if (e.NewValue == CheckState.Checked && !this._armor.guard_state_set.Contains(id))
-		        this._armor.guard_state_set.Add(id);
-		    else if (e.NewValue == CheckState.Unchecked && this._armor.guard_state_set.Contains(id))
-		        this._armor.guard_state_set.Remove(id);
+			if (SuppressEvents) return;
+			int id = e.Index + 1;
+			if (e.NewValue == CheckState.Checked && !this._armor.guard_state_set.Contains(id))
+				this._armor.guard_state_set.Add(id);
+			else if (e.NewValue == CheckState.Unchecked && this._armor.guard_state_set.Contains(id))
+				this._armor.guard_state_set.Remove(id);
 		}
 
 		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
@@ -249,6 +249,6 @@ namespace ARCed.Database.Armors
 				this._armor.auto_state_id = this.comboBoxAutoState.SelectedIndex;
 		}
 
-        #endregion
+		#endregion
 	}
 }

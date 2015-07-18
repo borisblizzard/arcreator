@@ -33,7 +33,7 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public ScriptMenuForm() 
+		public ScriptMenuForm()
 		{
 			this.InitializeComponent();
 			this.LoadScripts(Project.ScriptsDirectory);
@@ -60,7 +60,7 @@ namespace ARCed.Scripting
 				FileInfo fileInfo = (this.listBoxScripts.SelectedItem as Script).FileInfo;
 				if (fileInfo != null)
 				{
-					Editor.StatusBar.Items[0].Text = 
+					Editor.StatusBar.Items[0].Text =
 						String.Format("Created On: {0}", fileInfo.CreationTime);
 					Editor.StatusBar.Items[1].Text =
 						String.Format("Last Saved: {0}", fileInfo.LastWriteTime);
@@ -239,7 +239,7 @@ namespace ARCed.Scripting
 
 		private void buttonTemplate_Click(object sender, EventArgs e)
 		{
-			
+
 			int index = this.listBoxScripts.SelectedIndex;
 			if (index >= 0)
 			{
@@ -253,7 +253,7 @@ namespace ARCed.Scripting
 						string text = this._scripts[index].Text;
 						string filename = Path.Combine(PathHelper.ScriptTemplateDirectory,
 							String.Format("{0}.rb", dialog.UserString));
-						if (File.Exists(filename) && 
+						if (File.Exists(filename) &&
 							MessageBox.Show("Template already exists.\n\nOverwrite?",
 							"Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
 						{
@@ -272,7 +272,7 @@ namespace ARCed.Scripting
 
 		private void fileSystemWatcher_CreatedorDeleted(object sender, FileSystemEventArgs e)
 		{
-			
+
 			if (e.ChangeType.HasFlag(WatcherChangeTypes.Deleted))
 			{
 				Script script = Project.ScriptManager.WithPath(e.FullPath);

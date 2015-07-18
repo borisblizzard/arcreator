@@ -31,7 +31,7 @@ namespace ARCed.Database.Animations
 		public AnimationMainForm()
 		{
 			// TEST ////////////////////////////////////////////
-			
+
 			////////////////////////////////////////////////////
 			this.InitializeComponent();
 		}
@@ -40,11 +40,9 @@ namespace ARCed.Database.Animations
 		{
 			// TEST ////////////////////////////////////////////
 
-			Project.Data.Animations = new List<dynamic>
-			{ null };
+			Project.Data.Animations = new List<dynamic> { null };
 			for (int i = 1; i <= 20; i++)
-				Project.Data.Animations.Add(new Animation
-				{ id = i });
+				Project.Data.Animations.Add(new Animation { id = i });
 
 			// TEST ////////////////////////////////////////////
 			RefreshObjectList();
@@ -72,9 +70,9 @@ namespace ARCed.Database.Animations
 			}
 		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.Animation"/>.
-        /// </summary>
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.Animation"/>.
+		/// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -102,7 +100,7 @@ namespace ARCed.Database.Animations
 			{
 				switch (timing.flash_scope)
 				{
-					case 1: 
+					case 1:
 						flash = String.Format("Target{0}, @{1}", timing.flash_color, timing.flash_duration);
 						break;
 					case 2:
@@ -224,7 +222,7 @@ namespace ARCed.Database.Animations
 			{
 				using (var dialog = new AnimationTimingDialog())
 				{
-					
+
 					var indices = this.listViewTiming.SelectedIndices;
 					int index = indices.Count > 0 ? indices[0] : -1;
 					dialog.Timing = index >= 0 ? this._animation.timings[index] : new Animation.Timing();

@@ -49,17 +49,17 @@ namespace ARCed.Database
 		/// <summary>
 		/// Gets or sets the ID of the selected item
 		/// </summary>
-		public int SelectedId 
-		{ 
+		public int SelectedId
+		{
 			get { return this.dataObjectList.SelectedIndex + 1; }
 			set { this.dataObjectList.SelectedIndex = value - 1; }
 		}
 		/// <summary>
 		/// Gets the selected switch
 		/// </summary>
-		public RpgObject SelectedSwitch 
-		{ 
-			get { return this.Data[this.dataObjectList.SelectedIndex + 1]; } 
+		public RpgObject SelectedSwitch
+		{
+			get { return this.Data[this.dataObjectList.SelectedIndex + 1]; }
 		}
 
 		private RpgObject _switch;
@@ -114,9 +114,9 @@ namespace ARCed.Database
 
 		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.RpgObject"/>.
-        /// </summary>
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.RpgObject"/>.
+		/// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;

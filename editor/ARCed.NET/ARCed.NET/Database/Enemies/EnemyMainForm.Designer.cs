@@ -1,7 +1,7 @@
 ﻿namespace ARCed.Database.Enemies
 {
 
-    sealed partial class EnemyMainForm
+	sealed partial class EnemyMainForm
 	{
 		/// <summary>
 		/// Required designer variable.

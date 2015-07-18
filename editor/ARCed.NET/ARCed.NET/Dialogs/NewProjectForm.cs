@@ -9,9 +9,9 @@ using ARCed.Helpers;
 
 namespace ARCed.Dialogs
 {
-    /// <summary>
-    /// Dialog for creating a new ARCed project.
-    /// </summary>
+	/// <summary>
+	/// Dialog for creating a new ARCed project.
+	/// </summary>
 	public partial class NewProjectForm : Form
 	{
 		#region Private Fields
@@ -81,13 +81,13 @@ namespace ARCed.Dialogs
 			this.comboTemplates.Items.Clear();
 			this.comboTemplates.Items.Add("Default");
 			var templateDir = PathHelper.ProjectTemplateDirectory;
-		    if (!Directory.Exists(templateDir)) return;
-		    string name;
-            foreach (string filename in Directory.GetFiles(templateDir, "*.7z"))
-            {
-                name = Path.GetFileNameWithoutExtension(filename);
-                if (name != null) this.comboTemplates.Items.Add(name);
-            }
+			if (!Directory.Exists(templateDir)) return;
+			string name;
+			foreach (string filename in Directory.GetFiles(templateDir, "*.7z"))
+			{
+				name = Path.GetFileNameWithoutExtension(filename);
+				if (name != null) this.comboTemplates.Items.Add(name);
+			}
 		}
 
 		/// <summary>

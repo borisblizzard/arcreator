@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Actors
 {
-    sealed partial class ActorMainForm
+	sealed partial class ActorMainForm
 	{
 		/// <summary>
 		/// Required designer variable.

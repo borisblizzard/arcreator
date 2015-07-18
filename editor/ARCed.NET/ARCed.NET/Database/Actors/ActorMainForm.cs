@@ -68,11 +68,11 @@ namespace ARCed.Database.Actors
 			{
 				var slot = new EquipSlot
 				{
-				    Parent = this.groupBoxEquipment,
-				    Configuration = Project.Settings.EquipmentSettings[i],
-				    Location = new Point(7, 19 + (i * 27))
+					Parent = this.groupBoxEquipment,
+					Configuration = Project.Settings.EquipmentSettings[i],
+					Location = new Point(7, 19 + (i * 27))
 				};
-			    slot.Size = new Size(width, slot.Size.Height);
+				slot.Size = new Size(width, slot.Size.Height);
 				slot.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 				this._equipSlots[i] = slot;
 				this.panelEquipment.Controls.Add(slot);
@@ -95,11 +95,11 @@ namespace ARCed.Database.Actors
 			{
 				var chart = new ParameterMiniChart
 				{
-				    Dock = DockStyle.Fill,
-				    ParameterLabel = parameterNames[i],
-				    ParameterIndex = i
+					Dock = DockStyle.Fill,
+					ParameterLabel = parameterNames[i],
+					ParameterIndex = i
 				};
-			    this._paramCharts[i] = chart;
+				this._paramCharts[i] = chart;
 				this.tableLayoutPanel.Controls.Add(chart);
 			}
 		}
@@ -113,7 +113,7 @@ namespace ARCed.Database.Actors
 			Class klass = Project.Data.Classes[this._actor.class_id];
 			foreach (EquipSlot slot in this._equipSlots)
 			{
-			    slot.RefreshItems(slot.EquipKind < 0 ? klass.weapon_set : klass.armor_set);
+				slot.RefreshItems(slot.EquipKind < 0 ? klass.weapon_set : klass.armor_set);
 			}
 		}
 
@@ -183,9 +183,9 @@ namespace ARCed.Database.Actors
 			}
 		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.Skill"/>.
-        /// </summary>
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.Skill"/>.
+		/// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -230,21 +230,21 @@ namespace ARCed.Database.Actors
 
 		private void ContextImagesSizeModeClicked(object sender, EventArgs e)
 		{
-		    var toolStripMenuItem = sender as ToolStripMenuItem;
-		    if (toolStripMenuItem == null) return;
-		    var num = Convert.ToInt32(toolStripMenuItem.Tag);
-		    var mode = (PictureBoxSizeMode)num;
-		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
-		    if (pictureBox != null)
-		        pictureBox.SizeMode = mode;
+			var toolStripMenuItem = sender as ToolStripMenuItem;
+			if (toolStripMenuItem == null) return;
+			var num = Convert.ToInt32(toolStripMenuItem.Tag);
+			var mode = (PictureBoxSizeMode)num;
+			var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+			if (pictureBox != null)
+				pictureBox.SizeMode = mode;
 		}
 
-	    private void ComboClassSelectedIndexChanged(object sender, EventArgs e)
+		private void ComboClassSelectedIndexChanged(object sender, EventArgs e)
 		{
-	        if (SuppressEvents) return;
-	        this._actor.class_id = this.comboClass.SelectedIndex + 1;
-	        this.RefreshEquipmentSlots();
-	        this.RefreshEquipment();
+			if (SuppressEvents) return;
+			this._actor.class_id = this.comboClass.SelectedIndex + 1;
+			this.RefreshEquipmentSlots();
+			this.RefreshEquipment();
 		}
 
 		private void NumericLevelInitValueChanged(object sender, EventArgs e)
@@ -272,16 +272,16 @@ namespace ARCed.Database.Actors
 
 		private void ContextMenuImagesOpening(object sender, CancelEventArgs e)
 		{
-		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
-		    if (pictureBox == null) return;
-		    PictureBoxSizeMode mode = pictureBox.SizeMode;
-		    this.contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
-		    this.contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
-		    this.contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
-		    this.contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
+			var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+			if (pictureBox == null) return;
+			PictureBoxSizeMode mode = pictureBox.SizeMode;
+			this.contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
+			this.contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
+			this.contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
+			this.contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
 		}
 
-	    private void ButtonExperienceClick(object sender, EventArgs e)
+		private void ButtonExperienceClick(object sender, EventArgs e)
 		{
 			var form = new ExperienceCurveForm();
 			form.ChangeActor(this._actor);
@@ -294,11 +294,11 @@ namespace ARCed.Database.Actors
 			{
 				dialog.Hue = this._actor.character_hue;
 				dialog.OptionsEnabled = false;
-			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
-			    this._actor.character_name = dialog.ImageName;
-			    this._actor.character_hue = dialog.Hue;
-			    this.pictureCharacter.Image =
-			        Cache.CharacterStance(this._actor.character_name, 0, 1, this._actor.character_hue);
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
+				this._actor.character_name = dialog.ImageName;
+				this._actor.character_hue = dialog.Hue;
+				this.pictureCharacter.Image =
+					Cache.CharacterStance(this._actor.character_name, 0, 1, this._actor.character_hue);
 			}
 		}
 

@@ -24,14 +24,13 @@ namespace ARCed.Scripting
 
 		#region Private Fields
 
-	    private bool _needSave;
+		private bool _needSave;
 		private string _title;
 		private Script _script;
-		private static readonly List<char> _braces = new List<char>
-		{ '(', ')', '[', ']', '{', '}' };
+		private static readonly List<char> _braces = new List<char> { '(', ')', '[', ']', '{', '}' };
 		private static List<char> _suppressedChars;
 		private static List<string> _unindentWords;
-	    private static bool _suppressEvents;
+		private static bool _suppressEvents;
 
 		#endregion
 
@@ -40,8 +39,8 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Gets or sets title of the script and window title
 		/// </summary>
-		public string Title 
-		{ 
+		public string Title
+		{
 			get { return this._title; }
 			set { this.SetTitle(value); }
 		}
@@ -59,17 +58,17 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Gets or sets the flag for showing the script has been updated and requires saving
 		/// </summary>
-		public bool NeedSave 
-		{ 
-			get { return this._needSave || this.NeedApplyChanges; } 
-			set { this._needSave = value; this.UpdateTitle(); } 
+		public bool NeedSave
+		{
+			get { return this._needSave || this.NeedApplyChanges; }
+			set { this._needSave = value; this.UpdateTitle(); }
 		}
 		/// <summary>
 		/// Gets the flag if changes need applied to the script text
 		/// </summary>
 		public bool NeedApplyChanges { get { return false; } }//get { return _scintilla.Text != _script.Text; } }
 		/// <summary>
-        /// Gets or sets the window's associated <see cref="ARCed.Scripting.Script"/> object
+		/// Gets or sets the window's associated <see cref="ARCed.Scripting.Script"/> object
 		/// </summary>
 		public Script Script { get { return this._script; } set { this.ChangeScript(value); } }
 
@@ -89,7 +88,7 @@ namespace ARCed.Scripting
 			this.InitializeComponent();
 			Icon = Icon.FromHandle(Resources.Ruby.GetHicon());
 			this.InitializeScintilla();
-		
+
 
 			_suppressEvents = true;
 			this.buttonToggleAutoComplete.Checked = _settings.AutoComplete;
@@ -104,7 +103,8 @@ namespace ARCed.Scripting
 		/// Constructs and opens a script
 		/// </summary>
 		/// <param name="script">The script to open</param>
-		public ScriptEditorForm(Script script) : this()
+		public ScriptEditorForm(Script script)
+			: this()
 		{
 			this.SetStyle();
 			this.ChangeScript(script);
@@ -132,7 +132,7 @@ namespace ARCed.Scripting
 		}
 
 		/// <summary>
-        /// Changes the form's associated <see cref="ARCed.Scripting.Script"/> object
+		/// Changes the form's associated <see cref="ARCed.Scripting.Script"/> object
 		/// </summary>
 		/// <param name="script"></param>
 		public void ChangeScript(Script script)
@@ -172,9 +172,9 @@ namespace ARCed.Scripting
 			//_scintilla.LongLines.EdgeMode = EdgeMode.Line;
 
 
-		    this._scintilla.KeyDown += this.Scintilla_KeyDown;
+			this._scintilla.KeyDown += this.Scintilla_KeyDown;
 
-			this._scintilla.NativeInterface.UpdateUI += 
+			this._scintilla.NativeInterface.UpdateUI +=
 				this.ScintillaNativeInterfaceUpdateUi;
 			// Setup
 			this._scintilla.SupressControlCharacters = true;
@@ -402,7 +402,7 @@ namespace ARCed.Scripting
 					return;
 				// Select the matched words (we assume that Settings.AutoCompleteWords is already sorted)
 				this._scintilla.AutoComplete.List = _settings.AutoCompleteWords.FindAll(
-				    listWord => (listWord.ToLower().Contains(word)));
+					listWord => (listWord.ToLower().Contains(word)));
 				if (this._scintilla.AutoComplete.List.Count > 0)
 					this._scintilla.AutoComplete.Show();
 				else
@@ -432,9 +432,9 @@ namespace ARCed.Scripting
 
 		/// <summary>
 		/// Check if cursor is on a brace or not, highlighting if necessary
-        /// </summary>
-        #pragma warning disable 612, 618
-        private void ScintillaNativeInterfaceUpdateUi(object sender, NativeScintillaEventArgs e)
+		/// </summary>
+#pragma warning disable 612, 618
+		private void ScintillaNativeInterfaceUpdateUi(object sender, NativeScintillaEventArgs e)
 		{
 			var scintilla = (Scintilla.Scintilla)sender;
 			int pos = scintilla.CurrentPos;
@@ -451,11 +451,11 @@ namespace ARCed.Scripting
 			Editor.StatusBar.Items[2].Text =
 				String.Format("Current Position: {0}", this._scintilla.CurrentPos);
 		}
-        #pragma warning restore 612, 618
+#pragma warning restore 612, 618
 
-        #endregion
+		#endregion
 
-        private void buttonStyle_Click(object sender, EventArgs e)
+		private void buttonStyle_Click(object sender, EventArgs e)
 		{
 			Windows.ScriptStyleMenu.Show(Editor.MainDock);
 		}
@@ -507,7 +507,7 @@ namespace ARCed.Scripting
 				_settings.Caret = this.buttonToggleCaret.Checked;
 				foreach (ScriptEditorForm form in Windows.ScriptEditors)
 				{
-					form.ScintillaControl.Caret.Style = _settings.Caret ? 
+					form.ScintillaControl.Caret.Style = _settings.Caret ?
 						CaretStyle.Line : CaretStyle.Invisible;
 				}
 				_suppressEvents = false;
@@ -638,11 +638,11 @@ namespace ARCed.Scripting
 
 		private void UpdateScriptStatus()
 		{
-			Editor.StatusBar.Items[0].Text = 
+			Editor.StatusBar.Items[0].Text =
 				String.Format("Lines: {0}  Characters: {1}", this._scintilla.Lines.Count, this._scintilla.TextLength);
 			Editor.StatusBar.Items[1].Text = this._scintilla.Selection.Length == 0 ? "" :
 				String.Format("Selection Length: {0}", this._scintilla.Selection.Length);
-			Editor.StatusBar.Items[2].Text = 
+			Editor.StatusBar.Items[2].Text =
 				String.Format("Current Position: {0}", this._scintilla.CurrentPos);
 		}
 

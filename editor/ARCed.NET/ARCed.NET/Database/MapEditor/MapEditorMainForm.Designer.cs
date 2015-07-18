@@ -100,9 +100,9 @@
 			// 
 			// treeViewMaps
 			// 
-			this.treeViewMaps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.treeViewMaps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.treeViewMaps.FullRowSelect = true;
 			this.treeViewMaps.ImageIndex = 0;
 			this.treeViewMaps.ImageList = this.imageList;

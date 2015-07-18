@@ -28,7 +28,7 @@ namespace ARCed.Forms
 		{
 			this.InitializeComponent();
 			Icon = Icon.FromHandle(Resources.SevenZip.GetHicon());
-			this.numericMaxBackups.DataBindings.Add("Value", Project.ARChiveSettings, 
+			this.numericMaxBackups.DataBindings.Add("Value", Project.ARChiveSettings,
 				"MaxBackups", false, DataSourceUpdateMode.OnPropertyChanged);
 			this.numericInterval.DataBindings.Add("Value", Project.ARChiveSettings,
 				"Interval", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -115,7 +115,7 @@ namespace ARCed.Forms
 		{
 			if (Project.NeedSaved)
 			{
-				var result = MessageBox.Show("The project contains unsaved changes.\nSave before archiving?", 
+				var result = MessageBox.Show("The project contains unsaved changes.\nSave before archiving?",
 					"Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 				if (result == DialogResult.OK)
 					Project.Save();
@@ -190,13 +190,13 @@ namespace ARCed.Forms
 				SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
 				this.compressor = new SevenZipCompressor(Path.GetTempPath())
 				{
-				    ArchiveFormat = OutArchiveFormat.SevenZip,
-				    CompressionLevel = CompressionLevel.Ultra,
-				    CompressionMethod = CompressionMethod.Lzma2,
-				    CompressionMode = CompressionMode.Create,
-				    EventSynchronization = EventSynchronizationStrategy.AlwaysAsynchronous
+					ArchiveFormat = OutArchiveFormat.SevenZip,
+					CompressionLevel = CompressionLevel.Ultra,
+					CompressionMethod = CompressionMethod.Lzma2,
+					CompressionMode = CompressionMode.Create,
+					EventSynchronization = EventSynchronizationStrategy.AlwaysAsynchronous
 				};
-			    this.compressor.Compressing += this.compressor_Compressing;
+				this.compressor.Compressing += this.compressor_Compressing;
 				this.compressor.CompressionFinished += this.compressor_CompressionFinished;
 			}
 			var paths = new List<string>();
@@ -209,9 +209,9 @@ namespace ARCed.Forms
 					paths.Add(Path.Combine(Project.ProjectFolder, Project.ScriptsDirectory));
 				if (type.HasFlag(BackupType.Maps))
 				{
-				    var info = new DirectoryInfo(Project.DataDirectory);
-				    paths.AddRange(info.GetFiles("*Map*.arc").Select(file => 
-                        Path.Combine(Project.ProjectFolder, file.FullName)));
+					var info = new DirectoryInfo(Project.DataDirectory);
+					paths.AddRange(info.GetFiles("*Map*.arc").Select(file =>
+						Path.Combine(Project.ProjectFolder, file.FullName)));
 				}
 			}
 			if (paths.Count == 0)
@@ -256,7 +256,7 @@ namespace ARCed.Forms
 			{
 				this.buttonCreateNew.Enabled = true;
 			}
-            Project.CleanARChives();
+			Project.CleanARChives();
 		}
 
 		private void compressor_Compressing(object sender, ProgressEventArgs e)

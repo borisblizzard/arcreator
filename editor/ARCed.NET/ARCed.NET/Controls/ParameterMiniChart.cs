@@ -26,7 +26,7 @@ namespace ARCed.Controls
 		/// Gets the chart of the control
 		/// </summary>
 		[Browsable(false)]
-		public Chart Chart 
+		public Chart Chart
 		{
 			get { return this.chartParameter; }
 		}
@@ -67,7 +67,7 @@ namespace ARCed.Controls
 		#region Private Fields
 
 		private Actor _actor;
-	    private int _paramIndex;
+		private int _paramIndex;
 
 		#endregion
 
@@ -121,13 +121,13 @@ namespace ARCed.Controls
 
 		private void ParameterMiniChartDoubleClick(object sender, EventArgs e)
 		{
-		    var window = Windows.ChartForms.Find(f => f.Actor == this._actor) ??
-		        new ActorParametersForm(this._actor, this._paramIndex);
-		    window.ParameterIndex = this._paramIndex;
-		    window.Show(Editor.MainDock);
+			var window = Windows.ChartForms.Find(f => f.Actor == this._actor) ??
+				new ActorParametersForm(this._actor, this._paramIndex);
+			window.ParameterIndex = this._paramIndex;
+			window.Show(Editor.MainDock);
 		}
 
-	    private void SetParameterIndex(int index)
+		private void SetParameterIndex(int index)
 		{
 			this._paramIndex = index % Project.Settings.Parameters.Count;
 			Text = Project.Settings.Parameters[this._paramIndex];

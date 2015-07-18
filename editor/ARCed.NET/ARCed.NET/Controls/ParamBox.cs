@@ -126,7 +126,7 @@ namespace ARCed.Controls
 	/// <summary>
 	/// Arguments used for changing parameters
 	/// </summary>
-	public class ParameterEventArgs : EventArgs 
+	public class ParameterEventArgs : EventArgs
 	{
 		/// <summary>
 		/// The parameter index of the control.

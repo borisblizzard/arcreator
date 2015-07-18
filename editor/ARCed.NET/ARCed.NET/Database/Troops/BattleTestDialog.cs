@@ -10,30 +10,29 @@ using ARCed.Controls;
 
 namespace ARCed.Database.Troops
 {
-    /// <summary>
-    /// Dialog for getting user-defined battle test configuration.
-    /// </summary>
+	/// <summary>
+	/// Dialog for getting user-defined battle test configuration.
+	/// </summary>
 	public partial class BattleTestDialog : Form
-    {
-        #region Constructor
+	{
+		#region Constructor
 
-        /// <summary>
-        /// Defualt constructor
-        /// </summary>
+		/// <summary>
+		/// Defualt constructor
+		/// </summary>
 		public BattleTestDialog()
 		{
 			this.InitializeComponent();
 			if (Project.BTActors == null)
-				Project.BTActors = new List<dynamic>
-				{ Project.Data.Actors[0] };
+				Project.BTActors = new List<dynamic> { Project.Data.Actors[0] };
 			this.numericUpDownActors.Value = Project.BTActors.Count;
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void NumericUpDownActorsValueChanged(object sender, EventArgs e)
+		private void NumericUpDownActorsValueChanged(object sender, EventArgs e)
 		{
 			var value = (int)this.numericUpDownActors.Value;
 			if (value < this.tabControlActors.TabCount)
@@ -58,8 +57,8 @@ namespace ARCed.Database.Troops
 				}
 				this.tabControlActors.ResumeLayout(true);
 			}
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

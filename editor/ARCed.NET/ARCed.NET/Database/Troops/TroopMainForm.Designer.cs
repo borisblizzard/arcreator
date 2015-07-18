@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Troops
 {
-    sealed partial class TroopMainForm
+	sealed partial class TroopMainForm
 	{
 		/// <summary>
 		/// Required designer variable.

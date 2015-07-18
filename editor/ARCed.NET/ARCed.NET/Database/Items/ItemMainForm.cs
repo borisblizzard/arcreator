@@ -13,9 +13,9 @@ using RPG;
 
 namespace ARCed.Database.Items
 {
-    /// <summary>
-    /// Main form for configuring Project <see cref="RPG.Item"/> data.
-    /// </summary>
+	/// <summary>
+	/// Main form for configuring Project <see cref="RPG.Item"/> data.
+	/// </summary>
 	public sealed partial class ItemMainForm : DatabaseWindow
 	{
 		#region Private Fields
@@ -42,9 +42,9 @@ namespace ARCed.Database.Items
 
 		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
+		/// <summary>
 		/// Default constructor
 		/// </summary>
 		public ItemMainForm()
@@ -58,72 +58,72 @@ namespace ARCed.Database.Items
 			this.dataObjectList.SelectedIndex = 0;
 		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        /// <summary>
-        /// Refreshes objects by type flag
-        /// </summary>
-        /// <param name="type">Flag for type of object to refresh</param>
-        public override void NotifyRefresh(RefreshType type)
-        {
-            if (type.HasFlag(RefreshType.States))
-            {
+		/// <summary>
+		/// Refreshes objects by type flag
+		/// </summary>
+		/// <param name="type">Flag for type of object to refresh</param>
+		public override void NotifyRefresh(RefreshType type)
+		{
+			if (type.HasFlag(RefreshType.States))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Elements))
-            {
+			}
+			if (type.HasFlag(RefreshType.Elements))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Animations))
-            {
+			}
+			if (type.HasFlag(RefreshType.Animations))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Scopes))
-            {
+			}
+			if (type.HasFlag(RefreshType.Scopes))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Parameters))
-            {
+			}
+			if (type.HasFlag(RefreshType.Parameters))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Occasions))
-            {
+			}
+			if (type.HasFlag(RefreshType.Occasions))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.CommonEvents))
-            {
+			}
+			if (type.HasFlag(RefreshType.CommonEvents))
+			{
 
-            }
-        }
+			}
+		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.Item"/>.
-        /// </summary>
-        public override void RefreshCurrentObject()
-        {
-            SuppressEvents = true;
-            this.RefreshIcon();
-            this.textBoxName.Text = this._item.name;
-            this.textBoxDescription.Text = this._item.description;
-            this.RefreshElements();
-            this.RefreshStates();
-            this.comboBoxScope.SelectedIndex = this._item.scope;
-            this.comboBoxOccasion.SelectedIndex = this._item.occasion;
-            this.comboBoxCommonEvent.SelectedIndex = this._item.common_event_id;
-            this.RefreshMenuSE();
-            this.RefreshAnimations();
-            this.RefreshParameters();
-            //noteTextBox.NoteText = _item.note;
-            SuppressEvents = false;
-        }
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.Item"/>.
+		/// </summary>
+		public override void RefreshCurrentObject()
+		{
+			SuppressEvents = true;
+			this.RefreshIcon();
+			this.textBoxName.Text = this._item.name;
+			this.textBoxDescription.Text = this._item.description;
+			this.RefreshElements();
+			this.RefreshStates();
+			this.comboBoxScope.SelectedIndex = this._item.scope;
+			this.comboBoxOccasion.SelectedIndex = this._item.occasion;
+			this.comboBoxCommonEvent.SelectedIndex = this._item.common_event_id;
+			this.RefreshMenuSE();
+			this.RefreshAnimations();
+			this.RefreshParameters();
+			//noteTextBox.NoteText = _item.note;
+			SuppressEvents = false;
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void InitializeElements()
+		private void InitializeElements()
 		{
 			this.checkGroupBoxElements.BeginUpdate();
 			this.checkGroupBoxElements.Items.Clear();
@@ -153,9 +153,9 @@ namespace ARCed.Database.Items
 			string name;
 			foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
 			{
-			    name = animation.ToString();
-			    this.comboBoxUserAnimation.Items.Add(name);
-			    this.comboBoxTargetAnimation.Items.Add(name);
+				name = animation.ToString();
+				this.comboBoxUserAnimation.Items.Add(name);
+				this.comboBoxTargetAnimation.Items.Add(name);
 			}
 			this.comboBoxUserAnimation.EndUpdate();
 			this.comboBoxTargetAnimation.EndUpdate();
@@ -183,7 +183,7 @@ namespace ARCed.Database.Items
 					var param = ctrl as ParamBox;
 					var property = typeof(Item).GetProperty(param.RpgAttribute);
 					if (property != null)
-						param.Value = (int)property.GetValue(this._item, null);	
+						param.Value = (int)property.GetValue(this._item, null);
 				}
 			}
 			this.comboBoxConsumable.SelectedIndex = this._item.consumable ? 0 : 1;
@@ -228,37 +228,37 @@ namespace ARCed.Database.Items
 			this.comboBoxTargetAnimation.SelectedIndex = this._item.animation2_id;
 		}
 
-		private void RefreshMenuSE() 
-        {
-		    this.textBoxMenuSe.Text = this._item.menu_se.name != "" ? 
-                this._item.menu_se.ToString() : "";
+		private void RefreshMenuSE()
+		{
+			this.textBoxMenuSe.Text = this._item.menu_se.name != "" ?
+				this._item.menu_se.ToString() : "";
 		}
 
 		private void ListBoxItemsOnListBoxIndexChanged(object sender, EventArgs e)
 		{
 			int index = this.dataObjectList.SelectedIndex;
-		    if (index < 0) return;
-		    this._item = this.Data[index + 1];
-		    this.RefreshCurrentObject();
+			if (index < 0) return;
+			this._item = this.Data[index + 1];
+			this.RefreshCurrentObject();
 		}
 
 		private void ButtonIconClick(object sender, EventArgs e)
 		{
 			using (var dialog = new ImageSelectionForm(@"Icons", this._item.icon_name))
 			{
-			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
-			    this._item.icon_name = dialog.ImageName;
-			    this.RefreshIcon();
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
+				this._item.icon_name = dialog.ImageName;
+				this.RefreshIcon();
 			}
 		}
 
 		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    this._item.name = this.textBoxName.Text;
-		    int index = this.dataObjectList.SelectedIndex;
-		    this.dataObjectList.Items[index] = this._item.ToString();
-		    this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
+			if (SuppressEvents) return;
+			this._item.name = this.textBoxName.Text;
+			int index = this.dataObjectList.SelectedIndex;
+			this.dataObjectList.Items[index] = this._item.ToString();
+			this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 		}
 
 		private void TextBoxDescriptionTextChanged(object sender, EventArgs e)
@@ -269,21 +269,21 @@ namespace ARCed.Database.Items
 
 		private void CheckGroupBoxElementsOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    var id = e.Index + 1;
-		    if (e.NewValue == CheckState.Checked && !this._item.element_set.Contains(id))
-		        this._item.element_set.Add(id);
-		    else if (e.NewValue == CheckState.Unchecked && this._item.element_set.Contains(id))
-		        this._item.element_set.Remove(id);
+			if (SuppressEvents) return;
+			var id = e.Index + 1;
+			if (e.NewValue == CheckState.Checked && !this._item.element_set.Contains(id))
+				this._item.element_set.Add(id);
+			else if (e.NewValue == CheckState.Unchecked && this._item.element_set.Contains(id))
+				this._item.element_set.Remove(id);
 		}
 
 		private void CheckGroupFocusLeave(object sender, EventArgs e)
 		{
-		    var checkGroupBox = sender as CheckGroupBox;
-		    if (checkGroupBox != null) checkGroupBox.SelectedIndex = -1;
+			var checkGroupBox = sender as CheckGroupBox;
+			if (checkGroupBox != null) checkGroupBox.SelectedIndex = -1;
 		}
 
-        private void ComboBoxScopeSelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxScopeSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				this._item.scope = this.comboBoxScope.SelectedIndex;
@@ -309,26 +309,26 @@ namespace ARCed.Database.Items
 
 		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    var paramBox = sender as ParamBox;
-		    if (paramBox != null)
-		    {
-		        var value = (int)paramBox.Value;
-		        var propertyName = paramBox.RpgAttribute;
-		        typeof(Item).GetProperty(propertyName).SetValue(this._item, value, null);
-		    }
+			if (SuppressEvents) return;
+			var paramBox = sender as ParamBox;
+			if (paramBox != null)
+			{
+				var value = (int)paramBox.Value;
+				var propertyName = paramBox.RpgAttribute;
+				typeof(Item).GetProperty(propertyName).SetValue(this._item, value, null);
+			}
 		}
 
 		private void CheckedListBoxStatesOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    var id = e.Index + 1;
-		    this._item.plus_state_set.Remove(id);
-		    this._item.minus_state_set.Remove(id);
-		    if (e.ValueIndex == 1)
-		        this._item.plus_state_set.Add(id);
-		    if (e.ValueIndex == 2)
-		        this._item.minus_state_set.Add(id);
+			if (SuppressEvents) return;
+			var id = e.Index + 1;
+			this._item.plus_state_set.Remove(id);
+			this._item.minus_state_set.Remove(id);
+			if (e.ValueIndex == 1)
+				this._item.plus_state_set.Add(id);
+			if (e.ValueIndex == 2)
+				this._item.minus_state_set.Add(id);
 		}
 
 		private void ComboBoxCommonEventSelectedIndexChanged(object sender, EventArgs e)
@@ -359,8 +359,8 @@ namespace ARCed.Database.Items
 		private void TextBoxMenuSeOnButtonClick(object sender, EventArgs e)
 		{
 
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

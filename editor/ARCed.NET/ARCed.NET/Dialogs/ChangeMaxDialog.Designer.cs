@@ -28,64 +28,64 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeMaxDialog));
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelCurrent = new System.Windows.Forms.Label();
-            this.labelMax = new System.Windows.Forms.Label();
-            this.numericMax = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMax)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // buttonOK
-            // 
-            resources.ApplyResources(this.buttonOK, "buttonOK");
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
-            // 
-            // buttonCancel
-            // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // labelCurrent
-            // 
-            resources.ApplyResources(this.labelCurrent, "labelCurrent");
-            this.labelCurrent.Name = "labelCurrent";
-            // 
-            // labelMax
-            // 
-            resources.ApplyResources(this.labelMax, "labelMax");
-            this.labelMax.Name = "labelMax";
-            // 
-            // numericMax
-            // 
-            resources.ApplyResources(this.numericMax, "numericMax");
-            this.numericMax.Name = "numericMax";
-            // 
-            // ChangeMaxDialog
-            // 
-            this.AcceptButton = this.buttonOK;
-            resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.numericMax);
-            this.Controls.Add(this.labelMax);
-            this.Controls.Add(this.labelCurrent);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOK);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "ChangeMaxDialog";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            ((System.ComponentModel.ISupportInitialize)(this.numericMax)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeMaxDialog));
+			this.buttonOK = new System.Windows.Forms.Button();
+			this.buttonCancel = new System.Windows.Forms.Button();
+			this.labelCurrent = new System.Windows.Forms.Label();
+			this.labelMax = new System.Windows.Forms.Label();
+			this.numericMax = new System.Windows.Forms.NumericUpDown();
+			((System.ComponentModel.ISupportInitialize)(this.numericMax)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// buttonOK
+			// 
+			resources.ApplyResources(this.buttonOK, "buttonOK");
+			this.buttonOK.Name = "buttonOK";
+			this.buttonOK.UseVisualStyleBackColor = true;
+			this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
+			// 
+			// buttonCancel
+			// 
+			resources.ApplyResources(this.buttonCancel, "buttonCancel");
+			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.buttonCancel.Name = "buttonCancel";
+			this.buttonCancel.UseVisualStyleBackColor = true;
+			// 
+			// labelCurrent
+			// 
+			resources.ApplyResources(this.labelCurrent, "labelCurrent");
+			this.labelCurrent.Name = "labelCurrent";
+			// 
+			// labelMax
+			// 
+			resources.ApplyResources(this.labelMax, "labelMax");
+			this.labelMax.Name = "labelMax";
+			// 
+			// numericMax
+			// 
+			resources.ApplyResources(this.numericMax, "numericMax");
+			this.numericMax.Name = "numericMax";
+			// 
+			// ChangeMaxDialog
+			// 
+			this.AcceptButton = this.buttonOK;
+			resources.ApplyResources(this, "$this");
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.CancelButton = this.buttonCancel;
+			this.Controls.Add(this.numericMax);
+			this.Controls.Add(this.labelMax);
+			this.Controls.Add(this.labelCurrent);
+			this.Controls.Add(this.buttonCancel);
+			this.Controls.Add(this.buttonOK);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "ChangeMaxDialog";
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
+			((System.ComponentModel.ISupportInitialize)(this.numericMax)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 

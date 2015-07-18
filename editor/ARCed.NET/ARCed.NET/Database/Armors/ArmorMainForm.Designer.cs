@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Armors
 {
-    sealed partial class ArmorMainForm
+	sealed partial class ArmorMainForm
 	{
 		/// <summary>
 		/// Required designer variable.

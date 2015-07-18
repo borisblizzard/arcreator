@@ -79,81 +79,81 @@ namespace ARCed
 		/// </summary>
 		/// <param name="filename"></param>
 		public Editor(string filename = null)
-        {
-            //******************************************************************************
-            #if DEBUG
-                // This will automatically remove editor settings on startup, since during development
-                // they have been changing and can be corrupted, preventing a proper run. Final version
-                // will remove old settings and create new in event of corrupted data due to user edit.
-                string editorSetting = PathHelper.EditorSettings;
-                if (File.Exists(editorSetting))
-                    File.Delete(editorSetting);
-            #endif
-            //*******************************************************************************
-            ResourceHelper.Initialize();
-            FontHelper.LoadUserFonts();
-            LoadSettings();
-            //Log.AppendFormat("ARCed Log File: {0}\n\n", DateTime.Now);
-            // Create editor form and set the icon to match the executable
-            this.InitializeComponent();
-            MainInstance = this;
-            Registry.Host = this;
-            ///////////////////////////////
-            MainDock = this.dockMain;
-            TilesetXnaPanel.Settings = Settings.ImageColorSettings;
-            //////////////////////////////
-            FindReplace.ParentDock = this.dockMain;
-            StatusBar = this.statusStripMain;
-            Windows.ScriptTabContextMenu = this.contextMenuScriptTab;
-            this.dockMain.Skin = Settings.WindowSkin;
+		{
+			//******************************************************************************
+#if DEBUG
+			// This will automatically remove editor settings on startup, since during development
+			// they have been changing and can be corrupted, preventing a proper run. Final version
+			// will remove old settings and create new in event of corrupted data due to user edit.
+			string editorSetting = PathHelper.EditorSettings;
+			if (File.Exists(editorSetting))
+				File.Delete(editorSetting);
+#endif
+			//*******************************************************************************
+			ResourceHelper.Initialize();
+			FontHelper.LoadUserFonts();
+			LoadSettings();
+			//Log.AppendFormat("ARCed Log File: {0}\n\n", DateTime.Now);
+			// Create editor form and set the icon to match the executable
+			this.InitializeComponent();
+			MainInstance = this;
+			Registry.Host = this;
+			///////////////////////////////
+			MainDock = this.dockMain;
+			TilesetXnaPanel.Settings = Settings.ImageColorSettings;
+			//////////////////////////////
+			FindReplace.ParentDock = this.dockMain;
+			StatusBar = this.statusStripMain;
+			Windows.ScriptTabContextMenu = this.contextMenuScriptTab;
+			this.dockMain.Skin = Settings.WindowSkin;
 
-            Icon = Icon.ExtractAssociatedIcon(PathHelper.EditorPath);
-            if (Mode.HasFlag(EditorMode.Debug))
-                new Thread(lamda => NativeMethods.SetConsoleIcon(Icon.Handle)).Start();
+			Icon = Icon.ExtractAssociatedIcon(PathHelper.EditorPath);
+			if (Mode.HasFlag(EditorMode.Debug))
+				new Thread(lamda => NativeMethods.SetConsoleIcon(Icon.Handle)).Start();
 
-            // Show the splash screen
-            if (Settings.ShowSplash)
-            {
-                Hide();
-                var splashthread = new Thread(SplashScreen.ShowSplashScreen)
-                {
-                    IsBackground = true
-                };
-                splashthread.Start();
-                this.StartSplash(filename);
-            }
-            else
-            {
-                this.RestoreWindowLocation();
-                if (File.Exists(filename) && Path.GetExtension(filename) == ".arcproj")
-                    this.LoadProject(filename);
-            }
-            Registry.LoadAll();
-            // Set deserializer for restoring window layout.
-            this._deserializeDockContent = GetContentFromPersistString;
+			// Show the splash screen
+			if (Settings.ShowSplash)
+			{
+				Hide();
+				var splashthread = new Thread(SplashScreen.ShowSplashScreen)
+				{
+					IsBackground = true
+				};
+				splashthread.Start();
+				this.StartSplash(filename);
+			}
+			else
+			{
+				this.RestoreWindowLocation();
+				if (File.Exists(filename) && Path.GetExtension(filename) == ".arcproj")
+					this.LoadProject(filename);
+			}
+			Registry.LoadAll();
+			// Set deserializer for restoring window layout.
+			this._deserializeDockContent = GetContentFromPersistString;
 
-            Project.Settings = new ProjectSettings();
+			Project.Settings = new ProjectSettings();
 
-            // TEST /////////////////////////////////////////////////////////////////////////////////////
+			// TEST /////////////////////////////////////////////////////////////////////////////////////
 
-            string testPath = Path.Combine(PathHelper.EditorDirectory,
-                @"Chronicles of Sir Lag-A-Lot\Chronicles of Sir Lag-A-Lot.arcproj");
-            if (File.Exists(testPath))
-                this.LoadProject(testPath);
+			string testPath = Path.Combine(PathHelper.EditorDirectory,
+				@"Chronicles of Sir Lag-A-Lot\Chronicles of Sir Lag-A-Lot.arcproj");
+			if (File.Exists(testPath))
+				this.LoadProject(testPath);
 
 			new MapEditorMainForm().Show(MainDock);
 			new StateMainForm().Show(MainDock);
-            new AnimationMainForm().Show(MainDock);
-            new TilesetsMainForm().Show(MainDock);
-            //new Database.Troops.TroopMainForm().Show(Editor.MainDock);
+			new AnimationMainForm().Show(MainDock);
+			new TilesetsMainForm().Show(MainDock);
+			//new Database.Troops.TroopMainForm().Show(Editor.MainDock);
 
-            // TEST /////////////////////////////////////////////////////////////////////////////////////
+			// TEST /////////////////////////////////////////////////////////////////////////////////////
 
-            // Suspend child controls from resizing every pixel
-            ResizeBegin += (s, e) => SuspendLayout();
-            ResizeEnd += (s, e) => ResumeLayout(true);
+			// Suspend child controls from resizing every pixel
+			ResizeBegin += (s, e) => SuspendLayout();
+			ResizeEnd += (s, e) => ResumeLayout(true);
 
-        }
+		}
 
 		/// <summary>
 		/// Restores the window size, state, and location it was in from the last save
@@ -253,35 +253,35 @@ namespace ARCed
 		{
 			Settings = EditorSettings.Load();
 		}
-	
+
 		/// <summary>
 		/// Loads the project file at the given path.
 		/// </summary>
 		/// <param name="path">Full path to the project file</param>
 		private void LoadProject(string path)
 		{
-            Console.WriteLine(path);
+			Console.WriteLine(path);
 			if (Project.IsLoaded)
 				Project.Close();
 			Project.NeedSaved = false;
-            Cursor = Cursors.WaitCursor;
+			Cursor = Cursors.WaitCursor;
 			Project.Load(path);
-            Cursor = Cursors.Default;
+			Cursor = Cursors.Default;
 			//try
 			//{
-				
-				if (File.Exists(Project.LayoutSettings))
-					this.dockMain.LoadFromXml(Project.LayoutSettings, this._deserializeDockContent);
-				Windows.ScriptMenu.ScriptsDirectory = Project.ScriptsDirectory;
-				Windows.ARChiveForm.RefreshSettings();
-				Text = Project.Title;
-				Settings.AddToRecent(path);
+
+			if (File.Exists(Project.LayoutSettings))
+				this.dockMain.LoadFromXml(Project.LayoutSettings, this._deserializeDockContent);
+			Windows.ScriptMenu.ScriptsDirectory = Project.ScriptsDirectory;
+			Windows.ARChiveForm.RefreshSettings();
+			Text = Project.Title;
+			Settings.AddToRecent(path);
 			//}
 			//catch
 			//{
-				//CloseProject();
-				//MessageBox.Show("Error loading project.", 
-					//"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			//CloseProject();
+			//MessageBox.Show("Error loading project.", 
+			//"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			//}
 		}
 
@@ -312,7 +312,7 @@ namespace ARCed
 
 			}
 		}
-		
+
 		/// <summary>
 		/// Asks confirmation before continuing if there are unsaved changes to the project.
 		/// </summary>
@@ -321,17 +321,17 @@ namespace ARCed
 		{
 			if (!Project.NeedSaved)
 				return true;
-			DialogResult result = MessageBox.Show(String.Format("Save changes to {0}?", Project.Title), 
+			DialogResult result = MessageBox.Show(String.Format("Save changes to {0}?", Project.Title),
 				@"Advanced RPG Creator", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
 			switch (result)
 			{
-			    case DialogResult.Yes:
-			        this.SaveProject();
-			        return true;
-			    case DialogResult.No:
-			        return true;
-			    default:
-			        return false;
+				case DialogResult.Yes:
+					this.SaveProject();
+					return true;
+				case DialogResult.No:
+					return true;
+				default:
+					return false;
 			}
 		}
 
@@ -423,8 +423,8 @@ namespace ARCed
 				this.LoadProject(filename);
 			else
 			{
-				MessageBox.Show("Project cannot be found.", 
-				                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Project cannot be found.",
+								"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				Settings.RecentlyOpened.Remove(filename);
 			}
 		}
@@ -450,9 +450,9 @@ namespace ARCed
 						else
 							template = Path.Combine(PathHelper.ProjectTemplateDirectory,
 								String.Format("{0}.7z", dialog.ProjectTemplate));
-                        string lib = Is64bit ?
-                            Path.Combine(PathHelper.EditorDirectory, @"x64\7z64.dll") :
-                            Path.Combine(PathHelper.EditorDirectory, @"x86\7z.dll");
+						string lib = Is64bit ?
+							Path.Combine(PathHelper.EditorDirectory, @"x64\7z64.dll") :
+							Path.Combine(PathHelper.EditorDirectory, @"x86\7z.dll");
 						string proj = Project.CreateProject(lib, dir, dialog.ProjectTitle, template);
 						this.LoadProject(proj);
 					}
@@ -518,7 +518,7 @@ namespace ARCed
 					if (File.Exists(path))
 					{
 						string msg = String.Format("\"{0}\" already exists.\nOverwrite?", dialog.UserString);
-						var result = MessageBox.Show(msg, 
+						var result = MessageBox.Show(msg,
 							"Confirm Overwrite", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 						if (result != DialogResult.Yes)
 							return;
@@ -619,7 +619,7 @@ namespace ARCed
 			}
 			else
 			{
-                IDockContent[] documents = this.dockMain.DocumentsToArray();
+				IDockContent[] documents = this.dockMain.DocumentsToArray();
 				foreach (IDockContent content in documents)
 					if (content != keepForm)
 						content.DockHandler.Close();
