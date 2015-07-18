@@ -1,5 +1,7 @@
 ﻿#region Using Directives
 
+using System;
+using System.Collections.Generic;
 using ARCed;
 using SysColor = System.Drawing.Color;
 
@@ -144,5 +146,39 @@ namespace RPG
         }
 
         #endregion
+
+        #region Dump/Load
+
+        /// <summary>
+        /// Serializes and dumps the <see cref="Color"/> object in ARC format.
+        /// </summary>
+        /// <returns>An <see langword="byte"/> array containing the serialized data.</returns>
+        public byte[] _arc_dump()
+        {
+            var byteList = new List<byte>();
+            byteList.AddRange(BitConverter.GetBytes(this._red));
+            byteList.AddRange(BitConverter.GetBytes(this._green));
+            byteList.AddRange(BitConverter.GetBytes(this._blue));
+            byteList.AddRange(BitConverter.GetBytes(this._alpha));
+            return byteList.ToArray();
+        }
+
+        /// <summary>
+        /// Deserializes and loads a <see cref="Color"/> object saved in ARC format.
+        /// </summary>
+        /// <param name="bytes">A <see langword="byte"/> array containing the serialized data.</param>
+        /// <returns>The deserialized <see cref="Color"/> object.</returns>
+        public static Color _arc_load(byte[] bytes)
+        {
+            Color c = new Color();
+            c._red = (float)BitConverter.ToSingle(bytes, 0);
+            c._green = (float)BitConverter.ToSingle(bytes, 4);
+            c._blue = (float)BitConverter.ToSingle(bytes, 8);
+            c._alpha = (float)BitConverter.ToSingle(bytes, 12);
+            return c;
+        }
+
+        #endregion
+
     }
 }
