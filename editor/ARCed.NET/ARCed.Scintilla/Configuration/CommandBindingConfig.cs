@@ -7,29 +7,29 @@
 
 namespace ARCed.Scintilla.Configuration
 {
-    public struct CommandBindingConfig
-    {
-        #region Fields
+	public struct CommandBindingConfig
+	{
+		#region Fields
 
-        public KeyBinding KeyBinding;
-        public bool? ReplaceCurrent;
-        public BindableCommand BindableCommand;
+		public KeyBinding KeyBinding;
+		public bool? ReplaceCurrent;
+		public BindableCommand BindableCommand;
 
-        #endregion Fields
+		#endregion Fields
 
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        ///     Initializes a new instance of the CommandBindingConfig structure.
-        /// </summary>
-        public CommandBindingConfig(KeyBinding keyBinding, bool? replaceCurrent, BindableCommand bindableCommand)
-        {
-            this.KeyBinding = keyBinding;
-            this.ReplaceCurrent = replaceCurrent;
-            this.BindableCommand = bindableCommand;
-        }
+		/// <summary>
+		///     Initializes a new instance of the CommandBindingConfig structure.
+		/// </summary>
+		public CommandBindingConfig(KeyBinding keyBinding, bool? replaceCurrent, BindableCommand bindableCommand)
+		{
+			this.KeyBinding = keyBinding;
+			this.ReplaceCurrent = replaceCurrent;
+			this.BindableCommand = bindableCommand;
+		}
 
-        #endregion Constructors
-    }
+		#endregion Constructors
+	}
 }

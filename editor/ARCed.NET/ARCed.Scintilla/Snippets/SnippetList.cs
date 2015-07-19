@@ -10,107 +10,107 @@ using System.Text;
 
 namespace ARCed.Scintilla
 {
-    public class SnippetList : KeyedCollection<string,Snippet>
-    {
-        #region Fields
+	public class SnippetList : KeyedCollection<string, Snippet>
+	{
+		#region Fields
 
-        private readonly SnippetManager _manager;
+		private readonly SnippetManager _manager;
 
-        #endregion Fields
-
-
-        #region Methods
-
-        public Snippet Add(string shortcut, string code)
-        {
-            return this.Add(shortcut, code, this._manager.DefaultDelimeter);
-        }
+		#endregion Fields
 
 
-        public Snippet Add(string shortcut, string code, bool isSurroundsWith)
-        {
-            return this.Add(shortcut, code, this._manager.DefaultDelimeter, isSurroundsWith);
-        }
+		#region Methods
+
+		public Snippet Add(string shortcut, string code)
+		{
+			return this.Add(shortcut, code, this._manager.DefaultDelimeter);
+		}
 
 
-        public Snippet Add(string shortcut, string code, char delimeter)
-        {
-            return this.Add(shortcut, code, delimeter, false);
-        }
+		public Snippet Add(string shortcut, string code, bool isSurroundsWith)
+		{
+			return this.Add(shortcut, code, this._manager.DefaultDelimeter, isSurroundsWith);
+		}
 
 
-        public Snippet Add(string shortcut, string code, char delimeter, bool isSurroundsWith)
-        {
-            var s = new Snippet(shortcut, code, delimeter, isSurroundsWith);
-            Add(s);
-            return s;
-        }
+		public Snippet Add(string shortcut, string code, char delimeter)
+		{
+			return this.Add(shortcut, code, delimeter, false);
+		}
 
 
-        public void AddRange(IEnumerable<Snippet> snippets)
-        {
-            foreach (Snippet s in snippets)
-                Add(s);
-        }
+		public Snippet Add(string shortcut, string code, char delimeter, bool isSurroundsWith)
+		{
+			var s = new Snippet(shortcut, code, delimeter, isSurroundsWith);
+			Add(s);
+			return s;
+		}
 
 
-        protected override string GetKeyForItem(Snippet item)
-        {
-            return item.Shortcut;
-        }
+		public void AddRange(IEnumerable<Snippet> snippets)
+		{
+			foreach (Snippet s in snippets)
+				Add(s);
+		}
 
 
-        public void Sort()
-        {
-            
-            var a = new Snippet[Count];
-            CopyTo(a, 0);
-            Array.Sort(a);
-
-            Clear();
-            this.AddRange(a);
-        }
+		protected override string GetKeyForItem(Snippet item)
+		{
+			return item.Shortcut;
+		}
 
 
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            foreach (Snippet s in Items)
-                sb.Append(s.Shortcut).Append(" ");
+		public void Sort()
+		{
 
-            if (sb.Length > 0)
-                sb.Remove(sb.Length - 1, 1);
-            return sb.ToString();
-        }
+			var a = new Snippet[Count];
+			CopyTo(a, 0);
+			Array.Sort(a);
 
-
-        public bool TryGetValue(string key, out Snippet snippet)
-        {
-            if(this.Contains(key))
-            {
-                snippet = this[key];
-                return true;
-            }
-            else
-            {
-                snippet = null;
-                return false;
-            }
-        }
-
-        #endregion Methods
+			Clear();
+			this.AddRange(a);
+		}
 
 
-        #region Constructors
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			foreach (Snippet s in Items)
+				sb.Append(s.Shortcut).Append(" ");
 
-        internal SnippetList(SnippetManager manager)
-        {
-            if (this._manager != null)
-            {
-                this._manager = manager;
-            }
-        }
+			if (sb.Length > 0)
+				sb.Remove(sb.Length - 1, 1);
+			return sb.ToString();
+		}
 
-        #endregion Constructors
-    }
+
+		public bool TryGetValue(string key, out Snippet snippet)
+		{
+			if (this.Contains(key))
+			{
+				snippet = this[key];
+				return true;
+			}
+			else
+			{
+				snippet = null;
+				return false;
+			}
+		}
+
+		#endregion Methods
+
+
+		#region Constructors
+
+		internal SnippetList(SnippetManager manager)
+		{
+			if (this._manager != null)
+			{
+				this._manager = manager;
+			}
+		}
+
+		#endregion Constructors
+	}
 }

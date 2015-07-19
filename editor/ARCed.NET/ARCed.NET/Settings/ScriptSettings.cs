@@ -11,9 +11,9 @@ using ARCed.Scripting;
 
 namespace ARCed.Settings
 {
-    /// <summary>
-    /// Class containing settings for the look and behavior of scripting controls.
-    /// </summary>
+	/// <summary>
+	/// Class containing settings for the look and behavior of scripting controls.
+	/// </summary>
 	[Serializable]
 	public class ScriptSettings
 	{
@@ -56,7 +56,7 @@ namespace ARCed.Settings
 		[XmlElement("CaretColor")]
 		public string CaretColorHtml
 		{
-			get 
+			get
 			{
 				string color = ColorTranslator.ToHtml(this.CaretColor);
 				return color.Insert(1, this.CaretColor.A.ToString("X"));
@@ -100,8 +100,8 @@ namespace ARCed.Settings
 		{
 			get
 			{
-				var font = FontHelper.IsInstalled("Consolas") ? 
-                    new Font("Consolas", 10.25f, FontStyle.Regular) : FontHelper.MonoFont;
+				var font = FontHelper.IsInstalled("Consolas") ?
+					new Font("Consolas", 10.25f, FontStyle.Regular) : FontHelper.MonoFont;
 				var styles = new[] {
 				    new ScriptStyle("White Space"        , Color.Black          , Color.White   , font),
 				    new ScriptStyle("Brace Match"        , Color.Purple         , Color.Yellow  , font),

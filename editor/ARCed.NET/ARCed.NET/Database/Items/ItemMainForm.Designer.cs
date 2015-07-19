@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Items
 {
-    sealed partial class ItemMainForm
+	sealed partial class ItemMainForm
 	{
 		/// <summary>
 		/// Required designer variable.

@@ -7,10 +7,10 @@
 
 namespace ARCed.Scintilla
 {
-    public enum CopyFormat
-    {
-        Text,
-        Rtf,
-        Html
-    }
+	public enum CopyFormat
+	{
+		Text,
+		Rtf,
+		Html
+	}
 }

@@ -45,7 +45,7 @@ namespace ARCed.Database.Actors
 			get { return this.tabControlParameters.SelectedIndex; }
 			set { this.tabControlParameters.SelectedIndex = value; }
 		}
-				
+
 		/// <summary>
 		/// Gets the current chart.
 		/// </summary>
@@ -284,14 +284,14 @@ namespace ARCed.Database.Actors
 			Windows.ChartSettingsForm.SetCharts(ref this._charts);
 		}
 
-        private void ActorParametersFormLoad(object sender, EventArgs e)
-        {
-            Windows.ChartForms.Add(this);
-        }
+		private void ActorParametersFormLoad(object sender, EventArgs e)
+		{
+			Windows.ChartForms.Add(this);
+		}
 
 		private void ActorParametersFormFormClosing(object sender, FormClosingEventArgs e)
 		{
-		    Windows.ChartForms.Remove(this);
+			Windows.ChartForms.Remove(this);
 			Windows.ChartSettingsForm.ClearCharts();
 		}
 

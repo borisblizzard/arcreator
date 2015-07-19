@@ -1,33 +1,33 @@
 namespace ARCed.Scintilla
 {
-    partial class FindReplaceDialog
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class FindReplaceDialog
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.tabAll = new System.Windows.Forms.TabControl();
 			this.tpgFind = new System.Windows.Forms.TabPage();
 			this.grpFindAll = new ARCed.Controls.CollapsibleGroupBox();
@@ -808,68 +808,68 @@ namespace ARCed.Scintilla
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.TabPage tpgFind;
-        private System.Windows.Forms.TabPage tpgReplace;
-        internal System.Windows.Forms.TabControl tabAll;
+		private System.Windows.Forms.TabPage tpgFind;
+		private System.Windows.Forms.TabPage tpgReplace;
+		internal System.Windows.Forms.TabControl tabAll;
 		private System.Windows.Forms.Label lblFindF;
-        private System.Windows.Forms.RadioButton rdoRegexF;
+		private System.Windows.Forms.RadioButton rdoRegexF;
 		private System.Windows.Forms.RadioButton rdoStandardF;
-        private System.Windows.Forms.Panel pnlRegexpOptionsF;
-        private System.Windows.Forms.Panel pnlStandardOptionsF;
-        private System.Windows.Forms.CheckBox chkWordStartF;
-        private System.Windows.Forms.CheckBox chkWholeWordF;
-        private System.Windows.Forms.CheckBox chkMatchCaseF;
-        private System.Windows.Forms.CheckBox chkEcmaScriptF;
-        private System.Windows.Forms.CheckBox chkCultureInvariantF;
-        private System.Windows.Forms.CheckBox chkCompiledF;
-        private System.Windows.Forms.CheckBox chkRightToLeftF;
-        private System.Windows.Forms.CheckBox chkMultilineF;
-        private System.Windows.Forms.CheckBox chkIgnorePatternWhitespaceF;
-        private System.Windows.Forms.CheckBox chkIgnoreCaseF;
-        private System.Windows.Forms.CheckBox chkExplicitCaptureF;
-        private System.Windows.Forms.CheckBox chkSinglelineF;
-        private System.Windows.Forms.Button btnFindPrevious;
-        private System.Windows.Forms.Button btnFindNext;
-        private System.Windows.Forms.CheckBox chkWrapF;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnFindAll;
-        private System.Windows.Forms.CheckBox chkHighlightMatches;
-        private System.Windows.Forms.CheckBox chkMarkLine;
-        private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ComboBox cboReplace;
-        private System.Windows.Forms.Label lblReplace;
-        private System.Windows.Forms.CheckBox chkWrapR;
-        private System.Windows.Forms.Button btnReplacePrevious;
+		private System.Windows.Forms.Panel pnlRegexpOptionsF;
+		private System.Windows.Forms.Panel pnlStandardOptionsF;
+		private System.Windows.Forms.CheckBox chkWordStartF;
+		private System.Windows.Forms.CheckBox chkWholeWordF;
+		private System.Windows.Forms.CheckBox chkMatchCaseF;
+		private System.Windows.Forms.CheckBox chkEcmaScriptF;
+		private System.Windows.Forms.CheckBox chkCultureInvariantF;
+		private System.Windows.Forms.CheckBox chkCompiledF;
+		private System.Windows.Forms.CheckBox chkRightToLeftF;
+		private System.Windows.Forms.CheckBox chkMultilineF;
+		private System.Windows.Forms.CheckBox chkIgnorePatternWhitespaceF;
+		private System.Windows.Forms.CheckBox chkIgnoreCaseF;
+		private System.Windows.Forms.CheckBox chkExplicitCaptureF;
+		private System.Windows.Forms.CheckBox chkSinglelineF;
+		private System.Windows.Forms.Button btnFindPrevious;
+		private System.Windows.Forms.Button btnFindNext;
+		private System.Windows.Forms.CheckBox chkWrapF;
+		private System.Windows.Forms.Button btnClear;
+		private System.Windows.Forms.Button btnFindAll;
+		private System.Windows.Forms.CheckBox chkHighlightMatches;
+		private System.Windows.Forms.CheckBox chkMarkLine;
+		private System.Windows.Forms.StatusStrip statusStrip;
+		private System.Windows.Forms.ComboBox cboReplace;
+		private System.Windows.Forms.Label lblReplace;
+		private System.Windows.Forms.CheckBox chkWrapR;
+		private System.Windows.Forms.Button btnReplacePrevious;
 		private System.Windows.Forms.Button btnReplaceNext;
-        private System.Windows.Forms.Panel pnlRegexpOptionsR;
-        private System.Windows.Forms.CheckBox chkSinglelineR;
-        private System.Windows.Forms.CheckBox chkRightToLeftR;
-        private System.Windows.Forms.CheckBox chkMultilineR;
-        private System.Windows.Forms.CheckBox chkIgnorePatternWhitespaceR;
-        private System.Windows.Forms.CheckBox chkIgnoreCaseR;
-        private System.Windows.Forms.CheckBox chkExplicitCaptureR;
-        private System.Windows.Forms.CheckBox chkEcmaScriptR;
-        private System.Windows.Forms.CheckBox chkCultureInvariantR;
-        private System.Windows.Forms.CheckBox chkCompiledR;
-        private System.Windows.Forms.Panel pnlStandardOptionsR;
-        private System.Windows.Forms.CheckBox chkWordStartR;
-        private System.Windows.Forms.CheckBox chkWholeWordR;
+		private System.Windows.Forms.Panel pnlRegexpOptionsR;
+		private System.Windows.Forms.CheckBox chkSinglelineR;
+		private System.Windows.Forms.CheckBox chkRightToLeftR;
+		private System.Windows.Forms.CheckBox chkMultilineR;
+		private System.Windows.Forms.CheckBox chkIgnorePatternWhitespaceR;
+		private System.Windows.Forms.CheckBox chkIgnoreCaseR;
+		private System.Windows.Forms.CheckBox chkExplicitCaptureR;
+		private System.Windows.Forms.CheckBox chkEcmaScriptR;
+		private System.Windows.Forms.CheckBox chkCultureInvariantR;
+		private System.Windows.Forms.CheckBox chkCompiledR;
+		private System.Windows.Forms.Panel pnlStandardOptionsR;
+		private System.Windows.Forms.CheckBox chkWordStartR;
+		private System.Windows.Forms.CheckBox chkWholeWordR;
 		private System.Windows.Forms.CheckBox chkMatchCaseR;
-        private System.Windows.Forms.RadioButton rdoRegexR;
-        private System.Windows.Forms.RadioButton rdoStandardR;
-        private System.Windows.Forms.Label lblFindR;
-        private System.Windows.Forms.Button btnReplaceAll;
+		private System.Windows.Forms.RadioButton rdoRegexR;
+		private System.Windows.Forms.RadioButton rdoStandardR;
+		private System.Windows.Forms.Label lblFindR;
+		private System.Windows.Forms.Button btnReplaceAll;
 		private System.Windows.Forms.ToolStripStatusLabel lblStatus;
-        internal System.Windows.Forms.CheckBox chkSearchSelectionF;
-        internal System.Windows.Forms.CheckBox chkSearchSelectionR;
-        internal System.Windows.Forms.ComboBox cboFindF;
+		internal System.Windows.Forms.CheckBox chkSearchSelectionF;
+		internal System.Windows.Forms.CheckBox chkSearchSelectionR;
+		internal System.Windows.Forms.ComboBox cboFindF;
 		internal System.Windows.Forms.ComboBox cboFindR;
 		private ARCed.Controls.CollapsibleGroupBox grpOptionsF;
 		private ARCed.Controls.CollapsibleGroupBox grpFindAll;
 		private ARCed.Controls.CollapsibleGroupBox grdOptionsR;
-    }
+	}
 }

@@ -51,11 +51,11 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets or sets the sprites associated image
 		/// </summary>
-		public Image Image 
-		{ 
+		public Image Image
+		{
 			get { return this._image; }
-			set 
-			{ 
+			set
+			{
 				this._image = value;
 				this._texture = null;
 			}
@@ -63,9 +63,9 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets the sprites texture
 		/// </summary>
-		public Texture2D Texture 
-		{ 
-			get 
+		public Texture2D Texture
+		{
+			get
 			{
 				if (this._texture == null)
 				{
@@ -75,19 +75,19 @@ namespace ARCed.Controls
 						return new Texture2D(this.GraphicsDevice, 32, 32);
 				}
 				return this._texture;
-			} 
+			}
 		}
 		/// <summary>
 		/// Gets a vector that represents the sprites location
 		/// </summary>
 		public Vector2 Vector
 		{
-			get { return new Vector2(this.X, this.Y); } 
+			get { return new Vector2(this.X, this.Y); }
 		}
 		/// <summary>
 		/// Gets or sets the X-coordinate of the sprite
 		/// </summary>
-		public int X 
+		public int X
 		{
 			get { return this._member.x - (this.Width / 2); }
 			set { this._member.x = value + (this.Width / 2); }
@@ -95,7 +95,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets or sets the Y-coordinate of the sprite
 		/// </summary>
-		public int Y 
+		public int Y
 		{
 			get { return this._member.y - this.Height; }
 			set { this._member.y = value + this.Height; }
@@ -103,7 +103,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets or sets the selected flag of the sprite
 		/// </summary>
-		public bool Selected 
+		public bool Selected
 		{
 			get { return this._selected; }
 			set
@@ -128,32 +128,32 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets the rectangle of the sprite
 		/// </summary>
-		public XnaRect Rectangle 
-		{ 
-			get { return new XnaRect(this.X, this.Y, this.Width, this.Height); } 
+		public XnaRect Rectangle
+		{
+			get { return new XnaRect(this.X, this.Y, this.Width, this.Height); }
 		}
 		/// <summary>
 		/// Gets or sets the immortal status of the RPG.Troop.Member
 		/// </summary>
-		public bool Immortal 
-		{ 
-			get { return this._member.immortal; } 
-			set { this._member.immortal = value; } 
+		public bool Immortal
+		{
+			get { return this._member.immortal; }
+			set { this._member.immortal = value; }
 		}
 		/// <summary>
 		/// Gets or sets the hidden status of the RPG.Troop.Member
 		/// </summary>
-		public bool Hidden 
-		{ 
-			get { return this._member.hidden; } 
-			set {this._member.hidden = value; } 
+		public bool Hidden
+		{
+			get { return this._member.hidden; }
+			set { this._member.hidden = value; }
 		}
 		/// <summary>
 		/// Gets the ID of the enemy the sprite represents
 		/// </summary>
-		public int EnemyId 
-		{ 
-			get { return this._member.enemy_id; }  
+		public int EnemyId
+		{
+			get { return this._member.enemy_id; }
 		}
 		/// <summary>
 		/// Gets or sets the RPG.Troop.Member the sprite represents
@@ -176,14 +176,14 @@ namespace ARCed.Controls
 		/// Create EnemySprite instance from an RPG.Enemy instance
 		/// </summary>
 		/// <param name="enemy">RPG.Enemy instance to create from</param>
-		public EnemySprite(Enemy enemy) 
+		public EnemySprite(Enemy enemy)
 		{
 			this.Image = Cache.Battler(enemy.battler_name, enemy.battler_hue);
 			this._member = new Troop.Member
 			{
-			    enemy_id = enemy.id
+				enemy_id = enemy.id
 			};
-		    this._selected = false;
+			this._selected = false;
 			this.Moving = false;
 		}
 
@@ -315,9 +315,9 @@ namespace ARCed.Controls
 		/// Gets the selected sprite or null if one are selected
 		/// </summary>
 		[Browsable(false)]
-		public EnemySprite SelectedSprite 
+		public EnemySprite SelectedSprite
 		{
-			get 
+			get
 			{
 				return this._sprites.Find(s => s.Selected);
 			}
@@ -348,7 +348,7 @@ namespace ARCed.Controls
 			if (this._sprites.Count == 0)
 				return;
 			int width = this._sprites.Sum(sprite => sprite.Width);
-		    int left = Math.Max((this._background.Width - width) / 2, 0);
+			int left = Math.Max((this._background.Width - width) / 2, 0);
 			int max = this._background.Width / this._sprites.Count;
 			for (int i = 0; i < this._sprites.Count; i++)
 			{
@@ -475,7 +475,7 @@ namespace ARCed.Controls
 				this._sprites.Sort();
 				foreach (EnemySprite sprite in this._sprites)
 				{
-					this._batch.Draw(sprite.Texture, sprite.Vector, 
+					this._batch.Draw(sprite.Texture, sprite.Vector,
 						sprite.Hidden ? _hiddenColor : XnaColor.White);
 					if (sprite.Selected)
 						this._batch.DrawSelectionRect(sprite.Rectangle, XnaColor.White, 2);
@@ -512,7 +512,7 @@ namespace ARCed.Controls
 				this._lastX = e.X;
 				this._lastY = e.Y;
 				foreach (EnemySprite sprite in this._sprites)
-				{	
+				{
 					if (sprite.Selected)
 					{
 						sprite.Moving = true;

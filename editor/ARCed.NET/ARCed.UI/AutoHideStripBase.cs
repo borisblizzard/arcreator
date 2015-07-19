@@ -14,319 +14,319 @@ namespace ARCed.UI
 {
 	public abstract class AutoHideStripBase : Control
 	{
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        protected class Tab : IDisposable
-        {
-            private readonly IDockContent m_content;
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		protected class Tab : IDisposable
+		{
+			private readonly IDockContent m_content;
 
-            protected internal Tab(IDockContent content)
-            {
-                this.m_content = content;
-            }
+			protected internal Tab(IDockContent content)
+			{
+				this.m_content = content;
+			}
 
-            ~Tab()
-            {
-                this.Dispose(false);
-            }
+			~Tab()
+			{
+				this.Dispose(false);
+			}
 
-            public IDockContent Content
-            {
-                get { return this.m_content; }
-            }
+			public IDockContent Content
+			{
+				get { return this.m_content; }
+			}
 
-            public void Dispose()
-            {
-                this.Dispose(true);
-                GC.SuppressFinalize(this);
-            }
+			public void Dispose()
+			{
+				this.Dispose(true);
+				GC.SuppressFinalize(this);
+			}
 
-            protected virtual void Dispose(bool disposing)
-            {
-            }
-        }
+			protected virtual void Dispose(bool disposing)
+			{
+			}
+		}
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        protected sealed class TabCollection : IEnumerable<Tab>
-        {
-            #region IEnumerable Members
-            IEnumerator<Tab> IEnumerable<Tab>.GetEnumerator()
-            {
-                for (int i = 0; i < this.Count; i++)
-                    yield return this[i];
-            }
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		protected sealed class TabCollection : IEnumerable<Tab>
+		{
+			#region IEnumerable Members
+			IEnumerator<Tab> IEnumerable<Tab>.GetEnumerator()
+			{
+				for (int i = 0; i < this.Count; i++)
+					yield return this[i];
+			}
 
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                for (int i = 0; i < this.Count; i++)
-                    yield return this[i];
-            }
-            #endregion
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				for (int i = 0; i < this.Count; i++)
+					yield return this[i];
+			}
+			#endregion
 
-            internal TabCollection(DockPane pane)
-            {
-                this.m_dockPane = pane;
-            }
+			internal TabCollection(DockPane pane)
+			{
+				this.m_dockPane = pane;
+			}
 
-            private readonly DockPane m_dockPane;
-            public DockPane DockPane
-            {
-                get { return this.m_dockPane; }
-            }
+			private readonly DockPane m_dockPane;
+			public DockPane DockPane
+			{
+				get { return this.m_dockPane; }
+			}
 
-            public DockPanel DockPanel
-            {
-                get { return this.DockPane.DockPanel; }
-            }
+			public DockPanel DockPanel
+			{
+				get { return this.DockPane.DockPanel; }
+			}
 
-            public int Count
-            {
-                get { return this.DockPane.DisplayingContents.Count; }
-            }
+			public int Count
+			{
+				get { return this.DockPane.DisplayingContents.Count; }
+			}
 
-            public Tab this[int index]
-            {
-                get
-                {
-                    IDockContent content = this.DockPane.DisplayingContents[index];
-                    if (content == null)
-                        throw (new ArgumentOutOfRangeException("index"));
-                    if (content.DockHandler.AutoHideTab == null)
-                        content.DockHandler.AutoHideTab = (this.DockPanel.AutoHideStripControl.CreateTab(content));
-                    return content.DockHandler.AutoHideTab as Tab;
-                }
-            }
+			public Tab this[int index]
+			{
+				get
+				{
+					IDockContent content = this.DockPane.DisplayingContents[index];
+					if (content == null)
+						throw (new ArgumentOutOfRangeException("index"));
+					if (content.DockHandler.AutoHideTab == null)
+						content.DockHandler.AutoHideTab = (this.DockPanel.AutoHideStripControl.CreateTab(content));
+					return content.DockHandler.AutoHideTab as Tab;
+				}
+			}
 
-            public bool Contains(Tab tab)
-            {
-                return (IndexOf(tab) != -1);
-            }
+			public bool Contains(Tab tab)
+			{
+				return (IndexOf(tab) != -1);
+			}
 
-            public bool Contains(IDockContent content)
-            {
-                return (IndexOf(content) != -1);
-            }
+			public bool Contains(IDockContent content)
+			{
+				return (IndexOf(content) != -1);
+			}
 
-            public int IndexOf(Tab tab)
-            {
-                if (tab == null)
-                    return -1;
+			public int IndexOf(Tab tab)
+			{
+				if (tab == null)
+					return -1;
 
-                return IndexOf(tab.Content);
-            }
+				return IndexOf(tab.Content);
+			}
 
-            public int IndexOf(IDockContent content)
-            {
-                return this.DockPane.DisplayingContents.IndexOf(content);
-            }
-        }
+			public int IndexOf(IDockContent content)
+			{
+				return this.DockPane.DisplayingContents.IndexOf(content);
+			}
+		}
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        protected class Pane : IDisposable
-        {
-            private readonly DockPane m_dockPane;
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		protected class Pane : IDisposable
+		{
+			private readonly DockPane m_dockPane;
 
-            protected internal Pane(DockPane dockPane)
-            {
-                this.m_dockPane = dockPane;
-            }
+			protected internal Pane(DockPane dockPane)
+			{
+				this.m_dockPane = dockPane;
+			}
 
-            ~Pane()
-            {
-                this.Dispose(false);
-            }
+			~Pane()
+			{
+				this.Dispose(false);
+			}
 
-            public DockPane DockPane
-            {
-                get { return this.m_dockPane; }
-            }
+			public DockPane DockPane
+			{
+				get { return this.m_dockPane; }
+			}
 
-            public TabCollection AutoHideTabs
-            {
-                get
-                {
-                    if (this.DockPane.AutoHideTabs == null)
-                        this.DockPane.AutoHideTabs = new TabCollection(this.DockPane);
-                    return this.DockPane.AutoHideTabs as TabCollection;
-                }
-            }
+			public TabCollection AutoHideTabs
+			{
+				get
+				{
+					if (this.DockPane.AutoHideTabs == null)
+						this.DockPane.AutoHideTabs = new TabCollection(this.DockPane);
+					return this.DockPane.AutoHideTabs as TabCollection;
+				}
+			}
 
-            public void Dispose()
-            {
-                this.Dispose(true);
-                GC.SuppressFinalize(this);
-            }
+			public void Dispose()
+			{
+				this.Dispose(true);
+				GC.SuppressFinalize(this);
+			}
 
-            protected virtual void Dispose(bool disposing)
-            {
-            }
-        }
+			protected virtual void Dispose(bool disposing)
+			{
+			}
+		}
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        protected sealed class PaneCollection : IEnumerable<Pane>
-        {
-            private class AutoHideState
-            {
-                private readonly DockState _mDockState;
-                private bool _mSelected;
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		protected sealed class PaneCollection : IEnumerable<Pane>
+		{
+			private class AutoHideState
+			{
+				private readonly DockState _mDockState;
+				private bool _mSelected;
 
-                public AutoHideState(DockState dockState)
-                {
-                    this._mDockState = dockState;
-                }
+				public AutoHideState(DockState dockState)
+				{
+					this._mDockState = dockState;
+				}
 
-                public DockState DockState
-                {
-                    get { return this._mDockState; }
-                }
+				public DockState DockState
+				{
+					get { return this._mDockState; }
+				}
 
-                public bool Selected
-                {
-                    get { return this._mSelected; }
-                    set { this._mSelected = value; }
-                }
-            }
+				public bool Selected
+				{
+					get { return this._mSelected; }
+					set { this._mSelected = value; }
+				}
+			}
 
-            private class AutoHideStateCollection
-            {
-                private readonly AutoHideState[] _mStates;
+			private class AutoHideStateCollection
+			{
+				private readonly AutoHideState[] _mStates;
 
-                public AutoHideStateCollection()
-                {
-                    this._mStates = new[]	{	
+				public AutoHideStateCollection()
+				{
+					this._mStates = new[]	{	
 												new AutoHideState(DockState.DockTopAutoHide),
 												new AutoHideState(DockState.DockBottomAutoHide),
 												new AutoHideState(DockState.DockLeftAutoHide),
 												new AutoHideState(DockState.DockRightAutoHide)
 											};
-                }
+				}
 
-                public AutoHideState this[DockState dockState]
-                {
-                    get
-                    {
-                        for (int i = 0; i < this._mStates.Length; i++)
-                        {
-                            if (this._mStates[i].DockState == dockState)
-                                return this._mStates[i];
-                        }
-                        throw new ArgumentOutOfRangeException("dockState");
-                    }
-                }
+				public AutoHideState this[DockState dockState]
+				{
+					get
+					{
+						for (int i = 0; i < this._mStates.Length; i++)
+						{
+							if (this._mStates[i].DockState == dockState)
+								return this._mStates[i];
+						}
+						throw new ArgumentOutOfRangeException("dockState");
+					}
+				}
 
-                public bool ContainsPane(DockPane pane)
-                {
-                    if (pane.IsHidden)
-                        return false;
+				public bool ContainsPane(DockPane pane)
+				{
+					if (pane.IsHidden)
+						return false;
 
-                    for (int i = 0; i < this._mStates.Length; i++)
-                    {
-                        if (this._mStates[i].DockState == pane.DockState && this._mStates[i].Selected)
-                            return true;
-                    }
-                    return false;
-                }
-            }
+					for (int i = 0; i < this._mStates.Length; i++)
+					{
+						if (this._mStates[i].DockState == pane.DockState && this._mStates[i].Selected)
+							return true;
+					}
+					return false;
+				}
+			}
 
-            internal PaneCollection(DockPanel panel, DockState dockState)
-            {
-                this._mDockPanel = panel;
-                this._mStates = new AutoHideStateCollection();
-                this.States[DockState.DockTopAutoHide].Selected = (dockState == DockState.DockTopAutoHide);
-                this.States[DockState.DockBottomAutoHide].Selected = (dockState == DockState.DockBottomAutoHide);
-                this.States[DockState.DockLeftAutoHide].Selected = (dockState == DockState.DockLeftAutoHide);
-                this.States[DockState.DockRightAutoHide].Selected = (dockState == DockState.DockRightAutoHide);
-            }
+			internal PaneCollection(DockPanel panel, DockState dockState)
+			{
+				this._mDockPanel = panel;
+				this._mStates = new AutoHideStateCollection();
+				this.States[DockState.DockTopAutoHide].Selected = (dockState == DockState.DockTopAutoHide);
+				this.States[DockState.DockBottomAutoHide].Selected = (dockState == DockState.DockBottomAutoHide);
+				this.States[DockState.DockLeftAutoHide].Selected = (dockState == DockState.DockLeftAutoHide);
+				this.States[DockState.DockRightAutoHide].Selected = (dockState == DockState.DockRightAutoHide);
+			}
 
-            private readonly DockPanel _mDockPanel;
-            public DockPanel DockPanel
-            {
-                get { return this._mDockPanel; }
-            }
+			private readonly DockPanel _mDockPanel;
+			public DockPanel DockPanel
+			{
+				get { return this._mDockPanel; }
+			}
 
-            private readonly AutoHideStateCollection _mStates;
-            private AutoHideStateCollection States
-            {
-                get { return this._mStates; }
-            }
+			private readonly AutoHideStateCollection _mStates;
+			private AutoHideStateCollection States
+			{
+				get { return this._mStates; }
+			}
 
-            public int Count
-            {
-                get
-                {
-                    int count = 0;
-                    foreach (DockPane pane in this.DockPanel.Panes)
-                    {
-                        if (this.States.ContainsPane(pane))
-                            count++;
-                    }
+			public int Count
+			{
+				get
+				{
+					int count = 0;
+					foreach (DockPane pane in this.DockPanel.Panes)
+					{
+						if (this.States.ContainsPane(pane))
+							count++;
+					}
 
-                    return count;
-                }
-            }
+					return count;
+				}
+			}
 
-            public Pane this[int index]
-            {
-                get
-                {
-                    int count = 0;
-                    foreach (DockPane pane in this.DockPanel.Panes)
-                    {
-                        if (!this.States.ContainsPane(pane))
-                            continue;
+			public Pane this[int index]
+			{
+				get
+				{
+					int count = 0;
+					foreach (DockPane pane in this.DockPanel.Panes)
+					{
+						if (!this.States.ContainsPane(pane))
+							continue;
 
-                        if (count == index)
-                        {
-                            if (pane.AutoHidePane == null)
-                                pane.AutoHidePane = this.DockPanel.AutoHideStripControl.CreatePane(pane);
-                            return pane.AutoHidePane as Pane;
-                        }
+						if (count == index)
+						{
+							if (pane.AutoHidePane == null)
+								pane.AutoHidePane = this.DockPanel.AutoHideStripControl.CreatePane(pane);
+							return pane.AutoHidePane as Pane;
+						}
 
-                        count++;
-                    }
-                    throw new ArgumentOutOfRangeException("index");
-                }
-            }
+						count++;
+					}
+					throw new ArgumentOutOfRangeException("index");
+				}
+			}
 
-            public bool Contains(Pane pane)
-            {
-                return (this.IndexOf(pane) != -1);
-            }
+			public bool Contains(Pane pane)
+			{
+				return (this.IndexOf(pane) != -1);
+			}
 
-            public int IndexOf(Pane pane)
-            {
-                if (pane == null)
-                    return -1;
+			public int IndexOf(Pane pane)
+			{
+				if (pane == null)
+					return -1;
 
-                int index = 0;
-                foreach (DockPane dockPane in this.DockPanel.Panes)
-                {
-                    if (!this.States.ContainsPane(pane.DockPane))
-                        continue;
+				int index = 0;
+				foreach (DockPane dockPane in this.DockPanel.Panes)
+				{
+					if (!this.States.ContainsPane(pane.DockPane))
+						continue;
 
-                    if (pane == dockPane.AutoHidePane)
-                        return index;
+					if (pane == dockPane.AutoHidePane)
+						return index;
 
-                    index++;
-                }
-                return -1;
-            }
+					index++;
+				}
+				return -1;
+			}
 
-            #region IEnumerable Members
+			#region IEnumerable Members
 
-            IEnumerator<Pane> IEnumerable<Pane>.GetEnumerator()
-            {
-                for (int i = 0; i < this.Count; i++)
-                    yield return this[i];
-            }
+			IEnumerator<Pane> IEnumerable<Pane>.GetEnumerator()
+			{
+				for (int i = 0; i < this.Count; i++)
+					yield return this[i];
+			}
 
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                for (int i = 0; i < this.Count; i++)
-                    yield return this[i];
-            }
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				for (int i = 0; i < this.Count; i++)
+					yield return this[i];
+			}
 
-            #endregion
-        }
+			#endregion
+		}
 
 		protected AutoHideStripBase(DockPanel panel)
 		{
@@ -340,34 +340,34 @@ namespace ARCed.UI
 			SetStyle(ControlStyles.Selectable, false);
 		}
 
-        private readonly DockPanel _mDockPanel;
+		private readonly DockPanel _mDockPanel;
 		protected DockPanel DockPanel
 		{
-			get	{	return this._mDockPanel;	}
+			get { return this._mDockPanel; }
 		}
 
-        private readonly PaneCollection _mPanesTop;
+		private readonly PaneCollection _mPanesTop;
 		protected PaneCollection PanesTop
 		{
-			get	{	return this._mPanesTop;	}
+			get { return this._mPanesTop; }
 		}
 
-        private readonly PaneCollection _mPanesBottom;
+		private readonly PaneCollection _mPanesBottom;
 		protected PaneCollection PanesBottom
 		{
-			get	{	return this._mPanesBottom;	}
+			get { return this._mPanesBottom; }
 		}
 
-        private readonly PaneCollection _mPanesLeft;
+		private readonly PaneCollection _mPanesLeft;
 		protected PaneCollection PanesLeft
 		{
-			get	{	return this._mPanesLeft;	}
+			get { return this._mPanesLeft; }
 		}
 
-        private readonly PaneCollection _mPanesRight;
+		private readonly PaneCollection _mPanesRight;
 		protected PaneCollection PanesRight
 		{
-			get	{	return this._mPanesRight;	}
+			get { return this._mPanesRight; }
 		}
 
 		protected PaneCollection GetPanes(DockState dockState)
@@ -384,15 +384,15 @@ namespace ARCed.UI
 				throw new ArgumentOutOfRangeException("dockState");
 		}
 
-        internal int GetNumberOfPanes(DockState dockState)
-        {
-            return this.GetPanes(dockState).Count;
-        }
+		internal int GetNumberOfPanes(DockState dockState)
+		{
+			return this.GetPanes(dockState).Count;
+		}
 
 		protected Rectangle RectangleTopLeft
 		{
 			get
-			{	
+			{
 				int height = this.MeasureHeight();
 				return this.PanesTop.Count > 0 && this.PanesLeft.Count > 0 ? new Rectangle(0, 0, height, height) : Rectangle.Empty;
 			}
@@ -489,19 +489,19 @@ namespace ARCed.UI
 				this.DockPanel.ActiveAutoHideContent = content;
 
 			// requires further tracking of mouse hover behavior,
-            ResetMouseEventArgs();
+			ResetMouseEventArgs();
 		}
 
 		protected override void OnLayout(LayoutEventArgs levent)
 		{
 			this.RefreshChanges();
-			base.OnLayout (levent);
+			base.OnLayout(levent);
 		}
 
 		internal void RefreshChanges()
 		{
-            if (IsDisposed)
-                return;
+			if (IsDisposed)
+				return;
 
 			this.SetRegion();
 			this.OnRefreshChanges();
@@ -519,15 +519,15 @@ namespace ARCed.UI
 			return this.HitTest(ptMouse);
 		}
 
-        protected virtual Tab CreateTab(IDockContent content)
-        {
-            return new Tab(content);
-        }
+		protected virtual Tab CreateTab(IDockContent content)
+		{
+			return new Tab(content);
+		}
 
-        protected virtual Pane CreatePane(DockPane dockPane)
-        {
-            return new Pane(dockPane);
-        }
+		protected virtual Pane CreatePane(DockPane dockPane)
+		{
+			return new Pane(dockPane);
+		}
 
 		protected abstract IDockContent HitTest(Point point);
 	}

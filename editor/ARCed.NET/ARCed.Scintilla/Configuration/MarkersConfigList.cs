@@ -12,39 +12,39 @@ using System.Collections.ObjectModel;
 
 namespace ARCed.Scintilla.Configuration
 {
-    public class MarkersConfigList : KeyedCollection<int, MarkersConfig>
-    {
-        #region Fields
+	public class MarkersConfigList : KeyedCollection<int, MarkersConfig>
+	{
+		#region Fields
 
-        private bool? _inherit;
+		private bool? _inherit;
 
-        #endregion Fields
-
-
-        #region Methods
-
-        protected override int GetKeyForItem(MarkersConfig item)
-        {
-            return item.Number.Value;
-        }
-
-        #endregion Methods
+		#endregion Fields
 
 
-        #region Properties
+		#region Methods
 
-        public bool? Inherit
-        {
-            get
-            {
-                return this._inherit;
-            }
-            set
-            {
-                this._inherit = value;
-            }
-        }
+		protected override int GetKeyForItem(MarkersConfig item)
+		{
+			return item.Number.Value;
+		}
 
-        #endregion Properties
-    }
+		#endregion Methods
+
+
+		#region Properties
+
+		public bool? Inherit
+		{
+			get
+			{
+				return this._inherit;
+			}
+			set
+			{
+				this._inherit = value;
+			}
+		}
+
+		#endregion Properties
+	}
 }

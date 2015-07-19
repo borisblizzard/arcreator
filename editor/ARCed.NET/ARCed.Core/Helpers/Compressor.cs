@@ -9,9 +9,9 @@ using SevenZip;
 
 namespace ARCed.Helpers
 {
-    /// <summary>
-    /// Static class used for compressing/extracting files and folders using 7zip.
-    /// </summary>
+	/// <summary>
+	/// Static class used for compressing/extracting files and folders using 7zip.
+	/// </summary>
 	public static class Compressor
 	{
 
@@ -32,9 +32,9 @@ namespace ARCed.Helpers
 			{
 				_compressor = new SevenZipCompressor
 				{
-				    ArchiveFormat = OutArchiveFormat.SevenZip,
-				    CompressionLevel = CompressionLevel.Ultra,
-				    CompressionMode = CompressionMode.Create
+					ArchiveFormat = OutArchiveFormat.SevenZip,
+					CompressionLevel = CompressionLevel.Ultra,
+					CompressionMode = CompressionMode.Create
 				};
 			}
 			_notify = notify;
@@ -61,7 +61,7 @@ namespace ARCed.Helpers
 			}
 			catch
 			{
-				MessageBox.Show("Failed to extract ARChive.", 
+				MessageBox.Show("Failed to extract ARChive.",
 					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}

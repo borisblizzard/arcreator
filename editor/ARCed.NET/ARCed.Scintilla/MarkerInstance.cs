@@ -7,85 +7,86 @@
 
 namespace ARCed.Scintilla
 {
-    public class MarkerInstance : ScintillaHelperBase
-    {
-        #region Fields
+	public class MarkerInstance : ScintillaHelperBase
+	{
+		#region Fields
 
-        private readonly int _handle;
-        private readonly Marker _marker;
+		private readonly int _handle;
+		private readonly Marker _marker;
 
-        #endregion Fields
-
-
-        #region Methods
-
-        public void Delete()
-        {
-            NativeScintilla.MarkerDeleteHandle(this._handle);
-        }
+		#endregion Fields
 
 
-        public override bool Equals(object obj)
-        {
-            if (!IsSameHelperFamily(obj))
-                return false;
+		#region Methods
 
-            return ((MarkerInstance)obj).Handle == this.Handle;
-        }
-
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        #endregion Methods
+		public void Delete()
+		{
+			NativeScintilla.MarkerDeleteHandle(this._handle);
+		}
 
 
-        #region Properties
+		public override bool Equals(object obj)
+		{
+			if (!IsSameHelperFamily(obj))
+				return false;
 
-        public int Handle
-        {
-            get
-            {
-                return this._handle;
-            }
-        }
+			return ((MarkerInstance)obj).Handle == this.Handle;
+		}
 
 
-        public Line Line
-        {
-            get
-            {
-                int lineNo = NativeScintilla.MarkerLineFromHandle(this._handle);
-                if (lineNo < 0)
-                    return null;
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 
-                return new Line(Scintilla, lineNo);
-
-            }
-        }
+		#endregion Methods
 
 
-        public Marker Marker
-        {
-            get
-            {
-                return this._marker;
-            }
-        }
+		#region Properties
 
-        #endregion Properties
+		public int Handle
+		{
+			get
+			{
+				return this._handle;
+			}
+		}
 
 
-        #region Constructors
+		public Line Line
+		{
+			get
+			{
+				int lineNo = NativeScintilla.MarkerLineFromHandle(this._handle);
+				if (lineNo < 0)
+					return null;
 
-        internal MarkerInstance(Scintilla scintilla, Marker marker, int handle) : base(scintilla)
-        {
-            this._marker = marker;
-            this._handle = handle;
-        }
+				return new Line(Scintilla, lineNo);
 
-        #endregion Constructors
-    }
+			}
+		}
+
+
+		public Marker Marker
+		{
+			get
+			{
+				return this._marker;
+			}
+		}
+
+		#endregion Properties
+
+
+		#region Constructors
+
+		internal MarkerInstance(Scintilla scintilla, Marker marker, int handle)
+			: base(scintilla)
+		{
+			this._marker = marker;
+			this._handle = handle;
+		}
+
+		#endregion Constructors
+	}
 }

@@ -8,21 +8,21 @@ using ARCed.Helpers;
 
 namespace ARCed.Dialogs
 {
-    /// <summary>
-    /// Dialog for getting a user-defined <see langword="string"/>.
-    /// </summary>
+	/// <summary>
+	/// Dialog for getting a user-defined <see langword="string"/>.
+	/// </summary>
 	public partial class UserStringForm : Form
-    {
-        #region Private Fields
+	{
+		#region Private Fields
 
-        private readonly bool _validate;
+		private readonly bool _validate;
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        /// <summary>
-        /// Gets or sets the text in the <see cref="TextBox"/> field.
+		/// <summary>
+		/// Gets or sets the text in the <see cref="TextBox"/> field.
 		/// </summary>
 		public string UserString
 		{
@@ -39,25 +39,25 @@ namespace ARCed.Dialogs
 			set { this.labelString.Text = value; }
 		}
 
-        /// <summary>
-        /// Gets or sets the text of the control.
-        /// </summary>
-        public override sealed string Text
-        {
-            get { return base.Text; }
-            set { base.Text = value; }
-        }
+		/// <summary>
+		/// Gets or sets the text of the control.
+		/// </summary>
+		public override sealed string Text
+		{
+			get { return base.Text; }
+			set { base.Text = value; }
+		}
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
+		/// <summary>
 		/// Creates a new instance of the form
 		/// </summary>
 		/// <param name="title">The title of the form in the header</param>
-        /// <param name="defaultText">Default text for the <see cref="TextBox"/> field</param>
-        /// <param name="label">The text for the <see cref="TextBox"/> label</param>
+		/// <param name="defaultText">Default text for the <see cref="TextBox"/> field</param>
+		/// <param name="label">The text for the <see cref="TextBox"/> label</param>
 		/// <param name="validate">Flag to validate text for filenames</param>
 		public UserStringForm(string title, string defaultText, string label, bool validate = false)
 		{
@@ -68,11 +68,11 @@ namespace ARCed.Dialogs
 			this._validate = validate;
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Fields
+		#region Private Fields
 
-        private void ButtonOkClick(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
 			Close();
@@ -83,8 +83,8 @@ namespace ARCed.Dialogs
 			if (this._validate)
 				Util.ValidateTextBox(this.textBoxString);
 			this.buttonOK.Enabled = this.textBoxString.Text.Trim() != "";
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -249,10 +249,7 @@ namespace legacy
 		VALUE argv[2] = {INT2FIX(width), INT2FIX(height)};
 		VALUE rb_bitmap = Bitmap::create(2, argv);
 		RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
-		april::Image* image = april::rendersys->takeScreenshot(april::Image::FORMAT_RGBA);
-		delete bitmap->getTexture();
-		bitmap->setTexture(april::rendersys->createTexture(image->w, image->h, image->data, april::Image::FORMAT_RGBA));
-		delete image;
+		bitmap->setImage(april::rendersys->takeScreenshot(april::Image::FORMAT_RGBA));
 		return rb_bitmap;
 	}
 
@@ -310,11 +307,7 @@ namespace legacy
 		else if (vague >= 0) // skip if vague is not 0 or greater
 		{
 			// small hack to make use of the safe texture loading code in Bitmap class
-			hstr fullFilename = Bitmap::getFullFilename(filename);
-			Bitmap* bitmap = new Bitmap(fullFilename);
-			april::Texture* transition = bitmap->getTexture();
-			bitmap->setTexture(NULL);
-			delete bitmap;
+			april::Image* transition = april::Image::createFromResource(Bitmap::makeFullFilename(filename));
 			april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 			int ambiguity = vague * 2;
 			// fade between old and new screen

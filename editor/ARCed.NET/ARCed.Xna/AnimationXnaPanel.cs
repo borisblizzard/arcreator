@@ -23,7 +23,7 @@ namespace ARCed.Controls
 
 		public int Index { get; set; }
 
-		public Texture2D Texture 
+		public Texture2D Texture
 		{
 			get { return this._texture; }
 			set
@@ -39,8 +39,8 @@ namespace ARCed.Controls
 		public int Width { get { return this._rect.Width; } }
 		public int Height { get { return this._rect.Height; } }
 
-		public int X 
-		{ 
+		public int X
+		{
 			get { return this._rect.X; }
 			set { this._rect.X = value; }
 		}
@@ -102,13 +102,13 @@ namespace ARCed.Controls
 		private static Rectangle VIEWPORT;
 		private List<FrameSprite> _sprites;
 
-		public List<FrameSprite> Sprites 
+		public List<FrameSprite> Sprites
 		{
 			get { return this._sprites; }
 			set { this._sprites = value; }
 		}
 
-		public Animation Animation 
+		public Animation Animation
 		{
 			get { return this._animation; }
 			set
@@ -180,10 +180,10 @@ namespace ARCed.Controls
 					new Vector2(destRect.X + 16, destRect.Y),
 					new Vector2(destRect.X, destRect.Y + 16),
 					Color.Blue);
-				this._batch.DrawString(sprite.Index.ToString(), this._font, Color.Black, 
+				this._batch.DrawString(sprite.Index.ToString(), this._font, Color.Black,
 					new Rectangle(destRect.X, destRect.Y - 2, 16, 16));
 			}
-			this._batch.End();	
+			this._batch.End();
 		}
 
 		public void DrawBackground()

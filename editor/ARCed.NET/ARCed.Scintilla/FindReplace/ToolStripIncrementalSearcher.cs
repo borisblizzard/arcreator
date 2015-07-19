@@ -7,31 +7,32 @@ using System.Windows.Forms;
 
 namespace ARCed.Scintilla
 {
-    public class ToolStripIncrementalSearcher : ToolStripControlHost
-    {
-        #region Properties
+	public class ToolStripIncrementalSearcher : ToolStripControlHost
+	{
+		#region Properties
 
-        public Scintilla Scintilla
-        {
-            get { return this.Searcher.Scintilla; }
-            set { this.Searcher.Scintilla = value; }
-        }
-
-
-        public IncrementalSearcher Searcher
-        {
-            get { return Control as IncrementalSearcher; }
-        }
-
-        #endregion Properties
+		public Scintilla Scintilla
+		{
+			get { return this.Searcher.Scintilla; }
+			set { this.Searcher.Scintilla = value; }
+		}
 
 
-        #region Constructors
+		public IncrementalSearcher Searcher
+		{
+			get { return Control as IncrementalSearcher; }
+		}
 
-        public ToolStripIncrementalSearcher() : base(new IncrementalSearcher(true))
-        {
-        }
+		#endregion Properties
 
-        #endregion Constructors
-    }
+
+		#region Constructors
+
+		public ToolStripIncrementalSearcher()
+			: base(new IncrementalSearcher(true))
+		{
+		}
+
+		#endregion Constructors
+	}
 }

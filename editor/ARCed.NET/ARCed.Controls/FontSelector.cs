@@ -94,7 +94,7 @@ namespace ARCed.Controls
 		/// </summary>
 		[Browsable(false)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public Font UserFont 
+		public Font UserFont
 		{
 			get { return this.GetFont(); }
 			set { this.SetFont(value); }

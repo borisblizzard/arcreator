@@ -100,13 +100,13 @@ namespace ARCed.Controls
 		{
 			var checkBox = new MultiStateCheckbox
 			{
-			    Margin = _padding,
-			    Characters = this.Items,
-			    CharColors = this.Colors,
-			    Height = 16,
-			    Text = label
+				Margin = _padding,
+				Characters = this.Items,
+				CharColors = this.Colors,
+				Height = 16,
+				Text = label
 			};
-		    if (valueIndex >= 0)
+			if (valueIndex >= 0)
 				checkBox.SelectedState = valueIndex;
 			checkBox.MouseDown += this.slot_OnTextChange;
 			this.flowPanel.Controls.Add(checkBox);
@@ -162,7 +162,7 @@ namespace ARCed.Controls
 	/// <summary>
 	/// Arguments for EfficiencySlot events
 	/// </summary>
-	public class MultiStateCheckEventArgs : EventArgs 
+	public class MultiStateCheckEventArgs : EventArgs
 	{
 		/// <summary>
 		/// Index of the control in the parent container

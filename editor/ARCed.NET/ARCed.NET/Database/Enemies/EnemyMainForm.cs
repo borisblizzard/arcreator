@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -15,9 +16,9 @@ using RPG;
 
 namespace ARCed.Database.Enemies
 {
-    /// <summary>
-    /// Main form for configuring Project <see cref="RPG.Enemy"/> data.
-    /// </summary>
+	/// <summary>
+	/// Main form for configuring Project <see cref="RPG.Enemy"/> data.
+	/// </summary>
 	public sealed partial class EnemyMainForm : DatabaseWindow
 	{
 		#region Private Fields
@@ -48,14 +49,15 @@ namespace ARCed.Database.Enemies
 
 		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public EnemyMainForm()
 		{
 			this.InitializeComponent();
 			this.InitializeElements();
 			this.InitializeStates();
+            this.InitializeAnimations();
 			RefreshObjectList();
 			this._listViewSorter = new ListViewColumnSorter();
 			this.listViewActions.ListViewItemSorter = this._listViewSorter;
@@ -110,9 +112,9 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.Enemy"/>.
-        /// </summary>
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.Enemy"/>.
+		/// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -121,6 +123,8 @@ namespace ARCed.Database.Enemies
 			this.RefreshImages();
 			this.numericUpDownExp.Value = this._enemy.exp;
 			this.numericUpDownGold.Value = this._enemy.gold;
+            this.comboBoxAttackerAnimation.SelectedIndex = this._enemy.animation1_id;
+            this.comboBoxTargetAnimation.SelectedIndex = this._enemy.animation2_id;
 			this.RefreshTreasure();
 			this.RefreshElements();
 			this.RefreshStates();
@@ -148,6 +152,27 @@ namespace ARCed.Database.Enemies
 				this.checkedListStates.AddItem(states[i % states.Count].name);
 		}
 
+        private void InitializeAnimations()
+        {
+            //#warning Fix this after loading of animations is fixed
+            //return;
+            this.comboBoxAttackerAnimation.BeginUpdate();
+            this.comboBoxTargetAnimation.BeginUpdate();
+            this.comboBoxAttackerAnimation.Items.Clear();
+            this.comboBoxTargetAnimation.Items.Clear();
+            this.comboBoxAttackerAnimation.Items.Add("<None>");
+            this.comboBoxTargetAnimation.Items.Add("<None>");
+            string name;
+            foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
+            {
+                name = animation.ToString();
+                this.comboBoxAttackerAnimation.Items.Add(name);
+                this.comboBoxTargetAnimation.Items.Add(name);
+            }
+            this.comboBoxAttackerAnimation.EndUpdate();
+            this.comboBoxTargetAnimation.EndUpdate();
+        }
+
 		private void RefreshActions()
 		{
 			this.listViewActions.BeginUpdate();
@@ -174,8 +199,8 @@ namespace ARCed.Database.Enemies
 			if (conditions.Count == 0)
 				conditions.Add("<None>");
 			string condition = String.Join(", ", conditions);
-			string cmd = action.kind == 0 ? _actions[action.basic] : 
-                Project.Data.Skills[action.skill_id].name;
+			string cmd = action.kind == 0 ? _actions[action.basic] :
+				Project.Data.Skills[action.skill_id].name;
 			return new ListViewItem(new[] { cmd, condition, 
                 action.rating.ToString(CultureInfo.InvariantCulture) });
 		}
@@ -210,11 +235,11 @@ namespace ARCed.Database.Enemies
 		{
 			foreach (Control ctrl in this.flowPanel.Controls)
 			{
-			    if (!(ctrl is ParamBox)) continue;
-			    var param = ctrl as ParamBox;
-			    var property = typeof(Enemy).GetProperty(param.RpgAttribute);
-			    if (property != null)
-			        param.Value = (int)property.GetValue(this._enemy, null);
+				if (!(ctrl is ParamBox)) continue;
+				var param = ctrl as ParamBox;
+				var property = typeof(Enemy).GetProperty(param.RpgAttribute);
+				if (property != null)
+					param.Value = (int)property.GetValue(this._enemy, null);
 			}
 		}
 
@@ -225,14 +250,14 @@ namespace ARCed.Database.Enemies
 
 		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    var paramBox = sender as ParamBox;
-		    if (paramBox != null)
-		    {
-		        var value = (int)paramBox.Value;
-		        var propertyName = paramBox.RpgAttribute;
-		        typeof(Enemy).GetProperty(propertyName).SetValue(this._enemy, value, null);
-		    }
+			if (SuppressEvents) return;
+			var paramBox = sender as ParamBox;
+			if (paramBox != null)
+			{
+				var value = (int)paramBox.Value;
+				var propertyName = paramBox.RpgAttribute;
+				typeof(Enemy).GetProperty(propertyName).SetValue(this._enemy, value, null);
+			}
 		}
 
 		private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
@@ -258,18 +283,18 @@ namespace ARCed.Database.Enemies
 
 		private void CheckedListElementsOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    var multiStateCheckbox = sender as MultiStateCheckbox;
-		    if (multiStateCheckbox != null)
-		        this._enemy.element_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
+			if (SuppressEvents) return;
+			var multiStateCheckbox = sender as MultiStateCheckbox;
+			if (multiStateCheckbox != null)
+				this._enemy.element_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
 		}
 
 		private void CheckedListStatesOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    var multiStateCheckbox = sender as MultiStateCheckbox;
-		    if (multiStateCheckbox != null)
-		        this._enemy.state_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
+			if (SuppressEvents) return;
+			var multiStateCheckbox = sender as MultiStateCheckbox;
+			if (multiStateCheckbox != null)
+				this._enemy.state_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
 		}
 
 		private void ListViewSkillsColumnClick(object sender, ColumnClickEventArgs e)
@@ -290,7 +315,7 @@ namespace ARCed.Database.Enemies
 		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
 		{
 			//if (suppressEvents)
-				//_enemy.note = noteTextBox.NoteText;
+			//_enemy.note = noteTextBox.NoteText;
 		}
 
 		private void ButtonAddActionClick(object sender, EventArgs e)
@@ -396,28 +421,41 @@ namespace ARCed.Database.Enemies
 
 		private void ContextMenuImagesOpening(object sender, CancelEventArgs e)
 		{
-		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
-		    if (pictureBox != null)
-		    {
-		        var mode = pictureBox.SizeMode;
-		        this.contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
-		        this.contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
-		        this.contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
-		        this.contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
-		    }
+			var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+			if (pictureBox != null)
+			{
+				var mode = pictureBox.SizeMode;
+				this.contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
+				this.contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
+				this.contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
+				this.contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
+			}
 		}
 
-        private void ContextImagesSizeModeClicked(object sender, EventArgs e)
+		private void ContextImagesSizeModeClicked(object sender, EventArgs e)
 		{
-		    var toolStripMenuItem = sender as ToolStripMenuItem;
-		    if (toolStripMenuItem == null) return;
-		    int num = Convert.ToInt32(toolStripMenuItem.Tag);
-		    var mode = (PictureBoxSizeMode)num;
-		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
-		    if (pictureBox != null)
-		        pictureBox.SizeMode = mode;
+			var toolStripMenuItem = sender as ToolStripMenuItem;
+			if (toolStripMenuItem == null) return;
+			int num = Convert.ToInt32(toolStripMenuItem.Tag);
+			var mode = (PictureBoxSizeMode)num;
+			var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+			if (pictureBox != null)
+				pictureBox.SizeMode = mode;
 		}
 
-        #endregion
+        private void comboBoxAttackerAnimation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!SuppressEvents)
+                this._enemy.animation1_id = this.comboBoxAttackerAnimation.SelectedIndex;
+        }
+
+        private void comboBoxTargetAnimation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!SuppressEvents)
+                this._enemy.animation2_id = this.comboBoxTargetAnimation.SelectedIndex;
+        }
+
+		#endregion
+
 	}
 }

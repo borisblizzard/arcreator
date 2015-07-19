@@ -24,7 +24,7 @@ namespace ARCed
 		/// <param name="p2">Second point</param>
 		/// <param name="p3">Third point</param>
 		/// <param name="color">Color to fill triangle</param>
-		public static void FillTriangle(this SpriteBatch batch, Vector2 p1, Vector2 p2, 
+		public static void FillTriangle(this SpriteBatch batch, Vector2 p1, Vector2 p2,
 			Vector2 p3, Color color)
 		{
 			Vector2 tp;
@@ -73,7 +73,7 @@ namespace ARCed
 		/// <param name="rect">Rectangle where text will be drawn.</param>
 		/// <remarks>Without the use of a ContentPipeline, it is necessary to use GDI+ to 
 		/// draw the font onto a bitmap and transfer it to a texture.</remarks>
-		public static void DrawString(this SpriteBatch batch, string text, 
+		public static void DrawString(this SpriteBatch batch, string text,
 			Font font, Color color, Rectangle rect)
 		{
 			using (var bmp = new Bitmap(rect.Width, rect.Height))
@@ -111,7 +111,7 @@ namespace ARCed
 		/// <param name="height">Height of the rectangle in pixels</param>
 		/// <param name="color">Color of the rectangle border</param>
 		/// <param name="border">Width of the border in pixels</param>
-		public static void DrawRectangle(this SpriteBatch batch, int x, int y, 
+		public static void DrawRectangle(this SpriteBatch batch, int x, int y,
 			int width, int height, Color color, int border = 1)
 		{
 			var rect = new Rectangle(x, y, width, height);
@@ -123,7 +123,7 @@ namespace ARCed
 		/// </summary>
 		/// <param name="batch">SpriteBatch to draw the rectangle.</param>
 		/// <param name="rect">Rectangle to draw.</param>
-        /// <param name="color">Color to draw rectangle.</param>
+		/// <param name="color">Color to draw rectangle.</param>
 		/// <param name="border">Width of the border in pixels</param>
 		public static void DrawRectangle(this SpriteBatch batch, Rectangle rect, Color color, int border = 1)
 		{
@@ -166,7 +166,7 @@ namespace ARCed
 
 		/// <summary>
 		/// Converts a <see cref="System.Drawing.Rectangle"/> to a 
-        /// <see cref="Microsoft.Xna.Framework.Rectangle"/> and returns it.
+		/// <see cref="Microsoft.Xna.Framework.Rectangle"/> and returns it.
 		/// </summary>
 		/// <param name="rect">Rectangle to convert</param>
 		/// <returns>Converted rectangle</returns>
@@ -176,8 +176,8 @@ namespace ARCed
 		}
 
 		/// <summary>
-        /// Converts a <see cref="Microsoft.Xna.Framework.Rectangle"/> to a 
-        /// <see cref="System.Drawing.Rectangle"/> and returns it.
+		/// Converts a <see cref="Microsoft.Xna.Framework.Rectangle"/> to a 
+		/// <see cref="System.Drawing.Rectangle"/> and returns it.
 		/// </summary>
 		/// <param name="rect">Rectangle to convert</param>
 		/// <returns>Converted rectangle</returns>
@@ -187,8 +187,8 @@ namespace ARCed
 		}
 
 		/// <summary>
-        /// Converts and returns a <see cref="System.Drawing.Color"/> to 
-        /// a <see cref="Microsoft.Xna.Framework.Color"/>.
+		/// Converts and returns a <see cref="System.Drawing.Color"/> to 
+		/// a <see cref="Microsoft.Xna.Framework.Color"/>.
 		/// </summary>
 		/// <param name="color">Color to convert.</param>
 		/// <returns>Converted color</returns>
@@ -198,8 +198,8 @@ namespace ARCed
 		}
 
 		/// <summary>
-        /// Converts and returns a <see cref="Microsoft.Xna.Framework.Color"/> to 
-        /// a <see cref="System.Drawing.Color"/>.
+		/// Converts and returns a <see cref="Microsoft.Xna.Framework.Color"/> to 
+		/// a <see cref="System.Drawing.Color"/>.
 		/// </summary>
 		/// <param name="color">Color to convert.</param>
 		/// <returns>Converted color</returns>
@@ -209,7 +209,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-        /// Converts a Texture2D to an <see cref="System.Drawing.Image"/> and returns it.
+		/// Converts a Texture2D to an <see cref="System.Drawing.Image"/> and returns it.
 		/// </summary>
 		/// <param name="texture">Texture to convert</param>
 		/// <returns>Image representation of the texture.</returns>

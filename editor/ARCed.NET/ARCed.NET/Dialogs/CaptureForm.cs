@@ -11,30 +11,30 @@ using ARCed.Core.Win32;
 
 namespace ARCed.Dialogs
 {
-    /// <summary>
-    /// Invisible form that is used as an overlay of the screen for capturing color data under the mouse.
-    /// </summary>
+	/// <summary>
+	/// Invisible form that is used as an overlay of the screen for capturing color data under the mouse.
+	/// </summary>
 	public sealed partial class CaptureForm : Form
-    {
-        #region Private Fields
+	{
+		#region Private Fields
 
-        private Color _capturedColor;
-        private Bitmap _screenCapture;
+		private Color _capturedColor;
+		private Bitmap _screenCapture;
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        /// <summary>
+		/// <summary>
 		/// Gets the color under the mouse where the user clicked
 		/// </summary>
 		public Color CaptureColor { get { return this._capturedColor; } }
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
+		/// <summary>
 		/// Default constructor
 		/// </summary>
 		public CaptureForm()
@@ -44,11 +44,11 @@ namespace ARCed.Dialogs
 			this._capturedColor = Color.Black;
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private static Cursor LoadCursorFromResource(string resourceName)
+		private static Cursor LoadCursorFromResource(string resourceName)
 		{
 			Cursor result;
 			try
@@ -58,18 +58,18 @@ namespace ARCed.Dialogs
 					Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
 				using (var resourceFile = new FileStream(tempFile, FileMode.Create))
 				{
-				    if (s != null)
-				    {
-				        var b = new byte[s.Length + 1];
-				        s.Read(b, 0, Convert.ToInt32(s.Length));
-				        resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
-				    }
-				    resourceFile.Flush();
+					if (s != null)
+					{
+						var b = new byte[s.Length + 1];
+						s.Read(b, 0, Convert.ToInt32(s.Length));
+						resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
+					}
+					resourceFile.Flush();
 				}
 				result = new Cursor(NativeMethods.LoadCursorFromFile(tempFile));
 				File.Delete(tempFile);
 			}
-			catch 
+			catch
 			{
 				result = Cursors.Cross;
 			}
@@ -93,8 +93,8 @@ namespace ARCed.Dialogs
 		private void CaptureFormMouseMoved(object sender, MouseEventArgs e)
 		{
 			this._capturedColor = this._screenCapture.GetPixel(MousePosition.X, MousePosition.Y);
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

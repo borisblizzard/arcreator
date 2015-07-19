@@ -9,7 +9,7 @@ using System.Reflection;
 namespace ARCed.Plugins
 {
 	/// <summary>
-    /// Container for <see crefe="Plugin"/> objects
+	/// Container for <see crefe="Plugin"/> objects
 	/// </summary>
 	public class PluginCollection : List<Plugin>
 	{
@@ -39,8 +39,8 @@ namespace ARCed.Plugins
 			get
 			{
 				var names = new List<string>(Count);
-			    names.AddRange(this.Select(plugin => plugin.Name));
-			    names.Sort();
+				names.AddRange(this.Select(plugin => plugin.Name));
+				names.Sort();
 				return names;
 			}
 		}

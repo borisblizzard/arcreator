@@ -67,12 +67,12 @@ namespace ARCed.Controls
 		/// Gets or sets the image that will be displayed.
 		/// </summary>
 		[Browsable(false)]
-		public Image Image 
+		public Image Image
 		{
 			get { return this._image; }
-			set 
+			set
 			{
-				this._image = value; 
+				this._image = value;
 				if (value == null)
 				{
 					this._texture = null;
@@ -84,7 +84,7 @@ namespace ARCed.Controls
 					if (!this.AdvancedEnabled)
 						Size = value.Size;
 				}
-				Invalidate(); 
+				Invalidate();
 			}
 		}
 
@@ -93,10 +93,10 @@ namespace ARCed.Controls
 		/// "AlphaPreview" is true.
 		/// </summary>
 		[Browsable(false)]
-		public int ImageOpacity 
+		public int ImageOpacity
 		{
 			get { return this._opacity; }
-			set 
+			set
 			{
 				this._opacity = value;
 				if (this._alphaPreview)
@@ -111,7 +111,7 @@ namespace ARCed.Controls
 		/// Gets or sets the flag to show alpha transparency in the preview window.
 		/// </summary>
 		[Browsable(false)]
-		public bool AlphaPreview 
+		public bool AlphaPreview
 		{
 			get { return this._alphaPreview; }
 			set
@@ -126,7 +126,7 @@ namespace ARCed.Controls
 		/// Gets or sets the speed at which the image scrolls on the X-Axis.
 		/// </summary>
 		[Browsable(false)]
-		public int ScrollX 
+		public int ScrollX
 		{
 			get { return this._sx; }
 			set { this._sx = value; this.planeSx = value / 8.0f; Invalidate(); }
@@ -139,14 +139,14 @@ namespace ARCed.Controls
 		public int ScrollY
 		{
 			get { return this._sy; }
-			set { this._sy = value; this.planeSy = value / 8.0f;  Invalidate(); }
+			set { this._sy = value; this.planeSy = value / 8.0f; Invalidate(); }
 		}
 
 		/// <summary>
 		/// Gets or sets the zoom factor to apply to the image.
 		/// </summary>
 		[Browsable(false)]
-		public int Zoom 
+		public int Zoom
 		{
 			get { return this._zoom; }
 			set { this._zoom = value; Invalidate(); }
@@ -166,10 +166,10 @@ namespace ARCed.Controls
 		/// Gets or sets the flag to use advanced drawing techniques such as alpha and scrolling.
 		/// </summary>
 		[Browsable(false)]
-		public bool AdvancedEnabled 
+		public bool AdvancedEnabled
 		{
 			get { return this._advanced; }
-			set 
+			set
 			{
 				this._advanced = value;
 				if (value)
@@ -287,7 +287,7 @@ namespace ARCed.Controls
 				AlphaDestinationBlend = Blend.One | Blend.InverseSourceAlpha,
 				AlphaBlendFunction = BlendFunction.Add
 			};
-            _backColor = XnaColor.White;
+			_backColor = XnaColor.White;
 			IconCache.GraphicsDevice = GraphicsDevice;
 			this._batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.DarkGray);
@@ -325,8 +325,8 @@ namespace ARCed.Controls
 						{
 							destRect = new XnaRect(x, y, zw, zh);
 							srcRect = new XnaRect(
-								Convert.ToInt32((-this._cx - this.planeSx) / 4), 
-								Convert.ToInt32((-this._cy - this.planeSy) / 4), 
+								Convert.ToInt32((-this._cx - this.planeSx) / 4),
+								Convert.ToInt32((-this._cy - this.planeSy) / 4),
 								this._texture.Width, this._texture.Height);
 							this._batch.Draw(this._texture, destRect, srcRect, _blendColor);
 						}
@@ -366,8 +366,8 @@ namespace ARCed.Controls
 		{
 			if (this._texture != null)
 			{
-				this._cx+= this._sx;
-				this._cy+= this._sy;
+				this._cx += this._sx;
+				this._cy += this._sy;
 				Invalidate();
 			}
 		}

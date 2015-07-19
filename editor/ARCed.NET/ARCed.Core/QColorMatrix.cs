@@ -12,68 +12,68 @@ namespace ARCed.Core
 	/// Extension of the GDI+ struct ColorMatrix.
 	/// </summary>
 	public class QColorMatrix
-    {
-        #region Nested Enum
+	{
+		#region Nested Enum
 
-        /// <summary>
-        /// GDI+ type for MatrixOrder
-        /// </summary>
-        public enum MatrixOrder
-        {
-            /// <summary>
-            /// Prepend matrix order
-            /// </summary>
-            MatrixOrderPrepend = 0x00,
-            /// <summary>
-            /// Append matrix order
-            /// </summary>
-            MatrixOrderAppend = 0x01
-        }
+		/// <summary>
+		/// GDI+ type for MatrixOrder
+		/// </summary>
+		public enum MatrixOrder
+		{
+			/// <summary>
+			/// Prepend matrix order
+			/// </summary>
+			MatrixOrderPrepend = 0x00,
+			/// <summary>
+			/// Append matrix order
+			/// </summary>
+			MatrixOrderAppend = 0x01
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Constants
+		#region Private Constants
 
-        private const float LUM_R = 0.3086f;
-        private const float LUM_G = 0.6094f;
-        private const float LUM_B = 0.0820f;
+		private const float LUM_R = 0.3086f;
+		private const float LUM_G = 0.6094f;
+		private const float LUM_B = 0.0820f;
 		private const int MATRIX_LENGTH = 5;
-        private const float RAD = (float)(Math.PI / 180.0);
-		
-        #endregion
+		private const float RAD = (float)(Math.PI / 180.0);
 
-        #region Private Fields
+		#endregion
 
-        private readonly float[,] _matrix = new float[MATRIX_LENGTH, MATRIX_LENGTH];
-	    private static readonly QColorMatrix _preHue = new QColorMatrix();
+		#region Private Fields
+
+		private readonly float[,] _matrix = new float[MATRIX_LENGTH, MATRIX_LENGTH];
+		private static readonly QColorMatrix _preHue = new QColorMatrix();
 		private static readonly QColorMatrix _postHue = new QColorMatrix();
-	    private static bool _initialized;
+		private static bool _initialized;
 
-		#endregion 
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        /// <summary>
-        /// Gets the matrix
-        /// </summary>
-        public float[,] Matrix { get { return this._matrix; } }
+		/// <summary>
+		/// Gets the matrix
+		/// </summary>
+		public float[,] Matrix { get { return this._matrix; } }
 
-        #endregion
+		#endregion
 
 		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public QColorMatrix()
 		{
 			this.Reset();
 		}
 
-        /// <summary>
-        /// Constructor specifying matrix data
-        /// </summary>
-        /// <param name="matrixData">Matrix data to initialize with</param>
+		/// <summary>
+		/// Constructor specifying matrix data
+		/// </summary>
+		/// <param name="matrixData">Matrix data to initialize with</param>
 		public QColorMatrix(float[,] matrixData)
 		{
 			if (matrixData == null)
@@ -84,41 +84,41 @@ namespace ARCed.Core
 			Copy(matrixData);
 		}
 
-        /// <summary>
-        /// Constructor specifying matrix data
-        /// </summary>
-        /// <param name="matrixData">Matrix data to initialize with</param>
+		/// <summary>
+		/// Constructor specifying matrix data
+		/// </summary>
+		/// <param name="matrixData">Matrix data to initialize with</param>
 		public QColorMatrix(float[][] matrixData)
 		{
 			this.FromJaggedMatrix(matrixData);
 		}
 
-        /// <summary>
-        /// Constructor specifying matrix data
-        /// </summary>
-        /// <param name="matrixData">Matrix data to initialize with</param>
+		/// <summary>
+		/// Constructor specifying matrix data
+		/// </summary>
+		/// <param name="matrixData">Matrix data to initialize with</param>
 		public QColorMatrix(QColorMatrix matrixData)
 		{
 			Copy(matrixData);
 		}
 
-        /// <summary>
-        /// Constructor specifying matrix data
-        /// </summary>
-        /// <param name="colorMatrix">Matrix data to initialize with</param>
+		/// <summary>
+		/// Constructor specifying matrix data
+		/// </summary>
+		/// <param name="colorMatrix">Matrix data to initialize with</param>
 		public QColorMatrix(ColorMatrix colorMatrix)
 		{
 			this.FromColorMatrix(colorMatrix);
 		}
 
-		#endregion 
+		#endregion
 
 		#region Conversions
 
-        /// <summary>
-        /// Returns the given matrix data as a jagged matrix
-        /// </summary>
-        /// <param name="matrixData">Matrix data</param>
+		/// <summary>
+		/// Returns the given matrix data as a jagged matrix
+		/// </summary>
+		/// <param name="matrixData">Matrix data</param>
 		public void FromJaggedMatrix(float[][] matrixData)
 		{
 			this.Reset();
@@ -139,10 +139,10 @@ namespace ARCed.Core
 			}
 		}
 
-        /// <summary>
-        /// Converts the matrix to a jagged array of data
-        /// </summary>
-        /// <returns>Jagged array</returns>
+		/// <summary>
+		/// Converts the matrix to a jagged array of data
+		/// </summary>
+		/// <returns>Jagged array</returns>
 		public float[][] ToJaggedMatrix()
 		{
 			var t = new float[MATRIX_LENGTH][];
@@ -157,10 +157,10 @@ namespace ARCed.Core
 			return t;
 		}
 
-        /// <summary>
-        /// Translates the matrix from a <seealso cref="ColorMatrix"/>.
-        /// </summary>
-        /// <param name="colorMatrix">ColorMatrix to translate from</param>
+		/// <summary>
+		/// Translates the matrix from a <seealso cref="ColorMatrix"/>.
+		/// </summary>
+		/// <param name="colorMatrix">ColorMatrix to translate from</param>
 		public void FromColorMatrix(ColorMatrix colorMatrix)
 		{
 			if (colorMatrix == null)
@@ -177,10 +177,10 @@ namespace ARCed.Core
 			}
 		}
 
-        /// <summary>
-        /// Converts the matrix to a <seealso cref="ColorMatrix"/> and returns it.
-        /// </summary>
-        /// <returns>ColorMatrix representation</returns>
+		/// <summary>
+		/// Converts the matrix to a <seealso cref="ColorMatrix"/> and returns it.
+		/// </summary>
+		/// <returns>ColorMatrix representation</returns>
 		public ColorMatrix ToColorMatrix()
 		{
 			var cm = new ColorMatrix();
@@ -222,11 +222,11 @@ namespace ARCed.Core
 			return this.TransformVector(v, false);
 		}
 
-        /// <summary>
-        /// Converts a <seealso cref="Color"/> object to a vector and returns it.
-        /// </summary>
-        /// <param name="color">Color to convert</param>
-        /// <returns>Vector representation of the color</returns>
+		/// <summary>
+		/// Converts a <seealso cref="Color"/> object to a vector and returns it.
+		/// </summary>
+		/// <param name="color">Color to convert</param>
+		/// <returns>Vector representation of the color</returns>
 		public static float[] Color2Vector(Color color)
 		{
 			var p = new float[4];
@@ -237,11 +237,11 @@ namespace ARCed.Core
 			return p;
 		}
 
-        /// <summary>
-        /// Converts a vector array to a <seealso cref="Color"/> object.
-        /// </summary>
-        /// <param name="vector">Floar array vector</param>
-        /// <returns>Color representation of the vector</returns>
+		/// <summary>
+		/// Converts a vector array to a <seealso cref="Color"/> object.
+		/// </summary>
+		/// <param name="vector">Floar array vector</param>
+		/// <returns>Color representation of the vector</returns>
 		public static Color Vector2Color(float[] vector)
 		{
 			if (vector == null || (vector.Length < 4))
@@ -251,12 +251,12 @@ namespace ARCed.Core
 			return Color.FromArgb((int)vector[3], (int)vector[0], (int)vector[1], (int)vector[2]);
 		}
 
-        /// <summary>
-        /// Transforms a vector
-        /// </summary>
-        /// <param name="vector">Vector to transform</param>
-        /// <param name="normalize">Flag to normalize data before returning</param>
-        /// <returns>Transformed vector.</returns>
+		/// <summary>
+		/// Transforms a vector
+		/// </summary>
+		/// <param name="vector">Vector to transform</param>
+		/// <param name="normalize">Flag to normalize data before returning</param>
+		/// <returns>Transformed vector.</returns>
 		public float[] TransformVector(float[] vector, bool normalize)
 		{
 			if (vector == null || (vector.Length < 4))
@@ -298,25 +298,25 @@ namespace ARCed.Core
 			}
 			return colors;
 		}
-        
-        /// <summary>
-        /// Multiplies the given matrix
-        /// </summary>
-        /// <param name="matrix">Matrix to multiply</param>
+
+		/// <summary>
+		/// Multiplies the given matrix
+		/// </summary>
+		/// <param name="matrix">Matrix to multiply</param>
 		public void Multiply(QColorMatrix matrix)
 		{
 			this.Multiply(matrix, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Multiply the given matrix using the specified matrix order.
-        /// </summary>
-        /// <param name="matrix">Matrix to multiply</param>
-        /// <param name="order">Order to multiply with</param>
+		/// <summary>
+		/// Multiply the given matrix using the specified matrix order.
+		/// </summary>
+		/// <param name="matrix">Matrix to multiply</param>
+		/// <param name="order">Order to multiply with</param>
 		public void Multiply(QColorMatrix matrix, MatrixOrder order)
 		{
 			if (matrix == null) throw new ArgumentException();
-            float[,] a, b;
+			float[,] a, b;
 			if (order == MatrixOrder.MatrixOrderAppend)
 			{
 				a = matrix._matrix;
@@ -350,17 +350,17 @@ namespace ARCed.Core
 			}
 		}
 
-		#endregion 
+		#endregion
 
 		#region Scale
 
-        /// <summary>
-        /// Update this matrix with the product of itself and a scaling vector.
-        /// </summary>
-        /// <param name="scaleRed">Red scaling value</param>
-        /// <param name="scaleGreen">Green scaling value</param>
-        /// <param name="scaleBlue">Blue scaling value</param>
-        /// <param name="scaleOpacity">Alpha scaling value</param>
+		/// <summary>
+		/// Update this matrix with the product of itself and a scaling vector.
+		/// </summary>
+		/// <param name="scaleRed">Red scaling value</param>
+		/// <param name="scaleGreen">Green scaling value</param>
+		/// <param name="scaleBlue">Blue scaling value</param>
+		/// <param name="scaleOpacity">Alpha scaling value</param>
 		public void Scale(float scaleRed, float scaleGreen, float scaleBlue,
 			float scaleOpacity)
 		{
@@ -368,14 +368,14 @@ namespace ARCed.Core
 				scaleOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Update this matrix with the product of itself and a scaling vector.
-        /// </summary>
-        /// <param name="scaleRed">Red scaling value</param>
-        /// <param name="scaleGreen">Green scaling value</param>
-        /// <param name="scaleBlue">Blue scaling value</param>
-        /// <param name="scaleOpacity">Alpha scaling value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Update this matrix with the product of itself and a scaling vector.
+		/// </summary>
+		/// <param name="scaleRed">Red scaling value</param>
+		/// <param name="scaleGreen">Green scaling value</param>
+		/// <param name="scaleBlue">Blue scaling value</param>
+		/// <param name="scaleOpacity">Alpha scaling value</param>
+		/// <param name="order">Matrix order</param>
 		public void Scale(float scaleRed, float scaleGreen, float scaleBlue,
 			float scaleOpacity, MatrixOrder order)
 		{
@@ -386,40 +386,40 @@ namespace ARCed.Core
 			qm._matrix[3, 3] = scaleOpacity;
 			this.Multiply(qm, order);
 		}
-        
-        /// <summary>
-        /// Scale just the three colors with the same amount, leave opacity unchanged
-        /// </summary>
-        /// <param name="scale">Scale value</param>
+
+		/// <summary>
+		/// Scale just the three colors with the same amount, leave opacity unchanged
+		/// </summary>
+		/// <param name="scale">Scale value</param>
 		public void ScaleColors(float scale)
 		{
 			this.ScaleColors(scale, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Scale just the three colors with the same amount, leave opacity unchanged
-        /// </summary>
-        /// <param name="scale">Scale value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Scale just the three colors with the same amount, leave opacity unchanged
+		/// </summary>
+		/// <param name="scale">Scale value</param>
+		/// <param name="order">Matrix order</param>
 		public void ScaleColors(float scale, MatrixOrder order)
 		{
 			this.Scale(scale, scale, scale, 1.0f, order);
 		}
 
-        /// <summary>
-        /// Scales the matrix opacity
-        /// </summary>
-        /// <param name="scaleOpacity">Alpha scaling value</param>
+		/// <summary>
+		/// Scales the matrix opacity
+		/// </summary>
+		/// <param name="scaleOpacity">Alpha scaling value</param>
 		public void ScaleOpacity(float scaleOpacity)
 		{
 			this.ScaleOpacity(scaleOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Scales the matrix opacity
-        /// </summary>
-        /// <param name="scaleOpacity">Alpha scaling value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Scales the matrix opacity
+		/// </summary>
+		/// <param name="scaleOpacity">Alpha scaling value</param>
+		/// <param name="order">Matrix order</param>
 		public void ScaleOpacity(float scaleOpacity, MatrixOrder order)
 		{
 			this.Scale(1.0f, 1.0f, 1.0f, scaleOpacity, order);
@@ -429,13 +429,13 @@ namespace ARCed.Core
 
 		#region Translate
 
-        /// <summary>
-        /// Update this matrix with the product of itself and a translation vector.
-        /// </summary>
-        /// <param name="offsetRed">Red offset value</param>
-        /// <param name="offsetGreen">Green offset value</param>
-        /// <param name="offsetBlue">Blue offset value</param>
-        /// <param name="offsetOpacity">Alpha offset value</param>
+		/// <summary>
+		/// Update this matrix with the product of itself and a translation vector.
+		/// </summary>
+		/// <param name="offsetRed">Red offset value</param>
+		/// <param name="offsetGreen">Green offset value</param>
+		/// <param name="offsetBlue">Blue offset value</param>
+		/// <param name="offsetOpacity">Alpha offset value</param>
 		public void Translate(float offsetRed, float offsetGreen, float offsetBlue,
 			float offsetOpacity)
 		{
@@ -443,14 +443,14 @@ namespace ARCed.Core
 				offsetOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Update this matrix with the product of itself and a translation vector.
-        /// </summary>
-        /// <param name="offsetRed">Red offset value</param>
-        /// <param name="offsetGreen">Green offset value</param>
-        /// <param name="offsetBlue">Blue offset value</param>
-        /// <param name="offsetOpacity">Alpha offset value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Update this matrix with the product of itself and a translation vector.
+		/// </summary>
+		/// <param name="offsetRed">Red offset value</param>
+		/// <param name="offsetGreen">Green offset value</param>
+		/// <param name="offsetBlue">Blue offset value</param>
+		/// <param name="offsetOpacity">Alpha offset value</param>
+		/// <param name="order">Matrix order</param>
 		public void Translate(float offsetRed, float offsetGreen, float offsetBlue,
 			float offsetOpacity, MatrixOrder order)
 		{
@@ -462,199 +462,199 @@ namespace ARCed.Core
 			this.Multiply(qm, order);
 		}
 
-        /// <summary>
-        /// Translate matrix colors
-        /// </summary>
-        /// <param name="offset">Offset value</param>
+		/// <summary>
+		/// Translate matrix colors
+		/// </summary>
+		/// <param name="offset">Offset value</param>
 		public void TranslateColors(float offset)
 		{
 			this.TranslateColors(offset, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Translate matrix colors
-        /// </summary>
-        /// <param name="offset">Offset value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Translate matrix colors
+		/// </summary>
+		/// <param name="offset">Offset value</param>
+		/// <param name="order">Matrix order</param>
 		public void TranslateColors(float offset, MatrixOrder order)
 		{
 			this.Translate(offset, offset, offset, 0.0f, order);
 		}
 
-        /// <summary>
-        /// Translate matrix opacity
-        /// </summary>
-        /// <param name="offsetOpacity">Alpha offset value</param>
+		/// <summary>
+		/// Translate matrix opacity
+		/// </summary>
+		/// <param name="offsetOpacity">Alpha offset value</param>
 		public void TranslateOpacity(float offsetOpacity)
 		{
 			this.TranslateOpacity(offsetOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Translate matrix opacity
-        /// </summary>
-        /// <param name="offsetOpacity">Alpha offset value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Translate matrix opacity
+		/// </summary>
+		/// <param name="offsetOpacity">Alpha offset value</param>
+		/// <param name="order">Matrix order</param>
 		public void TranslateOpacity(float offsetOpacity, MatrixOrder order)
 		{
 			this.Translate(0.0f, 0.0f, 0.0f, offsetOpacity, order);
 		}
 
-		#endregion 
+		#endregion
 
 		#region Rotate
 
-        /// <summary>
-        /// Rotate the matrix around the red color axes. The color of the rotation 
-        /// axis is unchanged, the other two colors are rotated in color space.
-        /// </summary>
-        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+		/// <summary>
+		/// Rotate the matrix around the red color axes. The color of the rotation 
+		/// axis is unchanged, the other two colors are rotated in color space.
+		/// </summary>
+		/// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateRed(float phi)
 		{
 			this.RotateRed(phi, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Rotate the matrix around the green color axes. The color of the rotation 
-        /// axis is unchanged, the other two colors are rotated in color space.
-        /// </summary>
-        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+		/// <summary>
+		/// Rotate the matrix around the green color axes. The color of the rotation 
+		/// axis is unchanged, the other two colors are rotated in color space.
+		/// </summary>
+		/// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateGreen(float phi)
 		{
 			this.RotateGreen(phi, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Rotate the matrix around the blue color axes. The color of the rotation 
-        /// axis is unchanged, the other two colors are rotated in color space.
-        /// </summary>
-        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+		/// <summary>
+		/// Rotate the matrix around the blue color axes. The color of the rotation 
+		/// axis is unchanged, the other two colors are rotated in color space.
+		/// </summary>
+		/// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateBlue(float phi)
 		{
 			this.RotateBlue(phi, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Rotate the matrix around the red color axes. The color of the rotation 
-        /// axis is unchanged, the other two colors are rotated in color space.
-        /// </summary>
-        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Rotate the matrix around the red color axes. The color of the rotation 
+		/// axis is unchanged, the other two colors are rotated in color space.
+		/// </summary>
+		/// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+		/// <param name="order">Matrix order</param>
 		public void RotateRed(float phi, MatrixOrder order)
 		{
 			this.RotateColor(phi, 2, 1, order);
 		}
 
-        /// <summary>
-        /// Rotate the matrix around the green color axes. The color of the rotation 
-        /// axis is unchanged, the other two colors are rotated in color space.
-        /// </summary>
-        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Rotate the matrix around the green color axes. The color of the rotation 
+		/// axis is unchanged, the other two colors are rotated in color space.
+		/// </summary>
+		/// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+		/// <param name="order">Matrix order</param>
 		public void RotateGreen(float phi, MatrixOrder order)
 		{
 			this.RotateColor(phi, 0, 2, order);
 		}
 
-        /// <summary>
-        /// Rotate the matrix around the blue color axes. The color of the rotation 
-        /// axis is unchanged, the other two colors are rotated in color space.
-        /// </summary>
-        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Rotate the matrix around the blue color axes. The color of the rotation 
+		/// axis is unchanged, the other two colors are rotated in color space.
+		/// </summary>
+		/// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+		/// <param name="order">Matrix order</param>
 		public void RotateBlue(float phi, MatrixOrder order)
 		{
 			this.RotateColor(phi, 1, 0, order);
 		}
 
-		#endregion 
+		#endregion
 
 		#region Shear
 
 		// Shear the matrix in one of the color planes. The color of the color plane
 		// is influenced by the two other colors.
 
-        /// <summary>
-        /// Shear the matrix in the red color plane. The color is influenced by the other two planes.
-        /// </summary>
-        /// <param name="green">Green color plane</param>
-        /// <param name="blue">Blue color plane</param>
+		/// <summary>
+		/// Shear the matrix in the red color plane. The color is influenced by the other two planes.
+		/// </summary>
+		/// <param name="green">Green color plane</param>
+		/// <param name="blue">Blue color plane</param>
 		public void ShearRed(float green, float blue)
 		{
 			this.ShearRed(green, blue, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Shear the matrix in the green color plane. The color is influenced by the other two planes.
-        /// </summary>
-        /// <param name="red">Red color plane</param>
-        /// <param name="blue">Blue color plane</param>
+		/// <summary>
+		/// Shear the matrix in the green color plane. The color is influenced by the other two planes.
+		/// </summary>
+		/// <param name="red">Red color plane</param>
+		/// <param name="blue">Blue color plane</param>
 		public void ShearGreen(float red, float blue)
 		{
 			this.ShearGreen(red, blue, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Shear the matrix in the blue color plane. The color is influenced by the other two planes.
-        /// </summary>
-        /// <param name="red">Red color plane</param>
-        /// <param name="green">Green color plane</param>
+		/// <summary>
+		/// Shear the matrix in the blue color plane. The color is influenced by the other two planes.
+		/// </summary>
+		/// <param name="red">Red color plane</param>
+		/// <param name="green">Green color plane</param>
 		public void ShearBlue(float red, float green)
 		{
 			this.ShearBlue(red, green, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Shear the matrix in the red color plane. The color is influenced by the other two planes.
-        /// </summary>
-        /// <param name="green">Green color plane</param>
-        /// <param name="blue">Blue color plane</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Shear the matrix in the red color plane. The color is influenced by the other two planes.
+		/// </summary>
+		/// <param name="green">Green color plane</param>
+		/// <param name="blue">Blue color plane</param>
+		/// <param name="order">Matrix order</param>
 		public void ShearRed(float green, float blue, MatrixOrder order)
 		{
 			this.ShearColor(0, 1, green, 2, blue, order);
 		}
 
-        /// <summary>
-        /// Shear the matrix in the green color plane. The color is influenced by the other two planes.
-        /// </summary>
-        /// <param name="red">Red color plane</param>
-        /// <param name="blue">Blue color plane</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Shear the matrix in the green color plane. The color is influenced by the other two planes.
+		/// </summary>
+		/// <param name="red">Red color plane</param>
+		/// <param name="blue">Blue color plane</param>
+		/// <param name="order">Matrix order</param>
 		public void ShearGreen(float red, float blue, MatrixOrder order)
 		{
 			this.ShearColor(1, 0, red, 2, blue, order);
 		}
 
-        /// <summary>
-        /// Shear the matrix in the blue color plane. The color is influenced by the other two planes.
-        /// </summary>
-        /// <param name="red">Red color plane</param>
-        /// <param name="green">Green color plane</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Shear the matrix in the blue color plane. The color is influenced by the other two planes.
+		/// </summary>
+		/// <param name="red">Red color plane</param>
+		/// <param name="green">Green color plane</param>
+		/// <param name="order">Matrix order</param>
 		public void ShearBlue(float red, float green, MatrixOrder order)
 		{
 			this.ShearColor(2, 0, red, 1, green, order);
 		}
 
-		#endregion 
+		#endregion
 
 		#region Hue/Saturation
 
-        /// <summary>
-        /// Sets the matrix saturation
-        /// </summary>
-        /// <param name="saturation">Saturation value</param>
+		/// <summary>
+		/// Sets the matrix saturation
+		/// </summary>
+		/// <param name="saturation">Saturation value</param>
 		public void SetSaturation(float saturation)
 		{
 			this.SetSaturation(saturation, MatrixOrder.MatrixOrderPrepend);
 		}
 
-        /// <summary>
-        /// Set the saturation of the matrix. Saturation of 0.0f yields black and white, 1.0f is neutral.
-        /// </summary>
-        /// <param name="saturation">Saturation value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// Set the saturation of the matrix. Saturation of 0.0f yields black and white, 1.0f is neutral.
+		/// </summary>
+		/// <param name="saturation">Saturation value</param>
+		/// <param name="order">Matrix order</param>
 		public void SetSaturation(float saturation, MatrixOrder order)
 		{
 			float satCompl = 1.0f - saturation;
@@ -674,11 +674,11 @@ namespace ARCed.Core
 		}
 
 
-        /// <summary>
-        /// Rotate the hue around the gray axis, keeping luminance fixed. Grays are fixed,
-        /// all other colors change.
-        /// </summary>
-        /// <param name="phi">Degrees to rotate</param>
+		/// <summary>
+		/// Rotate the hue around the gray axis, keeping luminance fixed. Grays are fixed,
+		/// all other colors change.
+		/// </summary>
+		/// <param name="phi">Degrees to rotate</param>
 		public void RotateHue(float phi)
 		{
 			InitHue();
@@ -687,38 +687,38 @@ namespace ARCed.Core
 			this.Multiply(_postHue, MatrixOrder.MatrixOrderAppend);
 		}
 
-		#endregion 
+		#endregion
 
 		#region Convenience
 
-        /// <summary>
-        /// Sets the matrix contrast
-        /// </summary>
-        /// <param name="scale">Constrast scale value</param>
+		/// <summary>
+		/// Sets the matrix contrast
+		/// </summary>
+		/// <param name="scale">Constrast scale value</param>
 		public void SetContrast(float scale)
 		{
 			this.ScaleColors(scale);
 		}
 
-        /// <summary>
-        /// Sets the matrix brightness
-        /// </summary>
-        /// <param name="offset">Brightness offset value</param>
+		/// <summary>
+		/// Sets the matrix brightness
+		/// </summary>
+		/// <param name="offset">Brightness offset value</param>
 		public void SetBrightness(float offset)
 		{
 			this.TranslateColors(offset, MatrixOrder.MatrixOrderAppend);
 		}
 
-        /// <summary>
-        /// Sets the matrix saturation using <seealso cref="MatrixOrder.MatrixOrderAppend"/> order.
-        /// </summary>
-        /// <param name="saturation">Saturation value.</param>
+		/// <summary>
+		/// Sets the matrix saturation using <seealso cref="MatrixOrder.MatrixOrderAppend"/> order.
+		/// </summary>
+		/// <param name="saturation">Saturation value.</param>
 		public void SetSaturation2(float saturation)
 		{
 			this.SetSaturation(saturation, MatrixOrder.MatrixOrderAppend);
 		}
 
-		#endregion 
+		#endregion
 
 		#region Private Methods
 
@@ -741,13 +741,13 @@ namespace ARCed.Core
 			}
 		}
 
-        /// <summary>
-        /// X and Y are the indices of the value to receive the sin(phi) value
-        /// </summary>
-        /// <param name="phi">phi is in degrees</param>
-        /// <param name="x">x value</param>
-        /// <param name="y">y value</param>
-        /// <param name="order">Matrix order</param>
+		/// <summary>
+		/// X and Y are the indices of the value to receive the sin(phi) value
+		/// </summary>
+		/// <param name="phi">phi is in degrees</param>
+		/// <param name="x">x value</param>
+		/// <param name="y">y value</param>
+		/// <param name="order">Matrix order</param>
 		private void RotateColor(float phi, int x, int y, MatrixOrder order)
 		{
 			phi *= RAD;
@@ -786,7 +786,7 @@ namespace ARCed.Core
 			Array.Copy(m, this._matrix, m.Length);
 		}
 
-		#endregion 
+		#endregion
 
 	}
 }

@@ -16,9 +16,9 @@ using RPG;
 
 namespace ARCed.Database.Troops
 {
-    /// <summary>
-    /// Main form for configuring Project <see cref="RPG.Troop"/> data.
-    /// </summary>
+	/// <summary>
+	/// Main form for configuring Project <see cref="RPG.Troop"/> data.
+	/// </summary>
 	public sealed partial class TroopMainForm : DatabaseWindow
 	{
 		#region Private Fields
@@ -60,9 +60,9 @@ namespace ARCed.Database.Troops
 
 		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        public override void NotifyRefresh(RefreshType type)
+		public override void NotifyRefresh(RefreshType type)
 		{
 			if (type.HasFlag(RefreshType.Enemies))
 			{
@@ -74,27 +74,27 @@ namespace ARCed.Database.Troops
 			}
 		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.Troop"/>.
-        /// </summary>
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.Troop"/>.
+		/// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
 			this.xnaPanel.RemoveAll();
-            foreach (Troop.Member member in this._troop.members)
-            {
-                this.xnaPanel.AddSprite(new EnemySprite(Project.Data.Enemies[member.enemy_id]));
-            }
+			foreach (Troop.Member member in this._troop.members)
+			{
+				this.xnaPanel.AddSprite(new EnemySprite(Project.Data.Enemies[member.enemy_id]));
+			}
 			this.textBoxName.Text = this._troop.name;
 			this.RefreshEvents();
 			SuppressEvents = false;
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void RefreshEnemies()
+		private void RefreshEnemies()
 		{
 			ControlHelper.Populate(this.listBoxEnemies, Project.Data.Enemies, false);
 		}
@@ -168,22 +168,22 @@ namespace ARCed.Database.Troops
 		private void XnaPanelOnSelectionChanged(object sender, EventArgs e)
 		{
 			var enable = this.xnaPanel.Sprites.Any(sprite => sprite.Selected);
-		    this.buttonRemoveEnemy.Enabled = enable;
+			this.buttonRemoveEnemy.Enabled = enable;
 		}
 
 		private void XnaPanelOnTroopChanged(object sender, EventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    this._troop.members.Clear();
-		    foreach (EnemySprite sprite in this.xnaPanel.Sprites)
-		        this._troop.members.Add(sprite.TroopMember);
+			if (SuppressEvents) return;
+			this._troop.members.Clear();
+			foreach (EnemySprite sprite in this.xnaPanel.Sprites)
+				this._troop.members.Add(sprite.TroopMember);
 		}
 
 		private void FormKeyDown(object sender, KeyEventArgs e)
 		{
-		    if (e.KeyCode != Keys.Delete) return;
-		    this.ButtonRemoveEnemyClick(null, null);
-		    e.Handled = true;
+			if (e.KeyCode != Keys.Delete) return;
+			this.ButtonRemoveEnemyClick(null, null);
+			e.Handled = true;
 		}
 
 		private void ListBoxEnemiesSelectedIndexChanged(object sender, EventArgs e)
@@ -198,18 +198,18 @@ namespace ARCed.Database.Troops
 				dialog.Width = 800;
 				dialog.SelectionEnabled = false;
 				dialog.HueEnabled = false;
-			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
-			    this._battleBackName = dialog.ImageName;
-			    this.xnaPanel.SetBackground(Cache.Battleback(this._battleBackName));
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
+				this._battleBackName = dialog.ImageName;
+				this.xnaPanel.SetBackground(Cache.Battleback(this._battleBackName));
 			}
 		}
 
 		private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
 		{
 			var index = this.dataObjectList.SelectedIndex;
-		    if (index < 0) return;
-		    this._troop = this.Data[index + 1];
-		    this.RefreshCurrentObject();
+			if (index < 0) return;
+			this._troop = this.Data[index + 1];
+			this.RefreshCurrentObject();
 		}
 
 		private void ButtonClearClick(object sender, EventArgs e)
@@ -267,11 +267,11 @@ namespace ARCed.Database.Troops
 
 		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
-		    if (SuppressEvents) return;
-		    this._troop.name = this.textBoxName.Text;
-		    int index = this.dataObjectList.SelectedIndex;
-		    this.dataObjectList.Items[index] = this._troop.ToString();
-		    this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
+			if (SuppressEvents) return;
+			this._troop.name = this.textBoxName.Text;
+			int index = this.dataObjectList.SelectedIndex;
+			this.dataObjectList.Items[index] = this._troop.ToString();
+			this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 		}
 
 		private void ButtonBattleTestClick(object sender, EventArgs e)
@@ -287,22 +287,22 @@ namespace ARCed.Database.Troops
 				this.listBoxEnemies.DoDragDrop(Project.Data.Enemies[index + 1], DragDropEffects.Copy);
 		}
 
-		private void XnaPanelDragEnter(object sender, DragEventArgs e) 
-        {
-		    e.Effect = e.Data.GetData(typeof(Enemy)) != null ? 
-                DragDropEffects.Copy : DragDropEffects.None;
+		private void XnaPanelDragEnter(object sender, DragEventArgs e)
+		{
+			e.Effect = e.Data.GetData(typeof(Enemy)) != null ?
+				DragDropEffects.Copy : DragDropEffects.None;
 		}
 
-        private void XnaPanelDragDrop(object sender, DragEventArgs e)
+		private void XnaPanelDragDrop(object sender, DragEventArgs e)
 		{
-            var enemy = (Enemy)e.Data.GetData(typeof(Enemy));
-            var sprite = new EnemySprite(enemy);
+			var enemy = (Enemy)e.Data.GetData(typeof(Enemy));
+			var sprite = new EnemySprite(enemy);
 			var p = this.xnaPanel.PointToClient(new Point(e.X, e.Y));
 			sprite.X = p.X - (sprite.Width / 2);
 			sprite.Y = p.Y - (sprite.Height / 2);
 			this.xnaPanel.AddSprite(sprite);
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -19,8 +19,8 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets or sets the user-defined font of the control
 		/// </summary>
-		public Font UserFont 
-		{ 
+		public Font UserFont
+		{
 			get { return this.fontSelector.UserFont; }
 			set { this.fontSelector.UserFont = value; }
 		}

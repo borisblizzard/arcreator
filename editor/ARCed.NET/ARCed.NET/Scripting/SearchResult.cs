@@ -24,7 +24,7 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Constructs a new instance
 		/// </summary>
-        /// <param name="script">The <see cref="ARCed.Scripting.Script"/> the result is found in</param>
+		/// <param name="script">The <see cref="ARCed.Scripting.Script"/> the result is found in</param>
 		/// <param name="scriptTitle">Title of the script</param>
 		/// <param name="lineNumber">The line number the in the script the result is found on</param>
 		/// <param name="lineText">The text of the line</param>

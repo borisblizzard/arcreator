@@ -10,38 +10,38 @@ namespace ARCed.UI
 {
 	public sealed class DockPanelExtender
 	{
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        public interface IDockPaneFactory
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public interface IDockPaneFactory
 		{
 			DockPane CreateDockPane(IDockContent content, DockState visibleState, bool show);
-            [SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters", MessageId = "1#")]            
+			[SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters", MessageId = "1#")]
 			DockPane CreateDockPane(IDockContent content, FloatWindow floatWindow, bool show);
 			DockPane CreateDockPane(IDockContent content, DockPane previousPane, DockAlignment alignment, double proportion, bool show);
-            [SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters", MessageId = "1#")]            
+			[SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters", MessageId = "1#")]
 			DockPane CreateDockPane(IDockContent content, Rectangle floatWindowBounds, bool show);
 		}
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        public interface IFloatWindowFactory
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public interface IFloatWindowFactory
 		{
 			FloatWindow CreateFloatWindow(DockPanel dockPanel, DockPane pane);
 			FloatWindow CreateFloatWindow(DockPanel dockPanel, DockPane pane, Rectangle bounds);
 		}
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        public interface IDockPaneCaptionFactory
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public interface IDockPaneCaptionFactory
 		{
 			DockPaneCaptionBase CreateDockPaneCaption(DockPane pane);
 		}
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        public interface IDockPaneStripFactory
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public interface IDockPaneStripFactory
 		{
 			DockPaneStripBase CreateDockPaneStrip(DockPane pane);
 		}
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        public interface IAutoHideStripFactory
+		[SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public interface IAutoHideStripFactory
 		{
 			AutoHideStripBase CreateAutoHideStrip(DockPanel panel);
 		}
@@ -121,10 +121,10 @@ namespace ARCed.UI
 			this._mDockPanel = dockPanel;
 		}
 
-        private readonly DockPanel _mDockPanel;
+		private readonly DockPanel _mDockPanel;
 		private DockPanel DockPanel
 		{
-			get	{	return this._mDockPanel;	}
+			get { return this._mDockPanel; }
 		}
 
 		private IDockPaneFactory m_dockPaneFactory;
@@ -167,7 +167,7 @@ namespace ARCed.UI
 
 		private IDockPaneCaptionFactory m_dockPaneCaptionFactory;
 		public IDockPaneCaptionFactory DockPaneCaptionFactory
-		{	
+		{
 			get
 			{
 				if (this.m_dockPaneCaptionFactory == null)
@@ -205,7 +205,7 @@ namespace ARCed.UI
 
 		private IAutoHideStripFactory m_autoHideStripFactory;
 		public IAutoHideStripFactory AutoHideStripFactory
-		{	
+		{
 			get
 			{
 				if (this.m_autoHideStripFactory == null)
@@ -222,7 +222,7 @@ namespace ARCed.UI
 					return;
 
 				this.m_autoHideStripFactory = value;
-                this.DockPanel.ResetAutoHideStripControl();
+				this.DockPanel.ResetAutoHideStripControl();
 			}
 		}
 	}

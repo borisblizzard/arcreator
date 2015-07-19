@@ -16,7 +16,8 @@ namespace ARCed.UI
 	public class DockContentHandler : IDisposable, IDockDragSource
 	{
 
-		public DockContentHandler(Form form) : this(form, null)
+		public DockContentHandler(Form form)
+			: this(form, null)
 		{
 		}
 
@@ -31,7 +32,7 @@ namespace ARCed.UI
 			(form as DockContent).Size = form.Size;
 
 			this._mEvents = new EventHandlerList();
-			this.Form.Disposed +=this.Form_Disposed;
+			this.Form.Disposed += this.Form_Disposed;
 			this.Form.TextChanged += this.Form_TextChanged;
 		}
 
@@ -43,9 +44,9 @@ namespace ARCed.UI
 
 		protected virtual void Dispose(bool disposing)
 		{
-			if(disposing)
+			if (disposing)
 			{
-				lock(this)
+				lock (this)
 				{
 					this.DockPanel = null;
 					if (this.m_autoHideTab != null)
@@ -60,52 +61,52 @@ namespace ARCed.UI
 			}
 		}
 
-        private readonly Form _mForm;
+		private readonly Form _mForm;
 		public Form Form
 		{
-			get	{	return this._mForm;	}
+			get { return this._mForm; }
 		}
 
 		public IDockContent Content
 		{
-			get	{	return this.Form as IDockContent;	}
+			get { return this.Form as IDockContent; }
 		}
 
-        private IDockContent m_previousActive;
-        public IDockContent PreviousActive
-        {
-            get { return this.m_previousActive; }
-            internal set { this.m_previousActive = value; }
-        }
+		private IDockContent m_previousActive;
+		public IDockContent PreviousActive
+		{
+			get { return this.m_previousActive; }
+			internal set { this.m_previousActive = value; }
+		}
 
-        private IDockContent m_nextActive;
-        public IDockContent NextActive
-        {
-            get { return this.m_nextActive; }
-            internal set { this.m_nextActive = value; }
-        }
+		private IDockContent m_nextActive;
+		public IDockContent NextActive
+		{
+			get { return this.m_nextActive; }
+			internal set { this.m_nextActive = value; }
+		}
 
-        private readonly EventHandlerList _mEvents;
+		private readonly EventHandlerList _mEvents;
 		private EventHandlerList Events
 		{
-			get	{	return this._mEvents;	}
+			get { return this._mEvents; }
 		}
 
 		private bool m_allowEndUserDocking = true;
 		public bool AllowEndUserDocking
 		{
-			get	{	return this.m_allowEndUserDocking;	}
-			set	{	this.m_allowEndUserDocking = value;	}
+			get { return this.m_allowEndUserDocking; }
+			set { this.m_allowEndUserDocking = value; }
 		}
 
 		private double m_autoHidePortion = 0.25;
 		public double AutoHidePortion
 		{
-			get	{	return this.m_autoHidePortion;	}
+			get { return this.m_autoHidePortion; }
 			set
 			{
 				if (value <= 0)
-					throw(new ArgumentOutOfRangeException(Strings.DockContentHandler_AutoHidePortion_OutOfRange));
+					throw (new ArgumentOutOfRangeException(Strings.DockContentHandler_AutoHidePortion_OutOfRange));
 
 				if (this.m_autoHidePortion == value)
 					return;
@@ -123,7 +124,7 @@ namespace ARCed.UI
 		private bool m_closeButton = true;
 		public bool CloseButton
 		{
-			get	{	return this.m_closeButton;	}
+			get { return this.m_closeButton; }
 			set
 			{
 				if (this.m_closeButton == value)
@@ -136,16 +137,16 @@ namespace ARCed.UI
 			}
 		}
 
-        private bool m_closeButtonVisible = true;
-        /// <summary>
-        /// Determines whether the close button is visible on the content
-        /// </summary>
-        public bool CloseButtonVisible
-        {
-            get { return this.m_closeButtonVisible; }
-            set { this.m_closeButtonVisible = value; }
-        }
-		
+		private bool m_closeButtonVisible = true;
+		/// <summary>
+		/// Determines whether the close button is visible on the content
+		/// </summary>
+		public bool CloseButtonVisible
+		{
+			get { return this.m_closeButtonVisible; }
+			set { this.m_closeButtonVisible = value; }
+		}
+
 		private DockState DefaultDockState
 		{
 			get
@@ -195,14 +196,14 @@ namespace ARCed.UI
 		private DockAreas m_allowedAreas = DockAreas.DockLeft | DockAreas.DockRight | DockAreas.DockTop | DockAreas.DockBottom | DockAreas.Document | DockAreas.Float;
 		public DockAreas DockAreas
 		{
-			get	{	return this.m_allowedAreas;	}
+			get { return this.m_allowedAreas; }
 			set
 			{
 				if (this.m_allowedAreas == value)
 					return;
 
 				if (!DockHelper.IsDockStateValid(this.DockState, value))
-					throw(new InvalidOperationException(Strings.DockContentHandler_DockAreas_InvalidValue));
+					throw (new InvalidOperationException(Strings.DockContentHandler_DockAreas_InvalidValue));
 
 				this.m_allowedAreas = value;
 
@@ -214,20 +215,20 @@ namespace ARCed.UI
 		private DockState m_dockState = DockState.Unknown;
 		public DockState DockState
 		{
-			get	{	return this.m_dockState;	}
+			get { return this.m_dockState; }
 			set
 			{
 				if (this.m_dockState == value)
 					return;
 
-                this.DockPanel.SuspendLayout(true);
+				this.DockPanel.SuspendLayout(true);
 
 				if (value == DockState.Hidden)
 					this.IsHidden = true;
 				else
 					this.SetDockState(false, value, this.Pane);
 
-                this.DockPanel.ResumeLayout(true, true);
+				this.DockPanel.ResumeLayout(true, true);
 			}
 		}
 
@@ -265,7 +266,7 @@ namespace ARCed.UI
 					this.Form.TopLevel = false;
 					this.Form.FormBorderStyle = FormBorderStyle.None;
 					this.Form.ShowInTaskbar = false;
-                    this.Form.WindowState = FormWindowState.Normal;
+					this.Form.WindowState = FormWindowState.Normal;
 					NativeMethods.SetWindowPos(this.Form.Handle, IntPtr.Zero, 0, 0, 0, 0,
 						FlagsSetWindowPos.SWP_NOACTIVATE |
 						FlagsSetWindowPos.SWP_NOMOVE |
@@ -279,18 +280,18 @@ namespace ARCed.UI
 
 		public Icon Icon
 		{
-			get	{	return this.Form.Icon;	}
+			get { return this.Form.Icon; }
 		}
 
 		public DockPane Pane
 		{
-			get {	return this.IsFloat ? this.FloatPane : this.PanelPane; }
+			get { return this.IsFloat ? this.FloatPane : this.PanelPane; }
 			set
 			{
 				if (this.Pane == value)
 					return;
 
-                this.DockPanel.SuspendLayout(true);
+				this.DockPanel.SuspendLayout(true);
 
 				DockPane oldPane = this.Pane;
 
@@ -299,14 +300,14 @@ namespace ARCed.UI
 				this.PanelPane = (value == null ? null : (value.IsFloat ? this.PanelPane : value));
 				this.ResumeSetDockState(this.IsHidden, value != null ? value.DockState : DockState.Unknown, oldPane);
 
-                this.DockPanel.ResumeLayout(true, true);
+				this.DockPanel.ResumeLayout(true, true);
 			}
 		}
 
 		private bool m_isHidden = true;
 		public bool IsHidden
 		{
-			get	{	return this.m_isHidden;	}
+			get { return this.m_isHidden; }
 			set
 			{
 				if (this.m_isHidden == value)
@@ -319,7 +320,7 @@ namespace ARCed.UI
 		private string m_tabText;
 		public string TabText
 		{
-            get { return string.IsNullOrEmpty(this.m_tabText) ? this.Form.Text : this.m_tabText; }
+			get { return string.IsNullOrEmpty(this.m_tabText) ? this.Form.Text : this.m_tabText; }
 			set
 			{
 				if (this.m_tabText == value)
@@ -334,7 +335,7 @@ namespace ARCed.UI
 		private DockState m_visibleState = DockState.Unknown;
 		public DockState VisibleState
 		{
-			get	{	return this.m_visibleState;	}
+			get { return this.m_visibleState; }
 			set
 			{
 				if (this.m_visibleState == value)
@@ -347,13 +348,13 @@ namespace ARCed.UI
 		private bool m_isFloat;
 		public bool IsFloat
 		{
-			get	{	return this.m_isFloat;	}
+			get { return this.m_isFloat; }
 			set
 			{
 				if (this.m_isFloat == value)
 					return;
 
-                DockState visibleState = this.CheckDockState(value);
+				DockState visibleState = this.CheckDockState(value);
 
 				if (visibleState == DockState.Unknown)
 					throw new InvalidOperationException(Strings.DockContentHandler_IsFloat_InvalidValue);
@@ -362,32 +363,32 @@ namespace ARCed.UI
 			}
 		}
 
-        [SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters")]
-        public DockState CheckDockState(bool isFloat)
-        {
-            DockState dockState;
+		[SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters")]
+		public DockState CheckDockState(bool isFloat)
+		{
+			DockState dockState;
 
-            if (isFloat)
-            {
-                if (!this.IsDockStateValid(DockState.Float))
-                    dockState = DockState.Unknown;
-                else
-                    dockState = DockState.Float;
-            }
-            else
-            {
-                dockState = (this.PanelPane != null) ? this.PanelPane.DockState : this.DefaultDockState;
-                if (dockState != DockState.Unknown && !this.IsDockStateValid(dockState))
-                    dockState = DockState.Unknown;
-            }
+			if (isFloat)
+			{
+				if (!this.IsDockStateValid(DockState.Float))
+					dockState = DockState.Unknown;
+				else
+					dockState = DockState.Float;
+			}
+			else
+			{
+				dockState = (this.PanelPane != null) ? this.PanelPane.DockState : this.DefaultDockState;
+				if (dockState != DockState.Unknown && !this.IsDockStateValid(dockState))
+					dockState = DockState.Unknown;
+			}
 
-            return dockState;
-        }
+			return dockState;
+		}
 
 		private DockPane m_panelPane;
 		public DockPane PanelPane
 		{
-			get	{	return this.m_panelPane;	}
+			get { return this.m_panelPane; }
 			set
 			{
 				if (this.m_panelPane == value)
@@ -401,8 +402,8 @@ namespace ARCed.UI
 
 				DockPane oldPane = this.Pane;
 
-                if (this.m_panelPane != null)
-                    this.RemoveFromPane(this.m_panelPane);
+				if (this.m_panelPane != null)
+					this.RemoveFromPane(this.m_panelPane);
 				this.m_panelPane = value;
 				if (this.m_panelPane != null)
 				{
@@ -414,18 +415,18 @@ namespace ARCed.UI
 			}
 		}
 
-        private void RemoveFromPane(DockPane pane)
-        {
-            pane.RemoveContent(this.Content);
-            this.SetPane(null);
-            if (pane.Contents.Count == 0)
-                pane.Dispose();
-        }
+		private void RemoveFromPane(DockPane pane)
+		{
+			pane.RemoveContent(this.Content);
+			this.SetPane(null);
+			if (pane.Contents.Count == 0)
+				pane.Dispose();
+		}
 
 		private DockPane m_floatPane;
 		public DockPane FloatPane
 		{
-			get	{	return this.m_floatPane;	}
+			get { return this.m_floatPane; }
 			set
 			{
 				if (this.m_floatPane == value)
@@ -439,8 +440,8 @@ namespace ARCed.UI
 
 				DockPane oldPane = this.Pane;
 
-                if (this.m_floatPane != null)
-                    this.RemoveFromPane(this.m_floatPane);
+				if (this.m_floatPane != null)
+					this.RemoveFromPane(this.m_floatPane);
 				this.m_floatPane = value;
 				if (this.m_floatPane != null)
 				{
@@ -455,19 +456,19 @@ namespace ARCed.UI
 		private int m_countSetDockState;
 		private void SuspendSetDockState()
 		{
-			this.m_countSetDockState ++;
+			this.m_countSetDockState++;
 		}
 
 		private void ResumeSetDockState()
 		{
-			this.m_countSetDockState --;
+			this.m_countSetDockState--;
 			if (this.m_countSetDockState < 0)
 				this.m_countSetDockState = 0;
 		}
 
 		internal bool IsSuspendSetDockState
 		{
-			get	{	return this.m_countSetDockState != 0;	}
+			get { return this.m_countSetDockState != 0; }
 		}
 
 		private void ResumeSetDockState(bool isHidden, DockState visibleState, DockPane oldPane)
@@ -487,9 +488,9 @@ namespace ARCed.UI
 			if (visibleState == DockState.Hidden || (visibleState != DockState.Unknown && !this.IsDockStateValid(visibleState)))
 				throw new InvalidOperationException(Strings.DockContentHandler_SetDockState_InvalidState);
 
-            DockPanel dockPanel = this.DockPanel;
-            if (dockPanel != null)
-                dockPanel.SuspendLayout(true);
+			DockPanel dockPanel = this.DockPanel;
+			if (dockPanel != null)
+				dockPanel.SuspendLayout(true);
 
 			this.SuspendSetDockState();
 
@@ -502,28 +503,28 @@ namespace ARCed.UI
 			this.m_visibleState = visibleState;
 			this.m_dockState = isHidden ? DockState.Hidden : visibleState;
 
-            if (visibleState == DockState.Unknown)
-                this.Pane = null;
-            else
-            {
-                this.m_isFloat = (this.m_visibleState == DockState.Float);
+			if (visibleState == DockState.Unknown)
+				this.Pane = null;
+			else
+			{
+				this.m_isFloat = (this.m_visibleState == DockState.Float);
 
-                if (this.Pane == null)
-                    this.Pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, visibleState, true);
-                else if (this.Pane.DockState != visibleState)
-                {
-                    if (this.Pane.Contents.Count == 1)
-                        this.Pane.SetDockState(visibleState);
-                    else
-                        this.Pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, visibleState, true);
-                }
-            }
+				if (this.Pane == null)
+					this.Pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, visibleState, true);
+				else if (this.Pane.DockState != visibleState)
+				{
+					if (this.Pane.Contents.Count == 1)
+						this.Pane.SetDockState(visibleState);
+					else
+						this.Pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, visibleState, true);
+				}
+			}
 
-            if (this.Form.ContainsFocus)
-                if (this.DockState == DockState.Hidden || this.DockState == DockState.Unknown)
-                    this.DockPanel.ContentFocusManager.GiveUpFocus(this.Content);
+			if (this.Form.ContainsFocus)
+				if (this.DockState == DockState.Hidden || this.DockState == DockState.Unknown)
+					this.DockPanel.ContentFocusManager.GiveUpFocus(this.Content);
 
-            this.SetPaneAndVisible(this.Pane);
+			this.SetPaneAndVisible(this.Pane);
 
 			if (oldPane != null && !oldPane.IsDisposed && oldDockState == oldPane.DockState)
 				RefreshDockPane(oldPane);
@@ -534,23 +535,23 @@ namespace ARCed.UI
 					(this.Pane == oldPane && oldDockState != oldPane.DockState))
 					// Avoid early refresh of hidden AutoHide panes
 					if ((this.Pane.DockWindow == null || this.Pane.DockWindow.Visible || this.Pane.IsHidden) && !this.Pane.IsAutoHide)
-						RefreshDockPane(this.Pane);			
+						RefreshDockPane(this.Pane);
 			}
 
-            if (oldDockState != this.DockState)
-            {
-                if (this.DockState == DockState.Hidden || this.DockState == DockState.Unknown ||
-                    DockHelper.IsDockStateAutoHide(this.DockState))
-                    this.DockPanel.ContentFocusManager.RemoveFromList(this.Content);
-                else
-                    this.DockPanel.ContentFocusManager.AddToList(this.Content);
+			if (oldDockState != this.DockState)
+			{
+				if (this.DockState == DockState.Hidden || this.DockState == DockState.Unknown ||
+					DockHelper.IsDockStateAutoHide(this.DockState))
+					this.DockPanel.ContentFocusManager.RemoveFromList(this.Content);
+				else
+					this.DockPanel.ContentFocusManager.AddToList(this.Content);
 
-                this.OnDockStateChanged(EventArgs.Empty);
-            }
+				this.OnDockStateChanged(EventArgs.Empty);
+			}
 			this.ResumeSetDockState();
 
-            if (dockPanel != null)
-                dockPanel.ResumeLayout(true, true);
+			if (dockPanel != null)
+				dockPanel.ResumeLayout(true, true);
 		}
 
 		private static void RefreshDockPane(DockPane pane)
@@ -561,30 +562,30 @@ namespace ARCed.UI
 
 		internal string PersistString
 		{
-			get	{	return this.GetPersistStringCallback == null ? this.Form.GetType().ToString() : this.GetPersistStringCallback();	}
+			get { return this.GetPersistStringCallback == null ? this.Form.GetType().ToString() : this.GetPersistStringCallback(); }
 		}
 
 		private GetPersistStringCallback m_getPersistStringCallback;
 		public GetPersistStringCallback GetPersistStringCallback
 		{
-			get	{	return this.m_getPersistStringCallback;	}
-			set	{	this.m_getPersistStringCallback = value;	}
+			get { return this.m_getPersistStringCallback; }
+			set { this.m_getPersistStringCallback = value; }
 		}
 
 
 		private bool m_hideOnClose;
 		public bool HideOnClose
 		{
-			get	{	return this.m_hideOnClose;	}
-			set	{	this.m_hideOnClose = value;	}
+			get { return this.m_hideOnClose; }
+			set { this.m_hideOnClose = value; }
 		}
 
 		private DockState m_showHint = DockState.Unknown;
 		public DockState ShowHint
 		{
-			get	{	return this.m_showHint;	}
+			get { return this.m_showHint; }
 			set
-			{	
+			{
 				if (!DockHelper.IsDockStateValid(value, this.DockAreas))
 					throw (new InvalidOperationException(Strings.DockContentHandler_ShowHint_InvalidValue));
 
@@ -598,14 +599,14 @@ namespace ARCed.UI
 		private bool m_isActivated;
 		public bool IsActivated
 		{
-			get	{	return this.m_isActivated;	}
-		    internal set
-		    {
-	            if (this.m_isActivated == value)
-		            return;
+			get { return this.m_isActivated; }
+			internal set
+			{
+				if (this.m_isActivated == value)
+					return;
 
-	            this.m_isActivated = value;
-		    }
+				this.m_isActivated = value;
+			}
 		}
 
 		public bool IsDockStateValid(DockState dockState)
@@ -619,15 +620,15 @@ namespace ARCed.UI
 		private ContextMenu m_tabPageContextMenu;
 		public ContextMenu TabPageContextMenu
 		{
-			get	{	return this.m_tabPageContextMenu;	}
-			set	{	this.m_tabPageContextMenu = value;	}
+			get { return this.m_tabPageContextMenu; }
+			set { this.m_tabPageContextMenu = value; }
 		}
 
 		private string m_toolTipText;
 		public string ToolTipText
 		{
-			get	{	return this.m_toolTipText;	}
-			set {	this.m_toolTipText = value;	}
+			get { return this.m_toolTipText; }
+			set { this.m_toolTipText = value; }
 		}
 
 		public void Activate()
@@ -640,29 +641,29 @@ namespace ARCed.UI
 			{
 				this.IsHidden = false;
 				this.Pane.ActiveContent = this.Content;
-                if (this.DockState == DockState.Document && this.DockPanel.DocumentStyle == DocumentStyle.SystemMdi)
-                {
-                    this.Form.Activate();
-                    return;
-                }
-                else if (DockHelper.IsDockStateAutoHide(this.DockState))
-                    this.DockPanel.ActiveAutoHideContent = this.Content;
+				if (this.DockState == DockState.Document && this.DockPanel.DocumentStyle == DocumentStyle.SystemMdi)
+				{
+					this.Form.Activate();
+					return;
+				}
+				else if (DockHelper.IsDockStateAutoHide(this.DockState))
+					this.DockPanel.ActiveAutoHideContent = this.Content;
 
-                if (!this.Form.ContainsFocus)
-                    this.DockPanel.ContentFocusManager.Activate(this.Content);
+				if (!this.Form.ContainsFocus)
+					this.DockPanel.ContentFocusManager.Activate(this.Content);
 			}
 		}
 
-        public void GiveUpFocus()
-        {
-            this.DockPanel.ContentFocusManager.GiveUpFocus(this.Content);
-        }
+		public void GiveUpFocus()
+		{
+			this.DockPanel.ContentFocusManager.GiveUpFocus(this.Content);
+		}
 
 		private IntPtr m_activeWindowHandle = IntPtr.Zero;
 		internal IntPtr ActiveWindowHandle
 		{
-			get	{	return this.m_activeWindowHandle;	}
-			set	{	this.m_activeWindowHandle = value;	}
+			get { return this.m_activeWindowHandle; }
+			set { this.m_activeWindowHandle = value; }
 		}
 
 		public void Hide()
@@ -670,11 +671,11 @@ namespace ARCed.UI
 			this.IsHidden = true;
 		}
 
-        internal void SetPaneAndVisible(DockPane pane)
-        {
-            this.SetPane(pane);
-            this.SetVisible();
-        }
+		internal void SetPaneAndVisible(DockPane pane)
+		{
+			this.SetPane(pane);
+			this.SetVisible();
+		}
 
 		private void SetPane(DockPane pane)
 		{
@@ -714,8 +715,8 @@ namespace ARCed.UI
 			else
 				visible = this.Form.Visible;
 
-            if (this.Form.Visible != visible)
-                this.Form.Visible = visible;
+			if (this.Form.Visible != visible)
+				this.Form.Visible = visible;
 		}
 
 		private void SetParent(Control value)
@@ -723,36 +724,36 @@ namespace ARCed.UI
 			if (this.Form.Parent == value)
 				return;
 
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // Workaround of .Net Framework bug:
-            // Change the parent of a control with focus may result in the first
-            // MDI child form get activated. 
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            bool bRestoreFocus = false;
-            if (this.Form.ContainsFocus)
-            {
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			// Workaround of .Net Framework bug:
+			// Change the parent of a control with focus may result in the first
+			// MDI child form get activated. 
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			bool bRestoreFocus = false;
+			if (this.Form.ContainsFocus)
+			{
 				//Suggested as a fix for a memory leak by bugreports
-                if (value == null && !this.IsFloat)
-                    this.DockPanel.ContentFocusManager.GiveUpFocus(this.Content);
-                else
-                {
-                    this.DockPanel.SaveFocus();
-                    bRestoreFocus = true;
-                }
-            }
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				if (value == null && !this.IsFloat)
+					this.DockPanel.ContentFocusManager.GiveUpFocus(this.Content);
+				else
+				{
+					this.DockPanel.SaveFocus();
+					bRestoreFocus = true;
+				}
+			}
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            this.Form.Parent = value;
+			this.Form.Parent = value;
 
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // Workaround of .Net Framework bug:
-            // Change the parent of a control with focus may result in the first
-            // MDI child form get activated. 
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if (bRestoreFocus)
-                this.Activate();
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        }
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			// Workaround of .Net Framework bug:
+			// Change the parent of a control with focus may result in the first
+			// MDI child form get activated. 
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			if (bRestoreFocus)
+				this.Activate();
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		}
 
 		public void Show()
 		{
@@ -765,23 +766,23 @@ namespace ARCed.UI
 		public void Show(DockPanel dockPanel)
 		{
 			if (dockPanel == null)
-				throw(new ArgumentNullException(Strings.DockContentHandler_Show_NullDockPanel));
+				throw (new ArgumentNullException(Strings.DockContentHandler_Show_NullDockPanel));
 
 			if (this.DockState == DockState.Unknown)
 				this.Show(dockPanel, this.DefaultShowState);
-			else			
+			else
 				this.Activate();
 		}
 
 		public void Show(DockPanel dockPanel, DockState dockState)
 		{
 			if (dockPanel == null)
-				throw(new ArgumentNullException(Strings.DockContentHandler_Show_NullDockPanel));
+				throw (new ArgumentNullException(Strings.DockContentHandler_Show_NullDockPanel));
 
 			if (dockState == DockState.Unknown || dockState == DockState.Hidden)
-				throw(new ArgumentException(Strings.DockContentHandler_Show_InvalidDockState));
+				throw (new ArgumentException(Strings.DockContentHandler_Show_InvalidDockState));
 
-            dockPanel.SuspendLayout(true);
+			dockPanel.SuspendLayout(true);
 
 			this.DockPanel = dockPanel;
 
@@ -808,17 +809,17 @@ namespace ARCed.UI
 			}
 
 			this.DockState = dockState;
-            dockPanel.ResumeLayout(true, true); //we'll resume the layout before activating to ensure that the position
-            this.Activate();                         //and size of the form are finally processed before the form is shown
+			dockPanel.ResumeLayout(true, true); //we'll resume the layout before activating to ensure that the position
+			this.Activate();                         //and size of the form are finally processed before the form is shown
 		}
 
-        [SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters")]
+		[SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters")]
 		public void Show(DockPanel dockPanel, Rectangle floatWindowBounds)
 		{
 			if (dockPanel == null)
-				throw(new ArgumentNullException(Strings.DockContentHandler_Show_NullDockPanel));
+				throw (new ArgumentNullException(Strings.DockContentHandler_Show_NullDockPanel));
 
-            dockPanel.SuspendLayout(true);
+			dockPanel.SuspendLayout(true);
 
 			this.DockPanel = dockPanel;
 			if (this.FloatPane == null)
@@ -833,49 +834,49 @@ namespace ARCed.UI
 			this.Show(dockPanel, DockState.Float);
 			this.Activate();
 
-            dockPanel.ResumeLayout(true, true);
+			dockPanel.ResumeLayout(true, true);
 		}
 
 		public void Show(DockPane pane, IDockContent beforeContent)
 		{
 			if (pane == null)
-				throw(new ArgumentNullException(Strings.DockContentHandler_Show_NullPane));
+				throw (new ArgumentNullException(Strings.DockContentHandler_Show_NullPane));
 
 			if (beforeContent != null && pane.Contents.IndexOf(beforeContent) == -1)
-				throw(new ArgumentException(Strings.DockContentHandler_Show_InvalidBeforeContent));
+				throw (new ArgumentException(Strings.DockContentHandler_Show_InvalidBeforeContent));
 
-            pane.DockPanel.SuspendLayout(true);
+			pane.DockPanel.SuspendLayout(true);
 
 			this.DockPanel = pane.DockPanel;
 			this.Pane = pane;
 			pane.SetContentIndex(this.Content, pane.Contents.IndexOf(beforeContent));
 			this.Show();
 
-            pane.DockPanel.ResumeLayout(true, true);
+			pane.DockPanel.ResumeLayout(true, true);
 		}
 
 		public void Show(DockPane previousPane, DockAlignment alignment, double proportion)
 		{
 			if (previousPane == null)
-				throw(new ArgumentException(Strings.DockContentHandler_Show_InvalidPrevPane));
+				throw (new ArgumentException(Strings.DockContentHandler_Show_InvalidPrevPane));
 
 			if (DockHelper.IsDockStateAutoHide(previousPane.DockState))
-				throw(new ArgumentException(Strings.DockContentHandler_Show_InvalidPrevPane));
+				throw (new ArgumentException(Strings.DockContentHandler_Show_InvalidPrevPane));
 
-            previousPane.DockPanel.SuspendLayout(true);
+			previousPane.DockPanel.SuspendLayout(true);
 
 			this.DockPanel = previousPane.DockPanel;
 			this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, previousPane, alignment, proportion, true);
 			this.Show();
 
-            previousPane.DockPanel.ResumeLayout(true, true);
+			previousPane.DockPanel.ResumeLayout(true, true);
 		}
 
 		public void Close()
 		{
 			DockPanel dockPanel = this.DockPanel;
-            if (dockPanel != null)
-                dockPanel.SuspendLayout(true);
+			if (dockPanel != null)
+				dockPanel.SuspendLayout(true);
 			this.Form.Close();
 			if (dockPanel != null)
 				dockPanel.ResumeLayout(true, true);
@@ -885,25 +886,25 @@ namespace ARCed.UI
 		private DockPaneStripBase.Tab m_tab;
 		internal DockPaneStripBase.Tab GetTab(DockPaneStripBase dockPaneStrip)
 		{
-            if (this.m_tab == null)
-                this.m_tab = dockPaneStrip.CreateTab(this.Content);
+			if (this.m_tab == null)
+				this.m_tab = dockPaneStrip.CreateTab(this.Content);
 
-            return this.m_tab;
+			return this.m_tab;
 		}
 
 		private IDisposable m_autoHideTab;
 		internal IDisposable AutoHideTab
 		{
-            get { return this.m_autoHideTab; }
-            set { this.m_autoHideTab = value; }
+			get { return this.m_autoHideTab; }
+			set { this.m_autoHideTab = value; }
 		}
 
 		#region Events
 		private static readonly object DockStateChangedEvent = new object();
 		public event EventHandler DockStateChanged
 		{
-			add	{	this.Events.AddHandler(DockStateChangedEvent, value);	}
-			remove	{	this.Events.RemoveHandler(DockStateChangedEvent, value);	}
+			add { this.Events.AddHandler(DockStateChangedEvent, value); }
+			remove { this.Events.RemoveHandler(DockStateChangedEvent, value); }
 		}
 		protected virtual void OnDockStateChanged(EventArgs e)
 		{
@@ -933,7 +934,7 @@ namespace ARCed.UI
 		private bool m_flagClipWindow;
 		internal bool FlagClipWindow
 		{
-			get	{	return this.m_flagClipWindow;	}
+			get { return this.m_flagClipWindow; }
 			set
 			{
 				if (this.m_flagClipWindow == value)
@@ -947,70 +948,70 @@ namespace ARCed.UI
 			}
 		}
 
-        private ContextMenuStrip m_tabPageContextMenuStrip;
-        public ContextMenuStrip TabPageContextMenuStrip
-        {
-            get { return this.m_tabPageContextMenuStrip; }
-            set { this.m_tabPageContextMenuStrip = value; }
-        }
+		private ContextMenuStrip m_tabPageContextMenuStrip;
+		public ContextMenuStrip TabPageContextMenuStrip
+		{
+			get { return this.m_tabPageContextMenuStrip; }
+			set { this.m_tabPageContextMenuStrip = value; }
+		}
 
-        #region IDockDragSource Members
+		#region IDockDragSource Members
 
-        Control IDragSource.DragControl
-        {
-            get { return this.Form; }
-        }
+		Control IDragSource.DragControl
+		{
+			get { return this.Form; }
+		}
 
-        bool IDockDragSource.CanDockTo(DockPane pane)
-        {
-            if (!this.IsDockStateValid(pane.DockState))
-                return false;
+		bool IDockDragSource.CanDockTo(DockPane pane)
+		{
+			if (!this.IsDockStateValid(pane.DockState))
+				return false;
 
-            if (this.Pane == pane && pane.DisplayingContents.Count == 1)
-                return false;
+			if (this.Pane == pane && pane.DisplayingContents.Count == 1)
+				return false;
 
-            return true;
-        }
+			return true;
+		}
 
-        Rectangle IDockDragSource.BeginDrag(Point ptMouse)
-        {
-            Size size;
-            DockPane floatPane = this.FloatPane;
-            if (this.DockState == DockState.Float || floatPane == null || floatPane.FloatWindow.NestedPanes.Count != 1)
-                //size = DockPanel.DefaultFloatWindowSize; 
+		Rectangle IDockDragSource.BeginDrag(Point ptMouse)
+		{
+			Size size;
+			DockPane floatPane = this.FloatPane;
+			if (this.DockState == DockState.Float || floatPane == null || floatPane.FloatWindow.NestedPanes.Count != 1)
+				//size = DockPanel.DefaultFloatWindowSize; 
 				size = (this.Content as DockContent).DefaultFloatSize;
-            else
-                size = floatPane.FloatWindow.Size;
+			else
+				size = floatPane.FloatWindow.Size;
 
-            Point location;
+			Point location;
 			Rectangle rectPane = this.Pane.ClientRectangle;
-            if (this.DockState == DockState.Document)
-            {
-                if (this.Pane.DockPanel.DocumentTabStripLocation == DocumentTabStripLocation.Bottom)
-                    location = new Point(rectPane.Left, rectPane.Bottom - size.Height);
-                else
-                    location = new Point(rectPane.Left, rectPane.Top);
-            }
-            else
-            {
-                location = new Point(rectPane.Left, rectPane.Bottom);
-                location.Y -= size.Height;
-            }
-            location = this.Pane.PointToScreen(location);
+			if (this.DockState == DockState.Document)
+			{
+				if (this.Pane.DockPanel.DocumentTabStripLocation == DocumentTabStripLocation.Bottom)
+					location = new Point(rectPane.Left, rectPane.Bottom - size.Height);
+				else
+					location = new Point(rectPane.Left, rectPane.Top);
+			}
+			else
+			{
+				location = new Point(rectPane.Left, rectPane.Bottom);
+				location.Y -= size.Height;
+			}
+			location = this.Pane.PointToScreen(location);
 
-            if (ptMouse.X > location.X + size.Width)
-                location.X += ptMouse.X - (location.X + size.Width) + Measures.SplitterSize;
+			if (ptMouse.X > location.X + size.Width)
+				location.X += ptMouse.X - (location.X + size.Width) + Measures.SplitterSize;
 
-            return new Rectangle(location, size);
-        }
+			return new Rectangle(location, size);
+		}
 
-        public void FloatAt(Rectangle floatWindowBounds)
-        {
-            DockPane pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, floatWindowBounds, true);
-        }
+		public void FloatAt(Rectangle floatWindowBounds)
+		{
+			DockPane pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, floatWindowBounds, true);
+		}
 
-        public void DockTo(DockPane pane, DockStyle dockStyle, int contentIndex)
-        {
+		public void DockTo(DockPane pane, DockStyle dockStyle, int contentIndex)
+		{
 			if (dockStyle == DockStyle.Fill)
 			{
 				bool samePane = (this.Pane == pane);
@@ -1027,7 +1028,7 @@ namespace ARCed.UI
 					if (oldIndex < newIndex)
 					{
 						newIndex += 1;
-						if (newIndex > contents.Count -1)
+						if (newIndex > contents.Count - 1)
 							newIndex = -1;
 					}
 					pane.SetContentIndex(this.Content, newIndex);
@@ -1039,38 +1040,38 @@ namespace ARCed.UI
 				INestedPanesContainer container = pane.NestedPanesContainer;
 				if (dockStyle == DockStyle.Left)
 					paneFrom.DockTo(container, pane, DockAlignment.Left, 0.5);
-				else if (dockStyle == DockStyle.Right) 
+				else if (dockStyle == DockStyle.Right)
 					paneFrom.DockTo(container, pane, DockAlignment.Right, 0.5);
 				else if (dockStyle == DockStyle.Top)
 					paneFrom.DockTo(container, pane, DockAlignment.Top, 0.5);
-				else if (dockStyle == DockStyle.Bottom) 
+				else if (dockStyle == DockStyle.Bottom)
 					paneFrom.DockTo(container, pane, DockAlignment.Bottom, 0.5);
 
 				paneFrom.DockState = pane.DockState;
 			}
-        }
+		}
 
-        public void DockTo(DockPanel panel, DockStyle dockStyle)
-        {
-            if (panel != this.DockPanel)
-                throw new ArgumentException(Strings.IDockDragSource_DockTo_InvalidPanel, "panel");
+		public void DockTo(DockPanel panel, DockStyle dockStyle)
+		{
+			if (panel != this.DockPanel)
+				throw new ArgumentException(Strings.IDockDragSource_DockTo_InvalidPanel, "panel");
 
-            DockPane pane;
+			DockPane pane;
 
-            if (dockStyle == DockStyle.Top)
-                pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockTop, true);
-            else if (dockStyle == DockStyle.Bottom)
-                pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockBottom, true);
-            else if (dockStyle == DockStyle.Left)
-                pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockLeft, true);
-            else if (dockStyle == DockStyle.Right)
-                pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockRight, true);
-            else if (dockStyle == DockStyle.Fill)
-                pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.Document, true);
-            else
-                return;
-        }
+			if (dockStyle == DockStyle.Top)
+				pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockTop, true);
+			else if (dockStyle == DockStyle.Bottom)
+				pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockBottom, true);
+			else if (dockStyle == DockStyle.Left)
+				pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockLeft, true);
+			else if (dockStyle == DockStyle.Right)
+				pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.DockRight, true);
+			else if (dockStyle == DockStyle.Fill)
+				pane = this.DockPanel.DockPaneFactory.CreateDockPane(this.Content, DockState.Document, true);
+			else
+				return;
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

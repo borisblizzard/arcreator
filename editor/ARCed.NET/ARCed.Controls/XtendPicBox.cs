@@ -12,12 +12,12 @@ using System.Windows.Forms.Design;
 
 namespace ARCed.Controls
 {
-    /// <summary>
+	/// <summary>
 	/// PictureBox control with automatic scroll functions.
-    /// </summary>
+	/// </summary>
 	[Description("PictureBox control with automatic scroll functions.")]
 	[ToolboxBitmap(typeof(PictureBox))]
-    public partial class CharSelectionControl : Panel
+	public partial class CharSelectionControl : Panel
 	{
 		#region Constants
 
@@ -28,15 +28,15 @@ namespace ARCed.Controls
 
 		#region Private Fields
 
-        readonly PictureBox picBox = new PictureBox();
+		readonly PictureBox picBox = new PictureBox();
 		Image _image;
 		private string _picturePath = "";
 		private bool _selectable;
 		private int _x, _y, _tWidth, _tHeight;
 		private readonly Pen _innerPen = new Pen(Color.White, 2);
-        private readonly Pen _outerPen = new Pen(Color.Black, 4);
+		private readonly Pen _outerPen = new Pen(Color.Black, 4);
 
-        #endregion
+		#endregion
 
 		#region Public Properties
 
@@ -174,19 +174,19 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-        public CharSelectionControl()
-        {
-            this.InitializeComponent();
+		public CharSelectionControl()
+		{
+			this.InitializeComponent();
 			this._selectable = true;
-            this.picBox.Top = 0;
-            this.picBox.Left = 0;
+			this.picBox.Top = 0;
+			this.picBox.Left = 0;
 			this._x = this._y = 0;
 			this.picBox.Visible = false;
-            this.picBox.SizeMode = PictureBoxSizeMode.Normal;
+			this.picBox.SizeMode = PictureBoxSizeMode.Normal;
 			this.picBox.BorderStyle = BorderStyle.None;
-            Controls.Add(this.picBox);
+			Controls.Add(this.picBox);
 			this.picBox.MouseClick += this.picBox_MouseClick;
-        }
+		}
 
 		#endregion
 

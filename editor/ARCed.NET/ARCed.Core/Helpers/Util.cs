@@ -17,84 +17,91 @@ using RPG;
 
 namespace ARCed.Helpers
 {
-    /// <summary>
-    /// Static class that provides functions that are shared across tha ARCed assemblies.
-    /// </summary>
+	/// <summary>
+	/// Static class that provides functions that are shared across tha ARCed assemblies.
+	/// </summary>
 	public static class Util
 	{
 		private static Random _random;
-        private static TypeMap _rpgTypes;
-        private static Assembly _xnaAssembly, _coreAssembly;
+		private static TypeMap _rpgTypes;
+		private static Assembly _xnaAssembly, _coreAssembly;
 
-        /// <summary>
-        /// Gets a mapping of all RPG types.
-        /// </summary>
-        public static TypeMap RpgTypes
-        {
-            get
-            {
-                if (_rpgTypes == null)
-                {
-                    _rpgTypes = new TypeMap();
-                    foreach (var type in GetTypesInNamespace(ARCedCoreAssembly, "RPG"))
-                        _rpgTypes[type.ToString()] = type;
-                    _rpgTypes.Add("Table", typeof(Table));
-                    _rpgTypes.Add("Color", typeof(Color));
-                }
-                return _rpgTypes;
-            }
-        }
+		/// <summary>
+		/// Gets a mapping of all RPG types.
+		/// </summary>
+		public static TypeMap RpgTypes
+		{
+			get
+			{
+				if (_rpgTypes == null)
+				{
+					_rpgTypes = new TypeMap();
+					foreach (var type in GetTypesInNamespace(ARCedCoreAssembly, "RPG"))
+					{
+						if (type.Name == "Table")
+							_rpgTypes["Table"] = type;
+						else if (type.Name == "Color")
+							_rpgTypes["Color"] = type;
+						else
+							_rpgTypes[type.ToString()] = type;
+					}
+					//_rpgTypes.Add("Table", typeof(Table));
+					//_rpgTypes.Add("Color", typeof(Color));
+				}
+				return _rpgTypes;
+			}
+		}
 
-        /// <summary>
-        /// Gets an array of all types found in the given namespace.
-        /// </summary>
-        /// <param name="assembly">Assembly to search for the namespace.</param>
-        /// <param name="namespace">The namespace to search</param>
-        /// <returns>Array of found types</returns>
-        public static Type[] GetTypesInNamespace(Assembly assembly, string @namespace)
-        {
-            return assembly.GetTypes().Where(t => t.Namespace == @namespace).ToArray();
-        }
+		/// <summary>
+		/// Gets an array of all types found in the given namespace.
+		/// </summary>
+		/// <param name="assembly">Assembly to search for the namespace.</param>
+		/// <param name="namespace">The namespace to search</param>
+		/// <returns>Array of found types</returns>
+		public static Type[] GetTypesInNamespace(Assembly assembly, string @namespace)
+		{
+			return assembly.GetTypes().Where(t => t.Namespace == @namespace).ToArray();
+		}
 
-        /// <summary>
-        /// Gets the assembly instance of the editor
-        /// </summary>
-        public static Assembly ARCedAssembly
-        {
-            get { return Assembly.LoadFile(PathHelper.EditorPath); }
-        }
+		/// <summary>
+		/// Gets the assembly instance of the editor
+		/// </summary>
+		public static Assembly ARCedAssembly
+		{
+			get { return Assembly.LoadFile(PathHelper.EditorPath); }
+		}
 
-        /// <summary>
-        /// Gets the assembly instance of the editor
-        /// </summary>
-        public static Assembly ARCedCoreAssembly
-        {
-            get
-            {
-                if (_coreAssembly == null)
-                {
-                    string path = Path.Combine(PathHelper.AssemblyDir, "ARCed.Core.dll");
-                    _coreAssembly = Assembly.LoadFile(path);
-                }
-                return _coreAssembly;
-            }
-        }
+		/// <summary>
+		/// Gets the assembly instance of the editor
+		/// </summary>
+		public static Assembly ARCedCoreAssembly
+		{
+			get
+			{
+				if (_coreAssembly == null)
+				{
+					string path = Path.Combine(PathHelper.EditorDirectory, "ARCed.Core.dll");
+					_coreAssembly = Assembly.LoadFile(path);
+				}
+				return _coreAssembly;
+			}
+		}
 
-        /// <summary>
-        /// Gets the instance of the ARCed.Xna assembly.
-        /// </summary>
-        public static Assembly XnaAssembly
-        {
-            get
-            {
-                if (_xnaAssembly == null)
-                {
-                    var path = Path.Combine(PathHelper.AssemblyDir, "ARCed.Xna.dll");
-                    _xnaAssembly = Assembly.LoadFile(path);
-                }
-                return _xnaAssembly;
-            }
-        }
+		/// <summary>
+		/// Gets the instance of the ARCed.Xna assembly.
+		/// </summary>
+		public static Assembly XnaAssembly
+		{
+			get
+			{
+				if (_xnaAssembly == null)
+				{
+					var path = Path.Combine(PathHelper.AssemblyDir, "ARCed.Xna.dll");
+					_xnaAssembly = Assembly.LoadFile(path);
+				}
+				return _xnaAssembly;
+			}
+		}
 
 		/// <summary>
 		/// Calculates the parameter value of a curve at the given level
@@ -116,11 +123,11 @@ namespace ARCed.Helpers
 			var linear = Convert.ToInt32(min + pRange * ((level - initial) / lRange));
 			if (speed == 0)
 				return linear;
-		    if (speed < 0)
-		        curve = min + pRange * (float)Math.Pow(((level - initial) / lRange), 2);
-		    else
-		        curve = max - pRange * (float)Math.Pow(((final - level) / lRange), 2);
-		    return ((Convert.ToInt32(curve) * Math.Abs(speed) + linear * (10 - Math.Abs(speed))) / 10);
+			if (speed < 0)
+				curve = min + pRange * (float)Math.Pow(((level - initial) / lRange), 2);
+			else
+				curve = max - pRange * (float)Math.Pow(((final - level) / lRange), 2);
+			return ((Convert.ToInt32(curve) * Math.Abs(speed) + linear * (10 - Math.Abs(speed))) / 10);
 		}
 
 		/// <summary>
@@ -139,20 +146,20 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Copies an embedded resource to an external place on the hard-drive
 		/// </summary>
-        /// <param name="resource">The name of the resource</param>
+		/// <param name="resource">The name of the resource</param>
 		/// <param name="path">The path the resource will be saved to</param>
 		public static void ExtractResource(string resource, string path)
 		{
 			using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
 			using (var resourceFile = new FileStream(path, FileMode.Create))
 			{
-			    if (s != null)
-			    {
-			        var b = new byte[s.Length + 1];
-			        s.Read(b, 0, Convert.ToInt32(s.Length));
-			        resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
-			    }
-			    resourceFile.Flush();
+				if (s != null)
+				{
+					var b = new byte[s.Length + 1];
+					s.Read(b, 0, Convert.ToInt32(s.Length));
+					resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
+				}
+				resourceFile.Flush();
 			}
 		}
 
@@ -178,12 +185,12 @@ namespace ARCed.Helpers
 		public static void ValidateTextBox(TextBox textBox, string replace = "", bool beep = true)
 		{
 			var text = ValidateFilename(textBox.Text, replace);
-		    if (text == textBox.Text) return;
-		    int pos = textBox.SelectionStart - 1;
-		    textBox.Text = text;
-		    if (beep)
-		        SystemSounds.Beep.Play();
-		    textBox.SelectionStart = pos;
+			if (text == textBox.Text) return;
+			int pos = textBox.SelectionStart - 1;
+			textBox.Text = text;
+			if (beep)
+				SystemSounds.Beep.Play();
+			textBox.SelectionStart = pos;
 		}
 
 		/// <summary>
@@ -204,12 +211,12 @@ namespace ARCed.Helpers
 			}
 		}
 
-        /// <summary>
-        /// Generates and returns a random number within the specified range
-        /// </summary>
-        /// <param name="minimum">Minimum value of the number to return</param>
-        /// <param name="maximum">Maximum value of the number to return</param>
-        /// <returns>Random number</returns>
+		/// <summary>
+		/// Generates and returns a random number within the specified range
+		/// </summary>
+		/// <param name="minimum">Minimum value of the number to return</param>
+		/// <param name="maximum">Maximum value of the number to return</param>
+		/// <returns>Random number</returns>
 		public static double GetRandomNumber(double minimum, double maximum)
 		{
 			if (_random == null)
@@ -217,84 +224,84 @@ namespace ARCed.Helpers
 			return _random.NextDouble() * (maximum - minimum) + minimum;
 		}
 
-        /// <summary>
-        /// Saves an object in XML format
-        /// </summary>
-        /// <typeparam name="T">Object type that will be saved</typeparam>
-        /// <param name="path">Path to the file that will be written to</param>
-        /// <param name="data">Object to save</param>
-        public static void SaveXML<T>(string path, T data)
-        {
-            try
-            {
-                var serializer = new XmlSerializer(typeof(T));
-                using (TextWriter writer = new StreamWriter(path, false, Encoding.UTF8))
-                    serializer.Serialize(writer, data);
-            }
-            catch (Exception error) { ShowErrorBox(error); }
-        }
+		/// <summary>
+		/// Saves an object in XML format
+		/// </summary>
+		/// <typeparam name="T">Object type that will be saved</typeparam>
+		/// <param name="path">Path to the file that will be written to</param>
+		/// <param name="data">Object to save</param>
+		public static void SaveXML<T>(string path, T data)
+		{
+			try
+			{
+				var serializer = new XmlSerializer(typeof(T));
+				using (TextWriter writer = new StreamWriter(path, false, Encoding.UTF8))
+					serializer.Serialize(writer, data);
+			}
+			catch (Exception error) { ShowErrorBox(error); }
+		}
 
-        /// <summary>
-        /// Loads an object previously saved in XML format
-        /// </summary>
-        /// <typeparam name="T">Object type that will be restored</typeparam>
-        /// <param name="path">Path to the XML formatted file to load</param>
-        /// <returns>Loaded object</returns>
-        public static T LoadXML<T>(string path) where T : class
-        {
-            try
-            {
-                var serializer = new XmlSerializer(typeof(T));
-                T data;
-                using (TextReader reader = new StreamReader(path, Encoding.UTF8))
-                    data = (T)serializer.Deserialize(reader);
-                return data;
-            }
-            catch (Exception error) { ShowErrorBox(error); }
-            return null;
-        }
+		/// <summary>
+		/// Loads an object previously saved in XML format
+		/// </summary>
+		/// <typeparam name="T">Object type that will be restored</typeparam>
+		/// <param name="path">Path to the XML formatted file to load</param>
+		/// <returns>Loaded object</returns>
+		public static T LoadXML<T>(string path) where T : class
+		{
+			try
+			{
+				var serializer = new XmlSerializer(typeof(T));
+				T data;
+				using (TextReader reader = new StreamReader(path, Encoding.UTF8))
+					data = (T)serializer.Deserialize(reader);
+				return data;
+			}
+			catch (Exception error) { ShowErrorBox(error); }
+			return null;
+		}
 
-        /// <summary>
-        /// Saves an object in binary format
-        /// </summary>
-        /// <param name="path">Path to the file that will be written to</param>
-        /// <param name="data">Object to save</param>
-        public static void SaveBinary(string path, object data)
-        {
-            try
-            {
-                var formatter = new BinaryFormatter();
-                using (Stream stream = File.OpenWrite(path))
-                    formatter.Serialize(stream, data);
-            }
-            catch (Exception error) { ShowErrorBox(error); }
-        }
+		/// <summary>
+		/// Saves an object in binary format
+		/// </summary>
+		/// <param name="path">Path to the file that will be written to</param>
+		/// <param name="data">Object to save</param>
+		public static void SaveBinary(string path, object data)
+		{
+			try
+			{
+				var formatter = new BinaryFormatter();
+				using (Stream stream = File.OpenWrite(path))
+					formatter.Serialize(stream, data);
+			}
+			catch (Exception error) { ShowErrorBox(error); }
+		}
 
-        /// <summary>
-        /// Loads an object previously saved in binary format
-        /// </summary>
-        /// <typeparam name="T">Object type that will be restored</typeparam>
-        /// <param name="path">Path to the binary formatted file to load</param>
-        /// <returns>Loaded object</returns>
-        public static T LoadBinary<T>(string path) where T : class
-        {
-            try
-            {
-                var formatter = new BinaryFormatter();
-                T data;
-                using (Stream stream = File.OpenRead(path))
-                    data = (T)formatter.Deserialize(stream);
-                return data;
-            }
-            catch (Exception error) { ShowErrorBox(error); }
-            return null;
-        }
+		/// <summary>
+		/// Loads an object previously saved in binary format
+		/// </summary>
+		/// <typeparam name="T">Object type that will be restored</typeparam>
+		/// <param name="path">Path to the binary formatted file to load</param>
+		/// <returns>Loaded object</returns>
+		public static T LoadBinary<T>(string path) where T : class
+		{
+			try
+			{
+				var formatter = new BinaryFormatter();
+				T data;
+				using (Stream stream = File.OpenRead(path))
+					data = (T)formatter.Deserialize(stream);
+				return data;
+			}
+			catch (Exception error) { ShowErrorBox(error); }
+			return null;
+		}
 
-        private static void ShowErrorBox(Exception error)
-        {
-            var msg = String.Format("The following error during serialization:\n\n{0}\n\nStack Trace:\n{1}",
-                error.Message, error.StackTrace);
-            MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+		private static void ShowErrorBox(Exception error)
+		{
+			var msg = String.Format("The following error during serialization:\n\n{0}\n\nStack Trace:\n{1}",
+				error.Message, error.StackTrace);
+			MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
 	}
 }

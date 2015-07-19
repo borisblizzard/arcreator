@@ -47,7 +47,7 @@ namespace ARCed.Controls
 		private static bool _mouseDown, _selectionEnabled, _selectionActive, _displayIcons;
 		private static TilesetMode _mode = TilesetMode.Passage;
 		private static Point _originPoint, _endPoint;
-        private static readonly Color _semiTransparent = Color.White * 0.7f;
+		private static readonly Color _semiTransparent = Color.White * 0.7f;
 
 		#endregion
 
@@ -72,8 +72,8 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				return (Constants.MAXWIDTH / Constants.TILESIZE) * 
-				(_tilesetTexture.Height / Constants.TILESIZE); 
+				return (Constants.MAXWIDTH / Constants.TILESIZE) *
+				(_tilesetTexture.Height / Constants.TILESIZE);
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace ARCed.Controls
 		/// Gets or sets the current display mode of the tileset editor.
 		/// </summary>
 		[Browsable(false)]
-		public TilesetMode TilesetMode 
+		public TilesetMode TilesetMode
 		{
 			get { return _mode; }
 			set { _mode = value; Invalidate(); }
@@ -107,9 +107,9 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets or sets the settings used for drawing on the panel.
 		/// </summary>
-        [Browsable(false)]
-        public static ImageColorSettings Settings { get; set; }
-		
+		[Browsable(false)]
+		public static ImageColorSettings Settings { get; set; }
+
 		/// <summary>
 		/// Gets or sets the enabled status of batch selection.
 		/// </summary>
@@ -267,11 +267,11 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Draw()
 		{
-            if (Settings == null)
-            {
-                GraphicsDevice.Clear(Color.White);
-                return;
-            }
+			if (Settings == null)
+			{
+				GraphicsDevice.Clear(Color.White);
+				return;
+			}
 			GraphicsDevice.Clear(Settings.BackgroundColor);
 			if (_tilesetTexture != null)
 			{
@@ -439,9 +439,9 @@ namespace ARCed.Controls
 				foreach (int id in this.SelectedTileIds)
 				{
 					Vector2 vector = this.GetTileVector(id);
-					this.ChangeData(new MouseEventArgs(e.Button, 1, 
+					this.ChangeData(new MouseEventArgs(e.Button, 1,
 						(int)vector.X + (e.X % Constants.TILESIZE),
-						(int)vector.Y + (e.Y % Constants.TILESIZE), 
+						(int)vector.Y + (e.Y % Constants.TILESIZE),
 						0));
 				}
 			}
@@ -466,66 +466,66 @@ namespace ARCed.Controls
 			int id = this.GetTileAtPoint(e.X, e.Y);
 			switch (this.TilesetMode)
 			{
-			    case TilesetMode.Passage:
-			        if ((_tileset.passages[id] & ~0x40 & ~0x80) == 0)
-			            _tileset.passages[id] |= 0x01 | 0x02 | 0x04 | 0x08;
-			        else
-			            _tileset.passages[id] &= ~(0x01 | 0x02 | 0x04 | 0x08);
-			        break;
-			    case TilesetMode.Passage4Dir:
-			    {
-			        const int half = Constants.TILESIZE / 2;
-			        int x = 1 + e.X % Constants.TILESIZE;
-			        int y = 1 + e.Y % Constants.TILESIZE;
-			        var dist = new List<double>
+				case TilesetMode.Passage:
+					if ((_tileset.passages[id] & ~0x40 & ~0x80) == 0)
+						_tileset.passages[id] |= 0x01 | 0x02 | 0x04 | 0x08;
+					else
+						_tileset.passages[id] &= ~(0x01 | 0x02 | 0x04 | 0x08);
+					break;
+				case TilesetMode.Passage4Dir:
+					{
+						const int half = Constants.TILESIZE / 2;
+						int x = 1 + e.X % Constants.TILESIZE;
+						int y = 1 + e.Y % Constants.TILESIZE;
+						var dist = new List<double>
 			        {
 			            Math.Pow(half - x, 2) + Math.Pow(Constants.TILESIZE - y, 2), // Bottom
 			            Math.Pow(x, 2) + Math.Pow(half - y, 2),            // Left
 			            Math.Pow(Constants.TILESIZE - x, 2) + Math.Pow(half - y, 2), // Right
 			            Math.Pow(half - x, 2) + Math.Pow(y, 2)             // Top
 			        };
-			        int index = dist.IndexOf(dist.Min());
-			        int bit = new[] { 0x01, 0x02, 0x04, 0x08 }[index];
-			        if ((_tileset.passages[id] & bit) == bit)
-			            _tileset.passages[id] &= ~bit;
-			        else
-			            _tileset.passages[id] |= bit;
-			    }
-			        break;
-			    case TilesetMode.Priority:
-			        if (e.Button == MouseButtons.Left)
-			            _tileset.priorities[id] = (_tileset.priorities[id] + 1) % Constants.PRIORITIES;
-			        else 
-			        {
-			            _tileset.priorities[id]--;
-			            if (_tileset.priorities[id] < 0)
-			                _tileset.priorities[id] = Constants.PRIORITIES - 1;
-			        }
-			        break;
-			    case TilesetMode.Bush:
-			        if ((_tileset.passages[id] & 0x40) == 0x40)
-			            _tileset.passages[id] &= ~0x40;
-			        else
-			            _tileset.passages[id] |= 0x40;
-			        break;
-			    case TilesetMode.Counter:
-			        if ((_tileset.passages[id] & 0x80) == 0x80)
-			            _tileset.passages[id] &= ~0x80;
-			        else
-			            _tileset.passages[id] |= 0x80;
-			        break;
-			    case TilesetMode.Terrain:
-			        if (e.Button == MouseButtons.Left)
-			            _tileset.terrain_tags[id] = (_tileset.terrain_tags[id] + 1) % Constants.TERRAINS;
-			        else
-			        {
-			            _tileset.terrain_tags[id]--;
-			            if (_tileset.terrain_tags[id] < 0)
-			                _tileset.terrain_tags[id] = Constants.TERRAINS - 1;
-			        }
-			        break;
+						int index = dist.IndexOf(dist.Min());
+						int bit = new[] { 0x01, 0x02, 0x04, 0x08 }[index];
+						if ((_tileset.passages[id] & bit) == bit)
+							_tileset.passages[id] &= ~bit;
+						else
+							_tileset.passages[id] |= bit;
+					}
+					break;
+				case TilesetMode.Priority:
+					if (e.Button == MouseButtons.Left)
+						_tileset.priorities[id] = (_tileset.priorities[id] + 1) % Constants.PRIORITIES;
+					else
+					{
+						_tileset.priorities[id]--;
+						if (_tileset.priorities[id] < 0)
+							_tileset.priorities[id] = Constants.PRIORITIES - 1;
+					}
+					break;
+				case TilesetMode.Bush:
+					if ((_tileset.passages[id] & 0x40) == 0x40)
+						_tileset.passages[id] &= ~0x40;
+					else
+						_tileset.passages[id] |= 0x40;
+					break;
+				case TilesetMode.Counter:
+					if ((_tileset.passages[id] & 0x80) == 0x80)
+						_tileset.passages[id] &= ~0x80;
+					else
+						_tileset.passages[id] |= 0x80;
+					break;
+				case TilesetMode.Terrain:
+					if (e.Button == MouseButtons.Left)
+						_tileset.terrain_tags[id] = (_tileset.terrain_tags[id] + 1) % Constants.TERRAINS;
+					else
+					{
+						_tileset.terrain_tags[id]--;
+						if (_tileset.terrain_tags[id] < 0)
+							_tileset.terrain_tags[id] = Constants.TERRAINS - 1;
+					}
+					break;
 			}
-			Invalidate(); 
+			Invalidate();
 		}
 
 		#endregion

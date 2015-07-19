@@ -7,53 +7,53 @@ using System.Collections.Generic;
 
 namespace ARCed.Scintilla
 {
-    public class SnippetLink
-    {
-        #region Fields
+	public class SnippetLink
+	{
+		#region Fields
 
-        private string _key;
-        private List<SnippetLinkRange> _ranges = new List<SnippetLinkRange>();
+		private string _key;
+		private List<SnippetLinkRange> _ranges = new List<SnippetLinkRange>();
 
-        #endregion Fields
-
-
-        #region Properties
-
-        public string Key
-        {
-            get
-            {
-                return this._key;
-            }
-            set
-            {
-                this._key = value;
-            }
-        }
+		#endregion Fields
 
 
-        public List<SnippetLinkRange> Ranges
-        {
-            get
-            {
-                return this._ranges;
-            }
-            set
-            {
-                this._ranges = value;
-            }
-        }
+		#region Properties
 
-        #endregion Properties
+		public string Key
+		{
+			get
+			{
+				return this._key;
+			}
+			set
+			{
+				this._key = value;
+			}
+		}
 
 
-        #region Constructors
+		public List<SnippetLinkRange> Ranges
+		{
+			get
+			{
+				return this._ranges;
+			}
+			set
+			{
+				this._ranges = value;
+			}
+		}
 
-        public SnippetLink(string key)
-        {
-            this._key = key;
-        }
+		#endregion Properties
 
-        #endregion Constructors
-    }
+
+		#region Constructors
+
+		public SnippetLink(string key)
+		{
+			this._key = key;
+		}
+
+		#endregion Constructors
+	}
 }

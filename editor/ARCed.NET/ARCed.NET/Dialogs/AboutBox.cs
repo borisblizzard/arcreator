@@ -24,22 +24,22 @@ namespace ARCed.Dialogs
 	/// Generic, self-contained About Box dialog
 	/// </summary>
 	public partial class AboutBox : Form
-    {
-        #region Private Fields
+	{
+		#region Private Fields
 
-        private bool _isPainted;
-        private string _entryAssemblyName;
-        private string _callingAssemblyName;
-        private string _executingAssemblyName;
-        private Assembly _entryAssembly;
-        private NameValueCollection _entryAssemblyAttribCollection;
-        private int _minWindowHeight;
+		private bool _isPainted;
+		private string _entryAssemblyName;
+		private string _callingAssemblyName;
+		private string _executingAssemblyName;
+		private Assembly _entryAssembly;
+		private NameValueCollection _entryAssemblyAttribCollection;
+		private int _minWindowHeight;
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
+		/// <summary>
 		/// Creates a new instance of the custom AboutBox object
 		/// </summary>
 		public AboutBox()
@@ -47,11 +47,11 @@ namespace ARCed.Dialogs
 			this.InitializeComponent();
 		}
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        /// <summary>
+		/// <summary>
 		/// Returns the entry assembly for the current application domain
 		/// </summary>
 		/// <remarks>
@@ -215,20 +215,20 @@ namespace ARCed.Dialogs
 			}
 		}
 
-        /// <summary>
-        /// Determines if the "Details" (advanced assembly details) button is shown
-        /// </summary>
-        public bool AppDetailsButton
-        {
-            get { return this.DetailsButton.Visible; }
-            set { this.DetailsButton.Visible = value; }
-        }
+		/// <summary>
+		/// Determines if the "Details" (advanced assembly details) button is shown
+		/// </summary>
+		public bool AppDetailsButton
+		{
+			get { return this.DetailsButton.Visible; }
+			set { this.DetailsButton.Visible = value; }
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private static DateTime AssemblyLastWriteTime(Assembly a)
+		private static DateTime AssemblyLastWriteTime(Assembly a)
 		{
 			try
 			{
@@ -279,7 +279,7 @@ namespace ARCed.Dialogs
 		{
 			string typeName;
 			string name;
-		    string value = "";
+			string value = "";
 			var nvc = new NameValueCollection();
 			var r = new Regex(@"(\.Assembly|\.)(?<Name>[^.]*)Attribute$", RegexOptions.IgnoreCase);
 			foreach (object attrib in a.GetCustomAttributes(false))
@@ -329,7 +329,7 @@ namespace ARCed.Dialogs
 						value = ((GuidAttribute)attrib).Value; break;
 					case "System.Runtime.InteropServices.TypeLibVersionAttribute":
 						{
-						    var x = ((TypeLibVersionAttribute)attrib);
+							var x = ((TypeLibVersionAttribute)attrib);
 							value = x.MajorVersion + "." + x.MinorVersion; break;
 						}
 					case "System.Security.AllowPartiallyTrustedCallersAttribute":
@@ -354,9 +354,9 @@ namespace ARCed.Dialogs
 			}
 			// build date
 			var dt = AssemblyBuildDate(a, false);
-		    nvc.Add("BuildDate", dt == DateTime.MaxValue ? "(unknown)" : 
-                dt.ToString("yyyy-MM-dd hh:mm tt"));
-		    // location
+			nvc.Add("BuildDate", dt == DateTime.MaxValue ? "(unknown)" :
+				dt.ToString("yyyy-MM-dd hh:mm tt"));
+			// location
 			try
 			{
 				nvc.Add("Location", a.Location);
@@ -392,14 +392,14 @@ namespace ARCed.Dialogs
 			RegistryKey rk;
 			try
 			{
-			    rk = Registry.LocalMachine.OpenSubKey(keyName);
-			    if (rk != null) return (string)rk.GetValue(subKeyRef, "");
+				rk = Registry.LocalMachine.OpenSubKey(keyName);
+				if (rk != null) return (string)rk.GetValue(subKeyRef, "");
 			}
 			catch (Exception)
 			{
 				return "";
 			}
-		    return "";
+			return "";
 		}
 
 		private void ShowSysInfo()
@@ -441,9 +441,9 @@ namespace ARCed.Dialogs
 				return;
 			var lvi = new ListViewItem
 			{
-			    Text = key
+				Text = key
 			};
-		    lvi.SubItems.Add(value);
+			lvi.SubItems.Add(value);
 			lvw.Items.Add(lvi);
 		}
 
@@ -480,10 +480,10 @@ namespace ARCed.Dialogs
 			var strAssemblyName = a.GetName().Name;
 			var lvi = new ListViewItem
 			{
-			    Text = strAssemblyName,
-			    Tag = strAssemblyName
+				Text = strAssemblyName,
+				Tag = strAssemblyName
 			};
-		    if (strAssemblyName == this._callingAssemblyName)
+			if (strAssemblyName == this._callingAssemblyName)
 			{
 				lvi.Text += " (calling)";
 			}
@@ -504,14 +504,14 @@ namespace ARCed.Dialogs
 
 		private string EntryAssemblyAttrib(string strName)
 		{
-		    if (this._entryAssemblyAttribCollection[strName] == null)
+			if (this._entryAssemblyAttribCollection[strName] == null)
 			{
 				return "<Assembly: Assembly" + strName + "(\"\")>";
 			}
-		    return this._entryAssemblyAttribCollection[strName];
+			return this._entryAssemblyAttribCollection[strName];
 		}
 
-	    private void PopulateLabels()
+		private void PopulateLabels()
 		{
 			this._entryAssemblyAttribCollection = this.AssemblyAttribs(this._entryAssembly);
 			if (Owner == null)
@@ -577,10 +577,10 @@ namespace ARCed.Dialogs
 
 		private static Assembly MatchAssemblyByName(string assemblyName)
 		{
-		    return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == assemblyName);
+			return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == assemblyName);
 		}
 
-	    private void AboutBoxLoad(object sender, EventArgs e)
+		private void AboutBoxLoad(object sender, EventArgs e)
 		{
 			if (this._entryAssembly == null)
 			{
@@ -609,12 +609,12 @@ namespace ARCed.Dialogs
 
 		private void AboutBoxPaint(object sender, PaintEventArgs e)
 		{
-		    if (this._isPainted) return;
-		    this._isPainted = true;
-		    Application.DoEvents();
-		    Cursor.Current = Cursors.WaitCursor;
-		    this.PopulateLabels();
-		    Cursor.Current = Cursors.Default;
+			if (this._isPainted) return;
+			this._isPainted = true;
+			Application.DoEvents();
+			Cursor.Current = Cursors.WaitCursor;
+			this.PopulateLabels();
+			Cursor.Current = Cursors.Default;
 		}
 
 		private void DetailsButtonClick(object sender, EventArgs e)
@@ -684,61 +684,61 @@ namespace ARCed.Dialogs
 			}
 		}
 
-        private void TabPanelDetailsSelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.TabPanelDetails.SelectedTab == this.TabPageAssemblyDetails)
-                this.AssemblyNamesComboBox.Focus();
-        }
+		private void TabPanelDetailsSelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (this.TabPanelDetails.SelectedTab == this.TabPageAssemblyDetails)
+				this.AssemblyNamesComboBox.Focus();
+		}
 
-        #endregion
+		#endregion
 
-        /// <summary>
-        /// Class used for comparing <see cref="ListViewItem"/> objects. 
-        /// </summary>
+		/// <summary>
+		/// Class used for comparing <see cref="ListViewItem"/> objects. 
+		/// </summary>
 		class ListViewItemComparer : IComparer
-        {
-            #region Private Fields
+		{
+			#region Private Fields
 
-            private readonly int _intCol;
+			private readonly int _intCol;
 			private readonly bool _isAscending = true;
 
-            #endregion
+			#endregion
 
-            #region Constructor
+			#region Constructor
 
-            /// <summary>
-            /// Default constructor
-            /// </summary>
+			/// <summary>
+			/// Default constructor
+			/// </summary>
 			public ListViewItemComparer()
 			{
 				this._intCol = 0;
 				this._isAscending = true;
 			}
 
-            /// <summary>
-            /// Default constructor
-            /// </summary>
-            /// <param name="column">Column index</param>
-            /// <param name="ascending">Flag if sort method should be ascending or descending</param>
+			/// <summary>
+			/// Default constructor
+			/// </summary>
+			/// <param name="column">Column index</param>
+			/// <param name="ascending">Flag if sort method should be ascending or descending</param>
 			public ListViewItemComparer(int column, bool ascending)
-            {
-                this._isAscending = column >= 0 && @ascending;
-                this._intCol = Math.Abs(column) - 1;
-            }
-
-            #endregion
-
-            /// <summary>
-            /// Compares to objects and returns the result of the comparison.
-            /// </summary>
-            /// <param name="x">First object to compare</param>
-            /// <param name="y">Second object to compare.</param>
-            /// <returns>Result of comparison.</returns>
-            public int Compare(object x, object y)
 			{
-				var intResult = String.CompareOrdinal(((ListViewItem)x).SubItems[this._intCol].Text, 
-                    ((ListViewItem)y).SubItems[this._intCol].Text);
-                return (this._isAscending) ? intResult : -intResult;
+				this._isAscending = column >= 0 && @ascending;
+				this._intCol = Math.Abs(column) - 1;
+			}
+
+			#endregion
+
+			/// <summary>
+			/// Compares to objects and returns the result of the comparison.
+			/// </summary>
+			/// <param name="x">First object to compare</param>
+			/// <param name="y">Second object to compare.</param>
+			/// <returns>Result of comparison.</returns>
+			public int Compare(object x, object y)
+			{
+				var intResult = String.CompareOrdinal(((ListViewItem)x).SubItems[this._intCol].Text,
+					((ListViewItem)y).SubItems[this._intCol].Text);
+				return (this._isAscending) ? intResult : -intResult;
 			}
 		}
 	}

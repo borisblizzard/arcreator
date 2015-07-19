@@ -55,7 +55,7 @@ namespace ARCed.UI
 				return;
 			}
 
-			base.WndProc (ref m);
+			base.WndProc(ref m);
 		}
 
 		public virtual void Show(bool bActivate)

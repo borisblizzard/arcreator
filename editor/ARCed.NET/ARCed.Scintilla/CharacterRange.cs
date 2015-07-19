@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 
 namespace ARCed.Scintilla
 {
-    // TODO Make internal
-    [StructLayout(LayoutKind.Sequential)]
-    public struct CharacterRange
-    {
-        public int cpMin;
-        public int cpMax;
-    }
+	// TODO Make internal
+	[StructLayout(LayoutKind.Sequential)]
+	public struct CharacterRange
+	{
+		public int cpMin;
+		public int cpMax;
+	}
 }

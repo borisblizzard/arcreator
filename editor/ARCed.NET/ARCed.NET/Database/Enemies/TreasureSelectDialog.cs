@@ -15,9 +15,9 @@ namespace ARCed.Database.Enemies
 	{
 		#region Public Properties
 
-        /// <summary>
-        /// Gets the ID of the <see cref="RPG.Item"/> defined in the dialog
-        /// </summary>
+		/// <summary>
+		/// Gets the ID of the <see cref="RPG.Item"/> defined in the dialog
+		/// </summary>
 		public int ItemId
 		{
 			get
@@ -41,9 +41,9 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-        /// <summary>
-        /// Gets the ID of the <see cref="RPG.Armor"/> defined in the dialog
-        /// </summary>
+		/// <summary>
+		/// Gets the ID of the <see cref="RPG.Armor"/> defined in the dialog
+		/// </summary>
 		public int ArmorId
 		{
 			get
@@ -59,7 +59,7 @@ namespace ARCed.Database.Enemies
 		/// </summary>
 		public int TreasureProbablity
 		{
-			get { return (int)this.numericUpDownPropability.Value; } 
+			get { return (int)this.numericUpDownPropability.Value; }
 		}
 
 		#endregion

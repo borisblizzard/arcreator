@@ -8,7 +8,7 @@
     <ProjectGuid>{A8CABA22-80D4-48A9-B3D0-EF358D12F301}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ARCed.Controls</RootNamespace>
+    <RootNamespace>ARCed.Xna</RootNamespace>
     <AssemblyName>ARCed.Xna</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -36,7 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -109,12 +109,6 @@
     <Compile Include="AnimationXnaPanel.Designer.cs">
       <DependentUpon>AnimationXnaPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="TilesetSelectionPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TilesetSelectionPanel.Designer.cs">
-      <DependentUpon>TilesetSelectionPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -155,25 +149,11 @@
     <Compile Include="XnaExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
-      <Project>{0890E629-23C8-462E-B836-AA05ABD22E17}</Project>
-      <Name>ARCed.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.Project\ARCed.Project.csproj">
-      <Project>{CB4B14CC-7F28-47E3-8BAE-8ACB3B80CFAA}</Project>
-      <Name>ARCed.Project</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="AnimationSourceXnaPanel.resx">
       <DependentUpon>AnimationSourceXnaPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AnimationXnaPanel.resx">
       <DependentUpon>AnimationXnaPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TilesetSelectionPanel.resx">
-      <DependentUpon>TilesetSelectionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageSelectXnaPanel.resx">
       <DependentUpon>ImageSelectXnaPanel.cs</DependentUpon>
@@ -288,6 +268,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\terrain6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
+      <Project>{0890e629-23c8-462e-b836-aa05abd22e17}</Project>
+      <Name>ARCed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Project\ARCed.Project.csproj">
+      <Project>{cb4b14cc-7f28-47e3-8bae-8acb3b80cfaa}</Project>
+      <Name>ARCed.Project</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

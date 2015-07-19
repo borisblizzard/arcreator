@@ -47,20 +47,20 @@ namespace ARCed.Settings
 		/// Gets or sets the maximum number of recently opened projects to display
 		/// </summary>
 		/// <remarks>The maximum number of recently items is 16</remarks>
-		public int MaxRecent 
+		public int MaxRecent
 		{
 			get { return this._maxRecent; }
 			set { this._maxRecent = value.Clamp(0, 16); }
 		}
 		/// <summary>
-        /// Gets or sets the <see cref="DockPanelSkin"/> property. These 
+		/// Gets or sets the <see cref="DockPanelSkin"/> property. These 
 		/// settings are used for the styling of the editor windows
 		/// </summary>
 		/// <remarks>These settings are stored their own file.</remarks>
 		[XmlIgnore]
 		public DockPanelSkin WindowSkin { get; set; }
 		/// <summary>
-        /// Gets or sets the <see cref="ScriptSettings"/> property. These 
+		/// Gets or sets the <see cref="ScriptSettings"/> property. These 
 		/// settings are used for all the styling and behavior of the script editor.
 		/// </summary>
 		/// <remarks>These settings are stored their own file.</remarks>
@@ -74,8 +74,8 @@ namespace ARCed.Settings
 		/// Gets or sets the font used for notepads
 		/// </summary>
 		[XmlIgnore]
-		public Font NoteFont 
-		{ 
+		public Font NoteFont
+		{
 			get { return this.SerializedNoteFont; }
 			set { this.SerializedNoteFont = value; }
 		}
@@ -136,7 +136,7 @@ namespace ARCed.Settings
 			}
 			catch (IOException)
 			{
-				MessageBox.Show("Failed to save ARCed.NET settings.\nFile(s) are locked by another process.", 
+				MessageBox.Show("Failed to save ARCed.NET settings.\nFile(s) are locked by another process.",
 					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}

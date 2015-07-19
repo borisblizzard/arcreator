@@ -7,47 +7,47 @@ using System.Runtime.InteropServices;
 
 namespace ARCed.Scintilla
 {
-    /// <summary>
-    ///     Struct used for specifying the printing bounds
-    /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
-    public struct PrintRectangle
-    {
-        #region Fields
+	/// <summary>
+	///     Struct used for specifying the printing bounds
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public struct PrintRectangle
+	{
+		#region Fields
 
-        /// <summary>
-        ///  Left X Bounds Coordinate
-        /// </summary>
-        public int Left;
+		/// <summary>
+		///  Left X Bounds Coordinate
+		/// </summary>
+		public int Left;
 
-        /// <summary>
-        ///     Top Y Bounds Coordinate
-        /// </summary>
-        public int Top;
+		/// <summary>
+		///     Top Y Bounds Coordinate
+		/// </summary>
+		public int Top;
 
-        /// <summary>
-        ///     Right X Bounds Coordinate
-        /// </summary>
-        public int Right;
+		/// <summary>
+		///     Right X Bounds Coordinate
+		/// </summary>
+		public int Right;
 
-        /// <summary>
-        ///     FixedY Y Bounds Coordinate
-        /// </summary>
-        public int Bottom;
+		/// <summary>
+		///     FixedY Y Bounds Coordinate
+		/// </summary>
+		public int Bottom;
 
-        #endregion Fields
+		#endregion Fields
 
 
-        #region Constructors
+		#region Constructors
 
-        public PrintRectangle(int iLeft, int iTop, int iRight, int iBottom)
-        {
-            this.Left = iLeft;
-            this.Top = iTop;
-            this.Right = iRight;
-            this.Bottom = iBottom;
-        }
+		public PrintRectangle(int iLeft, int iTop, int iRight, int iBottom)
+		{
+			this.Left = iLeft;
+			this.Top = iTop;
+			this.Right = iRight;
+			this.Bottom = iBottom;
+		}
 
-        #endregion Constructors
-    }
+		#endregion Constructors
+	}
 }

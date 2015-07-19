@@ -19,7 +19,7 @@ namespace ARCed.Controls
 			container.Add(this);
 			this.InitializeComponent();
 		}
-		
+
 		private void StatusBarToolTip_Popup(object sender, PopupEventArgs e)
 		{
 			Editor.StatusBar.Items[2].Text = GetToolTip(e.AssociatedControl);

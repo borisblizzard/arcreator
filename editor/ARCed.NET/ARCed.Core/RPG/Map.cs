@@ -6,55 +6,55 @@ using System.Collections.Generic;
 
 namespace RPG
 {
-    /// <summary>
-    /// Data class for maps.
-    /// </summary>
+	/// <summary>
+	/// Data class for maps.
+	/// </summary>
 	public class Map
 	{
-        /// <summary>
-        /// Tileset ID to be used in the map.
-        /// </summary>
+		/// <summary>
+		/// Tileset ID to be used in the map.
+		/// </summary>
 		public int tileset_id { get; set; }
-        /// <summary>
-        /// The map width.
-        /// </summary>
+		/// <summary>
+		/// The map width.
+		/// </summary>
 		public int width { get; set; }
-        /// <summary>
-        /// The map height.
-        /// </summary>
+		/// <summary>
+		/// The map height.
+		/// </summary>
 		public int height { get; set; }
-        /// <summary>
-        /// Truth-value of whether BGM autoswitching is enabled.
-        /// </summary>
+		/// <summary>
+		/// Truth-value of whether BGM autoswitching is enabled.
+		/// </summary>
 		public bool autoplay_bgm { get; set; }
-        /// <summary>
-        /// If BGM autoswitching is enabled, the name of that BGM (<see cref="RPG.AudioFile"/>).
-        /// </summary>
+		/// <summary>
+		/// If BGM autoswitching is enabled, the name of that BGM (<see cref="RPG.AudioFile"/>).
+		/// </summary>
 		public AudioFile bgm { get; set; }
-        /// <summary>
-        /// Truth-value of whether BGS autoswitching is enabled.
-        /// </summary>
+		/// <summary>
+		/// Truth-value of whether BGS autoswitching is enabled.
+		/// </summary>
 		public bool autoplay_bgs { get; set; }
-        /// <summary>
-        /// If BGS autoswitching is enabled, the name of that BGS (<see cref="RPG.AudioFile"/>).
-        /// </summary>
+		/// <summary>
+		/// If BGS autoswitching is enabled, the name of that BGS (<see cref="RPG.AudioFile"/>).
+		/// </summary>
 		public AudioFile bgs { get; set; }
-        /// <summary>
-        /// Encounter list. A troop ID collection.
-        /// </summary>
+		/// <summary>
+		/// Encounter list. A troop ID collection.
+		/// </summary>
 		public List<dynamic> encounter_list { get; set; }
-        /// <summary>
-        /// Encounter list. A troop ID array.
-        /// </summary>
+		/// <summary>
+		/// Encounter list. A troop ID array.
+		/// </summary>
 		public int encounter_step { get; set; }
-        /// <summary>
-        /// The map data. A 3-dimensional tile ID <see cref="Table"/>.
-        /// </summary>
+		/// <summary>
+		/// The map data. A 3-dimensional tile ID <see cref="Table"/>.
+		/// </summary>
 		public Table data { get; set; }
-        /// <summary>
-        /// Map events. A dictionary that represents RPG.Event instances as 
-        /// values, using event IDs as the keys.
-        /// </summary>
+		/// <summary>
+		/// Map events. A dictionary that represents RPG.Event instances as 
+		/// values, using event IDs as the keys.
+		/// </summary>
 		public Dictionary<dynamic, dynamic> events { get; set; }
 
 		/// <summary>
@@ -75,15 +75,16 @@ namespace RPG
 			this.events = new Dictionary<dynamic, dynamic>();
 		}
 
-	    /// <summary>
-        /// Creates a new instance of an RPG.Map.
-        /// </summary>
-        /// <param name="width">The map width.</param>
-        /// <param name="height">The map height.</param>
-		public Map(int width, int height) : this()
-	    {
-		    this.width = width;
-		    this.height = height;
-	    }
+		/// <summary>
+		/// Creates a new instance of an RPG.Map.
+		/// </summary>
+		/// <param name="width">The map width.</param>
+		/// <param name="height">The map height.</param>
+		public Map(int width, int height)
+			: this()
+		{
+			this.width = width;
+			this.height = height;
+		}
 	}
 }

@@ -344,22 +344,20 @@
     <None Include="Resources\foldexpand.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
-      <Project>{0890E629-23C8-462E-B836-AA05ABD22E17}</Project>
-      <Name>ARCed.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\ARCed.Project\ARCed.Project.csproj">
-      <Project>{CB4B14CC-7F28-47E3-8BAE-8ACB3B80CFAA}</Project>
-      <Name>ARCed.Project</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\truetype.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\find3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
+      <Project>{0890e629-23c8-462e-b836-aa05abd22e17}</Project>
+      <Name>ARCed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Project\ARCed.Project.csproj">
+      <Project>{cb4b14cc-7f28-47e3-8bae-8acb3b80cfaa}</Project>
+      <Name>ARCed.Project</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

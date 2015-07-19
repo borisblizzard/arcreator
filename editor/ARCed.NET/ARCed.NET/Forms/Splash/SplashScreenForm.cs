@@ -13,10 +13,10 @@ namespace ARCed.Forms.Splash
 		delegate void StringParameterWithStatusDelegate(string Text, TypeOfMessage tom);
 		delegate void SplashShowCloseDelegate();
 
-	    /// <summary>
-	    /// To ensure splash screen is closed using the API and not by keyboard or any other things
-	    /// </summary>
-	    private bool CloseSplashScreenFlag;
+		/// <summary>
+		/// To ensure splash screen is closed using the API and not by keyboard or any other things
+		/// </summary>
+		private bool CloseSplashScreenFlag;
 
 		/// <summary>
 		/// Base constructor

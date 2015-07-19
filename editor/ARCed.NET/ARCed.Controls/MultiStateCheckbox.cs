@@ -16,10 +16,10 @@ namespace ARCed.Controls
 	{
 		#region Private Fields
 
-		private static readonly Font _font = 
+		private static readonly Font _font =
 			new Font("Arial Black", 11, FontStyle.Regular, GraphicsUnit.Pixel);
 
-	    private int _stateIndex;
+		private int _stateIndex;
 
 		#endregion
 
@@ -56,7 +56,7 @@ namespace ARCed.Controls
 		public int SelectedState
 		{
 			get { return this._stateIndex; }
-			set { this._stateIndex = value; Invalidate(); } 
+			set { this._stateIndex = value; Invalidate(); }
 		}
 
 		/// <summary>
@@ -65,12 +65,12 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public Color CurrentColor
 		{
-			get 
+			get
 			{
 				if (this.CharColors.Length > 0)
 				{
 					int colorIndex = this._stateIndex % this.CharColors.Length;
-						return this.CharColors[colorIndex];
+					return this.CharColors[colorIndex];
 				}
 				return Color.Black;
 			}

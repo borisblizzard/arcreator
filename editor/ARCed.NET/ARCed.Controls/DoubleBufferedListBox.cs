@@ -15,7 +15,8 @@ namespace ARCed.Controls
 	[Description("ListBox control with double-buffering.")]
 	public partial class DoubleBufferedListBox : ListBox
 	{
-		public DoubleBufferedListBox() {
+		public DoubleBufferedListBox()
+		{
 			DoubleBuffered = true;
 		}
 	}

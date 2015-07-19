@@ -24,7 +24,7 @@ namespace ARCed
 			Runtime.Debug = args.Contains("-d") || args.Contains("-debug");
 			Runtime.Logging = args.Contains("-l") || args.Contains("-logging");
 			Runtime.Legacy = args.Contains("-x") || args.Contains("-legacy");
-            Runtime.Portable = args.Contains("-p") || args.Contains("-portable");
+			Runtime.Portable = args.Contains("-p") || args.Contains("-portable");
 			if (Runtime.Debug)
 			{
 				NativeMethods.AllocConsole();
@@ -36,7 +36,7 @@ namespace ARCed
 				Console.WriteLine();
 			}
 			string filename = args.Count > 0 ? args[0] : null;
-            PathHelper.EditorPath = Application.ExecutablePath;
+			PathHelper.EditorPath = Application.ExecutablePath;
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new Editor(filename));

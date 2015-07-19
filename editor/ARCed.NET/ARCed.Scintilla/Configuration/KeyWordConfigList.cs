@@ -7,15 +7,15 @@ using System.Collections.ObjectModel;
 
 namespace ARCed.Scintilla.Configuration
 {
-    public class KeyWordConfigList : KeyedCollection<int, KeyWordConfig>
-    {
-        #region Methods
+	public class KeyWordConfigList : KeyedCollection<int, KeyWordConfig>
+	{
+		#region Methods
 
-        protected override int GetKeyForItem(KeyWordConfig item)
-        {
-            return item.List;
-        }
+		protected override int GetKeyForItem(KeyWordConfig item)
+		{
+			return item.List;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

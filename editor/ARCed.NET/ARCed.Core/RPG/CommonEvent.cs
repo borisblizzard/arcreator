@@ -6,47 +6,46 @@ using System.Collections.Generic;
 
 namespace RPG
 {
-    /// <summary>
-    /// Data class for common events.
-    /// </summary>
+	/// <summary>
+	/// Data class for common events.
+	/// </summary>
 	public class CommonEvent : IRpgObject
 	{
-        /// <summary>
-        /// The event ID.
-        /// </summary>
+		/// <summary>
+		/// The event ID.
+		/// </summary>
 		public int id { get; set; }
-        /// <summary>
-        /// The event name.
-        /// </summary>
+		/// <summary>
+		/// The event name.
+		/// </summary>
 		public string name { get; set; }
-        /// <summary>
-        /// The event trigger (0: none, 1: autorun; 2: parallel).
-        /// </summary>
+		/// <summary>
+		/// The event trigger (0: none, 1: autorun; 2: parallel).
+		/// </summary>
 		public int trigger { get; set; }
-        /// <summary>
-        /// The condition switch ID.
-        /// </summary>
+		/// <summary>
+		/// The condition switch ID.
+		/// </summary>
 		public int switch_id { get; set; }
-        /// <summary>
-        /// List of event commands. A collection of <see cref="RPG.EventCommand"/> pbjects.
-        /// </summary>
+		/// <summary>
+		/// List of event commands. A collection of <see cref="RPG.EventCommand"/> pbjects.
+		/// </summary>
 		public List<dynamic> list { get; set; }
 
-        /// <summary>
-        /// Creates a new instance of an RPG.CommonEvent.
-        /// </summary>
+		/// <summary>
+		/// Creates a new instance of an RPG.CommonEvent.
+		/// </summary>
 		public CommonEvent()
 		{
 			this.id = 0;
 			this.name = "";
 			this.trigger = 0;
 			this.switch_id = 1;
-			this.list = new List<dynamic>
-			{ new EventCommand() };
+			this.list = new List<dynamic> { new EventCommand() };
 		}
 
 		/// <summary>
-        /// Returns a <see langword="string"/> that represents the current object.
+		/// Returns a <see langword="string"/> that represents the current object.
 		/// </summary>
 		/// <returns>String representation of object.</returns>
 		public override string ToString()

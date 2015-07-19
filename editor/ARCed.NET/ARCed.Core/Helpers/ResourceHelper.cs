@@ -8,10 +8,10 @@ using ARCed.Core;
 
 namespace ARCed.Helpers
 {
-    /// <summary>
-    /// Static class that handles finding, organizing, and getting resources automatically from 
-    /// both ther local directory and installed RTP directory if there is one.
-    /// </summary>
+	/// <summary>
+	/// Static class that handles finding, organizing, and getting resources automatically from 
+	/// both ther local directory and installed RTP directory if there is one.
+	/// </summary>
 	public static class ResourceHelper
 	{
 
@@ -22,36 +22,36 @@ namespace ARCed.Helpers
 		//private static FileSystemWatcher _scriptWatcher;
 		private static List<GameResource> _resources;
 
-	    #endregion
+		#endregion
 
 		#region Public Properties
 
-        /// <summary>
-        /// File watcher for RTP resources.
-        /// </summary>
-        public static FileSystemWatcher RtpWatcher
-        {
-            get { return _rtpWatcher; }
-        }
+		/// <summary>
+		/// File watcher for RTP resources.
+		/// </summary>
+		public static FileSystemWatcher RtpWatcher
+		{
+			get { return _rtpWatcher; }
+		}
 
-        /// <summary>
-        /// File watcher for local project resources.
-        /// </summary>
-        public static FileSystemWatcher LocalWatcher
-        {
-            get { return _localWatcher; }
-        }
+		/// <summary>
+		/// File watcher for local project resources.
+		/// </summary>
+		public static FileSystemWatcher LocalWatcher
+		{
+			get { return _localWatcher; }
+		}
 		/// <summary>
 		/// Gets an array of filters used for searching resources
 		/// </summary>
 		public static string[] Filters
 		{
-            get
-            {
-                var filters = string.Join("|", Constants.IMAGEFILTERS, 
-                    Constants.AUDIOFILTERS, Constants.SCRIPTFILTERS);
-                return filters.Split('|');
-            }
+			get
+			{
+				var filters = string.Join("|", Constants.IMAGEFILTERS,
+					Constants.AUDIOFILTERS, Constants.SCRIPTFILTERS);
+				return filters.Split('|');
+			}
 		}
 		/// <summary>
 		/// Gets a collection of all resources used by the project, both RTP and local, audio and graphics.
@@ -147,31 +147,30 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static void Initialize()
 		{
-		    if (IsInitialized) return;
-		    _resources = new List<GameResource>();
-		    _localWatcher = new FileSystemWatcher(".") {IncludeSubdirectories = true, EnableRaisingEvents = false};
-		    //_scriptWatcher = new FileSystemWatcher(".");
-		    _localWatcher.Created += FileSystemWatcherCreated;
-		    _localWatcher.Deleted += FileSystemWatcherDeleted;
-		    _localWatcher.Renamed += FileSystemWatcherRenamed;
-		    if (Directory.Exists(Constants.RTPPath))
-		    {
-		        _rtpWatcher = new FileSystemWatcher(Constants.RTPPath)
-		                          { IncludeSubdirectories = true, EnableRaisingEvents = true };
-		        _rtpWatcher.Created += FileSystemWatcherCreated;
-		        _rtpWatcher.Deleted += FileSystemWatcherDeleted;
-		        _rtpWatcher.Renamed += FileSystemWatcherRenamed;
-		        RefreshRTP();
-		    }
-		    IsInitialized = true;
+			if (IsInitialized) return;
+			_resources = new List<GameResource>();
+			_localWatcher = new FileSystemWatcher(".") { IncludeSubdirectories = true, EnableRaisingEvents = false };
+			//_scriptWatcher = new FileSystemWatcher(".");
+			_localWatcher.Created += FileSystemWatcherCreated;
+			_localWatcher.Deleted += FileSystemWatcherDeleted;
+			_localWatcher.Renamed += FileSystemWatcherRenamed;
+			if (Directory.Exists(Constants.RTPPath))
+			{
+				_rtpWatcher = new FileSystemWatcher(Constants.RTPPath) { IncludeSubdirectories = true, EnableRaisingEvents = true };
+				_rtpWatcher.Created += FileSystemWatcherCreated;
+				_rtpWatcher.Deleted += FileSystemWatcherDeleted;
+				_rtpWatcher.Renamed += FileSystemWatcherRenamed;
+				RefreshRTP();
+			}
+			IsInitialized = true;
 		}
 
-	    /// <summary>
-	    /// Gets the initialized status of the system
-	    /// </summary>
-	    public static bool IsInitialized { get; private set; }
+		/// <summary>
+		/// Gets the initialized status of the system
+		/// </summary>
+		public static bool IsInitialized { get; private set; }
 
-	    /// <summary>
+		/// <summary>
 		/// Recursively searches a directory for filenames using the given filters
 		/// </summary>
 		/// <param name="rootDir">Root directory to begin search</param>
@@ -198,7 +197,7 @@ namespace ARCed.Helpers
 			var audio = Path.Combine(Constants.RTPPath, "Audio");
 			foreach (var filename in DirectorySearch(graphics, Constants.IMAGEFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.RTP, ResourceType.Graphics));
-            foreach (var filename in DirectorySearch(audio, Constants.AUDIOFILTERS.Split('|')))
+			foreach (var filename in DirectorySearch(audio, Constants.AUDIOFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.RTP, ResourceType.Audio));
 		}
 
@@ -208,9 +207,9 @@ namespace ARCed.Helpers
 		public static void RefreshLocal()
 		{
 			_resources.RemoveAll(r => r.Location == Location.Local);
-            foreach (var filename in DirectorySearch("Graphics", Constants.IMAGEFILTERS.Split('|')))
+			foreach (var filename in DirectorySearch("Graphics", Constants.IMAGEFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.Local, ResourceType.Graphics));
-            foreach (var filename in DirectorySearch("Audio", Constants.AUDIOFILTERS.Split('|')))
+			foreach (var filename in DirectorySearch("Audio", Constants.AUDIOFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.Local, ResourceType.Audio));
 		}
 

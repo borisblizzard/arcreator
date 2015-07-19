@@ -9,10 +9,10 @@ namespace ARCed.UI
 {
 	public class DockPaneCollection : ReadOnlyCollection<DockPane>
 	{
-        internal DockPaneCollection()
-            : base(new List<DockPane>())
-        {
-        }
+		internal DockPaneCollection()
+			: base(new List<DockPane>())
+		{
+		}
 
 		internal int Add(DockPane pane)
 		{
@@ -20,14 +20,14 @@ namespace ARCed.UI
 				return Items.IndexOf(pane);
 
 			Items.Add(pane);
-            return Count - 1;
+			return Count - 1;
 		}
 
 		internal void AddAt(DockPane pane, int index)
 		{
 			if (index < 0 || index > Items.Count - 1)
 				return;
-			
+
 			if (Contains(pane))
 				return;
 
@@ -36,7 +36,7 @@ namespace ARCed.UI
 
 		internal void Dispose()
 		{
-			for (int i=Count - 1; i>=0; i--)
+			for (int i = Count - 1; i >= 0; i--)
 				this[i].Close();
 		}
 

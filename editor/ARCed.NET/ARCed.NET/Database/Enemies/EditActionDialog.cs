@@ -9,30 +9,30 @@ using RPG;
 
 namespace ARCed.Database.Enemies
 {
-    /// <summary>
-    /// Dialog for getting user-defined <see cref="RPG.Enemy.Action"/>.
-    /// </summary>
+	/// <summary>
+	/// Dialog for getting user-defined <see cref="RPG.Enemy.Action"/>.
+	/// </summary>
 	public partial class EditActionDialog : Form
-    {
-        #region Public Properties
+	{
+		#region Public Properties
 
-        /// <summary>
-        /// Gets or sets the <see cref="RPG.Enemy.Action"/> defined on the form.
-        /// </summary>
-        public Enemy.Action EnemyAction 
+		/// <summary>
+		/// Gets or sets the <see cref="RPG.Enemy.Action"/> defined on the form.
+		/// </summary>
+		public Enemy.Action EnemyAction
 		{
 			get { return this.GetAction(); }
 			set { this.SetAction(value); }
 		}
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public EditActionDialog()
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public EditActionDialog()
 		{
 			this.InitializeComponent();
 			this.RefreshSkills();
@@ -41,11 +41,11 @@ namespace ARCed.Database.Enemies
 			this.RefreshSwitches();
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void SetAction(Enemy.Action action)
+		private void SetAction(Enemy.Action action)
 		{
 			var turnC = !(action.condition_turn_a == 0 && action.condition_turn_b == 1);
 			if (turnC)
@@ -155,8 +155,8 @@ namespace ARCed.Database.Enemies
 		{
 			DialogResult = DialogResult.OK;
 			Close();
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -33,22 +33,22 @@ namespace ARCed
 		#endregion
 
 		/// <summary>
-        /// Rounds an <seealso langword="int"/> down to the nearest multiple.
-        /// </summary>
-        /// <param name="value">Integer to round</param>
-        /// <param name="multiple">Multiple to round down to.</param>
-        /// <returns>The rounded number</returns>
+		/// Rounds an <seealso langword="int"/> down to the nearest multiple.
+		/// </summary>
+		/// <param name="value">Integer to round</param>
+		/// <param name="multiple">Multiple to round down to.</param>
+		/// <returns>The rounded number</returns>
 		public static int RoundFloor(this int value, int multiple)
 		{
 			return ((int)Math.Floor(value / Convert.ToSingle(multiple))) * multiple;
 		}
 
-        /// <summary>
-        /// Rounds an <seealso langword="int"/> up to the nearest multiple.
-        /// </summary>
-        /// <param name="value">Integer to round</param>
-        /// <param name="multiple">Multiple to round up to.</param>
-        /// <returns>The rounded number</returns>
+		/// <summary>
+		/// Rounds an <seealso langword="int"/> up to the nearest multiple.
+		/// </summary>
+		/// <param name="value">Integer to round</param>
+		/// <param name="multiple">Multiple to round up to.</param>
+		/// <returns>The rounded number</returns>
 		public static int RoundCeil(this int value, int multiple)
 		{
 			return ((int)Math.Ceiling(value / Convert.ToSingle(multiple))) * multiple;
@@ -178,7 +178,7 @@ namespace ARCed
 		/// <param name="upper">Upper limit to check</param>
 		/// <returns>True if value is within range, otherwise false</returns>
 		/// <remarks>Comparison is inclusive for upper and lower</remarks>
-		public static bool IsBetween(this int value, int lower, int upper) 
+		public static bool IsBetween(this int value, int lower, int upper)
 		{
 			return value <= upper && value >= lower;
 		}
@@ -228,6 +228,6 @@ namespace ARCed
 		{
 			var type = objectToCheck.GetType();
 			return type.GetMethod(methodName, BindingFlags.IgnoreCase) != null;
-		} 
+		}
 	}
 }

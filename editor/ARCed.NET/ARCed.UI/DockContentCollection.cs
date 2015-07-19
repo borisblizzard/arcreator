@@ -8,171 +8,171 @@ using System.Collections.ObjectModel;
 
 namespace ARCed.UI
 {
-    public class DockContentCollection : ReadOnlyCollection<IDockContent>
-    {
-        private static readonly List<IDockContent> _emptyList = new List<IDockContent>(0);
+	public class DockContentCollection : ReadOnlyCollection<IDockContent>
+	{
+		private static readonly List<IDockContent> _emptyList = new List<IDockContent>(0);
 
-        public DockContentCollection()
-            : base(new List<IDockContent>())
-        {
-        }
+		public DockContentCollection()
+			: base(new List<IDockContent>())
+		{
+		}
 
-        public DockContentCollection(DockPane pane)
-            : base(_emptyList)
-        {
-            this._mDockPane = pane;
-        }
+		public DockContentCollection(DockPane pane)
+			: base(_emptyList)
+		{
+			this._mDockPane = pane;
+		}
 
-        private readonly DockPane _mDockPane;
-        private DockPane DockPane
-        {
-            get { return this._mDockPane; }
-        }
+		private readonly DockPane _mDockPane;
+		private DockPane DockPane
+		{
+			get { return this._mDockPane; }
+		}
 
-        public new IDockContent this[int index]
-        {
-            get
-            {
-                if (this.DockPane == null)
-                    return Items[index];
-                else
-                    return this.GetVisibleContent(index);
-            }
-        }
+		public new IDockContent this[int index]
+		{
+			get
+			{
+				if (this.DockPane == null)
+					return Items[index];
+				else
+					return this.GetVisibleContent(index);
+			}
+		}
 
-        public int Add(IDockContent content)
-        {
+		public int Add(IDockContent content)
+		{
 #if DEBUG
 			if (this.DockPane != null)
 				throw new InvalidOperationException();
 #endif
 
-            if (this.Contains(content))
-                return this.IndexOf(content);
+			if (this.Contains(content))
+				return this.IndexOf(content);
 
-            Items.Add(content);
-            return this.Count - 1;
-        }
+			Items.Add(content);
+			return this.Count - 1;
+		}
 
-        internal void AddAt(IDockContent content, int index)
-        {
+		internal void AddAt(IDockContent content, int index)
+		{
 #if DEBUG
 			if (this.DockPane != null)
 				throw new InvalidOperationException();
 #endif
 
-            if (index < 0 || index > Items.Count - 1)
-                return;
+			if (index < 0 || index > Items.Count - 1)
+				return;
 
-            if (this.Contains(content))
-                return;
+			if (this.Contains(content))
+				return;
 
-            Items.Insert(index, content);
-        }
+			Items.Insert(index, content);
+		}
 
-        public new bool Contains(IDockContent content)
-        {
-            if (this.DockPane == null)
-                return Items.Contains(content);
-            else
-                return (this.GetIndexOfVisibleContents(content) != -1);
-        }
+		public new bool Contains(IDockContent content)
+		{
+			if (this.DockPane == null)
+				return Items.Contains(content);
+			else
+				return (this.GetIndexOfVisibleContents(content) != -1);
+		}
 
-        public new int Count
-        {
-            get
-            {
-                if (this.DockPane == null)
-                    return base.Count;
-                else
-                    return this.CountOfVisibleContents;
-            }
-        }
+		public new int Count
+		{
+			get
+			{
+				if (this.DockPane == null)
+					return base.Count;
+				else
+					return this.CountOfVisibleContents;
+			}
+		}
 
-        public new int IndexOf(IDockContent content)
-        {
-            if (this.DockPane == null)
-            {
-                if (!this.Contains(content))
-                    return -1;
-                else
-                    return Items.IndexOf(content);
-            }
-            else
-                return this.GetIndexOfVisibleContents(content);
-        }
+		public new int IndexOf(IDockContent content)
+		{
+			if (this.DockPane == null)
+			{
+				if (!this.Contains(content))
+					return -1;
+				else
+					return Items.IndexOf(content);
+			}
+			else
+				return this.GetIndexOfVisibleContents(content);
+		}
 
-        public void Remove(IDockContent content)
-        {
-            if (this.DockPane != null)
-                throw new InvalidOperationException();
+		public void Remove(IDockContent content)
+		{
+			if (this.DockPane != null)
+				throw new InvalidOperationException();
 
-            if (!this.Contains(content))
-                return;
+			if (!this.Contains(content))
+				return;
 
-            Items.Remove(content);
-        }
+			Items.Remove(content);
+		}
 
-        private int CountOfVisibleContents
-        {
-            get
-            {
+		private int CountOfVisibleContents
+		{
+			get
+			{
 #if DEBUG
 				if (this.DockPane == null)
 					throw new InvalidOperationException();
 #endif
 
-                int count = 0;
-                foreach (IDockContent content in this.DockPane.Contents)
-                {
-                    if (content.DockHandler.DockState == this.DockPane.DockState)
-                        count++;
-                }
-                return count;
-            }
-        }
+				int count = 0;
+				foreach (IDockContent content in this.DockPane.Contents)
+				{
+					if (content.DockHandler.DockState == this.DockPane.DockState)
+						count++;
+				}
+				return count;
+			}
+		}
 
-        private IDockContent GetVisibleContent(int index)
-        {
+		private IDockContent GetVisibleContent(int index)
+		{
 #if DEBUG
 			if (this.DockPane == null)
 				throw new InvalidOperationException();
 #endif
 
-            int currentIndex = -1;
-            foreach (IDockContent content in this.DockPane.Contents)
-            {
-                if (content.DockHandler.DockState == this.DockPane.DockState)
-                    currentIndex++;
+			int currentIndex = -1;
+			foreach (IDockContent content in this.DockPane.Contents)
+			{
+				if (content.DockHandler.DockState == this.DockPane.DockState)
+					currentIndex++;
 
-                if (currentIndex == index)
-                    return content;
-            }
-            throw (new ArgumentOutOfRangeException());
-        }
+				if (currentIndex == index)
+					return content;
+			}
+			throw (new ArgumentOutOfRangeException());
+		}
 
-        private int GetIndexOfVisibleContents(IDockContent content)
-        {
+		private int GetIndexOfVisibleContents(IDockContent content)
+		{
 #if DEBUG
 			if (this.DockPane == null)
 				throw new InvalidOperationException();
 #endif
 
-            if (content == null)
-                return -1;
+			if (content == null)
+				return -1;
 
-            int index = -1;
-            foreach (IDockContent c in this.DockPane.Contents)
-            {
-                if (c.DockHandler.DockState == this.DockPane.DockState)
-                {
-                    index++;
+			int index = -1;
+			foreach (IDockContent c in this.DockPane.Contents)
+			{
+				if (c.DockHandler.DockState == this.DockPane.DockState)
+				{
+					index++;
 
-                    if (c == content)
-                        return index;
-                }
-            }
-            return -1;
-        }
-    }
+					if (c == content)
+						return index;
+				}
+			}
+			return -1;
+		}
+	}
 }

@@ -200,16 +200,16 @@ namespace ARCed.Controls
 		private EventRaiser tickRaiser;
 
 		// Indicates whether or not the timer is running.
-	    private bool running;
+		private bool running;
 
 		// Indicates whether or not the timer has been disposed.
-	    private volatile bool disposed;
+		private volatile bool disposed;
 
 		// The ISynchronizeInvoke object to use for marshaling events.
-	    private ISynchronizeInvoke synchronizingObject;
+		private ISynchronizeInvoke synchronizingObject;
 
 		// For implementing IComponent.
-	    private ISite site;
+		private ISite site;
 
 		// Multimedia timer capabilities.
 		private static readonly TimerCaps caps;

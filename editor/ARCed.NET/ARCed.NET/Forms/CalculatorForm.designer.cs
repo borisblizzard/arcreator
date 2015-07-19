@@ -1,33 +1,33 @@
 namespace ARCed.Forms
 {
-    partial class CalculatorForm
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class CalculatorForm
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.components = new System.ComponentModel.Container();
 			this.buttonZero = new System.Windows.Forms.Button();
 			this.buttonDecimal = new System.Windows.Forms.Button();
@@ -684,56 +684,56 @@ namespace ARCed.Forms
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.Button buttonZero;
-        private System.Windows.Forms.Button buttonDecimal;
-        private System.Windows.Forms.Button buttonAddition;
-        private System.Windows.Forms.Button buttonPi;
-        private System.Windows.Forms.Button buttonEquals;
-        private System.Windows.Forms.Button buttonOne;
-        private System.Windows.Forms.Button buttonTwo;
-        private System.Windows.Forms.Button buttonThree;
-        private System.Windows.Forms.Button buttonSubtract;
-        private System.Windows.Forms.Button buttonMultiply;
-        private System.Windows.Forms.Button buttonFour;
-        private System.Windows.Forms.Button buttonFive;
-        private System.Windows.Forms.Button buttonSix;
-        private System.Windows.Forms.Button buttonAC;
+		private System.Windows.Forms.Button buttonZero;
+		private System.Windows.Forms.Button buttonDecimal;
+		private System.Windows.Forms.Button buttonAddition;
+		private System.Windows.Forms.Button buttonPi;
+		private System.Windows.Forms.Button buttonEquals;
+		private System.Windows.Forms.Button buttonOne;
+		private System.Windows.Forms.Button buttonTwo;
+		private System.Windows.Forms.Button buttonThree;
+		private System.Windows.Forms.Button buttonSubtract;
+		private System.Windows.Forms.Button buttonMultiply;
+		private System.Windows.Forms.Button buttonFour;
+		private System.Windows.Forms.Button buttonFive;
+		private System.Windows.Forms.Button buttonSix;
+		private System.Windows.Forms.Button buttonAC;
 		private System.Windows.Forms.TextBox textBox;
-        private System.Windows.Forms.Button buttonDivide;
-        private System.Windows.Forms.Button buttonSeven;
-        private System.Windows.Forms.Button buttonEight;
-        private System.Windows.Forms.Button buttonNone;
-        private System.Windows.Forms.Button buttonSquared;
-        private System.Windows.Forms.Button buttonCubed;
-        private System.Windows.Forms.Button buttonSquareRoot;
-        private System.Windows.Forms.Button buttonExponent;
-        private System.Windows.Forms.Button buttonPaste;
-        private System.Windows.Forms.Button buttonSine;
-        private System.Windows.Forms.Button buttonCosine;
-        private System.Windows.Forms.Button buttonTangent;
-        private System.Windows.Forms.Button buttonRoute;
-        private System.Windows.Forms.Button buttonFactor;
-        private System.Windows.Forms.Button buttonLog;
-        private System.Windows.Forms.Button buttonInX;
-        private System.Windows.Forms.Button buttonBackspace;
-        private System.Windows.Forms.RadioButton radioDegree;
-        private System.Windows.Forms.RadioButton radioRadian;
-        private System.Windows.Forms.Button buttonPercent;
-        private System.Windows.Forms.Button buttonOperator;
-        private System.Windows.Forms.Button buttonInverseCosine;
-        private System.Windows.Forms.Button buttonInverseSine;
-        private System.Windows.Forms.Button buttonInverseTangent;
-        private System.Windows.Forms.Button buttonPermutation;
+		private System.Windows.Forms.Button buttonDivide;
+		private System.Windows.Forms.Button buttonSeven;
+		private System.Windows.Forms.Button buttonEight;
+		private System.Windows.Forms.Button buttonNone;
+		private System.Windows.Forms.Button buttonSquared;
+		private System.Windows.Forms.Button buttonCubed;
+		private System.Windows.Forms.Button buttonSquareRoot;
+		private System.Windows.Forms.Button buttonExponent;
+		private System.Windows.Forms.Button buttonPaste;
+		private System.Windows.Forms.Button buttonSine;
+		private System.Windows.Forms.Button buttonCosine;
+		private System.Windows.Forms.Button buttonTangent;
+		private System.Windows.Forms.Button buttonRoute;
+		private System.Windows.Forms.Button buttonFactor;
+		private System.Windows.Forms.Button buttonLog;
+		private System.Windows.Forms.Button buttonInX;
+		private System.Windows.Forms.Button buttonBackspace;
+		private System.Windows.Forms.RadioButton radioDegree;
+		private System.Windows.Forms.RadioButton radioRadian;
+		private System.Windows.Forms.Button buttonPercent;
+		private System.Windows.Forms.Button buttonOperator;
+		private System.Windows.Forms.Button buttonInverseCosine;
+		private System.Windows.Forms.Button buttonInverseSine;
+		private System.Windows.Forms.Button buttonInverseTangent;
+		private System.Windows.Forms.Button buttonPermutation;
 		private System.Windows.Forms.Button buttonCombination;
 		private System.Windows.Forms.Button buttonCopy;
 		private ARCed.Controls.CollapsibleGroupBox groupBoxScientific;
 		private System.Windows.Forms.Panel panelBasic;
 		private System.Windows.Forms.ToolTip toolTip;
 		private System.Windows.Forms.CheckBox checkBoxTopMost;
-    }
+	}
 }
 

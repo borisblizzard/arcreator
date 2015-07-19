@@ -13,12 +13,12 @@ using RPG;
 
 namespace ARCed.Database.MapEditor
 {
-    /// <summary>
-    /// Main form for configuring Project <see cref="RPG.Map"/> data.
-    /// </summary>
+	/// <summary>
+	/// Main form for configuring Project <see cref="RPG.Map"/> data.
+	/// </summary>
 	public partial class MapEditorMainForm : DockContent
-    {
-	    private List<int> _skipIds;
+	{
+		private List<int> _skipIds;
 
 
 		public MapEditorMainForm()

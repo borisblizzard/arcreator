@@ -14,22 +14,22 @@ using ARCed.UI;
 
 namespace ARCed.Database.Actors
 {
-    /// <summary>
-    /// Form with controls for allowing modification of user-defined chart settings.
-    /// </summary>
+	/// <summary>
+	/// Form with controls for allowing modification of user-defined chart settings.
+	/// </summary>
 	public partial class ChartSettingsForm : DockContent
-    {
-        #region Private Fields
+	{
+		#region Private Fields
 
-        Chart[] _charts;
+		Chart[] _charts;
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constuctor
-        /// </summary>
+		/// <summary>
+		/// Default constuctor
+		/// </summary>
 		public ChartSettingsForm()
 		{
 			this.InitializeComponent();
@@ -37,92 +37,92 @@ namespace ARCed.Database.Actors
 			Icon = Icon.FromHandle(Resources.Chart.GetHicon());
 		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        /// <summary>
-        /// Sets the forms chart controls
-        /// </summary>
-        /// <param name="charts">Reference to an array of <see cref="Chart"/> object.</param>
-        public void SetCharts(ref Chart[] charts)
+		/// <summary>
+		/// Sets the forms chart controls
+		/// </summary>
+		/// <param name="charts">Reference to an array of <see cref="Chart"/> object.</param>
+		public void SetCharts(ref Chart[] charts)
 		{
 			this._charts = charts;
 		}
 
-        /// <summary>
-        /// Clears the charts
-        /// </summary>
+		/// <summary>
+		/// Clears the charts
+		/// </summary>
 		public void ClearCharts()
 		{
 			this._charts = null;
 		}
 
-        /// <summary>
-        /// Sets the <see cref="SeriesChartType"/> type for the charts.
-        /// </summary>
-        /// <param name="type">Chart type to set</param>
-        /// <param name="charts">Reference to an array of <see cref="Chart"/> object.</param>
-        public static void SetChartType(SeriesChartType type, ref Chart[] charts)
-        {
-            if (charts == null) return;
-            foreach (Chart chart in charts)
-                chart.Series[0].ChartType = type;
-        }
+		/// <summary>
+		/// Sets the <see cref="SeriesChartType"/> type for the charts.
+		/// </summary>
+		/// <param name="type">Chart type to set</param>
+		/// <param name="charts">Reference to an array of <see cref="Chart"/> object.</param>
+		public static void SetChartType(SeriesChartType type, ref Chart[] charts)
+		{
+			if (charts == null) return;
+			foreach (Chart chart in charts)
+				chart.Series[0].ChartType = type;
+		}
 
-        /// <summary>
-        /// Gets the user-defined <see cref="Color"/> used for the chart with the given index.
-        /// </summary>
-        /// <param name="index">Index of the color to retrieve.</param>
-        /// <returns>User-defined color</returns>
-        public static Color GetUserColor(int index)
-        {
-            index %= Editor.Settings.Charting.Colors.Count;
-            return Editor.Settings.Charting.Colors[index];
-        }
+		/// <summary>
+		/// Gets the user-defined <see cref="Color"/> used for the chart with the given index.
+		/// </summary>
+		/// <param name="index">Index of the color to retrieve.</param>
+		/// <returns>User-defined color</returns>
+		public static Color GetUserColor(int index)
+		{
+			index %= Editor.Settings.Charting.Colors.Count;
+			return Editor.Settings.Charting.Colors[index];
+		}
 
-        /// <summary>
-        /// Gets the user-defined <see cref="Color"/> used for the chart with the given index.
-        /// </summary>
-        /// <param name="index">Index of the color to retrieve.</param>
-        /// <param name="color">User-defined color</param>
-        public static void SetUserColor(int index, Color color)
-        {
-            index %= Editor.Settings.Charting.Colors.Count;
-            Editor.Settings.Charting.Colors[index] = color;
-        }
+		/// <summary>
+		/// Gets the user-defined <see cref="Color"/> used for the chart with the given index.
+		/// </summary>
+		/// <param name="index">Index of the color to retrieve.</param>
+		/// <param name="color">User-defined color</param>
+		public static void SetUserColor(int index, Color color)
+		{
+			index %= Editor.Settings.Charting.Colors.Count;
+			Editor.Settings.Charting.Colors[index] = color;
+		}
 
-        /// <summary>
-        /// Gets the user-defined <see cref="LightStyle"/> setting for the given index. 
-        /// </summary>
-        /// <param name="index">Index to retrieve the style for.</param>
-        /// <returns>LightStyle setting for index.</returns>
-        public static LightStyle GetChartLighting(int index)
-        {
-            return (LightStyle)index;
-        }
+		/// <summary>
+		/// Gets the user-defined <see cref="LightStyle"/> setting for the given index. 
+		/// </summary>
+		/// <param name="index">Index to retrieve the style for.</param>
+		/// <returns>LightStyle setting for index.</returns>
+		public static LightStyle GetChartLighting(int index)
+		{
+			return (LightStyle)index;
+		}
 
-        /// <summary>
-        /// Sets the user-defined <see cref="LightStyle"/> setting for the given index. 
-        /// </summary>
-        /// <param name="style">Style to set</param>
-        /// <param name="charts">Reference to an array of <see cref="Chart"/> object.</param>
-        public static void SetChartLighting(LightStyle style, ref Chart[] charts)
-        {
-            if (charts == null) return;
-            foreach (Chart chart in charts)
-                chart.ChartAreas[0].Area3DStyle.LightStyle = style;
-        }
+		/// <summary>
+		/// Sets the user-defined <see cref="LightStyle"/> setting for the given index. 
+		/// </summary>
+		/// <param name="style">Style to set</param>
+		/// <param name="charts">Reference to an array of <see cref="Chart"/> object.</param>
+		public static void SetChartLighting(LightStyle style, ref Chart[] charts)
+		{
+			if (charts == null) return;
+			foreach (Chart chart in charts)
+				chart.ChartAreas[0].Area3DStyle.LightStyle = style;
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void AddDataBinding()
+		private void AddDataBinding()
 		{
 			this.listBoxColors.DataSource = Editor.Settings.Charting.ColorsHtml;
 			//comboBoxType.DataBindings.Add("SelectedIndex", Editor.Settings.Charting, "Type",
-				//false, DataSourceUpdateMode.OnValidation | DataSourceUpdateMode.OnPropertyChanged);
+			//false, DataSourceUpdateMode.OnValidation | DataSourceUpdateMode.OnPropertyChanged);
 			this.numericTension.DataBindings.Add("Value", Editor.Settings.Charting, "SplineTension",
 				false, DataSourceUpdateMode.OnPropertyChanged);
 			this.numericInclination.DataBindings.Add("Value", Editor.Settings.Charting, "Inclination",
@@ -220,32 +220,32 @@ namespace ARCed.Database.Actors
 		private void NumericDepthValueChanged(object sender, EventArgs e)
 		{
 			Editor.Settings.Charting.Depth = this.numericDepth.Value;
-		    if (this._charts == null) return;
-		    foreach (Chart chart in this._charts)
-		        chart.ChartAreas[0].Area3DStyle.PointDepth = (int)this.numericDepth.Value;
+			if (this._charts == null) return;
+			foreach (Chart chart in this._charts)
+				chart.ChartAreas[0].Area3DStyle.PointDepth = (int)this.numericDepth.Value;
 		}
 
 		private void CheckBox3DCheckedChanged(object sender, EventArgs e)
 		{
 			Editor.Settings.Charting.ThreeD = this.checkBox3D.Checked;
-		    if (this._charts == null) return;
-		    foreach (Chart chart in this._charts)
-		        chart.ChartAreas[0].Area3DStyle.Enable3D = this.checkBox3D.Checked;
+			if (this._charts == null) return;
+			foreach (Chart chart in this._charts)
+				chart.ChartAreas[0].Area3DStyle.Enable3D = this.checkBox3D.Checked;
 		}
 
 		private void ListBoxColorsDoubleClick(object sender, EventArgs e)
 		{
 			var index = this.listBoxColors.SelectedIndex;
-		    if (index < 0) return;
-		    using (var dialog = new ColorChooserForm())
-		    {
-		        dialog.Color = Editor.Settings.Charting.Colors[index];
-		        dialog.AlphaEnabled = false;
-		        if (dialog.ShowDialog(Windows.ChartSettingsForm) != DialogResult.OK) return;
-		        this.listBoxColors.DataSource = null;
-		        Editor.Settings.Charting.Colors[index] = dialog.Color;
-		        this.RefreshColors();
-		    }
+			if (index < 0) return;
+			using (var dialog = new ColorChooserForm())
+			{
+				dialog.Color = Editor.Settings.Charting.Colors[index];
+				dialog.AlphaEnabled = false;
+				if (dialog.ShowDialog(Windows.ChartSettingsForm) != DialogResult.OK) return;
+				this.listBoxColors.DataSource = null;
+				Editor.Settings.Charting.Colors[index] = dialog.Color;
+				this.RefreshColors();
+			}
 		}
 
 		private void ButtonAddClick(object sender, EventArgs e)
@@ -253,9 +253,9 @@ namespace ARCed.Database.Actors
 			using (var dialog = new ColorChooserForm())
 			{
 				dialog.Color = Color.White;
-			    if (dialog.ShowDialog() != DialogResult.OK) return;
-			    Editor.Settings.Charting.Colors.Add(dialog.Color);
-			    this.RefreshColors();
+				if (dialog.ShowDialog() != DialogResult.OK) return;
+				Editor.Settings.Charting.Colors.Add(dialog.Color);
+				this.RefreshColors();
 			}
 		}
 
@@ -274,13 +274,13 @@ namespace ARCed.Database.Actors
 		private void ButtonUpClick(object sender, EventArgs e)
 		{
 			int index = this.listBoxColors.SelectedIndex;
-		    if (index <= 0) return;
-		    this.listBoxColors.DataSource = null;
-		    Color color = Editor.Settings.Charting.Colors[index % Editor.Settings.Charting.Colors.Count];
-		    Editor.Settings.Charting.Colors.RemoveAt(index);
-		    Editor.Settings.Charting.Colors.Insert(index - 1, color);
-		    this.RefreshColors();
-		    this.listBoxColors.SelectedIndex = index - 1;
+			if (index <= 0) return;
+			this.listBoxColors.DataSource = null;
+			Color color = Editor.Settings.Charting.Colors[index % Editor.Settings.Charting.Colors.Count];
+			Editor.Settings.Charting.Colors.RemoveAt(index);
+			Editor.Settings.Charting.Colors.Insert(index - 1, color);
+			this.RefreshColors();
+			this.listBoxColors.SelectedIndex = index - 1;
 		}
 
 		private void ButtonDownClick(object sender, EventArgs e)
@@ -301,7 +301,7 @@ namespace ARCed.Database.Actors
 		{
 			this.listBoxColors.BeginUpdate();
 			this.listBoxColors.DataSource = Editor.Settings.Charting.ColorsHtml;
-			this.listBoxColors.EndUpdate();	
+			this.listBoxColors.EndUpdate();
 		}
 
 		private void ListBoxColorsSelectedIndexChanged(object sender, EventArgs e)
@@ -317,8 +317,8 @@ namespace ARCed.Database.Actors
 			this.listBoxColors.DataSource = null;
 			Editor.Settings.Charting.Colors = ChartSettings.DefaultColors;
 			this.RefreshColors();
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

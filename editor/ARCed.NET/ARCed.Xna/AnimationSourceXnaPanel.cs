@@ -31,7 +31,7 @@ namespace ARCed.Controls
 		public int SelectedId
 		{
 			get { return this._selectedId; }
-			set 
+			set
 			{
 				this._selectedId = value;
 				Invalidate();
@@ -42,7 +42,7 @@ namespace ARCed.Controls
 		/// Gets or sets the associated RPG.Animation for the panel.
 		/// </summary>
 		[Browsable(false)]
-		public Animation Animation 
+		public Animation Animation
 		{
 			get { return this._animation; }
 			set
@@ -77,8 +77,8 @@ namespace ARCed.Controls
 		{
 			this._batch = new SpriteBatch(GraphicsDevice);
 			this._selectedId = -1;
-            // TODO: Edit this
-            GraphicsDevice.Clear(TilesetXnaPanel.Settings.BackgroundColor);
+			// TODO: Edit this
+			GraphicsDevice.Clear(TilesetXnaPanel.Settings.BackgroundColor);
 			MouseDown += this.AnimationSourceXnaPanel_MouseDown;
 		}
 

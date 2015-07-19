@@ -14,6 +14,7 @@
 
 namespace april
 {
+	class Image;
 	class Texture;
 }
 
@@ -50,14 +51,21 @@ namespace legacy
 		/// @brief Ruby garbage collector marking.
 		void mark();
 
-		HL_DEFINE_GETSET(april::Texture*, texture, Texture);
 		HL_DEFINE_IS(disposed, Disposed);
+		HL_DEFINE_GET(hstr, filename, Filename);
 		/// @brief Gets the width.
 		/// @return The width.
 		int getWidth();
 		/// @brief Gets the height.
 		/// @return The height.
 		int getHeight();
+		/// @brief Gets the actual rendering texture.
+		/// @return Actual rendering texture.
+		/// @note If the texture does not yet exist, it will be created.
+		april::Texture* getTexture();
+		/// @brief Sets the image.
+		/// @note The old image will be destroyed or the texture overwritten.
+		void setImage(april::Image* value);
 
 		/// @brief Clears the entire bitmap.
 		void clear();
@@ -65,7 +73,7 @@ namespace legacy
 		/// @brief Gets the full filename and checks whether it exists.
 		/// @param[in] filename The filename, possibly without extension.
 		/// @return The full filename.
-		static hstr getFullFilename(chstr filename);
+		static hstr makeFullFilename(chstr filename);
 
 		/// @brief Initializes.
 		static void init();
@@ -156,6 +164,10 @@ namespace legacy
 	protected:
 		/// @brief Disposed flag.
 		bool disposed;
+		/// @brief Filename of the Bitmap if loaded from a file.
+		hstr filename;
+		/// @brief Underlying rendering system image.
+		april::Image* image;
 		/// @brief Underlying rendering system texture.
 		april::Texture* texture;
 		/// @brief The Font used to draw text.
@@ -174,9 +186,6 @@ namespace legacy
 		/// @param[in] align Alignment.
 		/// @note The alignments are: 0 = left; 1 = center; 1 = right
 		void _drawText(int x, int y, int w, int h, chstr text, int align);
-		/// @brief Loads a texture in the right bpp.
-		/// @param[in] filename Filename of the texture to load.
-		void _loadTexture(chstr filename);
 		/// @brief Blits rect from source bitmap to this one.
 		/// @param[in] sx Source X coordinate.
 		/// @param[in] sy Source Y coordinate.
@@ -184,8 +193,8 @@ namespace legacy
 		/// @param[in] sh Source height.
 		/// @param[in] dx Destination X coordinate.
 		/// @param[in] dy Destination Y coordinate.
-		/// @param[in] source Source Texture.
-		void _renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, april::Texture* source, unsigned char alpha = 255);
+		/// @param[in] source Source Bitmap.
+		void _renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, Bitmap* source, unsigned char alpha = 255);
 		/// @brief Blits rect from source bitmap to this one.
 		/// @param[in] sx Source X coordinate.
 		/// @param[in] sy Source Y coordinate.
@@ -195,15 +204,21 @@ namespace legacy
 		/// @param[in] dy Destination Y coordinate.
 		/// @param[in] dw Destination width.
 		/// @param[in] dh Destination height.
-		/// @param[in] source Source Texture.
-		void _renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, april::Texture* source, unsigned char alpha = 255);
-		/// @brief Renders a color quad to texture of this bitmap.
+		/// @param[in] source Source Bitmap.
+		void _renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, Bitmap* source, unsigned char alpha = 255);
+		/// @brief Renders a color rect to texture of this bitmap.
 		/// @param[in] x Destination X coordinate.
 		/// @param[in] y Destination Y coordinate.
 		/// @param[in] w Destination width.
 		/// @param[in] h Destination height.
 		/// @param[in] color Color.
 		void _renderColor(int x, int y, int w, int h, april::Color color);
+		/// @brief Renders a pixel texture of this bitmap.
+		/// @param[in] x Destination X coordinate.
+		/// @param[in] y Destination Y coordinate.
+		/// @param[in] color Color.
+		void _renderPixel(int x, int y, april::Color color);
+
 	};
 
 }

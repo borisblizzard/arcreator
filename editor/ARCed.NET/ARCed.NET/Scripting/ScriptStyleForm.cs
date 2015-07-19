@@ -67,7 +67,7 @@ namespace ARCed.Scripting
 		{
 			if (!this._suppressEvents)
 			{
-				Editor.Settings.Scripting.CaretColor = 
+				Editor.Settings.Scripting.CaretColor =
 					ShowColorDialog(Editor.Settings.Scripting.CaretColor);
 				this.panelCaretColor.BackColor = Editor.Settings.Scripting.CaretColor;
 				UpdateOpenScripts();
@@ -119,7 +119,7 @@ namespace ARCed.Scripting
 			{
 				e.Graphics.DrawImage(Resources.Alpha, e.ClipRectangle);
 				using (var brush = new SolidBrush((sender as Panel).BackColor))
-					e.Graphics.FillRectangle(brush, e.ClipRectangle);	
+					e.Graphics.FillRectangle(brush, e.ClipRectangle);
 			}
 		}
 	}

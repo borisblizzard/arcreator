@@ -233,7 +233,7 @@ namespace ARCed.Core
 
 		private static void LogConsole(object obj)
 		{
-			
+
 			Console.Write(obj);
 		}
 

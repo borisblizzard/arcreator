@@ -32,7 +32,7 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets the image under the selection rectangle
 		/// </summary>
-        public Image SelectedImage { get; private set; }
+		public Image SelectedImage { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the hue rotation applied to the image
@@ -46,8 +46,8 @@ namespace ARCed.Dialogs
 		public int ImageOpacity
 		{
 			get { return (int)this.numericOpacity.Value; }
-			set 
-			{ 
+			set
+			{
 				this.numericOpacity.Value = value.Clamp(0, 255);
 				this.pictureBox.ImageOpacity = value.Clamp(0, 255);
 			}
@@ -80,7 +80,7 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets or sets the root folder searched for images
 		/// </summary>
-		public string ImageFolder 
+		public string ImageFolder
 		{
 			get { return this._folder; }
 			set { this.SetFolder(value); }
@@ -98,7 +98,7 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets or sets the ability to select individual tiles of the _srcTexture
 		/// </summary>
-		public bool SelectionEnabled 
+		public bool SelectionEnabled
 		{
 			get { return this.pictureBox.SelectionEnabled; }
 			set { this.pictureBox.SelectionEnabled = value; }
@@ -107,7 +107,7 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets or sets the visibility of the trackbar for changing image hue.
 		/// </summary>
-		public bool HueEnabled 
+		public bool HueEnabled
 		{
 			get { return this.groupBoxHue.Enabled; }
 			set { this.groupBoxHue.Enabled = value; }
@@ -150,7 +150,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		/// <param name="folder">Root folder searched for images</param>
 		/// <param name="filename">FullPath (without extension) of the _srcTexture that is found in the current folder</param>
-		public ImageSelectionForm(string folder, string filename) : this()
+		public ImageSelectionForm(string folder, string filename)
+			: this()
 		{
 			// Find all valid filenames
 			this._folder = folder;
@@ -192,7 +193,7 @@ namespace ARCed.Dialogs
 		{
 			this.listBoxGraphics.BeginUpdate();
 			this.listBoxGraphics.Items.Clear();
-		    this._folder = folder;
+			this._folder = folder;
 			foreach (GameResource rsx in this._resources)
 				this.listBoxGraphics.Items.Add(rsx.Name);
 			this._resources.Insert(0, null);
@@ -226,7 +227,7 @@ namespace ARCed.Dialogs
 				case @"Graphics\Animations":
 					this.pictureBox.Image = new Bitmap(Cache.Animation(this._filename, this.trackBarHue.Value));
 					break;
-				case @"Graphics\Characters": 
+				case @"Graphics\Characters":
 					this.pictureBox.Image = new Bitmap(Cache.Character(this._filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Battlers":
@@ -245,7 +246,7 @@ namespace ARCed.Dialogs
 					this.pictureBox.Image = new Bitmap(Cache.Autotile(this._filename));
 					break;
 				case @"Graphics\Fogs":
-					this.pictureBox.Image = 
+					this.pictureBox.Image =
 						new Bitmap(Cache.Fog(this._filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Panoramas":
@@ -292,10 +293,10 @@ namespace ARCed.Dialogs
 				e.DrawBackground();
 				if (index > 0)
 				{
-				    e.Graphics.DrawImageUnscaled(
-				        this._resources[index].Location == Core.Location.Local ? 
-                        Resources.ResourceLocal : Resources.ResourceRTP,
-				        e.Bounds);
+					e.Graphics.DrawImageUnscaled(
+						this._resources[index].Location == Core.Location.Local ?
+						Resources.ResourceLocal : Resources.ResourceRTP,
+						e.Bounds);
 				}
 				e.Graphics.DrawString("     " + str, e.Font, Brushes.Black, e.Bounds);
 				e.DrawFocusRectangle();
@@ -318,10 +319,10 @@ namespace ARCed.Dialogs
 			using (var dialog = new ColorChooserForm())
 			{
 				dialog.AlphaEnabled = false;
-                dialog.Color = Editor.Settings.ImageColorSettings.BackgroundColor.ToSystemColor();
-			    if (dialog.ShowDialog() != DialogResult.OK) return;
-			    Editor.Settings.ImageColorSettings.BackgroundColor = dialog.Color.ToXnaColor();
-			    this.pictureBox.ImageBackColor = Editor.Settings.ImageColorSettings.BackgroundColor;
+				dialog.Color = Editor.Settings.ImageColorSettings.BackgroundColor.ToSystemColor();
+				if (dialog.ShowDialog() != DialogResult.OK) return;
+				Editor.Settings.ImageColorSettings.BackgroundColor = dialog.Color.ToXnaColor();
+				this.pictureBox.ImageBackColor = Editor.Settings.ImageColorSettings.BackgroundColor;
 			}
 		}
 	}

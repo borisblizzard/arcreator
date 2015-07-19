@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+#include <april/Image.h>
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <atres/atres.h>
@@ -33,27 +34,29 @@ namespace legacy
 	{
 		this->typeName = "bitmap";
 		this->disposed = true;
+		this->image = NULL;
 		this->texture = NULL;
 		this->rb_font = Qnil;
 		this->font = NULL;
 	}
 
-	Bitmap::Bitmap(int width, int height) : RubyObject(), texture(NULL)
+	Bitmap::Bitmap(int width, int height) : RubyObject()
 	{
 		this->typeName = "bitmap";
 		this->disposed = false;
-		this->texture = april::rendersys->createTexture(width, height, april::Color::Clear,
-			april::Image::FORMAT_RGBA, april::Texture::TYPE_RENDER_TARGET);
-		this->texture->setFilter(april::Texture::FILTER_NEAREST);
+		this->image = april::Image::create(width, height, april::Color::Clear, april::Image::FORMAT_RGBA);
+		this->texture = NULL;
 		this->rb_font = Qnil;
 		this->font = new Font(Font::defaultName);
 	}
 
-	Bitmap::Bitmap(chstr fullFilename) : RubyObject(), texture(NULL)
+	Bitmap::Bitmap(chstr fullFilename) : RubyObject()
 	{
 		this->typeName = "bitmap";
 		this->disposed = false;
-		this->_loadTexture(fullFilename);
+		this->filename = fullFilename;
+		this->image = april::Image::createFromResource(this->filename, april::Image::FORMAT_RGBA);
+		this->texture = NULL;
 		this->rb_font = Qnil;
 		this->font = new Font(Font::defaultName);
 	}
@@ -72,8 +75,8 @@ namespace legacy
 		{
 			RB_CHECK_TYPE(arg1, rb_cString);
 			hstr filename = StringValueCStr(arg1);
-			hstr fullFilename = Bitmap::getFullFilename(filename);
-			this->_loadTexture(fullFilename);
+			this->filename = Bitmap::makeFullFilename(filename);
+			this->image = april::Image::createFromResource(this->filename, april::Image::FORMAT_RGBA);
 		}
 		else
 		{
@@ -83,10 +86,9 @@ namespace legacy
 			{
 				rb_raise(rb_eRGSSError, hsprintf("Failed to create Bitmap %dx%d!", w, h).cStr());
 			}
-			this->texture = april::rendersys->createTexture(w, h, april::Color::Clear,
-				april::Image::FORMAT_RGBA, april::Texture::TYPE_RENDER_TARGET);
-			this->texture->setFilter(april::Texture::FILTER_NEAREST);
+			this->image = april::Image::create(w, h, april::Color::Clear, april::Image::FORMAT_RGBA);
 		}
+		this->texture = NULL;
 		this->rb_font = Font::create(0, NULL);
 		RB_VAR2CPP(this->rb_font, Font, font);
 		this->font = font;
@@ -99,6 +101,11 @@ namespace legacy
 			CPP_VAR_DELETE(font);
 			this->rb_font = Qnil;
 			this->font = NULL;
+			if (this->image != NULL)
+			{
+				delete this->image;
+				this->image = NULL;
+			}
 			if (this->texture != NULL)
 			{
 				delete this->texture;
@@ -120,20 +127,57 @@ namespace legacy
 	
 	int Bitmap::getWidth()
 	{
-		return this->texture->getWidth();
+		if (this->texture != NULL)
+		{
+			return this->texture->getWidth();
+		}
+		return this->image->w;
 	}
 
 	int Bitmap::getHeight()
 	{
-		return this->texture->getHeight();
+		if (this->texture != NULL)
+		{
+			return this->texture->getHeight();
+		}
+		return this->image->h;
+	}
+
+	april::Texture* Bitmap::getTexture()
+	{
+		if (this->texture == NULL)
+		{
+			if (this->image == NULL)
+			{
+				int a = 0;
+			}
+			this->texture = april::rendersys->createTexture(this->image->w, this->image->h, this->image->data,
+				this->image->format, april::Texture::TYPE_RENDER_TARGET);
+			this->texture->setFilter(april::Texture::FILTER_NEAREST);
+			delete this->image;
+			this->image = NULL;
+		}
+		return this->texture;
+	}
+
+	void Bitmap::setImage(april::Image* value)
+	{
+		if (this->texture != NULL)
+		{
+			this->texture->write(0, 0, value->w, value->h, 0, 0, value->data, value->w, value->h, value->format);
+			delete value;
+			return;
+		}
+		delete this->image;
+		this->image = value;
 	}
 
 	void Bitmap::clear()
 	{
-		this->texture->clear();
+		this->texture != NULL ? this->texture->clear() : this->image->clear();
 	}
 
-	hstr Bitmap::getFullFilename(chstr filename)
+	hstr Bitmap::makeFullFilename(chstr filename)
 	{
 		hstr fullFilename = april::rendersys->findTextureResource(filename);
 		if (fullFilename == "")
@@ -148,7 +192,7 @@ namespace legacy
 		hstr fontName = this->font->getAtresFontName();
 		if (fontName == "") // font does not exist
 		{
-			hlog::warn(legacy::logTag, "Font could not be found: " + this->font->getName());
+			hlog::warn(logTag, "Font could not be found: " + this->font->getName());
 			return;
 		}
 		atres::Alignment horizontal;
@@ -179,6 +223,7 @@ namespace legacy
 			horizontal = atres::LEFT;
 			break;
 		}
+		this->getTexture(); // will create the needed texture
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		grect orthoProjection = april::rendersys->getOrthoProjection();
@@ -197,50 +242,41 @@ namespace legacy
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
-	void Bitmap::_loadTexture(chstr filename)
-	{
-		//april::Texture* loadTexture = april::rendersys->createTextureFromResource(filename, april::Image::FORMAT_RGBA);
-
-
-		this->texture = april::rendersys->createTextureFromResource(filename,
-			april::Image::FORMAT_RGBA, april::Texture::TYPE_RENDER_TARGET);
-		// TODO - remove if not needed anymore
-		/*
-		april::Texture* loadTexture = april::rendersys->loadTexture(filename);
-		int w = loadTexture->getWidth();
-		int h = loadTexture->getHeight();
-		this->texture = april::rendersys->createTexture(
-			w, h, april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
-		// TODO - the texture should always be blitted to prevent problems
-		if (loadTexture->getBpp() >= 3)
-		{
-			this->texture->blit(0, 0, loadTexture, 0, 0, w, h);
-		}
-		else // palette-based textures need to be rendered after all
-		{
-			this->texture->setFilter(april::Texture::FILTER_NEAREST);
-			april::rendersys->setTextureBlendMode(april::OVERWRITE);
-			this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
-			april::rendersys->setTextureBlendMode(april::DEFAULT);
-		}
-		delete loadTexture;
-		*/
-	}
-
-	void Bitmap::_renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, april::Texture* source, unsigned char alpha)
+	void Bitmap::_renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, Bitmap* source, unsigned char alpha)
 	{
 		if (alpha == 0)
 		{
 			return;
 		}
+		this->getTexture(); // TODO - should be removed
+		source->getTexture(); // TODO - should be removed
+		// manual blitting
+		if (source->texture == NULL)
+		{
+			if (this->texture == NULL)
+			{
+				this->image->blit(sx, sy, sw, sh, dx, dy, source->image, alpha);
+				return;
+			}
+			this->texture->blit(sx, sy, sw, sh, dx, dy, source->image, alpha);
+			return;
+		}
+		if (this->texture == NULL)
+		{
+			april::Image* image = source->texture->createImage();
+			this->image->blit(sx, sy, sw, sh, dx, dy, image, alpha);
+			delete image;
+			return;
+		}
+		// texture-to-texture
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		grect orthoProjection = april::rendersys->getOrthoProjection();
-		april::Texture::Filter filter = source->getFilter();
-		source->setFilter(april::Texture::FILTER_NEAREST);
+		april::Texture::Filter filter = source->texture->getFilter();
+		source->texture->setFilter(april::Texture::FILTER_NEAREST);
 		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
-		april::rendersys->setTexture(source);
+		april::rendersys->setTexture(source->texture);
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
 		float width = (float)source->getWidth();
@@ -256,13 +292,13 @@ namespace legacy
 			april::rendersys->drawTexturedRect(destRect, srcRect, april::Color(april::Color::White, alpha));
 		}
 		april::rendersys->setRenderTarget(target);
-		source->setFilter(filter);
+		source->texture->setFilter(filter);
 		april::rendersys->setOrthoProjection(orthoProjection);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
-	void Bitmap::_renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, april::Texture* source, unsigned char alpha)
+	void Bitmap::_renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, Bitmap* source, unsigned char alpha)
 	{
 		if (alpha == 0)
 		{
@@ -273,16 +309,37 @@ namespace legacy
 			this->_renderToTexture(sx, sy, sw, sh, dx, dy, source, alpha);
 			return;
 		}
+		this->getTexture(); // TODO - should be removed
+		source->getTexture(); // TODO - should be removed
+		// manual blitting
+		if (source->texture == NULL)
+		{
+			if (this->texture == NULL)
+			{
+				this->image->blitStretch(sx, sy, sw, sh, dx, dy, dw, dh, source->image, alpha);
+				return;
+			}
+			this->texture->blitStretch(sx, sy, sw, sh, dx, dy, dw, dh, source->image, alpha);
+			return;
+		}
+		if (this->texture == NULL)
+		{
+			april::Image* image = source->texture->createImage();
+			this->image->blitStretch(sx, sy, sw, sh, dx, dy, dw, dh, image, alpha);
+			delete image;
+			return;
+		}
+		// texture-to-texture
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		grect orthoProjection = april::rendersys->getOrthoProjection();
-		april::Texture::Filter filter = source->getFilter();
-		source->setFilter(april::Texture::FILTER_LINEAR);
+		april::Texture::Filter filter = source->texture->getFilter();
+		source->texture->setFilter(april::Texture::FILTER_LINEAR);
 		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
-		april::rendersys->setTexture(source);
+		april::rendersys->setTexture(source->texture);
 		float width = (float)source->getWidth();
 		float height = (float)source->getHeight();
 		grect destRect((float)dx, (float)dy, (float)dw, (float)dh);
@@ -296,7 +353,7 @@ namespace legacy
 			april::rendersys->drawTexturedRect(destRect, srcRect, april::Color(april::Color::White, alpha));
 		}
 		april::rendersys->setRenderTarget(target);
-		source->setFilter(filter);
+		source->texture->setFilter(filter);
 		april::rendersys->setOrthoProjection(orthoProjection);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
@@ -304,6 +361,12 @@ namespace legacy
 
 	void Bitmap::_renderColor(int x, int y, int w, int h, april::Color color)
 	{
+		this->getTexture(); // TODO - should be removed
+		if (this->texture == NULL)
+		{
+			this->image->fillRect(x, y, w, h, color);
+			return;
+		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		grect orthoProjection = april::rendersys->getOrthoProjection();
@@ -312,6 +375,27 @@ namespace legacy
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
 		april::rendersys->clear(false, grect((float)x, (float)y, (float)w, (float)h), color);
+		april::rendersys->setRenderTarget(target);
+		april::rendersys->setOrthoProjection(orthoProjection);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
+	}
+
+	void Bitmap::_renderPixel(int x, int y, april::Color color)
+	{
+		if (this->texture == NULL)
+		{
+			this->image->setPixel(x, y, color);
+			return;
+		}
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		grect orthoProjection = april::rendersys->getOrthoProjection();
+		april::Texture* target = april::rendersys->getRenderTarget();
+		april::rendersys->setRenderTarget(this->texture);
+		april::rendersys->setIdentityTransform();
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		april::rendersys->clear(false, grect((float)x, (float)y, 1.0f, 1.0f), color);
 		april::rendersys->setRenderTarget(target);
 		april::rendersys->setOrthoProjection(orthoProjection);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
@@ -376,12 +460,8 @@ namespace legacy
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_VAR2CPP(original, Bitmap, other);
 		bitmap->disposed = false;
-		int w = other->texture->getWidth();
-		int h = other->texture->getHeight();
-		bitmap->texture = april::rendersys->createTexture(w, h, april::Color::Clear,
-			april::Image::FORMAT_RGBA, april::Texture::TYPE_RENDER_TARGET);
-		bitmap->texture->setFilter(april::Texture::FILTER_NEAREST);
-		bitmap->_renderToTexture(0, 0, w, h, 0, 0, other->texture);
+		bitmap->image = (other->texture != NULL ? other->texture->createImage() : april::Image::create(other->image));
+		bitmap->texture = NULL;
 		Bitmap::rb_setFont(self, rb_obj_clone(other->rb_font));
 		return self;
 	}
@@ -456,7 +536,15 @@ namespace legacy
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED(bitmap);
-		april::Color color = bitmap->texture->getPixel(NUM2INT(x), NUM2INT(y));
+		april::Color color;
+		if (bitmap->texture != NULL)
+		{
+			color = bitmap->texture->getPixel(NUM2INT(x), NUM2INT(y));
+		}
+		else
+		{
+			color = bitmap->image->getPixel(NUM2INT(x), NUM2INT(y));
+		}
 		VALUE argv[4] = {INT2FIX(color.r), INT2FIX(color.g), INT2FIX(color.b), INT2FIX(color.a)};
 		return Color::create(4, argv);
 	}
@@ -527,11 +615,11 @@ namespace legacy
 		RB_VAR2CPP(arg4, Rect, rect);
 		if (NIL_P(arg5))
 		{
-			bitmap->_renderToTexture(rect->x, rect->y, rect->width, rect->height, x, y, source->texture);
+			bitmap->_renderToTexture(rect->x, rect->y, rect->width, rect->height, x, y, source);
 		}
 		else
 		{
-			bitmap->_renderToTexture(rect->x, rect->y, rect->width, rect->height, x, y, source->texture, (unsigned char)NUM2INT(arg5));
+			bitmap->_renderToTexture(rect->x, rect->y, rect->width, rect->height, x, y, source, (unsigned char)NUM2INT(arg5));
 		}
 		return Qnil;
 	}
@@ -551,12 +639,12 @@ namespace legacy
 		if (NIL_P(arg4))
 		{
 			bitmap->_renderToTexture(src_rect->x, src_rect->y, src_rect->width, src_rect->height,
-				dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height, source->texture);
+				dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height, source);
 		}
 		else
 		{
 			bitmap->_renderToTexture(src_rect->x, src_rect->y, src_rect->width, src_rect->height,
-				dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height, source->texture,
+				dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height, source,
 				(unsigned char)NUM2INT(arg4));
 		}
 		return Qnil;
@@ -607,7 +695,14 @@ namespace legacy
 		float value = (float)NUM2DBL(hue);
 		if (value != 0.0f)
 		{
-			bitmap->texture->rotateHue(0, 0, bitmap->texture->getWidth(), bitmap->texture->getHeight(), value);
+			if (bitmap->texture != NULL)
+			{
+				bitmap->texture->rotateHue(0, 0, bitmap->getWidth(), bitmap->getHeight(), value);
+			}
+			else
+			{
+				bitmap->image->rotateHue(0, 0, bitmap->getWidth(), bitmap->getHeight(), value);
+			}
 		}
 		return Qnil;
 	}

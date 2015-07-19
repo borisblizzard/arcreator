@@ -62,7 +62,7 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public ScriptStyle() : this("", Color.Black, Color.Transparent, SystemFonts.DefaultFont) {}
+		public ScriptStyle() : this("", Color.Black, Color.Transparent, SystemFonts.DefaultFont) { }
 
 		/// <summary>
 		/// Constructor with parameters

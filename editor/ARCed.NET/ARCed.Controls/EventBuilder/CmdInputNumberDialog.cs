@@ -16,7 +16,7 @@ namespace ARCed.EventBuilder
 		/// <summary>
 		/// Gets or sets the number of possible digits.
 		/// </summary>
-		public int Digits 
+		public int Digits
 		{
 			get { return (int)this.numericUpDownDigits.Value; }
 			set { this.numericUpDownDigits.Value = value.Clamp(0, 12); }
@@ -28,7 +28,7 @@ namespace ARCed.EventBuilder
 		public int VariableId
 		{
 			get { return this.comboBoxVariable.SelectedIndex + 1; }
-			set 
+			set
 			{
 				if (this.comboBoxVariable.Items.Count < (value - 1))
 					this.comboBoxVariable.SelectedIndex = value - 1;

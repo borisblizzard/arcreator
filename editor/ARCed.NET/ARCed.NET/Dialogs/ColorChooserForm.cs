@@ -15,53 +15,53 @@ namespace ARCed.Dialogs
 	///   Summary description for ColorChooser.
 	/// </summary>
 	public partial class ColorChooserForm : Form
-    {
+	{
 
-        #region Public Properties
+		#region Public Properties
 
-        /// <summary>
-        /// Gets or sets the ability to adjust alpha values
-        /// </summary>
-        public bool AlphaEnabled
-        {
-            get { return this.panelAlpha.Enabled; }
-            set
-            {
-                this.panelAlpha.Enabled = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the ability to adjust alpha values
+		/// </summary>
+		public bool AlphaEnabled
+		{
+			get { return this.panelAlpha.Enabled; }
+			set
+			{
+				this.panelAlpha.Enabled = value;
+			}
+		}
 
-        /// <summary>
-        /// Gets or sets the selected <see cref="Color"/> of the form.
-        /// </summary>
-        public Color Color
-        {
-            get { return this.myColorWheel.Color; }
-            set
-            {
-                this._changeType = ChangeStyle.RGB;
-                this._argb = new ColorHandler.ARGB(value.A, value.R, value.G, value.B);
-                this._hsv = ColorHandler.RGBtoHSV(this._argb);
-            }
-        }
+		/// <summary>
+		/// Gets or sets the selected <see cref="Color"/> of the form.
+		/// </summary>
+		public Color Color
+		{
+			get { return this.myColorWheel.Color; }
+			set
+			{
+				this._changeType = ChangeStyle.RGB;
+				this._argb = new ColorHandler.ARGB(value.A, value.R, value.G, value.B);
+				this._hsv = ColorHandler.RGBtoHSV(this._argb);
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public ColorChooserForm()
 		{
 			this.InitializeComponent();
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void ColorChooserLoad(object sender, EventArgs e)
+		private void ColorChooserLoad(object sender, EventArgs e)
 		{
 			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 			SetStyle(ControlStyles.UserPaint, true);
@@ -240,21 +240,21 @@ namespace ARCed.Dialogs
 				this.panelAlpha.Location.Y + y);
 		}
 
-        #endregion
+		#endregion
 
-        #region Nested type: ChangeStyle
+		#region Nested type: ChangeStyle
 
-        /// <summary>
-        /// Enum containing flags for change styles
-        /// </summary>
-        private enum ChangeStyle
-        {
-            MouseMove,
-            RGB,
-            HSV,
-            None
-        }
+		/// <summary>
+		/// Enum containing flags for change styles
+		/// </summary>
+		private enum ChangeStyle
+		{
+			MouseMove,
+			RGB,
+			HSV,
+			None
+		}
 
-        #endregion
+		#endregion
 	}
 }

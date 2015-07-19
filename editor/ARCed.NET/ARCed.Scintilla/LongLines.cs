@@ -8,111 +8,111 @@ using System.Drawing;
 
 namespace ARCed.Scintilla
 {
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class LongLines : TopLevelHelper
-    {
-        #region Methods
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class LongLines : TopLevelHelper
+	{
+		#region Methods
 
-        private void ResetEdgeColor()
-        {
-            this.EdgeColor = Color.Silver;
-        }
-
-
-        private void ResetEdgeColumn()
-        {
-            this.EdgeColumn = 0;
-        }
+		private void ResetEdgeColor()
+		{
+			this.EdgeColor = Color.Silver;
+		}
 
 
-        private void ResetEdgeMode()
-        {
-            this.EdgeMode = EdgeMode.None;
-        }
+		private void ResetEdgeColumn()
+		{
+			this.EdgeColumn = 0;
+		}
 
 
-        internal bool ShouldSerialize()
-        {
-            return this.ShouldSerializeEdgeColor() ||
-                this.ShouldSerializeEdgeColumn() ||
-                this.ShouldSerializeEdgeMode();
-        }
+		private void ResetEdgeMode()
+		{
+			this.EdgeMode = EdgeMode.None;
+		}
 
 
-        private bool ShouldSerializeEdgeColor()
-        {
-            return this.EdgeColor != Color.Silver;
-        }
+		internal bool ShouldSerialize()
+		{
+			return this.ShouldSerializeEdgeColor() ||
+				this.ShouldSerializeEdgeColumn() ||
+				this.ShouldSerializeEdgeMode();
+		}
 
 
-        private bool ShouldSerializeEdgeColumn()
-        {
-            return this.EdgeColumn != 0;
-        }
+		private bool ShouldSerializeEdgeColor()
+		{
+			return this.EdgeColor != Color.Silver;
+		}
 
 
-        private bool ShouldSerializeEdgeMode()
-        {
-            return this.EdgeMode != EdgeMode.None;
-        }
-
-        #endregion Methods
+		private bool ShouldSerializeEdgeColumn()
+		{
+			return this.EdgeColumn != 0;
+		}
 
 
-        #region Properties
+		private bool ShouldSerializeEdgeMode()
+		{
+			return this.EdgeMode != EdgeMode.None;
+		}
 
-        public Color EdgeColor
-        {
-            get
-            {
-                if (Scintilla.ColorBag.ContainsKey("LongLines.EdgeColor"))
-                    return Scintilla.ColorBag["LongLines.EdgeColor"];
-
-                return Color.Silver;
-            }
-            set
-            {
-                if (value == Color.Silver)
-                    Scintilla.ColorBag.Remove("LongLines.EdgeColor");
-
-                Scintilla.ColorBag["LongLines.EdgeColor"] = value;
-                NativeScintilla.SetEdgeColour(Utilities.ColorToRgb(value));
-            }
-        }
+		#endregion Methods
 
 
-        public int EdgeColumn
-        {
-            get
-            {
-                return NativeScintilla.GetEdgeColumn();
-            }
-            set
-            {
-                NativeScintilla.SetEdgeColumn(value);
-            }
-        }
+		#region Properties
+
+		public Color EdgeColor
+		{
+			get
+			{
+				if (Scintilla.ColorBag.ContainsKey("LongLines.EdgeColor"))
+					return Scintilla.ColorBag["LongLines.EdgeColor"];
+
+				return Color.Silver;
+			}
+			set
+			{
+				if (value == Color.Silver)
+					Scintilla.ColorBag.Remove("LongLines.EdgeColor");
+
+				Scintilla.ColorBag["LongLines.EdgeColor"] = value;
+				NativeScintilla.SetEdgeColour(Utilities.ColorToRgb(value));
+			}
+		}
 
 
-        public EdgeMode EdgeMode
-        {
-            get
-            {
-                return (EdgeMode)NativeScintilla.GetEdgeMode();
-            }
-            set
-            {
-                NativeScintilla.SetEdgeMode((int)value);
-            }
-        }
-
-        #endregion Properties
+		public int EdgeColumn
+		{
+			get
+			{
+				return NativeScintilla.GetEdgeColumn();
+			}
+			set
+			{
+				NativeScintilla.SetEdgeColumn(value);
+			}
+		}
 
 
-        #region Constructors
+		public EdgeMode EdgeMode
+		{
+			get
+			{
+				return (EdgeMode)NativeScintilla.GetEdgeMode();
+			}
+			set
+			{
+				NativeScintilla.SetEdgeMode((int)value);
+			}
+		}
 
-        internal LongLines(Scintilla scintilla) : base(scintilla) { }
+		#endregion Properties
 
-        #endregion Constructors
-    }
+
+		#region Constructors
+
+		internal LongLines(Scintilla scintilla) : base(scintilla) { }
+
+		#endregion Constructors
+	}
 }

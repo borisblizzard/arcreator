@@ -14,7 +14,7 @@
 	/// </summary>
 	public static class SplashScreen
 	{
-	    private static SplashScreenForm sf;
+		private static SplashScreenForm sf;
 
 		/// <summary>
 		/// Displays the splashscreen

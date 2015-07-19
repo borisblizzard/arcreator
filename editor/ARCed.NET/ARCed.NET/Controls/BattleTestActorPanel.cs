@@ -11,7 +11,7 @@ namespace ARCed.Controls
 		public BattleTestActorPanel()
 		{
 			this.InitializeComponent();
-			
+
 			this.comboBoxActor.SelectedIndex = 0;
 		}
 	}

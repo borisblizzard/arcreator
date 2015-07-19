@@ -40,10 +40,10 @@ namespace ARCed.Controls
 		/// Gets or sets the note text of the control
 		/// </summary>
 		[Category("ARCed"), Description("Gets or sets the note text of the control")]
-		public string NoteText 
-		{ 
-			get { return this.textBoxNotes.Text; } 
-			set { this.textBoxNotes.Text = value; } 
+		public string NoteText
+		{
+			get { return this.textBoxNotes.Text; }
+			set { this.textBoxNotes.Text = value; }
 		}
 
 		#endregion

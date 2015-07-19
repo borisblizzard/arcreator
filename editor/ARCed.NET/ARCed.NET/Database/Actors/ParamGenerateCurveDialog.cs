@@ -8,36 +8,36 @@ using RPG;
 
 namespace ARCed.Database.Actors
 {
-    /// <summary>
-    /// Dialog for getting user-defined values used to 
-    /// generate curves for <see cref="RPG.Actor"/> parameters.
-    /// </summary>
+	/// <summary>
+	/// Dialog for getting user-defined values used to 
+	/// generate curves for <see cref="RPG.Actor"/> parameters.
+	/// </summary>
 	public partial class ParamGenerateCurveDialog : Form
-    {
-        #region Public Properties
+	{
+		#region Public Properties
 
-        /// <summary>
-        /// Gets the initial value to start the curve on.
-        /// </summary>
+		/// <summary>
+		/// Gets the initial value to start the curve on.
+		/// </summary>
 		public int InitialValue { get { return (int)this.numericInitial.Value; } }
-        /// <summary>
-        /// Gets the final value to end the curve on.
-        /// </summary>
+		/// <summary>
+		/// Gets the final value to end the curve on.
+		/// </summary>
 		public int FinalValue { get { return (int)this.numericFinal.Value; } }
-        /// <summary>
-        /// Gets the speed at which the curve increases.
-        /// </summary>
+		/// <summary>
+		/// Gets the speed at which the curve increases.
+		/// </summary>
 		public int Speed { get { return this.trackBarSpeed.Value; } }
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        /// <param name="actor">Reference to an <see cref="RPG.Actor"/> object.</param>
-        /// <param name="paramIndex">Index of the parameter to change</param>
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		/// <param name="actor">Reference to an <see cref="RPG.Actor"/> object.</param>
+		/// <param name="paramIndex">Index of the parameter to change</param>
 		public ParamGenerateCurveDialog(ref Actor actor, int paramIndex)
 		{
 			this.InitializeComponent();
@@ -48,11 +48,11 @@ namespace ARCed.Database.Actors
 			this.numericInitial.Value = actor.parameters[paramIndex, actor.initial_level];
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void ButtonOkClick(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
 			Close();
@@ -62,8 +62,8 @@ namespace ARCed.Database.Actors
 		{
 			if (this.numericInitial.Value > this.numericFinal.Value)
 				this.numericInitial.Value = this.numericFinal.Value;
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

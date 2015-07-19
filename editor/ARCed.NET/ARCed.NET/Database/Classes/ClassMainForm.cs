@@ -10,10 +10,10 @@ using RPG;
 #endregion
 
 namespace ARCed.Database.Classes
-{    
-    /// <summary>
-    /// Main form for configuring Project <see cref="RPG.Class"/> data.
-    /// </summary>
+{
+	/// <summary>
+	/// Main form for configuring Project <see cref="RPG.Class"/> data.
+	/// </summary>
 	public sealed partial class ClassMainForm : DatabaseWindow
 	{
 		#region Private Fields
@@ -41,9 +41,9 @@ namespace ARCed.Database.Classes
 
 		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
+		/// <summary>
 		/// Default constructor
 		/// </summary>
 		public ClassMainForm()
@@ -58,58 +58,58 @@ namespace ARCed.Database.Classes
 			this.dataObjectList.SelectedIndex = 0;
 		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        /// <summary>
-        /// Refreshes objects by type flag
-        /// </summary>
-        /// <param name="type">Flag for type of object to refresh</param>
-        public override void NotifyRefresh(RefreshType type)
-        {
-            if (type.HasFlag(RefreshType.States))
-            {
+		/// <summary>
+		/// Refreshes objects by type flag
+		/// </summary>
+		/// <param name="type">Flag for type of object to refresh</param>
+		public override void NotifyRefresh(RefreshType type)
+		{
+			if (type.HasFlag(RefreshType.States))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Elements))
-            {
+			}
+			if (type.HasFlag(RefreshType.Elements))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Weapons))
-            {
+			}
+			if (type.HasFlag(RefreshType.Weapons))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Armors))
-            {
+			}
+			if (type.HasFlag(RefreshType.Armors))
+			{
 
-            }
-            if (type.HasFlag(RefreshType.Skills))
-            {
+			}
+			if (type.HasFlag(RefreshType.Skills))
+			{
 
-            }
-        }
+			}
+		}
 
-        /// <summary>
-        /// Refreshes the form to display data for the currently selected <see cref="RPG.Class"/>.
-        /// </summary>
-        public override void RefreshCurrentObject()
-        {
-            SuppressEvents = true;
-            this.textBoxName.Text = this._class.name;
-            this.comboBoxPosition.SelectedIndex = this._class.position;
-            this.RefreshEquipment();
-            this.RefreshSkills();
-            this.RefreshElements();
-            this.RefreshStates();
-            SuppressEvents = false;
-        }
+		/// <summary>
+		/// Refreshes the form to display data for the currently selected <see cref="RPG.Class"/>.
+		/// </summary>
+		public override void RefreshCurrentObject()
+		{
+			SuppressEvents = true;
+			this.textBoxName.Text = this._class.name;
+			this.comboBoxPosition.SelectedIndex = this._class.position;
+			this.RefreshEquipment();
+			this.RefreshSkills();
+			this.RefreshElements();
+			this.RefreshStates();
+			SuppressEvents = false;
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void InitializeElements()
+		private void InitializeElements()
 		{
 			this.checkedListElements.ClearItems();
 			List<dynamic> elements = Project.Data.System.elements;
@@ -155,15 +155,15 @@ namespace ARCed.Database.Classes
 			this.listViewSkills.EndUpdate();
 		}
 
-        private void ListBoxClassesSelectedIndexChanged(object sender, EventArgs e)
-        {
-            int index = this.dataObjectList.SelectedIndex;
-            if (index >= 0)
-            {
-                this._class = this.Data[index + 1];
-                this.RefreshCurrentObject();
-            }
-        }
+		private void ListBoxClassesSelectedIndexChanged(object sender, EventArgs e)
+		{
+			int index = this.dataObjectList.SelectedIndex;
+			if (index >= 0)
+			{
+				this._class = this.Data[index + 1];
+				this.RefreshCurrentObject();
+			}
+		}
 
 		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
@@ -234,17 +234,17 @@ namespace ARCed.Database.Classes
 
 		private void CheckGroupFocusLeave(object sender, EventArgs e)
 		{
-		    var checkGroupBox = sender as CheckGroupBox;
-		    if (checkGroupBox != null) checkGroupBox.SelectedIndex = -1;
+			var checkGroupBox = sender as CheckGroupBox;
+			if (checkGroupBox != null) checkGroupBox.SelectedIndex = -1;
 		}
 
-    private void ButtonAddSkillClick(object sender, EventArgs e)
+		private void ButtonAddSkillClick(object sender, EventArgs e)
 		{
 			using (var dialog = new EditSkillDialog())
 			{
-			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
-			    this._class.learnings.Add(dialog.Learning);
-			    this.RefreshSkills();
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
+				this._class.learnings.Add(dialog.Learning);
+				this.RefreshSkills();
 			}
 		}
 
@@ -269,9 +269,9 @@ namespace ARCed.Database.Classes
 			{
 				Class.Learning learning = this._class.learnings[index];
 				dialog.Learning = learning;
-			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
-			    this._class.learnings[index] = dialog.Learning;
-			    this.RefreshSkills();
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
+				this._class.learnings[index] = dialog.Learning;
+				this.RefreshSkills();
 			}
 		}
 
@@ -303,7 +303,7 @@ namespace ARCed.Database.Classes
 		{
 			if (e.Column == this._listViewSorter.SortColumn)
 			{
-				this._listViewSorter.Order = (this._listViewSorter.Order == SortOrder.Ascending) ? 
+				this._listViewSorter.Order = (this._listViewSorter.Order == SortOrder.Ascending) ?
 					SortOrder.Descending : SortOrder.Ascending;
 			}
 			else
@@ -318,9 +318,9 @@ namespace ARCed.Database.Classes
 		{
 			if (!SuppressEvents)
 			{
-			    var multiStateCheckbox = sender as MultiStateCheckbox;
-			    if (multiStateCheckbox != null)
-			        this._class.element_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
+				var multiStateCheckbox = sender as MultiStateCheckbox;
+				if (multiStateCheckbox != null)
+					this._class.element_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
 			}
 		}
 
@@ -328,18 +328,18 @@ namespace ARCed.Database.Classes
 		{
 			if (!SuppressEvents)
 			{
-			    var multiStateCheckbox = sender as MultiStateCheckbox;
-			    if (multiStateCheckbox != null)
-			        this._class.state_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
+				var multiStateCheckbox = sender as MultiStateCheckbox;
+				if (multiStateCheckbox != null)
+					this._class.state_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
 			}
 		}
 
 		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
 		{
 			//if (!suppressEvents)
-				//_class.note = noteTextBox.NoteText;
-        }
+			//_class.note = noteTextBox.NoteText;
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -54,7 +54,7 @@ namespace reactor
 		VALUE rb_mDir = rb_const_get(rb_mKernel, rb_intern("Dir")); \
 		rb_funcall_2(backtraceMessage, "gsub!", rb_funcall_0(rb_mDir, "pwd"), rb_str_new2(""));
 		text += hstr("\n") + StringValueCStr(backtraceMessage);
-		hlog::error(reactor::logTag, text);
+		hlog::error(logTag, text);
 		april::messageBox(reactor::system->Title, text, april::MESSAGE_BUTTON_OK, april::MESSAGE_STYLE_WARNING);
 	}
 
@@ -82,7 +82,7 @@ namespace reactor
 			data += StringValueCStr(string);
 		}
 		hstr text = data.joined(delimiter);
-		hlog::write(reactor::logTag, text);
+		hlog::write(logTag, text);
 		return Qnil;
 	}
 	
@@ -113,7 +113,7 @@ namespace reactor
 			}
 			text = data.joined(delimiter);
 		}
-		hlog::write(reactor::logTag, text);
+		hlog::write(logTag, text);
 		april::messageBox(reactor::system->Title, text, april::MESSAGE_BUTTON_OK, april::MESSAGE_STYLE_INFO);
 		return result;
 	}
@@ -174,8 +174,7 @@ namespace reactor
 			april::init(april::RS_DEFAULT, april::WS_DEFAULT);
 			april::createRenderSystem();
 			april::Window::Options options;
-			// TODO - activate this when all texture reloads have been fixed
-			//options.hotkeyFullscreen = reactor::system->Parameters.try_get_by_key(CFG_FULLSCREEN_HOTKEY, true);
+			options.hotkeyFullscreen = reactor::system->Parameters.tryGet(CFG_FULLSCREEN_HOTKEY, true);
 			options.fpsCounter = true;
 			april::createWindow(resolution[0], resolution[1], fullscreen, reactor::system->Title, options);
 			atres::init();
@@ -186,7 +185,7 @@ namespace reactor
 			xal::init(xal::AS_DISABLED, april::window->getBackendId(), false);
 #endif
 			// reactor related data
-			hlog::write(reactor::logTag, "Initializing ARC Reactor Engine.");
+			hlog::write(logTag, "Initializing ARC Reactor Engine.");
 			reactor::input = new reactor::Input();
 			reactor::transitionManager = new reactor::TransitionManager();
 			// april
@@ -203,12 +202,12 @@ namespace reactor
 		}
 		catch (hexception& e)
 		{
-			hlog::error(reactor::logTag, e.getMessage());
+			hlog::error(logTag, e.getMessage());
 			result = false;
 		}
 		catch (hstr e)
 		{
-			hlog::error(reactor::logTag, e);
+			hlog::error(logTag, e);
 			result = false;
 		}
 		return result;
@@ -219,7 +218,7 @@ namespace reactor
 		bool result = true;
 		try
 		{
-			hlog::write(reactor::logTag, "Destroying ARC Reactor Engine.");
+			hlog::write(logTag, "Destroying ARC Reactor Engine.");
 			delete reactor::vertexShader;
 			delete reactor::pixelShader;
 			// destroy other
@@ -235,12 +234,12 @@ namespace reactor
 		}
 		catch (hexception& e)
 		{
-			hlog::error(reactor::logTag, e.getMessage());
+			hlog::error(logTag, e.getMessage());
 			result = false;
 		}
 		catch (hstr e)
 		{
-			hlog::error(reactor::logTag, e);
+			hlog::error(logTag, e);
 			result = false;
 		}
 		return result;
@@ -317,7 +316,7 @@ namespace reactor
 		ruby_init_loadpath();
 		ruby_script(reactor::system->Parameters[CFG_TITLE].cStr());
 #ifndef _DEBUG
-		if (args.size() >= 2 && args[1].lower() == "-debug")
+		if (args.size() >= 2 && args[1].lowered() == "-debug")
 #endif
 		{
 			rb_eval_string("$DEBUG = true");
@@ -343,15 +342,15 @@ namespace reactor
 		catch (legacy::ApplicationExitException&)
 		{
 			// ALT+F4 exit or window close button exit
-			hlog::write(reactor::logTag, "Application Exit.");
+			hlog::write(logTag, "Application Exit.");
 		}
 		catch (hexception& e)
 		{
-			hlog::error(reactor::logTag, e.getMessage());
+			hlog::error(logTag, e.getMessage());
 		}
 		catch (hstr e)
 		{
-			hlog::error(reactor::logTag, e);
+			hlog::error(logTag, e);
 		}
 		rb_gc();
 		return ruby_cleanup(exception);

@@ -81,7 +81,7 @@ namespace ARCed.Database.States
 			checkBoxRegardHp0.Checked = _state.zero_hp;
 			checkBoxNoExp.Checked = _state.cant_get_exp;
 			checkBoxNoEvade.Checked = _state.cant_evade;
-			//comboBoxAnimation.SelectedIndex = _state.animation_id;
+			comboBoxAnimation.SelectedIndex = _state.animation_id;
 			comboBoxRestriction.SelectedIndex = _state.restriction;
 			checkGroupBoxElements.CheckAll(false);
 			foreach (int id in _state.guard_element_set)
@@ -146,9 +146,9 @@ namespace ARCed.Database.States
 			this.comboBoxAnimation.Items.Clear();
 			this.comboBoxAnimation.Items.Add("<None>");
 			//////////////////
-#warning Fix this after loading of animations is fixed
+            //#warning Fix this after loading of animations is fixed
 			this.comboBoxAnimation.EndUpdate();
-			return;
+			//return;
 			//////////////////
 			string name;
 			foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
@@ -249,6 +249,17 @@ namespace ARCed.Database.States
 			//_state.note = this.noteTextBox.NoteText;
 		}
 
+        private void ChangeMaximumClicked(object sender, EventArgs e)
+        {
+            ChangeMaximumForm form = new ChangeMaximumForm(this.DataObjectList.Items.Count);
+        }
+
+        
 		#endregion
+
+        private void dataObjectList_Enter(object sender, EventArgs e)
+        {
+
+        }
 	}
 }

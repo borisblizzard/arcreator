@@ -11,10 +11,10 @@ using ARCed.Core;
 
 namespace ARCed.Helpers
 {
-    /// <summary>
-    /// Static class for loading graphic resources and caching them to increase performance. This class 
-    /// class also performs hue and opacity alterations on graphics.
-    /// </summary>
+	/// <summary>
+	/// Static class for loading graphic resources and caching them to increase performance. This class 
+	/// class also performs hue and opacity alterations on graphics.
+	/// </summary>
 	public static class Cache
 	{
 		#region Fields
@@ -23,10 +23,10 @@ namespace ARCed.Helpers
 		/// </summary>
 		private static readonly Dictionary<string, Image> _cache = new Dictionary<string, Image>();
 
-        /// <summary>
-        /// The index to reference for building autotile graphics
-        /// </summary>
-        private static readonly int[][] _autoindex = new[] { 
+		/// <summary>
+		/// The index to reference for building autotile graphics
+		/// </summary>
+		private static readonly int[][] _autoindex = new[] { 
 			new[] { 27,28,33,34 },   new[] { 5,28,33,34 },   new[] { 27,6,33,34 },  
 			new[] { 5,6,33,34 },     new[] { 27,28,33,12 },  new[] { 5,28,33,12 },  
 			new[] { 27,6,33,12 },    new[] { 5,6,33,12 },    new[] { 27,28,11,34 },  
@@ -336,11 +336,11 @@ namespace ARCed.Helpers
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacement</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached _srcTexture with effects applied</returns>
-		public static Image CharacterStance(string filename, int pattern, int direction, 
+		public static Image CharacterStance(string filename, int pattern, int direction,
 			int hue = 0, int opacity = 255)
 		{
 			var image = Character(filename, hue, opacity);
-		    var cw = image.Width / 4;
+			var cw = image.Width / 4;
 			var ch = image.Height / 4;
 			var sx = pattern * cw;
 			var sy = (direction - 2) / 2 * ch;
@@ -379,17 +379,17 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static void Clear()
 		{
-		    var cacheGeneration = GC.GetGeneration(_cache);
+			var cacheGeneration = GC.GetGeneration(_cache);
 			try
 			{
 				foreach (var image in _cache.Values.Where(image => image != null))
-				    image.Dispose();
+					image.Dispose();
 			}
-            finally 
-            { 
-                _cache.Clear();
-                GC.Collect(cacheGeneration, GCCollectionMode.Forced);
-            }
+			finally
+			{
+				_cache.Clear();
+				GC.Collect(cacheGeneration, GCCollectionMode.Forced);
+			}
 		}
 	}
 }

@@ -43,14 +43,14 @@ namespace ARCed.Forms
 				{
 					switch (index)
 					{
-						case 0: return Skin.DockPaneStripSkin.DocumentGradient.DockStripGradient; 
-						case 1: return Skin.DockPaneStripSkin.DocumentGradient.ActiveTabGradient; 
-						case 2: return Skin.DockPaneStripSkin.DocumentGradient.InactiveTabGradient; 
+						case 0: return Skin.DockPaneStripSkin.DocumentGradient.DockStripGradient;
+						case 1: return Skin.DockPaneStripSkin.DocumentGradient.ActiveTabGradient;
+						case 2: return Skin.DockPaneStripSkin.DocumentGradient.InactiveTabGradient;
 						case 3: return Skin.DockPaneStripSkin.ToolWindowGradient.DockStripGradient;
 						case 4: return Skin.DockPaneStripSkin.ToolWindowGradient.ActiveTabGradient;
 						case 5: return Skin.DockPaneStripSkin.ToolWindowGradient.InactiveTabGradient;
-						case 6: return Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient; 
-						case 7: return Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient; 
+						case 6: return Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient;
+						case 7: return Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient;
 					}
 				}
 				else
@@ -121,15 +121,15 @@ namespace ARCed.Forms
 			Color color;
 			switch (tag)
 			{
-			    case "START":
-			        color = this.panelStartColor.BackColor;
-			        break;
-			    case "END":
-			        color = this.panelEndColor.BackColor;
-			        break;
-			    default:
-			        color = this.panelTextColor.BackColor;
-			        break;
+				case "START":
+					color = this.panelStartColor.BackColor;
+					break;
+				case "END":
+					color = this.panelEndColor.BackColor;
+					break;
+				default:
+					color = this.panelTextColor.BackColor;
+					break;
 			}
 			using (var dialog = new ColorChooserForm())
 			{
@@ -145,7 +145,7 @@ namespace ARCed.Forms
 
 		private void comboBoxGradient_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			this.CurrentGradient.LinearGradientMode = 
+			this.CurrentGradient.LinearGradientMode =
 				(LinearGradientMode)this.comboBoxGradient.SelectedIndex;
 		}
 

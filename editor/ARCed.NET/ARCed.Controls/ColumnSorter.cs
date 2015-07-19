@@ -56,33 +56,33 @@ namespace ARCed.Controls
 		{
 			int compareResult;
 
-		    // Cast the objects to be compared to ListViewItem objects
+			// Cast the objects to be compared to ListViewItem objects
 			var listviewX = (ListViewItem)x;
 			var listviewY = (ListViewItem)y;
 
 			if (this.ColumnToSort == 0)
 			{
-				compareResult = this.FirstObjectCompare.Compare(x,y);
+				compareResult = this.FirstObjectCompare.Compare(x, y);
 			}
 			else
 			{
 				// Compare the two items
-				compareResult = this.ObjectCompare.Compare(listviewX.SubItems[this.ColumnToSort].Text, 
-                    listviewY.SubItems[this.ColumnToSort].Text);
+				compareResult = this.ObjectCompare.Compare(listviewX.SubItems[this.ColumnToSort].Text,
+					listviewY.SubItems[this.ColumnToSort].Text);
 			}
 
 			// Calculate correct return value based on object comparison
 			switch (this.OrderOfSort)
 			{
-			    case SortOrder.Ascending:
-			        return compareResult;
-			    case SortOrder.Descending:
-			        return (-compareResult);
-			    default:
-			        return 0;
+				case SortOrder.Ascending:
+					return compareResult;
+				case SortOrder.Descending:
+					return (-compareResult);
+				default:
+					return 0;
 			}
 		}
-    
+
 		/// <summary>
 		/// Gets or sets the number of the column to which to apply the sorting operation (Defaults to '0').
 		/// </summary>
@@ -112,14 +112,14 @@ namespace ARCed.Controls
 				return this.OrderOfSort;
 			}
 		}
-    
+
 	}
 
 	public class ImageTextComparer : IComparer
 	{
 		//private CaseInsensitiveComparer ObjectCompare;
 		private readonly NumberCaseInsensitiveComparer ObjectCompare;
-        
+
 		public ImageTextComparer()
 		{
 			// Initialize the CaseInsensitiveComparer object
@@ -130,7 +130,7 @@ namespace ARCed.Controls
 		{
 			//int compareResult;
 
-		    // Cast the objects to be compared to ListViewItem objects
+			// Cast the objects to be compared to ListViewItem objects
 			var listviewX = (ListViewItem)x;
 			int image1 = listviewX.ImageIndex;
 			var listviewY = (ListViewItem)y;
@@ -142,7 +142,7 @@ namespace ARCed.Controls
 			}
 			else if (image1 == image2)
 			{
-				return this.ObjectCompare.Compare(listviewX.Text,listviewY.Text);
+				return this.ObjectCompare.Compare(listviewX.Text, listviewY.Text);
 			}
 			else
 			{
@@ -158,19 +158,19 @@ namespace ARCed.Controls
 		{
 			if ((x is String) && IsWholeNumber((string)x) && (y is String) && IsWholeNumber((string)y))
 			{
-				return base.Compare(Convert.ToInt32(x),Convert.ToInt32(y));
+				return base.Compare(Convert.ToInt32(x), Convert.ToInt32(y));
 			}
 			else
 			{
-				return base.Compare(x,y);
+				return base.Compare(x, y);
 			}
 		}
 
 		private static bool IsWholeNumber(string strNumber)
 		{
-			var objNotWholePattern=new Regex("[^0-9]");
+			var objNotWholePattern = new Regex("[^0-9]");
 			return !objNotWholePattern.IsMatch(strNumber);
-		}  
+		}
 	}
 
 }

@@ -41,10 +41,10 @@ namespace ARCed.Controls
 		#region Public Properties
 
 		[Browsable(false)]
-		public EquipSlotConfiguration Configuration 
-		{ 
+		public EquipSlotConfiguration Configuration
+		{
 			get { return this._configuration ?? (this._configuration = new EquipSlotConfiguration()); }
-		    set 
+			set
 			{
 				if (value != null)
 				{
@@ -52,15 +52,15 @@ namespace ARCed.Controls
 					this.labelType.Text = value.Label + ":";
 					this.RefreshItems(null);
 				}
-			} 
+			}
 		}
 
 		/// <summary>
 		/// Gets or sets the type of items that the equipment slot contains
 		/// </summary>
 		[Category("ARCed"), Description("Defines the type of items that the equipment slot contains")]
-		public int EquipKind 
-		{ 
+		public int EquipKind
+		{
 			get { return this.Configuration.EquipKind; }
 			set { this.Configuration.EquipKind = value; }
 		}
@@ -79,8 +79,8 @@ namespace ARCed.Controls
 		/// </summary>
 		[DefaultValue("Equipment")]
 		[Category("ARCed"), Description("Defines the label of the equipment type.")]
-		public string Label 
-		{ 
+		public string Label
+		{
 			get { return this.Configuration.Label; }
 			set { this.Configuration.Label = value; this.labelType.Text = value + ":"; }
 		}
@@ -100,8 +100,8 @@ namespace ARCed.Controls
 		/// </summary>
 		[DefaultValue("")]
 		[Category("ARCed"), Description("Name of the RPG object property the equipment ID value represents.")]
-		public string RpgIdAttribute 
-		{ 
+		public string RpgIdAttribute
+		{
 			get { return this.Configuration.RpgIdProperty; }
 			set { this.Configuration.RpgIdProperty = value; }
 		}
