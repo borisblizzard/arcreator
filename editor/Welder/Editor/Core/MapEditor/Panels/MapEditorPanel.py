@@ -10,9 +10,26 @@ from PyitectConsumes import PanelBase, MapEditorToolbar, TilemapPanel
 
 class MapEditorPanel(wx.Panel, PanelBase):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable IconARCM DestroyOC"
-    _arc_panel_info_data = {"Name": "Map Editor:", "Caption": "Map Editor:", "CaptionV": True, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART", ],
-                            "MinimizeB": True, "CloseB": True, "NotebookP": [1], 'IconARCM': 'map_icon'}
+    _arc_panel_info = {
+        "Name": "Map Editor",
+        "Caption": "Map Editor",
+        "BestS": (32 * 24, 32 * 18),
+        "CaptionV": True,
+        "Center": True,
+        "CloseB": True,
+        "DestroyOC": True,
+        "Floatable": True,
+        "Float": True,
+        "IconARCM": 'mapediticon',
+        "MaximizeB": True,
+        "MinimizeB": True,
+        "MinimizeM": ["POS_SMART", "CAPT_SMART"],
+        "Movable": True,
+        "NotebookD": True,
+        "NotebookP": [1],
+        "Resizable": True,
+        "Snappable": True
+    }
 
     def __init__(self, parent, map, tilesets):
         '''lays out a toolbar and the map window'''

@@ -20,10 +20,24 @@ from PyitectConsumes import Table
 
 class Classes_Panel(Classes_Panel_Template, PanelBase):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
-    _arc_panel_info_data = {"Name": "Classes Panel", "Caption": "Classes Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART", ],
-                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'classesicon'}
-
+    _arc_panel_info = {
+        "Name": "Classes Panel",
+        "Caption": "Classes Panel",
+        "CaptionV": True,
+        "Center": True,
+        "CloseB": True,
+        "DestroyOC": True,
+        "Floatable": True,
+        "Float": True,
+        "IconARCM": 'classesicon',
+        "MaximizeB": True,
+        "MinimizeB": True,
+        "MinimizeM": ["POS_SMART", "CAPT_SMART"],
+        "Movable": True,
+        "NotebookD": True,
+        "Resizable": True,
+        "Snappable": True
+    }
     def __init__(self, parent, class_index=0):
         """Basic constructor for the Classes panel"""
         Classes_Panel_Template.__init__(self, parent)

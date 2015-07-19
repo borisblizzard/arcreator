@@ -12,9 +12,26 @@ from PyitectConsumes import EditorGLPanel
 
 class EventPanel(wx.Panel, PanelBase):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable IconARCM DestroyOC"
-    _arc_panel_info_data = {"Name": "Event Editor:", "Caption": "Event Editor:", "CaptionV": True, "BestS": (32 * 10, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART"],
-                            "MinimizeB": True, "CloseB": True, "NotebookP": [1], 'IconARCM': 'eventlayericon'}
+    _arc_panel_info = {
+        "Name": "Event Editor",
+        "Caption": "Event Editor",
+        "BestS": (32 * 10, 32 * 18),
+        "CaptionV": True,
+        "Center": True,
+        "CloseB": True,
+        "DestroyOC": True,
+        "Floatable": True,
+        "Float": True,
+        "IconARCM": 'eventlayericon',
+        "MaximizeB": True,
+        "MinimizeB": True,
+        "MinimizeM": ["POS_SMART", "CAPT_SMART"],
+        "Movable": True,
+        "NotebookD": True,
+        "NotebookP": [1],
+        "Resizable": True,
+        "Snappable": True
+    }
 
     def __init__(self, parent, event):
         wx.Panel.__init__(self, parent)

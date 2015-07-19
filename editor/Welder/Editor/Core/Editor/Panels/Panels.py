@@ -38,8 +38,14 @@ class PanelBase(object):
 
 class MainToolbar(aui.AuiToolBar):
 
-    _arc_panel_info_string = "Name Caption ToolbarP Top Row CloseB"
-    _arc_panel_info_data = {"Name": "MainToolbar", "Caption": "Main Tool Bar", "Row": 1, "CloseB": False, }
+    _arc_panel_info = {
+        "Name": "MainToolbar",
+        "Caption": "Main Tool Bar",
+        "ToolbarP": True,
+        "Top": True,
+        "Row": 1,
+        "CloseB": False
+    }
 
     def __init__(self, parent):
 
@@ -154,8 +160,14 @@ class MainToolbar(aui.AuiToolBar):
 
 class EditorToolbar(aui.AuiToolBar):
 
-    _arc_panel_info_string = "Name Caption ToolbarP Top Row CloseB"
-    _arc_panel_info_data = {"Name": "EditorToolbar", "Caption": "Database Tool Bar", "Row": 1, "CloseB": False, }
+    _arc_panel_info = {
+        "Name": "EditorToolbar",
+        "Caption": "Editor Tool Bar",
+        "ToolbarP": True,
+        "Top": True,
+        "Row": 1,
+        "CloseB": False
+    }
 
     def __init__(self, parent):
 

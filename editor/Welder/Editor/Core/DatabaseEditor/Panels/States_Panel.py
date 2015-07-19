@@ -13,9 +13,24 @@ from PyitectConsumes import ChangeMaximum_Dialog
 
 class States_Panel(States_Panel_Template, PanelBase):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
-    _arc_panel_info_data = {"Name": "States Panel", "Caption": "States Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART", ],
-                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'statesicon'}
+    _arc_panel_info = {
+        "Name": "States Panel",
+        "Caption": "States Panel",
+        "CaptionV": True,
+        "Center": True,
+        "CloseB": True,
+        "DestroyOC": True,
+        "Floatable": True,
+        "Float": True,
+        "IconARCM": 'statesicon',
+        "MaximizeB": True,
+        "MinimizeB": True,
+        "MinimizeM": ["POS_SMART", "CAPT_SMART"],
+        "Movable": True,
+        "NotebookD": True,
+        "Resizable": True,
+        "Snappable": True
+    }
 
     def __init__(self, parent):
         States_Panel_Template.__init__(self, parent)
