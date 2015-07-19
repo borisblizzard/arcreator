@@ -155,6 +155,7 @@
             this.dataObjectList.Size = new System.Drawing.Size(181, 475);
             this.dataObjectList.TabIndex = 0;
             this.dataObjectList.TabStop = false;
+            this.dataObjectList.OnButtonMaxClick += new ARCed.Controls.DatabaseObjectListBox.ButtonMaxClickEventHandler(this.dataObjectList_OnButtonMaxClick);
             this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.DataObjectListOnListBoxIndexChanged);
             // 
             // splitContainerRight

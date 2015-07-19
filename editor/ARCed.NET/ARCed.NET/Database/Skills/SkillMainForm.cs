@@ -335,5 +335,16 @@ namespace ARCed.Database.Skills
 		}
 
 		#endregion
+
+        private void dataObjectList_OnButtonMaxClick(object sender, EventArgs e)
+        {
+            ChangeMaximumForm form = new ChangeMaximumForm(this.DataObjectList.Items.Count, this.dataObjectList.ButtonMaximum.Top);
+            form.ShowDialog(); //Blocks interaction with parent form
+            if (form.Confirm)
+            {
+                form.ChangeMaximum<Skill>(this.Data, this.dataObjectList);
+            }
+
+        }
 	}
 }

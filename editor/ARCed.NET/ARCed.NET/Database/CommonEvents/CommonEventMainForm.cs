@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ARCed.Controls;
+using RPG;
 
 namespace ARCed.Database.CommonEvents
 {
@@ -103,5 +104,16 @@ namespace ARCed.Database.CommonEvents
 			if (SuppressEvents) return;
 			_event.switch_id = comboBoxCondition.SelectedIndex;
 		}
+
+        private void dataObjectList_OnButtonMaxClick(object sender, EventArgs e)
+        {
+            ChangeMaximumForm form = new ChangeMaximumForm(this.DataObjectList.Items.Count, this.dataObjectList.ButtonMaximum.Top);
+            form.ShowDialog(); //Blocks interaction with parent form
+            if (form.Confirm)
+            {
+                form.ChangeMaximum<CommonEvent>(this.Data, this.dataObjectList);
+            }
+
+        }
 	}
 }
