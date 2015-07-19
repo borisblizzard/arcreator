@@ -3,7 +3,11 @@ import numpy as np
 
 import Kernel
 
-from PyitectConsumes import PanelBase, Actors_Panel_Template, ExpGrid_Dialog, GenerateCurve_Dialog, AddParameter_Dialog
+from PyitectConsumes import PanelBase
+from PyitectConsumes import Actors_Panel_Template
+from PyitectConsumes import ExpGrid_Dialog
+from PyitectConsumes import GenerateCurve_Dialog
+from PyitectConsumes import AddParameter_Dialog
 from PyitectConsumes import DatabaseManager as DM
 from PyitectConsumes import RGSS1_RPG as RPG
 
@@ -16,9 +20,24 @@ from .GraphColors import GRAPH_COLORS
 
 class Actors_Panel(Actors_Panel_Template, PanelBase):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD  Resizable Snappable"
-    _arc_panel_info_data = {"Name": "Actors Panel", "Caption": "Actors Panel", "CaptionV": True, "MinimizeM": ["POS_SMART", "CAPT_SMART", ],
-                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'actorsicon'}
+    _arc_panel_info = {
+        "Name": "Actors Panel",
+        "Caption": "Actors Panel",
+        "CaptionV": True,
+        "Center": True,
+        "CloseB": True,
+        "DestroyOC": True,
+        "Floatable": True,
+        "Float": True,
+        "IconARCM": 'actorsicon',
+        "MaximizeB": True,
+        "MinimizeB": True,
+        "MinimizeM": ["POS_SMART", "CAPT_SMART"],
+        "Movable": True,
+        "NotebookD": True,
+        "Resizable": True,
+        "Snappable": True
+    }
 
     def __init__(self, parent, actorIndex=0):
         """Basic constructor for the Actors panel"""
@@ -27,7 +46,8 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         config = Kernel.Config.getUnified()
 
         # Set font for the note control
-        font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+        font = wx.Font(8, wx.FONTFAMILY_TELETYPE,
+                       wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 
         if "Misc" in config and "NoteFont" in config["Misc"]:
             font.SetFaceName(str(config['Misc']['NoteFont']))
@@ -36,15 +56,26 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
         # Set the ranges for initial and final level spin controls
         ma = 999
-        if "DatabaseLimits" in config and "ActorLevel" in config["DatabaseLimits"]:
+        if ("DatabaseLimits" in config
+                and "ActorLevel" in config["DatabaseLimits"]):
             ma = int(config['DatabaseLimits']['ActorLevel'])
 
         self.spinCtrlInitialLevel.SetRange(1, ma)
         self.spinCtrlFinalLevel.SetRange(1, ma)
         self.spinCtrlLevel.SetRange(1, ma)
-        self.glCanvasCharacter.canvas.Bind(wx.EVT_LEFT_DCLICK, Kernel.Protect(self.glCanvasCharacter_DoubleClick))
-        self.glCanvasBattler.canvas.Bind(wx.EVT_LEFT_DCLICK, Kernel.Protect(self.glCanvasBattler_DoubleClick))
-        self.parameterGraph.canvas.Bind(wx.EVT_LEFT_DCLICK, Kernel.Protect(self.parameterGraph_DoubleClicked))
+
+        self.glCanvasCharacter.canvas.Bind(
+            wx.EVT_LEFT_DCLICK,
+            Kernel.Protect(self.glCanvasCharacter_DoubleClick)
+        )
+        self.glCanvasBattler.canvas.Bind(
+            wx.EVT_LEFT_DCLICK,
+            Kernel.Protect(self.glCanvasBattler_DoubleClick)
+        )
+        self.parameterGraph.canvas.Bind(
+            wx.EVT_LEFT_DCLICK,
+            Kernel.Protect(self.parameterGraph_DoubleClicked)
+        )
 
         actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
         # Initialize the selected actor attribute
@@ -77,7 +108,9 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         page = wx.Panel(self.noteBookActorParameters)
         self.noteBookActorParameters.AddPage(page, title)
         index = self.noteBookActorParameters.GetPageCount() - 1
-        maxlevel = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
+        maxlevel = int(
+            Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']
+        )
         actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
         for actor in actors:
             if actor is None:
@@ -89,10 +122,17 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             self.noteBookActorParameters.SetSelection(index)
 
     def CreateEquipmentControls(self):
-        """Creates the controls for each equipment type defined in the configuration"""
+        """
+        Creates the controls for each equipment type
+        defined in the configuration
+        """
         if DM.ARC_FORMAT:
-            equipment = list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots'])
-            equipment.extend(list(Kernel.Config.getUnified()['GameSetup']['ArmorSlots']))
+            equipment = list(
+                Kernel.Config.getUnified()['GameSetup']['WeaponSlots']
+            )
+            equipment.extend(list(
+                Kernel.Config.getUnified()['GameSetup']['ArmorSlots']
+            ))
         else:
             equipment = [
                 'Weapon', 'Shield', 'Helmet', 'Body Armor', 'Accessory']
@@ -101,22 +141,38 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.FixedCheckBoxes = []
         for i in range(len(equipment)):
             sizer = wx.BoxSizer(wx.HORIZONTAL)
-            label = wx.StaticText(self.scrolledWindowEquipment, wx.ID_ANY,
-                                  equipment[i], wx.DefaultPosition, wx.Size(80, -1), wx.ALIGN_LEFT)
+            label = wx.StaticText(
+                self.scrolledWindowEquipment,
+                wx.ID_ANY,
+                equipment[i],
+                wx.DefaultPosition,
+                wx.Size(80, -1),
+                wx.ALIGN_LEFT
+            )
             label.Wrap(-1)
             sizer.Add(label, 0, wx.TOP | wx.LEFT | wx.RIGHT, 5)
             comboBox = wx.Choice(self.scrolledWindowEquipment, wx.ID_ANY,
                                  wx.DefaultPosition, wx.DefaultSize, [], 0)
             comboBox.SetDoubleBuffered(True)
-            comboBox.Bind(wx.EVT_CHOICE,
-                          Kernel.Protect(self.comboBoxEquipment_SelectionChanged))
+            comboBox.Bind(
+                wx.EVT_CHOICE,
+                Kernel.Protect(self.comboBoxEquipment_SelectionChanged)
+            )
             comboBox.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
             self.EquipmentBoxes.append(comboBox)
             sizer.Add(comboBox, 1, wx.RIGHT | wx.LEFT, 5)
-            checkBox = wx.CheckBox(self.scrolledWindowEquipment, wx.ID_ANY, "Fixed",
-                                   wx.DefaultPosition, wx.DefaultSize, 0)
-            checkBox.Bind(wx.EVT_CHECKBOX,
-                          Kernel.Protect(self.checkBoxFixedEquipment_CheckChanged))
+            checkBox = wx.CheckBox(
+                self.scrolledWindowEquipment,
+                wx.ID_ANY,
+                "Fixed",
+                wx.DefaultPosition,
+                wx.DefaultSize,
+                0
+            )
+            checkBox.Bind(
+                wx.EVT_CHECKBOX,
+                Kernel.Protect(self.checkBoxFixedEquipment_CheckChanged)
+            )
             checkBox.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
             self.FixedCheckBoxes.append(checkBox)
             sizer.Add(checkBox, 0, wx.ALL, 5)
@@ -193,21 +249,23 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         if "GameObjects" in config and "Armors" in config["GameObjects"]:
             digits = len(str(int(config['GameObjects']['Armors'])))
         if "GameSetup" in config and "ArmorSlotKinds" in config["GameSetup"]:
-            cypher = [int(k) for k in list(config['GameSetup']['ArmorSlotKinds'])]
+            cypher = [int(k) for k in list(
+                config['GameSetup']['ArmorSlotKinds']
+            )]
 
         armors = Kernel.GlobalObjects['PROJECT'].getDataCopy('Armors')
 
-        for k in list(Kernel.Config.getUnified()['GameSetup']['ArmorSlotKinds']):
+        for k in list(config['GameSetup']['ArmorSlotKinds']):
             key = int(k)
             if key not in kinds:
                 values = ['(None)']
                 ids = self.GetArmorIDs(key)
-                for id in ids:
-                    if armors[id] is None:
-                        armors[id] = RPG.Weapon()
+                for a_id in ids:
+                    if armors[a_id] is None:
+                        armors[a_id] = RPG.Weapon()
                 values.extend(
-                    [''.join([str(id).zfill(digits), ': ',
-                              armors[id].name]) for id in ids])
+                    [''.join([str(ar_id).zfill(digits), ': ',
+                              armors[ar_id].name]) for ar_id in ids])
                 kinds[key] = values
 
         for i in range(weaponSlots, len(self.EquipmentBoxes)):
@@ -216,16 +274,21 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             self.EquipmentBoxes[i].Clear()
             self.EquipmentBoxes[i].AppendItems(items)
             index = 0
-            exec(
-                ''.join(['id = self.SelectedActor.armor', str(i + 1 - weaponSlots), '_id']))
-            if id != 0:
+            a_id = getattr(
+                self.SelectedActor,
+                ''.join(['armor', str(i + 1 - weaponSlots), '_id'])
+            )
+            if a_id != 0:
                 try:
                     index = self.GetArmorIDs(kind).index(id) + 1
                 except ValueError:
                     # If the class changes, the index() method no longer works
                     index = 0
-                    exec(
-                        ''.join(['self.SelectedActor.armor', str(i + 1 - weaponSlots), '_id = 0']))
+                    setattr(
+                        self.SelectedActor,
+                        ''.join(['armor', str(i + 1 - weaponSlots), '_id']),
+                        0
+                    )
             self.EquipmentBoxes[i].SetSelection(index)
 
     def refreshParameters(self):
@@ -257,13 +320,24 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def refreshGraphics(self):
         """Refreshes the character and battler graphic for the actor"""
-        DM.RenderImage(self.glCanvasCharacter, self.SelectedActor.character_name,
-                       self.SelectedActor.character_hue, 'character')
-        DM.RenderImage(self.glCanvasBattler, self.SelectedActor.battler_name,
-                       self.SelectedActor.battler_hue, 'battler')
+        DM.RenderImage(
+            self.glCanvasCharacter,
+            self.SelectedActor.character_name,
+            self.SelectedActor.character_hue,
+            'character'
+        )
+        DM.RenderImage(
+            self.glCanvasBattler,
+            self.SelectedActor.battler_name,
+            self.SelectedActor.battler_hue,
+            'battler'
+        )
 
     def refreshValues(self, level=None):
-        """Applies the limits defined for the selected parameter, and updates the value"""
+        """
+        Applies the limits defined for the selected parameter,
+        and updates the value
+        """
         if level is None:
             level = self.spinCtrlLevel.GetValue()
         self.spinCtrlValue.SetValue(
@@ -280,9 +354,14 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         maxValue = None
         if not self.checkBoxScaled.GetValue():
             maxValue = self.GetValueMax(self.ParamTab)
-        self.parameterGraph.SetData(self.GetParameterData(), name, color,
-                                    maxvalue=maxValue, maxlevel=self.SelectedActor.final_level,
-                                    minlevel=self.SelectedActor.initial_level)
+        self.parameterGraph.SetData(
+            self.GetParameterData(),
+            name,
+            color,
+            maxvalue=maxValue,
+            maxlevel=self.SelectedActor.final_level,
+            minlevel=self.SelectedActor.initial_level
+        )
 
     def refreshAll(self):
         """Refreshes all the controls that contain game object values"""
@@ -296,7 +375,10 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.refreshGraph()
 
     def listBoxActors_SelectionChanged(self, event):
-        """Changes the data on the panel to reflect the values of the selected actor"""
+        """
+        Changes the data on the panel to reflect
+        the values of the selected actor
+        """
         index = DM.FixedIndex(event.GetSelection())
         actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
         if actors[index] is None:
@@ -313,11 +395,16 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.SelectedActor.parameters[param, level] = value
 
     def GetParameterValue(self, index, level):
-        """Retrieves the value of the current actor's selected parameter for the defined level"""
-        if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
+        """
+        Retrieves the value of the current actor's selected parameter
+        for the defined level
+        """
+        if (self.SelectedActor.parameters.xsize <= index
+                or self.SelectedActor.parameters.ysize < level):
             maxlevel = 999
             config = Kernel.Config.getUnified()
-            if "DatabaseLimits" in config and "ActorLevel" in config["DatabaseLimits"]:
+            if ("DatabaseLimits" in config
+                    and "ActorLevel" in config["DatabaseLimits"]):
                 maxlevel = int(config['DatabaseLimits']['ActorLevel'])
             actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
             for actor in actors:
@@ -339,25 +426,36 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def textBoxName_TextChanged(self, event):
         """updates the selected actor's name"""
-        DM.updateObjectName(self.SelectedActor, event.GetString(),
-                            self.listBoxActors, len(Kernel.Config.getUnified()['GameObjects']['Actors']))
+        DM.updateObjectName(
+            self.SelectedActor,
+            event.GetString(),
+            self.listBoxActors,
+            len(Kernel.Config.getUnified()['GameObjects']['Actors'])
+        )
 
     def comboBoxClass_SelectionChanged(self, event):
-        """updates the actor's class ID and refreshes the equipment allowed by the class"""
+        """
+        updates the actor's class ID and refreshes the equipment
+        allowed by the class
+        """
         self.SelectedActor.class_id = DM.FixedIndex(
             self.comboBoxClass.GetSelection())
         self.refreshWeapons()
         self.refreshArmors()
 
     def spinCtrlInitialLevel_ValueChanged(self, event):
-        """Sets the selected actor's initial level to the value of the wxSpinCtrl"""
+        """
+        Sets the selected actor's initial level to the value of the wxSpinCtrl
+        """
         self.spinCtrlInitialLevel.SetRange(
             1, self.spinCtrlFinalLevel.GetValue())
         self.SelectedActor.initial_level = self.spinCtrlInitialLevel.GetValue()
         self.refreshGraph()
 
     def spinCtrlFinalLevel_ValueChanged(self, event):
-        """Sets the selected actor's final level to the value of the wxSpinCtrl"""
+        """
+        Sets the selected actor's final level to the value of the wxSpinCtrl
+        """
         final = event.GetInt()
         self.spinCtrlInitialLevel.SetRange(1, final)
         self.spinCtrlLevel.SetRange(1, final)
@@ -379,7 +477,11 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def glCanvasCharacter_DoubleClick(self, event):
         """Opens dialog to change the character graphic"""
         result = DM.ChooseGraphic(
-            self, 'Characters', self.SelectedActor.character_name, self.SelectedActor.character_hue)
+            self,
+            'Characters',
+            self.SelectedActor.character_name,
+            self.SelectedActor.character_hue
+        )
         if result:
             filename, hue = result
             if filename is not None and hue is not None:
@@ -390,7 +492,11 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def glCanvasBattler_DoubleClick(self, event):
         """Opens dialog to change the battler graphic"""
         result = DM.ChooseGraphic(
-            self, 'Battlers', self.SelectedActor.battler_name, self.SelectedActor.battler_hue)
+            self,
+            'Battlers',
+            self.SelectedActor.battler_name,
+            self.SelectedActor.battler_hue
+        )
         if result:
             filename, hue = result
             if filename is not None and hue is not None:
@@ -401,8 +507,11 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def comboBoxEquipment_SelectionChanged(self, event):
         """updates the weapon/armor id for the selected type for the actor"""
         ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
+        config = Kernel.Config.getUnified()
         if DM.ARC_FORMAT:
-            weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
+            weaponSlots = len(list(
+                config['GameSetup']['WeaponSlots']
+            ))
         else:
             weaponSlots = 1
         selection = event.GetInt()
@@ -420,20 +529,28 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         else:
             # Armor Changed
             if selection == 0:
-                exec(
-                    ''.join(['self.SelectedActor.armor', str(ctrlIndex), '_id = 0']))
+                setattr(
+                    self.SelectedActor,
+                    ''.join(['armor', str(ctrlIndex), '_id']),
+                    0
+                )
             else:
-                kinds = list(Kernel.Config.getUnified()['GameSetup']['ArmorSlotKinds'])
+                kinds = list(config['GameSetup']['ArmorSlotKinds'])
                 kind = int(kinds[ctrlIndex - weaponSlots])
-                exec(''.join(['self.SelectedActor.armor', str(ctrlIndex), '_id = ',
-                              str(self.GetArmorIDs(kind)[selection - 1])]))
+                setattr(
+                    self.SelectedActor,
+                    ''.join(['armor', str(ctrlIndex), '_id']),
+                    self.GetArmorIDs(kind)[selection - 1]
+                )
 
     def checkBoxFixedEquipment_CheckChanged(self, event):
         """updates the "fixed" states for the selected actor's equipment"""
         ctrlIndex = self.FixedCheckBoxes.index(event.GetEventObject())
         if DM.ARC_FORMAT:
             # TODO: Implement
-            weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
+            weaponSlots = len(
+                list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots'])
+            )
             if ctrlIndex < weaponSlots:
                 pass
             else:
@@ -451,21 +568,28 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def GetValueMax(self, param_index):
         """Returns the max value for the parameter type"""
+        config = Kernel.Config.getUnified()
         if param_index == 0:
-            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorHP'])
+            return int(config['DatabaseLimits']['ActorHP'])
         elif param_index == 1:
-            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
+            return int(config['DatabaseLimits']['ActorSP'])
         else:
-            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
+            return int(config['DatabaseLimits']['ActorParameter'])
 
     def spinCtrlValue_ValueChanged(self, event):
         """updates the actors parameter table with the value"""
         self.SetParameterValue(
-            self.ParamTab, self.spinCtrlLevel.GetValue(), self.spinCtrlValue.GetValue())
+            self.ParamTab,
+            self.spinCtrlLevel.GetValue(),
+            self.spinCtrlValue.GetValue()
+        )
         self.refreshGraph()
 
     def buttonGenerateCurve_Clicked(self, event):
-        """Create the parameter curve dialog, using the passed index to determine the parameter"""
+        """
+        Create the parameter curve dialog,
+        using the passed index to determine the parameter
+        """
 
         actor, i = self.SelectedActor, self.ParamTab
         vRange = (
@@ -476,7 +600,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         if dlg.ShowModal() == wx.ID_OK:
             curve = dlg.GenerateCurve()
             for j in range(len(curve)):
-                lvl = j + actor.initial_level
+                #lvl = j + actor.initial_level
                 actor.parameters[i, j] = curve[j]
             self.refreshGraph()
         dlg.Destroy()
@@ -487,7 +611,9 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         if not DM.ARC_FORMAT:
             self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)
         else:
-            self.buttonRemoveParameter.Enabled = self.noteBookActorParameters.GetPageCount >= 1
+            self.buttonRemoveParameter.Enabled = (
+                self.noteBookActorParameters.GetPageCount >= 1
+            )
         self.refreshGraph()
         self.refreshValues()
 
@@ -533,8 +659,9 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         lower = randint(min - mod, min + mod)
         init, final = actor.initial_level, actor.final_level
         for i in np.arange(init, final + 1, dtype=int):
-            actor.parameters[index, i] = int(DM.CalculateParameter(lower,
-                                                                   upper, 0, i, init, final))
+            actor.parameters[index, i] = int(
+                DM.CalculateParameter(lower, upper, 0, i, init, final)
+            )
         self.refreshGraph()
 
     def parameterGraph_DoubleClicked(self, event):
@@ -546,8 +673,13 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         dlg = wx.Dialog(self, title='Parameter Growth', size=(640, 480),
                         style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         dlgSizer = wx.BoxSizer(wx.VERTICAL)
-        panel = ParameterGraph_Panel(dlg, self.SelectedActor, tabs,
-                                     self.ParamTab, self.checkBoxScaled.GetValue())
+        panel = ParameterGraph_Panel(
+            dlg,
+            self.SelectedActor,
+            tabs,
+            self.ParamTab,
+            self.checkBoxScaled.GetValue()
+        )
         dlgSizer.Add(panel, 1, wx.EXPAND, 5)
         dlg.SetSizer(dlgSizer)
         dlg.Layout()
@@ -564,12 +696,19 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             self.AddParameterPage(paramName)
 
     def buttonRemoveParameter_Clicked(self, event):
-        """Removes the selected page from the tab control and resizes the actors' parameter tables"""
+        """
+        Removes the selected page from the tab control
+        and resizes the actors' parameter tables
+        """
         params = self.SelectedActor.parameters
         for i in range(self.ParamTab, params.xsize - 1):
             params[i, :] = params[i + 1, :]
         params.resize(
-            params.xsize - 1, int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']) + 1)
+            params.xsize - 1,
+            int(
+                Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']
+            ) + 1
+        )
         try:
             self.noteBookActorParameters.RemovePage(self.ParamTab)
         except wx.PyAssertionError:
@@ -577,6 +716,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             # a page is deleted. Removing the page works fine, but it throws the
             # exception regardless, so this little empty catch is required...
             # :P
+            # TODO: investigate if this is still true
             pass
         if self.ParamTab >= self.noteBookActorParameters.GetPageCount():
             self.ParamTab -= 1
@@ -587,7 +727,9 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.SelectedActor.note = event.GetString()
 
     def GetWeaponIDs(self):
-        """Returns the ID of the weapon found at index in the actor's weapon set"""
+        """
+        Returns the ID of the weapon found at index in the actor's weapon set
+        """
         classes = Kernel.GlobalObjects['PROJECT'].getData('Classes')
         return classes[self.SelectedActor.class_id].weapon_set
 
