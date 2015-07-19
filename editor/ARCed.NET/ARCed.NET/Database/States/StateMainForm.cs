@@ -251,15 +251,41 @@ namespace ARCed.Database.States
 
         private void ChangeMaximumClicked(object sender, EventArgs e)
         {
-            ChangeMaximumForm form = new ChangeMaximumForm(this.DataObjectList.Items.Count);
+            ChangeMaximumForm form = new ChangeMaximumForm(this.DataObjectList.Items.Count,this.dataObjectList.ButtonMaximum.Top);
+            form.ShowDialog(); //Blocks interaction with parent form
+            if (form.Confirm)
+            {
+                ChangeMaximum(form.Value);
+            }
         }
 
+        private void ChangeMaximum(int size)
+        { 
+            int prevSize = this.dataObjectList.Items.Count;
+            if (size == prevSize) return;
+            if (size > prevSize)
+            { 
+                for(int i = 0; i < size - prevSize;i++)
+                {
+                    State s = new State();
+                    s.id = prevSize + i + 1;
+                    this.Data.Add(s);
+                    this.dataObjectList.Items.Add(s.ToString());
+                }
+            }
+            else
+            {
+                while(prevSize != size)
+                {
+                    this.dataObjectList.Items.RemoveAt(prevSize - 1);
+                    this.Data.RemoveAt(prevSize);
+                    prevSize--;
+                }
+                if (this.dataObjectList.SelectedIndex == -1)
+                    this.dataObjectList.SelectedIndex = size - 1;
+            }
+        }
         
 		#endregion
-
-        private void dataObjectList_Enter(object sender, EventArgs e)
-        {
-
-        }
 	}
 }

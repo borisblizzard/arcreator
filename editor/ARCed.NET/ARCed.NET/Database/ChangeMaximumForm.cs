@@ -11,10 +11,14 @@ namespace ARCed.Database
 {
     public partial class ChangeMaximumForm : Form
     {
-        public ChangeMaximumForm(int currentSize)
+        public bool Confirm;
+        public int Value;
+
+        public ChangeMaximumForm(int currentSize,int y)
         {
             InitializeComponent();
             numericNewMax.Value = currentSize;
+            this.Location = new Point(60, y - 35);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -24,7 +28,8 @@ namespace ARCed.Database
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            confirm = true;
+            Confirm = true;
+            Value = (int)numericNewMax.Value;
             this.Close();
         }
 
