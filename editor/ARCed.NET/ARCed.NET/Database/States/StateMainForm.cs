@@ -249,6 +249,17 @@ namespace ARCed.Database.States
 			//_state.note = this.noteTextBox.NoteText;
 		}
 
+        private void ChangeMaximumClicked(object sender, EventArgs e)
+        {
+            ChangeMaximumForm form = new ChangeMaximumForm(this.DataObjectList.Items.Count);
+        }
+
+        
 		#endregion
+
+        private void dataObjectList_Enter(object sender, EventArgs e)
+        {
+
+        }
 	}
 }

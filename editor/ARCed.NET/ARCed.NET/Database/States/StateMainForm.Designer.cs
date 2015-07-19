@@ -128,6 +128,7 @@
             this.dataObjectList.TabIndex = 0;
             this.dataObjectList.TabStop = false;
             this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.DataObjectListIndexChanged);
+            this.dataObjectList.Enter += new System.EventHandler(this.dataObjectList_Enter);
             // 
             // splitContainer1
             // 
