@@ -223,7 +223,10 @@ class PanelManager(object):
                     )
             elif key in self.info_methods:
                 method = getattr(info_obj, self.info_methods[key])
-                method(info[key])
+                if info[key] is None:
+                    method()
+                else:
+                    method(info[key])
             else:
                 raise KeyError(
                     "'%s' is a invalid _arc_panel_info key" % key

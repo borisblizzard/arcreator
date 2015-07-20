@@ -41,8 +41,8 @@ class MainToolbar(aui.AuiToolBar):
     _arc_panel_info = {
         "Name": "MainToolbar",
         "Caption": "Main Tool Bar",
-        "ToolbarP": True,
-        "Top": True,
+        "ToolbarP": None,
+        "Top": None,
         "Row": 1,
         "CloseB": False
     }
@@ -163,8 +163,8 @@ class EditorToolbar(aui.AuiToolBar):
     _arc_panel_info = {
         "Name": "EditorToolbar",
         "Caption": "Editor Tool Bar",
-        "ToolbarP": True,
-        "Top": True,
+        "ToolbarP": None,
+        "Top": None,
         "Row": 1,
         "CloseB": False
     }
@@ -409,10 +409,10 @@ class StartPanel(wx.Panel, PanelBase):
         "Caption": "Start Panel",
         "CaptionV": True,
         "CloseB": False,
-        "Center": True,
-        "Fixed": True,
+        "Center": None,
+        "Fixed": None,
         "MinimizeB": False,
-        "Maximize": True,
+        "Maximize": None,
         "MaximizeB": False,
         "Moveable": False,
         "Resizable": True,
