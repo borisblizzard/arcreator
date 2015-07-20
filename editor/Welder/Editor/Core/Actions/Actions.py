@@ -107,3 +107,7 @@ class ActionTemplate(object):
 
     def in_stack(self):
         return self in self._AM._action_stack
+        
+    def remove_from_stack(self):
+        if self.in_stack():
+            self._AM._action_stack.remove(self)
