@@ -29,7 +29,7 @@
 
    If your on linux you need a working gcc, if your on mac you need xcode with it's command line tools installed, and if your on windows you need visual studio (or mingw but VS is much easier to install and configure)
 
-   So go to this link: https://go.microsoft.com/?linkid=9709949&clcid=0x409&wt.mc_id=o~msft~vscom~download-body~dn469506&campaign=o~msft~vscom~download-body~dn469506
+   So go to this link: https://go.microsoft.com/?linkid=9709949&clcid=0x409&wt.mc_id=o~msft~vscom~download-body~dn469506&campaign=o~msft~vscom~download-body~dn469506  #LINK NO LONGER WORKS was to a VS 2010 installer
 
    Create/Use your existing live account and login to Microsoft's Website. They will ask you some info before you download it, just fill your name and country and proceed with the download.
 
@@ -43,23 +43,23 @@
    |      2a) Ryex's addendum on Visual Studio version      |
    #--------------------------------------------------------#
 
-   You can actually use an version of visual studio you want including the latest, the problem is that python only knows how to find the 2010 version but that can be fixed.
+   You can actually use any version of visual studio you want including the latest, the problem is that python only knows how to find the 2010 version but that can be fixed.
 
-   Python finds the compiler by using the system variable VS100COMNTOOLS. different version of Visual studio come with a different runtime version numbered something like 100,110,120,130,140 etc.
+   Python finds the compiler by using the system variable VS100COMNTOOLS. different version of Visual studio come with a different runtime version numbered something like 100,110,120,140 etc.
 
    as such if you install the 2013 edition for example your system wont have the VS100COMNTOOLS variable it will have VS120COMNTOOLS. but if you ADD the VS100COMNTOOLS and point it as the VS120COMNTOOLS python will use the 2013 compiler instead. 
 
    so in general you can in general install what ever version of VisualStudio you want or really any compiler you want so long as python can find it (Visual Studio 2010 is however recommended at it ensure compatibility)
 
    #----------------------------------------------------#
-   |      3) Installing Python and ARC dependencies      |
+   |      3) Installing Python and ARC dependencies     |
    #----------------------------------------------------#
 
    The first thing obviously is to install python. Because Welder uses a specified version of python (3.4), any other version isn't recommended to use as it might cause incompatibility.
    
    So go to Python's download page ( https://www.python.org/downloads/release/python-340/ ) and download according to your to your OS. Get the 32-bit version, NOT the 64-bit (that's important).
    
-   After downloading it, install it, making sure to enable the option to prepend Python to the system Path variable.
+   After downloading it, install it, making sure to enable the option to perpend Python to the system Path variable.
 
    Image Reference: http://puu.sh/iUDwl/01b8cedc45.png
 
@@ -84,6 +84,8 @@
 
    Make sure to watch for errors in the output make sure that the command ends with the line "Finished successfully"
 
+   if you on windows there is an optional dependency of pywin32, this can not be installed with pip so see below
+
    #-----------------------------------------------------#
    |      3a) Installing dependencies (The hard way)      |
    #-----------------------------------------------------#
@@ -101,9 +103,10 @@
 	  pip install pyglet
 	  pip install https://github.com/Ryex/Rabbyt/archive/0.8.3-3-cythonpy3.zip
 	  pip install http://wxpython.org/Phoenix/snapshot-builds/wxPython_Phoenix-3.0.3.dev1820+49a8884-cp34-none-win32.whl
-	  pip install pywin32
 	  
-   NOTE: pywin32 is only for windows do not install it if you are not on windows.
+     pywin32: search for "Python for Windows Extensions" to get a windows build of pywin32 for your python version
+	  
+   NOTE: pywin32 is only for windows do not install it if you are not on windows. it is also optional
 
    After this, if you haven't encountered any errors, you should be good to go. To check, you can run
 

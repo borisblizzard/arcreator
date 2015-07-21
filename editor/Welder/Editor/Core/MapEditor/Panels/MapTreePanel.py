@@ -5,12 +5,23 @@ import Kernel
 from PyitectConsumes import PanelBase
 
 
-class MapTreePanel(wx.Panel, PanelBase):
+class MapManagerPanel(wx.Panel, PanelBase):
 
     _arc_panel_info_string = "Name Caption Left CloseB BestS MinimizeM Layer Row Pos MinimizeB IconARCM DestroyOC"
     _arc_panel_info_data = {"Name": "Maps", "Caption": "Maps", "CloseB": False, "BestS": (32 * 8, 32 * 4),
                             "MinimizeM": ["POS_SMART", "CAPT_SMART", ], "Layer": 1, "Row": 1, "Pos": 1, "MinimizeB": True, 'IconARCM': 'project_icon'}
+    _arc_panel_info = {
+        "Name": "MapManager",
+        "Caption": "Map Manager",
+        "Left": None,
+        "CloseB" True,
+        "TopD": False,
+        "BottomD": False,
+        "RightD": True,
+        "LeftD": True,
+        "": ""
 
+    }
     def __init__(self, parent, mapEditerPanel=None):
         wx.Panel.__init__(self, parent)
 
