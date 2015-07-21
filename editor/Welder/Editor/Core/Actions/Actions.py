@@ -35,7 +35,7 @@ class ActionManager(object):
         i = 0
         success = False
         for action in actions:
-            if action != None:
+            if action is not None:
                 if direction == 0:
                     success = action.undo()
                 elif direction == 1:
@@ -64,6 +64,15 @@ class ActionManager(object):
     def AddActions(*actions):
         del ActionManager._action_stack[ActionManager._current_action + 1:]
         ActionManager._action_stack.extend(actions)
+
+    @staticmethod
+    def RemoveActions(*actions):
+        for action in actions:
+            if action in ActionManager._action_stack:
+                index = ActionManager._action_stack.index(action)
+                if index >= ActionManager._current_action:
+                    ActionManager._current_action -= 1
+                ActionManager._action_stack.remove(action)
 
 
 class ActionTemplate(object):
@@ -110,4 +119,4 @@ class ActionTemplate(object):
         
     def remove_from_stack(self):
         if self.in_stack():
-            self._AM._action_stack.remove(self)
+            self._AM.RemoveActions(action)
