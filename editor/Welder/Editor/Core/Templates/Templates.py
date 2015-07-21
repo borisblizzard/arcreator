@@ -6795,7 +6795,7 @@ class ChangeMaximum_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Maximum..."), pos=wx.DefaultPosition, size=wx.Size(181, 115), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.Size(-1, -1))
+        self.SetSizeHints(wx.DefaultSize, wx.Size(-1, -1))
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -6854,7 +6854,7 @@ class ExpCurve_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Experience Curve"), pos=wx.DefaultPosition, size=wx.Size(
             449, 460), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -7001,7 +7001,7 @@ class GenerateCurve_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Generate Curve"), pos=wx.DefaultPosition, size=wx.Size(275, 177), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -7098,7 +7098,7 @@ class ChooseGraphic_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Choose Graphic"), pos=wx.DefaultPosition, size=wx.Size(
             640, 480), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -7194,7 +7194,7 @@ class Skill_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Skill"), pos=wx.DefaultPosition, size=wx.Size(244, 175), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.Size(-1, -1))
+        self.SetSizeHints(wx.DefaultSize, wx.Size(-1, -1))
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -7273,7 +7273,7 @@ class EnemyAction_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Action"), pos=wx.DefaultPosition, size=wx.Size(309, 406), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -7505,7 +7505,7 @@ class ChooseTreasure_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Treasure"), pos=wx.DefaultPosition, size=wx.Size(
             395, 348), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -7688,7 +7688,7 @@ class EventCondition_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Condition"), pos=wx.DefaultPosition, size=wx.Size(310, 259), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -7891,7 +7891,7 @@ class AnimationTiming_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "SE and Flash Timing"), pos=wx.DefaultPosition, size=wx.Size(418, 349), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -8209,7 +8209,7 @@ class AnimationTweening_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Tweening"), pos=wx.DefaultPosition, size=wx.Size(179, 293), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -8348,7 +8348,7 @@ class AnimationEntireSlide_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Entire Slide"), pos=wx.DefaultPosition, size=wx.Size(301, 215), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -8465,7 +8465,7 @@ class AnimationCellBatch_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Cell Batch"), pos=wx.DefaultPosition, size=wx.Size(335, 315), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -8722,7 +8722,7 @@ class AnimationCellProperties_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Cell Properties"), pos=wx.DefaultPosition, size=wx.Size(571, 170), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -8866,7 +8866,7 @@ class ChooseFogGraphic_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Fog Graphic"), pos=wx.DefaultPosition, size=wx.Size(714, 468), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -9048,7 +9048,7 @@ class ChooseActor_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Initial Party"), pos=wx.DefaultPosition, size=wx.Size(290, 99), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -9113,7 +9113,7 @@ class ChooseSwitchVariable_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Switch"), pos=wx.DefaultPosition, size=wx.Size(317, 398), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -9239,7 +9239,7 @@ class ShowText_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Show Text"), pos=wx.DefaultPosition, size=wx.Size(432, 193), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -9292,7 +9292,7 @@ class ShowChoices_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Show Choices"), pos=wx.DefaultPosition, size=wx.Size(315, 290), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -9399,7 +9399,7 @@ class InputNumber_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Input Number"), pos=wx.DefaultPosition, size=wx.Size(284, 130), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -9479,7 +9479,7 @@ class ChangeTextOptions_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Text Options"), pos=wx.DefaultPosition, size=wx.Size(238, 137), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -9539,7 +9539,7 @@ class ButtonProcessing_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Button Input Processing"), pos=wx.DefaultPosition, size=wx.Size(274, 97), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -9608,7 +9608,7 @@ class Wait_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Wait"), pos=wx.DefaultPosition, size=wx.Size(242, 94), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -9679,7 +9679,7 @@ class Comment_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Comment"), pos=wx.DefaultPosition, size=wx.Size(256, 177), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -9732,7 +9732,7 @@ class CallCommonEvent_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Call Common Event"), pos=wx.DefaultPosition, size=wx.Size(290, 94), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -9796,7 +9796,7 @@ class ConditionalBranch_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Conditional Branch"), pos=wx.DefaultPosition, size=wx.Size(375, 367), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -10566,7 +10566,7 @@ class Label_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
                            pos=wx.DefaultPosition, size=wx.Size(290, 94), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -10629,7 +10629,7 @@ class ControlSwitches_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Control Switches"), pos=wx.DefaultPosition, size=wx.Size(310, 213), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -10738,7 +10738,7 @@ class ControlVariables_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Control Variables"), pos=wx.DefaultPosition, size=wx.Size(359, 490), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -11073,7 +11073,7 @@ class ControlSelfSwitches_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Control Self Switch"), pos=wx.DefaultPosition, size=wx.Size(208, 139), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -11144,7 +11144,7 @@ class ControlTimer_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Control Timer"), pos=wx.DefaultPosition, size=wx.Size(296, 116), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -11226,7 +11226,7 @@ class ChangelGold_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Gold"), pos=wx.DefaultPosition, size=wx.Size(287, 211), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -11325,7 +11325,7 @@ class ChangelPartyEquipment_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change (Equipment Type)"), pos=wx.DefaultPosition, size=wx.Size(287, 261), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -11436,7 +11436,7 @@ class ChangePartyMember_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Party Member"), pos=wx.DefaultPosition, size=wx.Size(283, 157), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -11512,7 +11512,7 @@ class ChangeAccess_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change (Menu/Save/Encounter)"), pos=wx.DefaultPosition, size=wx.Size(241, 93), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -11568,7 +11568,7 @@ class TransferPlayer_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Transfer Player"), pos=wx.DefaultPosition, size=wx.Size(251, 283), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -11766,7 +11766,7 @@ class SetEventLocation_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
                            pos=wx.DefaultPosition, size=wx.Size(251, 385), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -11975,7 +11975,7 @@ class TransferPlayerTilemap_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Transfer Player"), pos=wx.DefaultPosition, size=wx.Size(
             692, 467), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -12108,7 +12108,7 @@ class TransferEventTilemap_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
                            pos=wx.DefaultPosition, size=wx.Size(604, 462), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -12227,7 +12227,7 @@ class ScrollMap_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Scroll Map"), pos=wx.DefaultPosition, size=wx.Size(265, 130), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -12364,7 +12364,7 @@ class ChangeMapSettings_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Map Settings"), pos=wx.DefaultPosition, size=wx.Size(207, 212), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -12503,7 +12503,7 @@ class ChangeFogOpacity_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Fog Opacity"), pos=wx.DefaultPosition, size=wx.Size(208, 112), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -12593,7 +12593,7 @@ class ShowAnimation_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
                            pos=wx.DefaultPosition, size=wx.Size(290, 127), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -12670,7 +12670,7 @@ class TransparentFlag_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Transparent Flag"), pos=wx.DefaultPosition, size=wx.Size(278, 91), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -12726,7 +12726,7 @@ class MoveRoute_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Move Route"), pos=wx.DefaultPosition, size=wx.Size(670, 418), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -13307,7 +13307,7 @@ class ChangeBlending_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Blending"), pos=wx.DefaultPosition, size=wx.Size(255, 93), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -13372,7 +13372,7 @@ class Jump_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Jump"), pos=wx.DefaultPosition, size=wx.Size(185, 131), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -13445,7 +13445,7 @@ class ChangeSpeed_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Speed"), pos=wx.DefaultPosition, size=wx.Size(256, 89), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -13511,7 +13511,7 @@ class ChangeFrequency_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Frequency"), pos=wx.DefaultPosition, size=wx.Size(256, 89), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -13577,7 +13577,7 @@ class ChangeTone_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "(Change Screen Tone / Screen Flash)"), pos=wx.DefaultPosition, size=wx.Size(424, 226), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -13774,7 +13774,7 @@ class ChangePictureColorTone_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Picture Color Tone"), pos=wx.DefaultPosition, size=wx.Size(424, 285), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -13991,7 +13991,7 @@ class ScreenShake_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Screen Shake"), pos=wx.DefaultPosition, size=wx.Size(338, 179), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -14119,7 +14119,7 @@ class ShowPicture_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Show Picture"), pos=wx.DefaultPosition, size=wx.Size(288, 418), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -14374,7 +14374,7 @@ class MovePicture_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Move Picture"), pos=wx.DefaultPosition, size=wx.Size(288, 418), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -14631,7 +14631,7 @@ class RotatePicture_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Rotate Picture"), pos=wx.DefaultPosition, size=wx.Size(277, 91), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -14708,7 +14708,7 @@ class ErasePicture_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Erase Picture"), pos=wx.DefaultPosition, size=wx.Size(200, 93), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -14771,7 +14771,7 @@ class WeatherEffects_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Set Weather Effects"), pos=wx.DefaultPosition, size=wx.Size(305, 273), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -14874,7 +14874,7 @@ class FadeOutAudio_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Fade Out (BGM/BGS)"), pos=wx.DefaultPosition, size=wx.Size(241, 91), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -14947,7 +14947,7 @@ class BattleProcessing_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Battle Processing"), pos=wx.DefaultPosition, size=wx.Size(301, 128), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -15021,7 +15021,7 @@ class ShopProcessing_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Shop Processing"), pos=wx.DefaultPosition, size=wx.Size(276, 316), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -15079,7 +15079,7 @@ class ShopGoods_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Goods"), pos=wx.DefaultPosition, size=wx.Size(281, 157), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -15190,7 +15190,7 @@ class NameProcessing_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Name Input Processing"), pos=wx.DefaultPosition, size=wx.Size(276, 136), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -15265,7 +15265,7 @@ class ChangeHP_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change HP"), pos=wx.DefaultPosition, size=wx.Size(241, 283), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -15385,7 +15385,7 @@ class ChangeStat_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change (SP/Exp/Level)"), pos=wx.DefaultPosition, size=wx.Size(241, 260), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -15500,7 +15500,7 @@ class ChangeParameters_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Parameters"), pos=wx.DefaultPosition, size=wx.Size(248, 309), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -15628,7 +15628,7 @@ class ChangeState_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change State"), pos=wx.DefaultPosition, size=wx.Size(249, 186), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -15711,7 +15711,7 @@ class ChangeSkills_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Skills"), pos=wx.DefaultPosition, size=wx.Size(275, 183), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -15794,7 +15794,7 @@ class ChangeEquipment_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Equipment"), pos=wx.DefaultPosition, size=wx.Size(283, 299), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -15963,7 +15963,7 @@ class ChangeActorName_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Actor Name:"), pos=wx.DefaultPosition, size=wx.Size(261, 128), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -16039,7 +16039,7 @@ class ChangeActorClass_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Actor Class"), pos=wx.DefaultPosition, size=wx.Size(258, 129), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -16116,7 +16116,7 @@ class ChangeActorGraphic_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Change Actor Graphic"), pos=wx.DefaultPosition, size=wx.Size(254, 179), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -16215,7 +16215,7 @@ class RecoverAll_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Recover All"), pos=wx.DefaultPosition, size=wx.Size(275, 90), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -16280,7 +16280,7 @@ class EnemyAppearance_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Enemy Appearance"), pos=wx.DefaultPosition, size=wx.Size(275, 90), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -16345,7 +16345,7 @@ class EnemyTransform_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Enemy Transformation"), pos=wx.DefaultPosition, size=wx.Size(305, 129), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -16427,7 +16427,7 @@ class BattleAnimation_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Show Battle Animation"), pos=wx.DefaultPosition, size=wx.Size(267, 205), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -16535,7 +16535,7 @@ class DealDamage_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Deal Damage"), pos=wx.DefaultPosition, size=wx.Size(284, 252), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -16681,7 +16681,7 @@ class ForceAction_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Force Action"), pos=wx.DefaultPosition, size=wx.Size(307, 367), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -16853,7 +16853,7 @@ class ScriptCall_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Script"), pos=wx.DefaultPosition, size=wx.Size(
             338, 253), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -16907,7 +16907,7 @@ class BattleTest_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Battle Test"), pos=wx.DefaultPosition, size=wx.Size(380, 305), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -16963,7 +16963,7 @@ class AddParameter_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Add Parameter"), pos=wx.DefaultPosition, size=wx.Size(257, 110), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -17155,7 +17155,7 @@ class EnemyExpGold_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
             "Enemy (Exp/Gold)"), pos=wx.DefaultPosition, size=wx.Size(280, 112), style=wx.DEFAULT_DIALOG_STYLE)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -17562,7 +17562,7 @@ class ExpGraph_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Experience Graph"), pos=wx.DefaultPosition, size=wx.Size(
             405, 311), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -17615,7 +17615,7 @@ class ExpGrid_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Experience Curve"), pos=wx.DefaultPosition, size=wx.Size(
             540, 496), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -17928,7 +17928,7 @@ class FindReplace_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Find & Replace"), pos=wx.DefaultPosition, size=wx.Size(
             295, 365), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -18258,7 +18258,7 @@ class ScriptSettings_Dialog_Template (wx.Dialog):
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Script Editor Settings"), pos=wx.DefaultPosition, size=wx.Size(
             423, 309), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 

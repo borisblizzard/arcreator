@@ -51,7 +51,7 @@ class NewProject_Dialog(wx.Dialog):
 
     def LayoutDialog(self):
         #layout the dialog
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         MainSizer = wx.BoxSizer(wx.VERTICAL)
 

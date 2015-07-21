@@ -9,3 +9,6 @@ wx.adv.BitmapComboBox(self,$2,$3,$4,$5, [],
 
 self\.textCtrlNotes\.SetMaxLength\(0\)
 #empty
+
+SetSizeHintsSz
+SetSizeHints
