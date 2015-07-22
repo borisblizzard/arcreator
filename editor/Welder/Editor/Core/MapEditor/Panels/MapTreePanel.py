@@ -14,12 +14,13 @@ class MapManagerPanel(wx.Panel, PanelBase):
         "Name": "MapManager",
         "Caption": "Map Manager",
         "Left": None,
-        "CloseB" True,
+        "CloseB": True,
         "TopD": False,
         "BottomD": False,
         "RightD": True,
         "LeftD": True,
-        "": ""
+        "": "",
+        "Layer": 1
 
     }
     def __init__(self, parent, mapEditerPanel=None):
