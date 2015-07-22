@@ -203,3 +203,5 @@
 /engine/lib/libxal/
 ARC.sublime-workspace
 *__pycache__*
+*Backups/
+*build/
