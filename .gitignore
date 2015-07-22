@@ -202,3 +202,4 @@
 /engine/lib/libaprilparticle/
 /engine/lib/libxal/
 ARC.sublime-workspace
+*__pycache__*
