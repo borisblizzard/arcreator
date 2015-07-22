@@ -25,15 +25,15 @@ class Animations_Panel(Animations_Panel_Template, PanelBase):
         "CloseB": True,
         "DestroyOC": True,
         "Floatable": True,
-        "Float": None,
-        "IconARCM": 'animationsicon',
+        "IconARCM": 'animations',
         "MaximizeB": True,
         "MinimizeB": True,
         "MinimizeM": ["POS_SMART", "CAPT_SMART"],
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True
+        "Snappable": True,
+        "Layer": 1
     }
 
     def __init__(self, parent):

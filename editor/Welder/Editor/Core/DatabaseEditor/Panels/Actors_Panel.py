@@ -28,15 +28,17 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         "CloseB": True,
         "DestroyOC": True,
         "Floatable": True,
-        "Float": None,
-        "IconARCM": 'actorsicon',
+        "Dockable": True,
+        "IconARCM": 'actors',
         "MaximizeB": True,
         "MinimizeB": True,
         "MinimizeM": ["POS_SMART", "CAPT_SMART"],
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True
+        "Snappable": True,
+        "Layer": 1,
+        "Layer": 1
     }
 
     def __init__(self, parent, actorIndex=0):

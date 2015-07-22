@@ -26,15 +26,15 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         "CloseB": True,
         "DestroyOC": True,
         "Floatable": True,
-        "Float": None,
-        "IconARCM": 'enemiesicon',
+        "IconARCM": 'enemies',
         "MaximizeB": True,
         "MinimizeB": True,
         "MinimizeM": ["POS_SMART", "CAPT_SMART"],
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True
+        "Snappable": True,
+        "Layer": 1
     }
     def __init__(self, parent, enemy_index=0):
         """Basic constructor for the Enemies panel"""

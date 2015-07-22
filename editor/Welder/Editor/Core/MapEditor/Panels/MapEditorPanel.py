@@ -28,7 +28,8 @@ class MapEditorPanel(wx.Panel, PanelBase):
         "NotebookD": True,
         "NotebookP": [1],
         "Resizable": True,
-        "Snappable": True
+        "Snappable": True,
+        "Layer": 1
     }
 
     def __init__(self, parent, map, tilesets):

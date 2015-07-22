@@ -32,7 +32,8 @@ class ScriptEditor_Panel(ScriptEditor_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True
+        "Snappable": True,
+        "Layer": 1
     }
 
     def __init__(self, parent, index=-1):

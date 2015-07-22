@@ -20,15 +20,15 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
         "CloseB": True,
         "DestroyOC": True,
         "Floatable": True,
-        "Float": None,
-        "IconARCM": 'weaponsicon',
+        "IconARCM": 'weapons',
         "MaximizeB": True,
         "MinimizeB": True,
         "MinimizeM": ["POS_SMART", "CAPT_SMART"],
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True
+        "Snappable": True,
+        "Layer": 1
     }
 
     def __init__(self, parent, weapon_index=0):

@@ -24,15 +24,15 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         "CloseB": True,
         "DestroyOC": True,
         "Floatable": True,
-        "Float": None,
-        "IconARCM": 'skillsicon',
+        "IconARCM": 'skills',
         "MaximizeB": True,
         "MinimizeB": True,
         "MinimizeM": ["POS_SMART", "CAPT_SMART"],
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True
+        "Snappable": True,
+        "Layer": 1
     }
     def __init__(self, parent, skill_index=0):
         Skills_Panel_Template.__init__(self, parent)
