@@ -102,7 +102,8 @@ if __name__ == "__main__":
             "build",
             "src",
             "*.c",
-            "*.pyd"
+            "*.pyd",
+            "OldControls.py"
         )
     )
 

@@ -48,6 +48,8 @@ HEAD = 'purple'
 def init_log_file(path):
     global LOG_PATH
     LOG_PATH = os.path.abspath(path)
+    if not os.path.isdir(os.path.dirname(LOG_PATH)):
+        os.makedirs(os.path.dirname(LOG_PATH))
     f = open(LOG_PATH, "wb")
     time_str = bytes(
         "Log Starts: " +
