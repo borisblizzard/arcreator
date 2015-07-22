@@ -10,6 +10,7 @@
         "PanelBase": "",
         "MainToolbar": "",
         "EditorToolbar": "",
-        "StartPanel": ""
+        "StartPanel": "",
+        "ShadowPanel": ""
     }
 }

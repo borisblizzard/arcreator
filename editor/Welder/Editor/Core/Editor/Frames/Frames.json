@@ -7,7 +7,8 @@
         "IconManager": "",
         "MainWindowLayout": "",
         "MainStatusBar": "",
-        "MainMenuBar": ""
+        "MainMenuBar": "",
+        "ShadowPanel": ""
     },
     "provides": {
         "EditorMainWindow": ""

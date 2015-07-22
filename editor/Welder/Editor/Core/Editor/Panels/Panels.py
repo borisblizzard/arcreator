@@ -16,10 +16,10 @@ from PyitectConsumes import IconManager
 class PanelBase(object):
 
     def bindPanelManager(self):
-        self.bindFocus()
+        self.bindEvents()
         self.SetFocus()
 
-    def bindFocus(self):
+    def bindEvents(self):
         self.Bind(wx.EVT_SET_FOCUS, self.OnFocus)
         self.Bind(wx.EVT_CHILD_FOCUS, self.OnFocus)
 
@@ -27,13 +27,13 @@ class PanelBase(object):
         if "PanelManager" in Kernel.GlobalObjects:
             PM = Kernel.GlobalObjects["PanelManager"]
             if PM is not None:
-                id = PM.getPanelID(self)
-                info = PM.getPanelInfo(id)
+                wid = PM.getPanelID(self)
+                info = PM.getPanelInfo(wid)
                 if info is not None:
                     if info.IsFloating():
-                        PM.setLastActive("Shadow Panel")
+                        PM.setLastActive("ShadowPanel")
                     else:
-                        PM.setLastActive(id)
+                        PM.setLastActive(wid)
 
 
 class MainToolbar(aui.AuiToolBar):
@@ -336,6 +336,7 @@ class EditorToolbar(aui.AuiToolBar):
     def BindEvents(self):
         # self.Bind(wx.EVT_TOOL, self.OnNew, id=self.newid)
         tool_ids = [
+            self.mapeditid,
             self.actorsid,
             self.classesid,
             self.skillsid,
@@ -399,26 +400,50 @@ class EditorToolbar(aui.AuiToolBar):
             self.mgr.RequestUserAttention(panel)
         else:
             panel = self.mgr.dispatchPanel(info[1], info[2])
-            setattr(self. info[0], panel)
+            setattr(self, info[0], panel)
 
 
 class StartPanel(wx.Panel, PanelBase):
 
+    _arc_panel_info_priority = ["CenterP"]
     _arc_panel_info = {
+        #"CenterP": None,
         "Name": "Start Panel",
         "Caption": "Start Panel",
         "CaptionV": True,
-        "CloseB": False,
+        "CloseB": True,
         "Center": None,
-        "Fixed": None,
-        "MinimizeB": False,
-        "Maximize": None,
-        "MaximizeB": False,
-        "Moveable": False,
+        "MinimizeB": True,
+        "Restore": None,
+        "MaximizeB": True,
+        "Movable": True,
         "Resizable": True,
         "NotebookD": True,
         "DestroyOC": True,
-        "Floatable": False
+        "Floatable": True
+    }
+
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent)
+        self.bindPanelManager()
+
+
+class ShadowPanel(wx.Panel, PanelBase):
+
+    _arc_panel_info_priority = ["CenterP"]
+    _arc_panel_info = {
+        #"CenterP": None,
+        "Name": "ShadowPanel",
+        "CaptionV": False,
+        "CloseB": False,
+        "Center": None,
+        "MinimizeB": False,
+        "MaximizeB": False,
+        "Movable": False,
+        "Resizable": True,
+        "NotebookD": True,
+        "DestroyOC": True,
+        "Floatable": False,
     }
 
     def __init__(self, parent):

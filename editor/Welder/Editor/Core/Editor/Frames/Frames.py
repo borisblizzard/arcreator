@@ -18,27 +18,31 @@ from PyitectConsumes import IconManager
 from PyitectConsumes import MainWindowLayout
 from PyitectConsumes import MainStatusBar
 from PyitectConsumes import MainMenuBar
+from PyitectConsumes import ShadowPanel
 
-MinEditorSize = (1024, 576)
+MinEditorSize = (1024, 768)
 
 
 class AuiManager_DCP_ARC(aui.AuiManager_DCP):
 
     """
-
+    Just in case we ever need to edit the default behavior
     """
 
-    def _createDummyPane(self):
-        """ Creates a Dummy Center Pane (**DCP**). """
+    # def _createDummyPane(self):
+    #     """ Creates a Dummy Center Pane (**DCP**). """
 
-        if self.hasDummyPane:
-            return
+    #     if self.hasDummyPane:
+    #         return
 
-        self.hasDummyPane = True
-        #dummy = ShadowPanel(self.GetManagedWindow())
-        #info = aui.AuiPaneInfo().CenterPane().NotebookDockable(
-        #    True).Name('dummyCenterPane').DestroyOnClose(True)
-        #self.AddPane(dummy, info)
+    #     self.hasDummyPane = True
+    #     dummy = ShadowPanel(self.GetManagedWindow())
+    #     info = (aui.AuiPaneInfo()
+    #             .CenterPane()
+    #             .NotebookDockable(True)
+    #             .Name('ShadowPanel')
+    #             .DestroyOnClose(True))
+    #     self.AddPane(dummy, info)
 
 
 class EditorMainWindow(wx.Frame):
@@ -88,10 +92,11 @@ class EditorMainWindow(wx.Frame):
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
 
         # Bind AUI events
-        self.Bind(aui.EVT_AUI_PANE_FLOATING, self.OnFloating)
-        self.Bind(aui.EVT_AUI_PANE_FLOATED, self.OnFloated)
-        self.Bind(aui.EVT_AUI_PANE_DOCKING, self.OnDocking)
-        self.Bind(aui.EVT_AUI_PANE_DOCKED, self.OnDocked)
+        self.Bind(aui.EVT_AUI_PANE_FLOATING, self.OnPaneFloating)
+        self.Bind(aui.EVT_AUI_PANE_FLOATED, self.OnPaneFloated)
+        self.Bind(aui.EVT_AUI_PANE_DOCKING, self.OnPaneDocking)
+        self.Bind(aui.EVT_AUI_PANE_DOCKED, self.OnPaneDocked)
+        self.Bind(aui.EVT_AUI_PANE_CLOSE, self.OnPaneClosed)
 
         # start The autosave Time
         self.AutoSaveTimer = wx.Timer(self)
@@ -133,7 +138,7 @@ class EditorMainWindow(wx.Frame):
     def ClearLayout(self):
         if self.layout_mgr is not None:
             self.layout_mgr.ClearLayout
-        self._mgr.update()
+        self._mgr.Update()
 
     def updateUI(self, event):
         if "Title" in Kernel.GlobalObjects:
@@ -174,33 +179,37 @@ class EditorMainWindow(wx.Frame):
     def ProcessAutoSave(self, event):
         Kernel.System.fire_event("AutoSave")
 
-    def OnFloating(self, event):
+    def OnPaneFloating(self, event):
         pass
 
-    def OnFloated(self, event):
-        # if Kernel.GlobalObjects.has_key("PanelManager"):
-        #    PM = Kernel.GlobalObjects["PanelManager"]
-        #    if PM.getDockedCenterPanels() <= 1:
-        #        PM.dispatchPanel("ShadowPanel", "Shadow Panel")
-        pass
+    def OnPaneFloated(self, event):
+        # if "PanelManager" in Kernel.GlobalObjects:
+        #     PM = Kernel.GlobalObjects["PanelManager"]
+        #     if PM.getDockedCenterPanels() <= 1:
+        #         wx.CallAfter(PM.dispatchPanel, "ShadowPanel", "ShadowPanel")
+        wx.CallAfter(self._mgr.Update)
 
-    def OnDocking(self, event):
-        pass
+    def OnPaneDocking(self, event):
+        print("onDocking")
 
-    def OnDocked(self, event):
-        # if Kernel.GlobalObjects.has_key("PanelManager"):
-        #    PM = Kernel.GlobalObjects["PanelManager"]
-        #    if PM.getDockedCenterPanels() >= 0:
-        #        PM.removePanel("Shadow Panel")
-        pass
+    def OnPaneDocked(self, event):
+        # if "PanelManager" in Kernel.GlobalObjects:
+        #     PM = Kernel.GlobalObjects["PanelManager"]
+        #     if PM.getDockedCenterPanels() >= 0:
+        #         wx.CallAfter(PM.removePanel, "ShadowPanel")
+        wx.CallAfter(self._mgr.Update)
+
+    def OnPaneClosed(self, event):
+        wx.CallAfter(self._mgr.Update)
+
 
     def OnFocus(self, event):
         if "PanelManager" in Kernel.GlobalObjects:
             PM = Kernel.GlobalObjects["PanelManager"]
-            id = PM.getPanelID(self)
-            info = PM.getPanelInfo(id)
+            wid = PM.getPanelID(self)
+            info = PM.getPanelInfo(wid)
             if info is not None:
                 if info.IsFloating():
-                    PM.setLastActive("Shadow Panel")
+                    PM.setLastActive("ShadowPanel")
                 else:
-                    PM.setLastActive(id)
+                    PM.setLastActive(wid)
