@@ -14,8 +14,8 @@ from PyitectConsumes import ChangeMaximum_Dialog
 class States_Panel(States_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "States Panel",
-        "Caption": "States Panel",
+        "Name": "StatesPanel",
+        "Caption": "States",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -28,8 +28,7 @@ class States_Panel(States_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent):

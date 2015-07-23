@@ -18,8 +18,8 @@ from PyitectConsumes import ChooseFogGraphic_Dialog
 class Tilesets_Panel(Tilesets_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Tilesets Panel",
-        "Caption": "Tilesets Panel",
+        "Name": "TilesetsPanel",
+        "Caption": "Tilesets",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -32,8 +32,7 @@ class Tilesets_Panel(Tilesets_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent):

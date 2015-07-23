@@ -190,7 +190,7 @@ class EditorMainWindow(wx.Frame):
         wx.CallAfter(self._mgr.Update)
 
     def OnPaneDocking(self, event):
-        print("onDocking")
+        pass
 
     def OnPaneDocked(self, event):
         # if "PanelManager" in Kernel.GlobalObjects:

@@ -16,8 +16,8 @@ from PyitectConsumes import PanelBase, Items_Panel_Template
 class Items_Panel(Items_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Items Panel",
-        "Caption": "Items Panel",
+        "Name": "ItemsPanel",
+        "Caption": "Items",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -30,8 +30,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent, item_index=0):

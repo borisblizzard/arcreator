@@ -19,8 +19,8 @@ from PyitectConsumes import PanelBase, Enemies_Panel_Template
 class Enemies_Panel(Enemies_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Enemies Panel",
-        "Caption": "Enemies Panel",
+        "Name": "EnemiesPanel",
+        "Caption": "Enemies",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -33,8 +33,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
     def __init__(self, parent, enemy_index=0):
         """Basic constructor for the Enemies panel"""

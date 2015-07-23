@@ -17,8 +17,8 @@ from PyitectConsumes import PanelBase, Skills_Panel_Template
 class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Skills Panel",
-        "Caption": "Skills Panel",
+        "Name": "SkillsPanel",
+        "Caption": "Skills",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -31,8 +31,7 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
     def __init__(self, parent, skill_index=0):
         Skills_Panel_Template.__init__(self, parent)

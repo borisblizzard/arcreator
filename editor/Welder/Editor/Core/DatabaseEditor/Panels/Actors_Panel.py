@@ -21,8 +21,8 @@ from .GraphColors import GRAPH_COLORS
 class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Actors Panel",
-        "Caption": "Actors Panel",
+        "Name": "ActorsPanel",
+        "Caption": "Actors",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -36,15 +36,14 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent, actorIndex=0):
         """Basic constructor for the Actors panel"""
         Actors_Panel_Template.__init__(self, parent)
 
+        self.Hide()
         config = Kernel.Config.getUnified()
 
         # Set font for the note control
@@ -104,6 +103,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.listBoxActors.SetSelection(actorIndex)
         # Bind the panel to the Panel Manager
         self.bindPanelManager()
+        wx.CallAfter(self.Show)
 
     def AddParameterPage(self, title, activate=False):
         """Creates a page and adds it to the notebook control"""

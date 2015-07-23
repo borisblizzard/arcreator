@@ -19,8 +19,8 @@ from PyitectConsumes import EventCondition_Dialog
 class Troops_Panel(Troops_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Troops Panel",
-        "Caption": "Troops Panel",
+        "Name": "TroopsPanel",
+        "Caption": "Troops",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -33,8 +33,7 @@ class Troops_Panel(Troops_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent):

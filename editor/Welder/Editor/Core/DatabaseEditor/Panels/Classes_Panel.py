@@ -21,8 +21,8 @@ from PyitectConsumes import Table
 class Classes_Panel(Classes_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Classes Panel",
-        "Caption": "Classes Panel",
+        "Name": "ClassesPanel",
+        "Caption": "Classes",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -35,8 +35,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
     def __init__(self, parent, class_index=0):
         """Basic constructor for the Classes panel"""
@@ -271,7 +270,6 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         """Sets the selected element rank for the class"""
         index = DM.FixedIndex(self.listBoxElements.GetSelection())
         self.SelectedClass.element_ranks[index] = event.GetInt()
-        print(self.SelectedClass.element_ranks[index])
 
     def spinCtrlStates_ValueChanged(self, event):
         """Sets the selected state rank for the class"""

@@ -18,8 +18,8 @@ from PyitectConsumes import DatabaseManager as DM
 class Animations_Panel(Animations_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Animations Panel",
-        "Caption": "Animations Panel",
+        "Name": "AnimationsPanel",
+        "Caption": "Animations",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -32,8 +32,7 @@ class Animations_Panel(Animations_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent):

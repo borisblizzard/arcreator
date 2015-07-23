@@ -15,8 +15,8 @@ from PyitectConsumes import ChooseSwitchVariable_Dialog
 class CommonEvents_Panel(CommonEvents_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Common Events Panel",
-        "Caption": "Common Events Panel",
+        "Name": "CommonEventsPanel",
+        "Caption": "Common Events",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -30,8 +30,7 @@ class CommonEvents_Panel(CommonEvents_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent):

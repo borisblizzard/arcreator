@@ -13,8 +13,8 @@ from PyitectConsumes import RGSS1_RPG as RPG
 class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Armors Panel",
-        "Caption": "Armors Panel",
+        "Name": "ArmorsPanel",
+        "Caption": "Armors",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -27,8 +27,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent, armor_index=0):

@@ -13,8 +13,8 @@ from PyitectConsumes import PanelBase, Weapons_Panel_Template
 class Weapons_Panel(Weapons_Panel_Template, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Weapons Panel",
-        "Caption": "Weapons Panel",
+        "Name": "WeaponsPanel",
+        "Caption": "Weapons",
         "CaptionV": True,
         "Center": None,
         "CloseB": True,
@@ -27,8 +27,7 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
         "Movable": True,
         "NotebookD": True,
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent, weapon_index=0):
