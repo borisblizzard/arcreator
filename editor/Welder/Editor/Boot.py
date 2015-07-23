@@ -167,7 +167,15 @@ class ARCSplashScreen(wx.Frame):
                     Kernel.Config.updateProgram(json.load(f))
             if userpath.exists():
                 with userpath.open() as f:
-                    Kernel.Config.updateUser(json.load(f))
+                    try:
+                        Kernel.Config.updateUser(json.load(f))
+                    except:
+                        Kernel.Log(
+                            "Can not load user welder configuration",
+                            "[BOOT]",
+                            inform=True, 
+                            error=True
+                        )
         except:
             Kernel.Log("Error Loading Configuration", "[Main]", True, True)
             # sadly there is also a ton of things that won't work if the genral

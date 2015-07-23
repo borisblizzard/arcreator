@@ -9,53 +9,54 @@ from PIL import Image
 
 import Kernel
 
+
 class ImageFunctions(object):
 
     @staticmethod
     def Get_HSV_From_Image(image):
         a = numpy.asarray(image.convert('RGB'), int)
         R, G, B = a.T
-        
-        m = numpy.min(a,2).T
-        M = numpy.max(a,2).T
-    
-        C = M-m #chroma
-        Cmsk = C!=0
-    
+
+        m = numpy.min(a, 2).T
+        M = numpy.max(a, 2).T
+
+        C = M - m  # chroma
+        Cmsk = C != 0
+
         # Hue
         H = numpy.zeros(R.shape, int)
-        mask = (M==R)&Cmsk
-        H[mask] = numpy.mod(60*(G[mask]-B[mask])/C[mask], 360)
-        mask = (M==G)&Cmsk
-        H[mask] = (60*(B[mask]-R[mask])/C[mask] + 120)
-        mask = (M==B)&Cmsk
-        H[mask] = (60*(R[mask]-G[mask])/C[mask] + 240)
+        mask = (M == R) & Cmsk
+        H[mask] = numpy.mod(60 * (G[mask] - B[mask]) / C[mask], 360)
+        mask = (M == G) & Cmsk
+        H[mask] = (60 * (B[mask] - R[mask]) / C[mask] + 120)
+        mask = (M == B) & Cmsk
+        H[mask] = (60 * (R[mask] - G[mask]) / C[mask] + 240)
         H *= 255
-        H /= 360 # if you prefer, leave as 0-360, but don't convert to uint8
-    
+        H /= 360  # if you prefer, leave as 0-360, but don't convert to uint8
+
         # Value
         V = M
         # Saturation
         S = numpy.zeros(R.shape, int)
-        S[Cmsk] = ((255*C[Cmsk])/V[Cmsk])
-        
+        S[Cmsk] = ((255 * C[Cmsk]) / V[Cmsk])
+
         # H, S, and V are now defined as integers 0-255
         return H, S, V
-    
-    @staticmethod 
+
+    @staticmethod
     def Get_RGB_From_HSV(H, S, V):
         H = (H / 255.0) * 360.0
         S = (S / 255.0)
         V = (V / 255.0)
-        
+
         C = V * S
         Hp = H / 60.0
         X = C * (1 - numpy.absolute(numpy.mod(Hp, 2) - 1))
-        
+
         R = numpy.zeros(H.shape, float)
         G = numpy.zeros(H.shape, float)
         B = numpy.zeros(H.shape, float)
-        
+
         mask = (0 <= Hp) & (Hp < 1)
         R[mask] = C[mask]
         mask = (1 <= Hp) & (Hp < 2)
@@ -68,7 +69,7 @@ class ImageFunctions(object):
         R[mask] = X[mask]
         mask = (5 <= Hp) & (Hp < 6)
         R[mask] = C[mask]
-        
+
         mask = (0 <= Hp) & (Hp < 1)
         G[mask] = X[mask]
         mask = (1 <= Hp) & (Hp < 2)
@@ -81,7 +82,7 @@ class ImageFunctions(object):
         G[mask] = 0
         mask = (5 <= Hp) & (Hp < 6)
         G[mask] = 0
-        
+
         mask = (0 <= Hp) & (Hp < 1)
         B[mask] = 0
         mask = (1 <= Hp) & (Hp < 2)
@@ -94,18 +95,18 @@ class ImageFunctions(object):
         B[mask] = C[mask]
         mask = (5 <= Hp) & (Hp < 6)
         B[mask] = X[mask]
-        
+
         m = V - C
         R += m
         G += m
         B += m
-        
+
         R *= 255
         G *= 255
         B *= 255
-        
+
         return R, G, B
-                
+
     @staticmethod
     def change_hue_PIL(image, hue):
         Red, Green, Blue, Alpha = image.convert('RGBA').split()
@@ -128,40 +129,48 @@ class ImageFunctions(object):
             pilImageCopyRGB = pilImageCopyRGBA.convert('RGB')    # RGBA --> RGB
             pilImageRgbData = pilImageCopyRGB.tostring()
             wxImage.SetData(pilImageRgbData)
-            wxImage.SetAlphaData(pilImageCopyRGBA.tostring()[3::4])  # Create layer and insert alpha values.
+            # Create layer and insert alpha values.
+            wxImage.SetAlphaData(pilImageCopyRGBA.tostring()[3::4])
         else:    # The resulting image will not have alpha.
             wxImage = wx.EmptyImage(*pilImage.size)
             pilImageCopy = pilImage.copy()
-            pilImageCopyRGB = pilImageCopy.convert('RGB')    # Discard any alpha from the PIL image.
+            # Discard any alpha from the PIL image.
+            pilImageCopyRGB = pilImageCopy.convert('RGB')
             pilImageRgbData = pilImageCopyRGB.tostring()
             wxImage.SetData(pilImageRgbData)
 
         return wxImage
 
+
 class RTPFunctions(object):
 
     _image_ext = ["", ".png", ".gif", ".jpg", ".bmp"]
-    _audio_ext = ['', '.wav', '.ogg'] # No .mid for now
+    _audio_ext = ['', '.wav', '.ogg']  # No .mid for now
 
     @staticmethod
     def FindImageFile(folder_name, name):
+        if name is None or name == "":
+            return ""
         flag = False
-        flag, testpath = RTPFunctions.TestImageFiles(Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
+        flag, testpath = RTPFunctions.TestImageFiles(
+            Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
         if flag:
             return testpath
         else:
             rtps = Kernel.Config.getUnified()["RTPs"]
             for rtp_name, path in rtps.items():
-                flag, testpath = RTPFunctions.TestImageFiles(path, folder_name, name)
+                flag, testpath = RTPFunctions.TestImageFiles(
+                    path, folder_name, name)
             if flag:
                 return testpath
             else:
                 return ""
-            
+
     @staticmethod
     def TestImageFiles(path, folder_name, name):
         for ext in RTPFunctions._image_ext:
-            testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
+            testpath = os.path.normpath(
+                os.path.expandvars(os.path.join(path, folder_name, name + ext)))
             if os.path.exists(testpath) and os.path.isfile(testpath):
                 return True, testpath
         return False, ""
@@ -169,12 +178,16 @@ class RTPFunctions(object):
     @staticmethod
     def GetFileList(folder, type='image'):
         files, entries = [], []
-        if type == 'image': extensions = RTPFunctions._image_ext
-        elif type == 'audio': extensions = RTPFunctions._audio_ext
-        else: return files
+        if type == 'image':
+            extensions = RTPFunctions._image_ext
+        elif type == 'audio':
+            extensions = RTPFunctions._audio_ext
+        else:
+            return files
         directories = [Kernel.GlobalObjects['CurrentProjectDir']]
         rtps = Kernel.Config.getUnified()["RTPs"]
-        directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
+        directories.extend([os.path.expandvars(path[1])
+                            for path in rtps.items()])
         for dir in directories:
             path = os.path.join(dir, folder)
             if os.path.exists(path):
@@ -194,7 +207,8 @@ class RTPFunctions(object):
         directories = []
         directories.extend(extra_paths)
         rtps = Kernel.Config.getUnified()["RTPs"]
-        directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
+        directories.extend([os.path.expandvars(path[1])
+                            for path in rtps.items()])
         for dir in directories:
             target = os.path.join(dir, "Templates")
             if os.path.isdir(target):
@@ -211,14 +225,18 @@ class RTPFunctions(object):
 
     @staticmethod
     def FindAudioFile(folder_name, name):
+        if name is None or name == "":
+            return ""
         flag = False
-        flag, testpath = RTPFunctions.TestAudioFiles(Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
+        flag, testpath = RTPFunctions.TestAudioFiles(
+            Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
         if flag:
             return testpath
         else:
             rtps = Kernel.Config.getUnified()["RTPs"]
             for rtp_name, path in rtps.items():
-                flag, testpath = RTPFunctions.TestAudioFiles(path, folder_name, name)
+                flag, testpath = RTPFunctions.TestAudioFiles(
+                    path, folder_name, name)
             if flag:
                 return testpath
             else:
@@ -227,10 +245,12 @@ class RTPFunctions(object):
     @staticmethod
     def TestAudioFiles(path, folder_name, name):
         for ext in RTPFunctions._audio_ext:
-            testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
+            testpath = os.path.normpath(
+                os.path.expandvars(os.path.join(path, folder_name, name + ext)))
             if os.path.exists(testpath) and os.path.isfile(testpath):
                 return True, testpath
         return False, ""
+
 
 class PILCache(object):
 
@@ -242,7 +262,6 @@ class PILCache(object):
     _tile_limit = 100
     _hue_limit = 5
     _autotile_limit = 250
-    
 
     try:
         config = Kernel.Config.getUnified()
@@ -262,33 +281,33 @@ class PILCache(object):
                     _autotile_limit = 2
             if "hue_limit" in section:
                 _hue_limit = section["hue_limit"]
-                if _hue_limit <= 1: 
+                if _hue_limit <= 1:
                     _hue_limit = 2
             del section
         del config
     except:
         Kernel.Log("Error setting PIL Cache Config", "[Cache]", error=True)
-    
+
     Autotiles = [
-               [[27, 28, 33, 34], [5, 28, 33, 34], [27, 6, 33, 34],
-                [5, 6, 33, 34], [27, 28, 33, 12], [5, 28, 33, 12],
-                [27, 6, 33, 12], [5, 6, 33, 12] ],
-               [[27, 28, 11, 34], [5, 28, 11, 34], [27, 6, 11, 34],
-                [5, 6, 11, 34], [27, 28, 11, 12], [5, 28, 11, 12],
-                [27, 6, 11, 12], [5, 6, 11, 12] ],
-               [[25, 26, 31, 32], [25, 6, 31, 32], [25, 26, 31, 12],
-                [25, 6, 31, 12], [15, 16, 21, 22], [15, 16, 21, 12],
-                [15, 16, 11, 22], [15, 16, 11, 12] ],
-               [[29, 30, 35, 36], [29, 30, 11, 36], [5, 30, 35, 36],
-                [5, 30, 11, 36], [39, 40, 45, 46], [5, 40, 45, 46],
-                [39, 6, 45, 46], [5, 6, 45, 46] ],
-               [[25, 30, 31, 36], [15, 16, 45, 46], [13, 14, 19, 20],
-                [13, 14, 19, 12], [17, 18, 23, 24], [17, 18, 11, 24],
-                [41, 42, 47, 48], [5, 42, 47, 48] ],
-               [[37, 38, 43, 44], [37, 6, 43, 44], [13, 18, 19, 24],
-                [13, 14, 43, 44], [37, 42, 43, 48], [17, 18, 47, 48],
-                [13, 18, 43, 48], [1, 2, 7, 8] ]
-               ]
+        [[27, 28, 33, 34], [5, 28, 33, 34], [27, 6, 33, 34],
+         [5, 6, 33, 34], [27, 28, 33, 12], [5, 28, 33, 12],
+         [27, 6, 33, 12], [5, 6, 33, 12]],
+        [[27, 28, 11, 34], [5, 28, 11, 34], [27, 6, 11, 34],
+         [5, 6, 11, 34], [27, 28, 11, 12], [5, 28, 11, 12],
+         [27, 6, 11, 12], [5, 6, 11, 12]],
+        [[25, 26, 31, 32], [25, 6, 31, 32], [25, 26, 31, 12],
+         [25, 6, 31, 12], [15, 16, 21, 22], [15, 16, 21, 12],
+         [15, 16, 11, 22], [15, 16, 11, 12]],
+        [[29, 30, 35, 36], [29, 30, 11, 36], [5, 30, 35, 36],
+         [5, 30, 11, 36], [39, 40, 45, 46], [5, 40, 45, 46],
+         [39, 6, 45, 46], [5, 6, 45, 46]],
+        [[25, 30, 31, 36], [15, 16, 45, 46], [13, 14, 19, 20],
+         [13, 14, 19, 12], [17, 18, 23, 24], [17, 18, 11, 24],
+         [41, 42, 47, 48], [5, 42, 47, 48]],
+        [[37, 38, 43, 44], [37, 6, 43, 44], [13, 18, 19, 24],
+         [13, 14, 43, 44], [37, 42, 43, 48], [17, 18, 47, 48],
+         [13, 18, 43, 48], [1, 2, 7, 8]]
+    ]
 
     @staticmethod
     def changeHue(image, hue):
@@ -331,7 +350,7 @@ class PILCache(object):
         PILCache.TileCacheLimit()
         PILCache.AutotileCacheLimit()
 
-    @staticmethod  
+    @staticmethod
     def Load_bitmap(folder_name, filename, hue=0):
         key = (folder_name, filename)
         if key not in PILCache._NormalCache:
@@ -344,18 +363,18 @@ class PILCache(object):
                 image = Image.open(path).convert('RGBA')
                 if hue != 0:
                     image = PILCache.changeHue(image, hue)
-            
+
                 PILCache._NormalCache[key][hue] = image
                 PILCache.HueCacheLimit(PILCache._NormalCache, key)
                 del image
                 return PILCache._NormalCache[key][hue]
             else:
-                return None          
+                return None
 
     @staticmethod
     def Animation(filename, hue):
         return PILCache.Load_bitmap("Graphics/Animations/", filename, hue)
-    
+
     @staticmethod
     def Autotile(filename):
         return PILCache.Load_bitmap("Graphics/Autotiles/", filename, 0)
@@ -369,23 +388,24 @@ class PILCache(object):
             autotile = PILCache.Autotile(filename)
             if autotile:
                 # Collects Auto-Tile Tile Layout
-                tiles = PILCache.Autotiles[int(pattern) / 8][int(pattern) % 8]
-                PILCache._AutoTileCache[key] = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+                tiles = PILCache.Autotiles[int(pattern) // 8][int(pattern) % 8]
+                PILCache._AutoTileCache[key] = Image.new(
+                    'RGBA', (32, 32), (0, 0, 0, 0))
                 for i in range(4):
                     tile_position = tiles[i] - 1
                     x = tile_position % 6 * 16
-                    y = tile_position / 6 * 16
+                    y = tile_position // 6 * 16
                     autotile_part = autotile.crop((x, y, x + 16, y + 16))
                     tile_x = (i % 2 * 16)
-                    tile_y = (i / 2 * 16)
-                    PILCache._AutoTileCache[key].paste(autotile_part, (tile_x, tile_y))
+                    tile_y = (i // 2 * 16)
+                    PILCache._AutoTileCache[key].paste(
+                        autotile_part, (tile_x, tile_y))
                     del autotile_part
                 del tiles
                 del autotile
                 return PILCache._AutoTileCache[key]
             else:
                 return None
-        
 
     @staticmethod
     def Battleback(filename):
@@ -441,17 +461,17 @@ class PILCache(object):
         except KeyError:
             tileset = PILCache.Tileset(filename)
             if tileset:
-                id = int(tile_id) - 384
-                x = id % 8 * 32
-                y = id / 8 * 32
-                PILCache._TileCache[key][hue] = tileset.crop((x, y, x + 32, y + 32))
+                tid = int(tile_id) - 384
+                x = tid % 8 * 32
+                y = tid // 8 * 32
+                PILCache._TileCache[key][hue] = tileset.crop(
+                    (x, y, x + 32, y + 32))
                 PILCache.HueCacheLimit(PILCache._TileCache, key)
                 del tileset
                 return PILCache._TileCache[key][hue]
-                
+
             else:
                 return None
-        
 
     @staticmethod
     def Clear():
@@ -459,6 +479,7 @@ class PILCache(object):
         PILCache._TileCache = collections.OrderedDict()
         PILCache._AutoTileCache = collections.OrderedDict()
         gc.collect()
+
 
 class PygletCache(object):
 
@@ -472,21 +493,22 @@ class PygletCache(object):
                 if "pyglet_limit" in section:
                     self.limit = config["Cache"]["pyglet_limit"]
         except:
-            Kernel.Log("Error setting pyglet Cache Config", "[Cache]", error=True)
+            Kernel.Log(
+                "Error setting pyglet Cache Config", "[Cache]", error=True)
 
     def CacheLimit(self):
         if len(self._Cache) > self.limit:
             for i in range(len(self._Cache) - self.limit):
                 item = self._Cache.popitem(False)
                 del item
-        
+
     def Load_bitmap(self, folder_name, filename, hue=0):
         key = (folder_name, filename, hue)
         try:
             return self._Cache[key]
         except KeyError:
             image = PILCache.Load_bitmap(folder_name, filename, hue)
-            if image != None:
+            if image is not None:
                 pygletimage = pyglet.image.create(*image.size).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
                 data = image.tostring()
@@ -498,7 +520,7 @@ class PygletCache(object):
                 return self._Cache[key]
             else:
                 return None
-            
+
     def Animation(self, filename, hue):
         return self.Load_bitmap("Graphics/Animations/", filename, hue)
 
@@ -511,7 +533,7 @@ class PygletCache(object):
             return self._Cache[key]
         except KeyError:
             image = PILCache.AutotilePattern(filename, pattern)
-            if image != None:
+            if image is not None:
                 pygletimage = pyglet.image.create(*image.size).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
                 data = image.tostring()
@@ -565,7 +587,8 @@ class PygletCache(object):
             image = PILCache.Tile(filename, tile_id, hue)
             if image is not None:
                 width, height = image.size
-                pygletimage = pyglet.image.create(width, height).get_image_data()
+                pygletimage = pyglet.image.create(
+                    width, height).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
                 data = image.tostring()
                 pygletimage.set_data('RGBA', pitch, data)

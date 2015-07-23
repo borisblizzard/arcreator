@@ -111,14 +111,14 @@ class TilemapPanel(PygletGLPanel):
 
     def SetTopLeftXY(self, event):
         x, y = self.ConvertEventCoords(event)
-        x = x / int(32 * self.zoom)
-        y = y / int(32 * self.zoom)
+        x = x // int(32 * self.zoom)
+        y = y // int(32 * self.zoom)
         self.MouseManager.setTopLeft(x, y)
 
     def SetBottomRightXY(self, event):
         x, y = self.ConvertEventCoords(event)
-        x = x / int(32 * self.zoom)
-        y = y / int(32 * self.zoom)
+        x = x // int(32 * self.zoom)
+        y = y // int(32 * self.zoom)
         self.MouseManager.setBottomRight(x, y)
 
     def ConvertEventCoords(self, event):
