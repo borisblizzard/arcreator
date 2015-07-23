@@ -2,7 +2,7 @@
     "name": "MapEditorToolbars",
     "author": "Ryex",
     "version": "1.0.0",
-    "file" : "Toolbars.py",
+    "file" : "__init__.py",
     "consumes": {
         "PanelBase": ""
     },

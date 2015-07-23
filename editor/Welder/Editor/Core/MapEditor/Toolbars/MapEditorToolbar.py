@@ -1,6 +1,6 @@
 import wx
 
-import kernel
+import Kernel
 
 
 class MapEditorToolbar(wx.ToolBar):

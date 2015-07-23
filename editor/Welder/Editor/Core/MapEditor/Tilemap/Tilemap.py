@@ -79,20 +79,20 @@ class TilemapEventGrid(object):
             if not bitmap:
                 bitmap = self.cache.Character(event.name, event.hue)
             if bitmap:
-                cw = bitmap.width / 4
-                ch = bitmap.height / 4
+                cw = bitmap.width // 4
+                ch = bitmap.height // 4
                 sx = event.pattern * cw
-                sy = (event.direction - 2) / 2 * ch
+                sy = (event.direction - 2) // 2 * ch
                 rect = (
-                    sx + (cw - 22) / 2, bitmap.height - sy - ch / 2 - 5, 22, 22)
+                    sx + (cw - 22) // 2, bitmap.height - sy - ch // 2 - 5, 22, 22)
         # draw a portion of the event graphic
         if bitmap:
             image = pyglet.image.create(32, 32).get_texture()
-            reagion = bitmap.get_region(*rect)
-            image.blit_into(reagion, 5, 5, 0)
+            region = bitmap.get_region(*rect)
+            image.blit_into(region, 5, 5, 0)
         xpos = event.x * 32 + 16
         ypos = ((self.map.height - event.y) * 32) - 32 + 16
-        if key not in self.sprites or self.sprites[key][0] == None:
+        if key not in self.sprites or self.sprites[key][0] is None:
             sprite = None
             if bitmap:
                 sprite = rabbyt.Sprite(image, x=xpos, y=ypos)
@@ -404,7 +404,7 @@ class Tilemap(object):
         for index in indexes:
             self.set_image(tuple(index), self.tile_ids[tuple(index)])
 
-    def set_image(self, index, id):
+    def set_image(self, index, tid):
         '''
         change the bitmap of a tile (by making a new sprite)
         '''
@@ -415,14 +415,14 @@ class Tilemap(object):
             self.tiles[index] = self.makeSprite(x, y, z)
 
         # get the tile bitmap
-        if id < 384:
-            if id <= 47:
+        if tid < 384:
+            if tid <= 47:
                 bitmap = self.blank_tile
             else:
                 # get the filename
-                autotile = self.autotile_names[int(id) / 48 - 1]
+                autotile = self.autotile_names[int(tid) // 48 - 1]
                 # get the right pattern
-                pattern = id % 48
+                pattern = tid % 48
                 # collect the tile form the cache checking the local project folder
                 # and the system RTP folder
                 bitmap = self.cache.AutotilePattern(autotile, pattern)
@@ -433,9 +433,9 @@ class Tilemap(object):
         # normal tile
         else:
             # get the tile bitmap
-            bitmap = self.cache.Tile(self.tileset_name, id, 0)
+            bitmap = self.cache.Tile(self.tileset_name, tid, 0)
             if not bitmap:
-                bitmap = self.cache.Tile(self.tileset_name, id, 0)
+                bitmap = self.cache.Tile(self.tileset_name, tid, 0)
             if not bitmap:
                 bitmap = self.blank_tile
         # draw the tile to the surface

@@ -8,7 +8,8 @@
         "TilemapEventGrid": "",
         "TilemapTileGrid": "",
         "Tilemap": "",
-        "TilemapMouseSprite": ""
+        "TilemapMouseSprite": "",
+        "PygletGLPanel": ""
     },
     "provides": {
         "TilemapPanel": ""

@@ -45,7 +45,7 @@ class TilemapPanel(PygletGLPanel):
         self.MouseManager = TilemapMouseManager(self, self.map, self.toolbar)
 
         # set up scrollbars
-        size = self.GetVirtualSizeTuple()
+        size = self.GetVirtualSize()
         width = self.map.width * 32
         height = self.map.height * 32
         self.SetScrollbar(wx.HORIZONTAL, 0, size[0], width, refresh=True)
@@ -128,7 +128,7 @@ class TilemapPanel(PygletGLPanel):
         return newpos
 
     def SetOrigin(self):
-        size = self.GetVirtualSizeTuple()
+        size = self.GetVirtualSize()
         self.SetScrollbar(wx.HORIZONTAL, self.GetScrollPos(wx.HORIZONTAL), size[0],
                           self.map.width * 32 * self.zoom, refresh=True)
         self.SetScrollbar(wx.VERTICAL, self.GetScrollPos(wx.VERTICAL), size[1],
@@ -265,7 +265,7 @@ class TilemapPanel(PygletGLPanel):
         print('Scroll Bottom')
 
     def OnScroll(self, orient, pos):
-        size = self.GetVirtualSizeTuple()
+        size = self.GetVirtualSize()
         if orient == wx.HORIZONTAL:
             thumb = size[0]
             range_s = self.map.width * 32 * self.zoom

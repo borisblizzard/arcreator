@@ -11,11 +11,12 @@ class MapTreeCtrl(wx.TreeCtrl):
             style |= wx.TR_EDIT_LABELS | wx.WANTS_CHARS
         wx.TreeCtrl.__init__(self, parent, id, pos, size, style)
         self.parent = parent
-        Kernel.System.bind_event('RefreshProject', )
+        Kernel.System.bind_event('RefreshProject', self.Refresh_Map_List)
         IconManager = Kernel.System.load("IconManager")
         imglist = wx.ImageList(16, 16, True, 2)
-        imglist.Add(IconManager.getBitmap("project"))
+        imglist.Add(IconManager.getBitmap("projectopen"))
         imglist.Add(IconManager.getBitmap("map"))
+        imglist.Add(IconManager.getBitmap("mappile"))
         self.AssignImageList(imglist)
 
         root = self.AddRoot("Advanced RPG Creator Project", 0)
@@ -26,6 +27,8 @@ class MapTreeCtrl(wx.TreeCtrl):
         self.Expand(root)
 
         self.Bind(wx.EVT_WINDOW_DESTROY, self.onClose, self)
+
+        self.Refresh_Map_List()
 
     def buildStruct(self):
         project = Kernel.GlobalObjects["PROJECT"]
@@ -76,7 +79,7 @@ class MapTreeCtrl(wx.TreeCtrl):
                 root,
                 mapinfos[key].name,
                 1,
-                data=wx.TreeItemData([key, mapinfos[key].name])
+                data=[key, mapinfos[key].name]
             )
         # now loop through the struct and add the maps
         for key in self.struct:
@@ -88,16 +91,18 @@ class MapTreeCtrl(wx.TreeCtrl):
                     self.maps[mapinfos[key].parent_id],
                     mapinfos[key].name,
                     1,
-                    data=wx.TreeItemData([key, mapinfos[key].name])
+                    data=[key, mapinfos[key].name]
                 )
+                self.SetItemImage(self.maps[mapinfos[key].parent_id], 2)
             for id_num in self.struct[key]:
                 if mapinfos[id_num].parent_id in self.maps:
                     self.maps[id_num] = self.AppendItem(
                         self.maps[mapinfos[id_num].parent_id],
                         mapinfos[id_num].name,
                         1,
-                        data=wx.TreeItemData([id_num, mapinfos[id_num].name])
+                        data=[id_num, mapinfos[id_num].name]
                     )
+                    self.SetItemImage(self.maps[mapinfos[id_num].parent_id], 2)
                 else:
                     stack.append([id_num, mapinfos[id_num]])
         while len(stack) > 0:
@@ -107,8 +112,9 @@ class MapTreeCtrl(wx.TreeCtrl):
                     self.maps[value.parent_id],
                     value.name,
                     1,
-                    data=wx.TreeItemData([key, value.name])
+                    data=[key, value.name]
                 )
+                self.SetItemImage(self.maps[mapinfos[key].parent_id], 2)
             else:
                 stack.append([key, value])
         self.Expand(root)

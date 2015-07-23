@@ -366,16 +366,16 @@ class EditorToolbar(aui.AuiToolBar):
     def paneldispatch(self, event):
         # TODO: refactor to get rid of the gigantic elif branch
         panel_infos = {
-            self.mapeditid: ["mapeditpanel", "MapEditor_Panel", "Map Editor"],
-            self.actorsid: ["actorspanel", "Actors_Panel", "Actors"],
-            self.classesid: ["classespanel", "Classes_Panel", "Classes"],
-            self.skillsid: ["skillspanel", "Skills_Panel", "Skills"],
-            self.itemsid: ["itemspanel", "Items_Panel", "Items"],
-            self.weaponsid: ["weaponspanel", "Weapons_Panel", "Weapons"],
-            self.armorsid: ["armorspanel", "Armors_Panel", "Armors"],
-            self.enemiesid: ["enemiespanel", "Enemies_Panel", "Enemies"],
-            self.troopsid: ["troopspanel", "Troops_Panel", "Troops"],
-            self.statesid: ["statespanel", "States_Panel", "States"],
+            self.mapeditid: ["mapeditpanel", "MapManagerPanel", "MapManager"],
+            self.actorsid: ["actorspanel", "Actors_Panel", "ActorsPanel"],
+            self.classesid: ["classespanel", "Classes_Panel", "ClassesPanel"],
+            self.skillsid: ["skillspanel", "Skills_Panel", "SkillsPanel"],
+            self.itemsid: ["itemspanel", "Items_Panel", "ItemsPanel"],
+            self.weaponsid: ["weaponspanel", "Weapons_Panel", "WeaponsPanel"],
+            self.armorsid: ["armorspanel", "Armors_Panel", "ArmorsPanel"],
+            self.enemiesid: ["enemiespanel", "Enemies_Panel", "EnemiesPanel"],
+            self.troopsid: ["troopspanel", "Troops_Panel", "TroopsPanel"],
+            self.statesid: ["statespanel", "States_Panel", "StatesPanel"],
             self.animationsid: [
                 "animationspanel",
                 "Animations_Panel",
@@ -420,7 +420,8 @@ class StartPanel(wx.Panel, PanelBase):
         "Resizable": True,
         "NotebookD": True,
         "DestroyOC": True,
-        "Floatable": True
+        "Floatable": True,
+        "IconARCM": 'arca'
     }
 
     def __init__(self, parent):

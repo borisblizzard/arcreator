@@ -1,3 +1,3 @@
 from .BrushPanels import TilesetPanel
-from .MapTreePanel import MapTreePanel
+from .MapManagerPanel import MapManagerPanel
 from .MapEditorPanel import MapEditorPanel

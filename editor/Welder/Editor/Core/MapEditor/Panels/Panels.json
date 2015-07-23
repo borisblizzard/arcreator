@@ -11,7 +11,7 @@
     },
     "provides": {
         "TilesetPanel": "",
-        "MapTreePanel": "",
+        "MapManagerPanel": "",
         "MapEditorPanel": ""
     }
 }

@@ -563,8 +563,9 @@ class PygletCache(object):
             return self._Cache[key]
         except KeyError:
             image = PILCache.Tile(filename, tile_id, hue)
-            if image != None:
-                pygletimage = pyglet.image.create(*image.size).get_image_data()
+            if image is not None:
+                width, height = image.size
+                pygletimage = pyglet.image.create(width, height).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
                 data = image.tostring()
                 pygletimage.set_data('RGBA', pitch, data)

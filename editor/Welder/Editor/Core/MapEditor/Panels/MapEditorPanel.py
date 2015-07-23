@@ -11,7 +11,7 @@ from PyitectConsumes import PanelBase, MapEditorToolbar, TilemapPanel
 class MapEditorPanel(wx.Panel, PanelBase):
 
     _arc_panel_info = {
-        "Name": "Map Editor",
+        "Name": "MapEditor",
         "Caption": "Map Editor",
         "BestS": (32 * 24, 32 * 18),
         "CaptionV": True,
@@ -19,17 +19,14 @@ class MapEditorPanel(wx.Panel, PanelBase):
         "CloseB": True,
         "DestroyOC": True,
         "Floatable": True,
-        "Float": None,
-        "IconARCM": 'mapediticon',
+        "IconARCM": 'mapedit',
         "MaximizeB": True,
         "MinimizeB": True,
         "MinimizeM": ["POS_SMART", "CAPT_SMART"],
         "Movable": True,
         "NotebookD": True,
-        "NotebookP": [1],
         "Resizable": True,
-        "Snappable": True,
-        "Layer": 1
+        "Snappable": True
     }
 
     def __init__(self, parent, map, tilesets):
