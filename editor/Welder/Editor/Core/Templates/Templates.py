@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ###########################################################################
-# Python code generated with wxFormBuilder (version Sep 14 2014)
+# Python code generated with wxFormBuilder (version Jun 17 2015)
 # http://www.wxformbuilder.org/
 ##
 # PLEASE DO "NOT" EDIT THIS FILE!
@@ -11,6 +11,7 @@ import wx
 import wx.xrc
 import wx.adv
 import wx.grid
+import wx.dataview
 
 from . import Extras
 
@@ -60,38 +61,38 @@ class Actors_Panel_Template (wx.Panel):
 
         sizer3 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerActors.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizer3.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizer3.Add(
             self.textCtrlName, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelClass = wx.StaticText(
-            self, wx.ID_ANY, _("Class:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelClass = wx.StaticText(staticSizerActors.GetStaticBox(), wx.ID_ANY, _(
+            "Class:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelClass.Wrap(-1)
         sizer3.Add(self.labelClass, 0, wx.ALL, 5)
 
         comboBoxClassChoices = []
-        self.comboBoxClass = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxClassChoices, 0)
+        self.comboBoxClass = wx.Choice(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxClassChoices, 0)
         self.comboBoxClass.SetSelection(-1)
         sizer3.Add(
             self.comboBoxClass, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizer4 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelInitialLevel = wx.StaticText(
-            self, wx.ID_ANY, _("Initial Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelInitialLevel = wx.StaticText(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, _("Initial Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelInitialLevel.Wrap(-1)
         sizer4.Add(self.labelInitialLevel, 1, wx.EXPAND | wx.ALL, 5)
 
-        self.labelFinalLevel = wx.StaticText(
-            self, wx.ID_ANY, _("Final Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelFinalLevel = wx.StaticText(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, _("Final Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelFinalLevel.Wrap(-1)
         sizer4.Add(self.labelFinalLevel, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -99,35 +100,35 @@ class Actors_Panel_Template (wx.Panel):
 
         sizer5 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlInitialLevel = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 65535, 1)
+        self.spinCtrlInitialLevel = wx.SpinCtrl(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 65535, 1)
         sizer5.Add(self.spinCtrlInitialLevel, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.spinCtrlFinalLevel = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 999, 99)
+        self.spinCtrlFinalLevel = wx.SpinCtrl(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 999, 99)
         sizer5.Add(self.spinCtrlFinalLevel, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
         sizer3.Add(sizer5, 0, wx.EXPAND, 5)
 
-        self.labelExpCurve = wx.StaticText(
-            self, wx.ID_ANY, _("Experience Curve:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelExpCurve = wx.StaticText(staticSizerActors.GetStaticBox(), wx.ID_ANY, _(
+            "Experience Curve:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelExpCurve.Wrap(-1)
         sizer3.Add(self.labelExpCurve, 0, wx.ALL, 5)
 
-        self.comboBoxExpCurve = wx.adv.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY | wx.CLIP_CHILDREN)
+        self.comboBoxExpCurve = wx.adv.BitmapComboBox(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY | wx.CLIP_CHILDREN)
         sizer3.Add(self.comboBoxExpCurve, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelGraphics = wx.StaticText(
-            self, wx.ID_ANY, _("Actor Graphics:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelGraphics = wx.StaticText(staticSizerActors.GetStaticBox(), wx.ID_ANY, _(
+            "Actor Graphics:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelGraphics.Wrap(-1)
         sizer3.Add(self.labelGraphics, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.splitterGraphics = wx.SplitterWindow(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SP_BORDER)
+        self.splitterGraphics = wx.SplitterWindow(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SP_BORDER)
         self.splitterGraphics.SetSashGravity(0.5)
         self.splitterGraphics.Bind(wx.EVT_IDLE, self.splitterGraphicsOnIdle)
         self.splitterGraphics.SetMinimumPaneSize(1)
@@ -174,38 +175,38 @@ class Actors_Panel_Template (wx.Panel):
 
         sizerParameters = wx.BoxSizer(wx.VERTICAL)
 
-        self.noteBookActorParameters = wx.Notebook(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 | wx.CLIP_CHILDREN | wx.TAB_TRAVERSAL)
+        self.noteBookActorParameters = wx.Notebook(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 | wx.CLIP_CHILDREN | wx.TAB_TRAVERSAL)
         self.pageParameters = wx.Panel(
             self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN | wx.TAB_TRAVERSAL)
         MainSizerParamter = wx.BoxSizer(wx.VERTICAL)
 
         sizerConrolsParameter = wx.BoxSizer(wx.HORIZONTAL)
 
-        sizerQuickSettings = wx.StaticBoxSizer(
-            wx.StaticBox(self.pageParameters, wx.ID_ANY, _("Quick Settings")), wx.HORIZONTAL)
+        sizerQuickSettings = wx.StaticBoxSizer(wx.StaticBox(
+            self.pageParameters, wx.ID_ANY, _("Quick Settings")), wx.HORIZONTAL)
 
-        self.buttonQuickA = wx.Button(
-            self.pageParameters, wx.ID_ANY, _("A"), wx.DefaultPosition, wx.Size(23, 23), 0)
+        self.buttonQuickA = wx.Button(sizerQuickSettings.GetStaticBox(), wx.ID_ANY, _(
+            "A"), wx.DefaultPosition, wx.Size(23, 23), 0)
         sizerQuickSettings.Add(self.buttonQuickA, 0, wx.ALL, 5)
 
-        self.buttonQuickB = wx.Button(
-            self.pageParameters, wx.ID_ANY, _("B"), wx.DefaultPosition, wx.Size(23, 23), 0)
+        self.buttonQuickB = wx.Button(sizerQuickSettings.GetStaticBox(), wx.ID_ANY, _(
+            "B"), wx.DefaultPosition, wx.Size(23, 23), 0)
         sizerQuickSettings.Add(
             self.buttonQuickB, 0, wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
 
-        self.buttonQuickC = wx.Button(
-            self.pageParameters, wx.ID_ANY, _("C"), wx.DefaultPosition, wx.Size(23, 23), 0)
+        self.buttonQuickC = wx.Button(sizerQuickSettings.GetStaticBox(), wx.ID_ANY, _(
+            "C"), wx.DefaultPosition, wx.Size(23, 23), 0)
         sizerQuickSettings.Add(
             self.buttonQuickC, 0, wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
 
-        self.buttonQuickD = wx.Button(
-            self.pageParameters, wx.ID_ANY, _("D"), wx.DefaultPosition, wx.Size(23, 23), 0)
+        self.buttonQuickD = wx.Button(sizerQuickSettings.GetStaticBox(), wx.ID_ANY, _(
+            "D"), wx.DefaultPosition, wx.Size(23, 23), 0)
         sizerQuickSettings.Add(
             self.buttonQuickD, 0, wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
 
-        self.buttonQuickE = wx.Button(
-            self.pageParameters, wx.ID_ANY, _("E"), wx.DefaultPosition, wx.Size(23, 23), 0)
+        self.buttonQuickE = wx.Button(sizerQuickSettings.GetStaticBox(), wx.ID_ANY, _(
+            "E"), wx.DefaultPosition, wx.Size(23, 23), 0)
         sizerQuickSettings.Add(
             self.buttonQuickE, 0, wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
 
@@ -243,8 +244,9 @@ class Actors_Panel_Template (wx.Panel):
 
         bSizer613 = wx.BoxSizer(wx.HORIZONTAL)
 
-        from .Extras import ParameterGraph
-        self.parameterGraph = ParameterGraph(self.pageParameters)
+        from Database.Controls import ParameterGraph
+        self.parameterGraph = PyitectConsumes.ParameterGraph(
+            self.pageParameters)
         bSizer613.Add(
             self.parameterGraph, 1, wx.EXPAND | wx.RIGHT | wx.LEFT, 0)
 
@@ -293,11 +295,11 @@ class Actors_Panel_Template (wx.Panel):
 
         sizer2.Add(sizerParameters, 45, wx.EXPAND, 5)
 
-        sizerEquipment = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Initial Equipment")), wx.VERTICAL)
+        sizerEquipment = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerActors.GetStaticBox(), wx.ID_ANY, _("Initial Equipment")), wx.VERTICAL)
 
-        self.scrolledWindowEquipment = wx.ScrolledWindow(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN | wx.VSCROLL)
+        self.scrolledWindowEquipment = wx.ScrolledWindow(sizerEquipment.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN | wx.VSCROLL)
         self.scrolledWindowEquipment.SetScrollRate(5, 5)
         scrolledWindowMainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -308,13 +310,13 @@ class Actors_Panel_Template (wx.Panel):
 
         sizer2.Add(sizerEquipment, 35, wx.EXPAND | wx.ALL, 5)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerActors.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         sizer2.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
-                                         wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerActors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
         
         sizer2.Add(
             self.textCtrlNotes, 20, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -376,102 +378,74 @@ class Actors_Panel_Template (wx.Panel):
         self.textCtrlNotes.Bind(wx.EVT_TEXT, self.textCtrlNotes_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxActors.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxClass.Unbind(wx.EVT_CHOICE, None)
-        self.spinCtrlInitialLevel.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.spinCtrlInitialLevel.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlFinalLevel.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.spinCtrlFinalLevel.Unbind(wx.EVT_SPINCTRL, None)
-        self.comboBoxExpCurve.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.comboBoxExpCurve.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.noteBookActorParameters.Unbind(wx.EVT_NOTEBOOK_PAGE_CHANGED, None)
-        self.buttonQuickA.Unbind(wx.EVT_BUTTON, None)
-        self.buttonQuickB.Unbind(wx.EVT_BUTTON, None)
-        self.buttonQuickC.Unbind(wx.EVT_BUTTON, None)
-        self.buttonQuickD.Unbind(wx.EVT_BUTTON, None)
-        self.buttonQuickE.Unbind(wx.EVT_BUTTON, None)
-        self.spinCtrlLevel.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.spinCtrlLevel.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlLevel.Unbind(wx.EVT_TEXT, None)
-        self.spinCtrlValue.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.spinCtrlValue.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlValue.Unbind(wx.EVT_TEXT, None)
-        self.parameterGraph.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonAddParameter.Unbind(wx.EVT_BUTTON, None)
-        self.buttonRemoveParameter.Unbind(wx.EVT_BUTTON, None)
-        self.checkBoxScaled.Unbind(wx.EVT_CHECKBOX, None)
-        self.buttonGenerate.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxActors_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textBoxName_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxClass_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def OnEraseBackground(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlInitialLevel_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlFinalLevel_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxExperience_Click(self, event):
-        pass
+        event.Skip()
 
     def noteBookParameters_PageChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonQuickA_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonQuickB_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonQuickC_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonQuickD_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonQuickE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlParamLevel_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlValue_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def ControlOnEraseBackground(self, event):
-        pass
+        event.Skip()
 
     def buttonAddParameter_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonRemoveParameter_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkBoxScaled_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonGenerateCurve_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def splitterGraphicsOnIdle(self, event):
         self.splitterGraphics.SetSashPosition(0)
@@ -520,37 +494,37 @@ class Classes_Panel_Template (wx.Panel):
 
         bSizer65 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         bSizer65.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         bSizer65.Add(
             self.textCtrlName, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelWeapons = wx.StaticText(
-            self, wx.ID_ANY, _("Equippable Weapons:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelWeapons = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Equippable Weapons:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelWeapons.Wrap(-1)
         bSizer65.Add(self.labelWeapons, 0, wx.ALL | wx.EXPAND, 5)
 
         checkListWeaponsChoices = []
-        self.checkListWeapons = wx.CheckListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListWeaponsChoices, 0)
+        self.checkListWeapons = wx.CheckListBox(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListWeaponsChoices, 0)
         bSizer65.Add(
             self.checkListWeapons, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         bSizer68 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.buttonWeaponAll = wx.Button(
-            self, wx.ID_ANY, _("All"), wx.DefaultPosition, wx.Size(-1, 19), 0)
+        self.buttonWeaponAll = wx.Button(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "All"), wx.DefaultPosition, wx.Size(-1, 19), 0)
         bSizer68.Add(
             self.buttonWeaponAll, 1, wx.BOTTOM | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonWeaponNone = wx.Button(
-            self, wx.ID_ANY, _("None"), wx.DefaultPosition, wx.Size(-1, 19), 0)
+        self.buttonWeaponNone = wx.Button(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "None"), wx.DefaultPosition, wx.Size(-1, 19), 0)
         bSizer68.Add(
             self.buttonWeaponNone, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT, 5)
 
@@ -562,38 +536,38 @@ class Classes_Panel_Template (wx.Panel):
 
         bSizer651 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelPosition = wx.StaticText(
-            self, wx.ID_ANY, _("Position:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPosition = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Position:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPosition.Wrap(-1)
         bSizer651.Add(self.labelPosition, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxPositionChoices = []
-        self.comboBoxPosition = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxPositionChoices, 0)
+        self.comboBoxPosition = wx.Choice(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxPositionChoices, 0)
         self.comboBoxPosition.SetSelection(0)
         bSizer651.Add(
             self.comboBoxPosition, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelArmors = wx.StaticText(
-            self, wx.ID_ANY, _("Equippable Armors:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelArmors = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Equippable Armors:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelArmors.Wrap(-1)
         bSizer651.Add(self.labelArmors, 0, wx.ALL | wx.EXPAND, 5)
 
         checkListArmorsChoices = []
-        self.checkListArmors = wx.CheckListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListArmorsChoices, 0)
+        self.checkListArmors = wx.CheckListBox(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListArmorsChoices, 0)
         bSizer651.Add(
             self.checkListArmors, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizerOKRemove = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.buttonArmorAll = wx.Button(
-            self, wx.ID_ANY, _("All"), wx.DefaultPosition, wx.Size(-1, 19), 0)
+        self.buttonArmorAll = wx.Button(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "All"), wx.DefaultPosition, wx.Size(-1, 19), 0)
         sizerOKRemove.Add(
             self.buttonArmorAll, 1, wx.EXPAND | wx.BOTTOM | wx.LEFT, 5)
 
-        self.buttonArmorNone = wx.Button(
-            self, wx.ID_ANY, _("None"), wx.DefaultPosition, wx.Size(-1, 19), 0)
+        self.buttonArmorNone = wx.Button(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "None"), wx.DefaultPosition, wx.Size(-1, 19), 0)
         sizerOKRemove.Add(
             self.buttonArmorNone, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT, 5)
 
@@ -605,13 +579,13 @@ class Classes_Panel_Template (wx.Panel):
 
         bSizer616.Add(bSizer6171, 75, wx.EXPAND, 5)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         bSizer616.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
-                                         wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
         
         bSizer616.Add(
             self.textCtrlNotes, 25, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -622,13 +596,13 @@ class Classes_Panel_Template (wx.Panel):
 
         bSizer74 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelElements = wx.StaticText(
-            self, wx.ID_ANY, _("Element Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelElements = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Element Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelElements.Wrap(-1)
         bSizer74.Add(self.labelElements, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.labelStates = wx.StaticText(
-            self, wx.ID_ANY, _("State Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStates = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "State Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStates.Wrap(-1)
         bSizer74.Add(self.labelStates, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -637,14 +611,14 @@ class Classes_Panel_Template (wx.Panel):
         bSizer75 = wx.BoxSizer(wx.HORIZONTAL)
 
         listBoxElementsChoices = []
-        self.listBoxElements = wx.ListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxElementsChoices, 0)
+        self.listBoxElements = wx.ListBox(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxElementsChoices, 0)
         bSizer75.Add(
             self.listBoxElements, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         listBoxStatesChoices = []
-        self.listBoxStates = wx.ListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxStatesChoices, 0)
+        self.listBoxStates = wx.ListBox(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxStatesChoices, 0)
         bSizer75.Add(
             self.listBoxStates, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -652,36 +626,36 @@ class Classes_Panel_Template (wx.Panel):
 
         bSizer617 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlElements = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 10, 0)
+        self.spinCtrlElements = wx.SpinCtrl(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 10, 0)
         bSizer617.Add(
             self.spinCtrlElements, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlStates = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 10, 0)
+        self.spinCtrlStates = wx.SpinCtrl(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 10, 0)
         bSizer617.Add(
             self.spinCtrlStates, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         bSizer67.Add(bSizer617, 0, wx.EXPAND, 5)
 
-        self.labelSkills = wx.StaticText(
-            self, wx.ID_ANY, _("Skills to Learn:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelSkills = wx.StaticText(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Skills to Learn:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelSkills.Wrap(-1)
         bSizer67.Add(self.labelSkills, 0, wx.ALL, 5)
 
-        self.listCtrlSkills = wx.ListCtrl(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT | wx.LC_SINGLE_SEL)
+        self.listCtrlSkills = wx.ListCtrl(staticSizerClasses.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT | wx.LC_SINGLE_SEL)
         bSizer67.Add(
             self.listCtrlSkills, 35, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         bSizer618 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.buttonSkillAdd = wx.Button(
-            self, wx.ID_ANY, _("Add"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonSkillAdd = wx.Button(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Add"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer618.Add(self.buttonSkillAdd, 0, wx.BOTTOM | wx.LEFT, 5)
 
-        self.buttonSkillRemove = wx.Button(
-            self, wx.ID_ANY, _("Remove"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonSkillRemove = wx.Button(staticSizerClasses.GetStaticBox(), wx.ID_ANY, _(
+            "Remove"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer618.Add(self.buttonSkillRemove, 0, wx.BOTTOM | wx.RIGHT, 5)
 
         bSizer67.Add(bSizer618, 0, wx.ALIGN_RIGHT, 5)
@@ -726,84 +700,65 @@ class Classes_Panel_Template (wx.Panel):
             wx.EVT_BUTTON, self.buttonSkillRemove_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxClasses.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.checkListWeapons.Unbind(wx.EVT_CHECKLISTBOX, None)
-        self.buttonWeaponAll.Unbind(wx.EVT_BUTTON, None)
-        self.buttonWeaponNone.Unbind(wx.EVT_BUTTON, None)
-        self.comboBoxPosition.Unbind(wx.EVT_CHOICE, None)
-        self.checkListArmors.Unbind(wx.EVT_CHECKLISTBOX, None)
-        self.buttonArmorAll.Unbind(wx.EVT_BUTTON, None)
-        self.buttonArmorNone.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
-        self.listBoxElements.Unbind(wx.EVT_LISTBOX, None)
-        self.listBoxStates.Unbind(wx.EVT_LISTBOX, None)
-        self.spinCtrlElements.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlStates.Unbind(wx.EVT_SPINCTRL, None)
-        self.listCtrlSkills.Unbind(wx.EVT_KEY_DOWN, None)
-        self.listCtrlSkills.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.buttonSkillAdd.Unbind(wx.EVT_BUTTON, None)
-        self.buttonSkillRemove.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxClasses_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def checkListWeapons_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonWeaponAll_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonWeaponNone_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxPosition_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def checkListArmors_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonArmorAll_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonArmorNone_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def listBoxElements_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def listBoxStates_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlElements_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlStates_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def listCtrlSkills_KeyDown(self, event):
-        pass
+        event.Skip()
 
     def listCtrlSkills_DoubleClick(self, event):
-        pass
+        event.Skip()
 
     def buttonSkillAdd_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonSkillRemove_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -848,13 +803,13 @@ class Skills_Panel_Template (wx.Panel):
 
         bSizer621 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         bSizer621.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         bSizer621.Add(
             self.textCtrlName, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -863,31 +818,31 @@ class Skills_Panel_Template (wx.Panel):
 
         bSizer622 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelIcon = wx.StaticText(
-            self, wx.ID_ANY, _("Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIcon = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIcon.Wrap(-1)
         bSizer622.Add(self.labelIcon, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.labelIconName = wx.StaticText(
-            self, wx.ID_ANY, _("(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIconName = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIconName.Wrap(-1)
         bSizer622.Add(self.labelIconName, 0, wx.ALL | wx.EXPAND, 5)
 
         bSizer620.Add(bSizer622, 35, wx.EXPAND, 5)
 
-        self.bitmapButtonIcon = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
+        self.bitmapButtonIcon = wx.BitmapButton(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
         bSizer620.Add(self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM | wx.ALL, 5)
 
         sizer1.Add(bSizer620, 0, wx.EXPAND, 5)
 
-        self.labelDescription = wx.StaticText(
-            self, wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDescription = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDescription.Wrap(-1)
         sizer1.Add(self.labelDescription, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlDescription = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlDescription = wx.TextCtrl(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlDescription.SetMaxLength(0)
         sizer1.Add(self.textCtrlDescription, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -896,27 +851,27 @@ class Skills_Panel_Template (wx.Panel):
 
         sizer8 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelScope = wx.StaticText(
-            self, wx.ID_ANY, _("Scope:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelScope = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Scope:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelScope.Wrap(-1)
         sizer8.Add(self.labelScope, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxScopeChoices = [_("None"), _("One Enemy"), _("All Enemies"), _("One Ally"), _("All Allies"), _(
             "One Ally (HP 0)"), _("All Allies (HP 0)"), _("The User"), _("One Ally or Enemy"), _("Everyone")]
-        self.comboBoxScope = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0)
+        self.comboBoxScope = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0)
         self.comboBoxScope.SetSelection(0)
         sizer8.Add(
             self.comboBoxScope, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelUserAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("User Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelUserAnimation = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("User Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelUserAnimation.Wrap(-1)
         sizer8.Add(self.labelUserAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxUserAnimationChoices = [_("(None)")]
-        self.comboBoxUserAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0)
+        self.comboBoxUserAnimation = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0)
         self.comboBoxUserAnimation.SetSelection(0)
         sizer8.Add(self.comboBoxUserAnimation, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -925,19 +880,20 @@ class Skills_Panel_Template (wx.Panel):
 
         bSizer624 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelMenuSE = wx.StaticText(
-            self, wx.ID_ANY, _("Menu Use SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMenuSE = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Menu Use SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMenuSE.Wrap(-1)
         bSizer624.Add(self.labelMenuSE, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxMenuSE = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY | wx.CLIP_CHILDREN)
+        self.comboBoxMenuSE = wx.adv.BitmapComboBox(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY | wx.CLIP_CHILDREN)
         bSizer624.Add(
             self.comboBoxMenuSE, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         bSizer623.Add(bSizer624, 1, 0, 5)
 
-        self.bitmapButtonAudioTest = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        self.bitmapButtonAudioTest = wx.BitmapButton(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
         bSizer623.Add(
             self.bitmapButtonAudioTest, 0, wx.ALL | wx.ALIGN_BOTTOM, 5)
 
@@ -947,39 +903,39 @@ class Skills_Panel_Template (wx.Panel):
 
         sizer9 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelOccasion = wx.StaticText(
-            self, wx.ID_ANY, _("Occasion:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelOccasion = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Occasion:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelOccasion.Wrap(-1)
         sizer9.Add(self.labelOccasion, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxOccasionChoices = [
-            _("Always"), _("Only in Battle"), _("Only from Menu"), _("Never")]
-        self.comboBoxOccasion = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0)
+            _("Always"), _("Only in Battle"), _("Only from Men"), _("Never")]
+        self.comboBoxOccasion = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0)
         self.comboBoxOccasion.SetSelection(0)
         sizer9.Add(self.comboBoxOccasion, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelTargetAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTargetAnimation = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTargetAnimation.Wrap(-1)
         sizer9.Add(self.labelTargetAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxTargetAnimationChoices = [_("(None)")]
-        self.comboBoxTargetAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
+        self.comboBoxTargetAnimation = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
         self.comboBoxTargetAnimation.SetSelection(0)
         sizer9.Add(self.comboBoxTargetAnimation, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelCommonEvent = wx.StaticText(
-            self, wx.ID_ANY, _("Common Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelCommonEvent = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("Common Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCommonEvent.Wrap(-1)
         sizer9.Add(self.labelCommonEvent, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxCommonEventChoices = [_("(None)")]
-        self.comboBoxCommonEvent = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0)
+        self.comboBoxCommonEvent = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0)
         self.comboBoxCommonEvent.SetSelection(0)
         sizer9.Add(self.comboBoxCommonEvent, 1, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -988,8 +944,8 @@ class Skills_Panel_Template (wx.Panel):
 
         sizer1.Add(sizer6, 0, wx.EXPAND, 5)
 
-        sizerParameters = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Parameters")), wx.VERTICAL)
+        sizerParameters = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerItems.GetStaticBox(), wx.ID_ANY, _("Parameters")), wx.VERTICAL)
 
         from .Extras import ParameterPanel
         self.panelParameters = ParameterPanel(self)
@@ -1005,8 +961,8 @@ class Skills_Panel_Template (wx.Panel):
 
         sizerElements = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelElements = wx.StaticText(
-            self, wx.ID_ANY, _("Element:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelElements = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Element:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelElements.Wrap(-1)
         sizerElements.Add(self.labelElements, 0, wx.ALL | wx.EXPAND, 5)
 
@@ -1023,8 +979,8 @@ class Skills_Panel_Template (wx.Panel):
 
         sizerStates = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelStates = wx.StaticText(
-            self, wx.ID_ANY, _("State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStates = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStates.Wrap(-1)
         sizerStates.Add(self.labelStates, 0, wx.ALL | wx.EXPAND, 5)
 
@@ -1038,13 +994,13 @@ class Skills_Panel_Template (wx.Panel):
 
         sizer2.Add(sizerEfficiency, 60, wx.EXPAND, 5)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         sizer2.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
-                                         wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
         
         sizer2.Add(
             self.textCtrlNotes, 40, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -1089,73 +1045,56 @@ class Skills_Panel_Template (wx.Panel):
         self.textCtrlNotes.Bind(wx.EVT_TEXT, self.textCtrlNotes_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxSkills.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.bitmapButtonIcon.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlDescription.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxScope.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxUserAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxMenuSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.bitmapButtonAudioTest.Unbind(wx.EVT_BUTTON, None)
-        self.comboBoxOccasion.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxTargetAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxCommonEvent.Unbind(wx.EVT_CHOICE, None)
-        self.checkListElements.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListElements.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxSkills_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def bitmapButtonIcon_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlDescription_TextChange(self, event):
-        pass
+        event.Skip()
 
     def comboBoxScope_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxUserAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxMenuSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def bitmapButtonAudioTest_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxOccasion_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTargetAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxCommonEvent_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def checkListElements_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_LeftClicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_RightClicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -1200,13 +1139,13 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer621 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         bSizer621.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         bSizer621.Add(
             self.textCtrlName, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -1215,31 +1154,31 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer622 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelIcon = wx.StaticText(
-            self, wx.ID_ANY, _("Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIcon = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIcon.Wrap(-1)
         bSizer622.Add(self.labelIcon, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.labelIconName = wx.StaticText(
-            self, wx.ID_ANY, _("(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIconName = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIconName.Wrap(-1)
         bSizer622.Add(self.labelIconName, 0, wx.ALL | wx.EXPAND, 5)
 
         bSizer620.Add(bSizer622, 35, 0, 5)
 
-        self.bitmapButtonIcon = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
+        self.bitmapButtonIcon = wx.BitmapButton(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
         bSizer620.Add(self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM | wx.ALL, 5)
 
         sizer1.Add(bSizer620, 0, wx.EXPAND, 5)
 
-        self.labelDescription = wx.StaticText(
-            self, wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDescription = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDescription.Wrap(-1)
         sizer1.Add(self.labelDescription, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlDescription = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlDescription = wx.TextCtrl(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlDescription.SetMaxLength(0)
         sizer1.Add(self.textCtrlDescription, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -1248,27 +1187,27 @@ class Items_Panel_Template (wx.Panel):
 
         sizer8 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelScope = wx.StaticText(
-            self, wx.ID_ANY, _("Scope:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelScope = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Scope:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelScope.Wrap(-1)
         sizer8.Add(self.labelScope, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxScopeChoices = [_("None"), _("One Enemy"), _("All Enemies"), _("One Ally"), _("All Allies"), _(
             "One Ally (HP 0)"), _("All Allies (HP 0)"), _("The User"), _("One Ally or Enemy"), _("Everyone")]
-        self.comboBoxScope = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0)
+        self.comboBoxScope = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0)
         self.comboBoxScope.SetSelection(0)
         sizer8.Add(
             self.comboBoxScope, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelUserAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("User Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelUserAnimation = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("User Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelUserAnimation.Wrap(-1)
         sizer8.Add(self.labelUserAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxUserAnimationChoices = [_("(None)")]
-        self.comboBoxUserAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0)
+        self.comboBoxUserAnimation = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0)
         self.comboBoxUserAnimation.SetSelection(0)
         sizer8.Add(self.comboBoxUserAnimation, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -1277,19 +1216,20 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer624 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelMenuSE = wx.StaticText(
-            self, wx.ID_ANY, _("Menu Use SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMenuSE = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Menu Use SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMenuSE.Wrap(-1)
         bSizer624.Add(self.labelMenuSE, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxMenuSE = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY | wx.CLIP_CHILDREN)
+        self.comboBoxMenuSE = wx.adv.BitmapComboBox(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY | wx.CLIP_CHILDREN)
         bSizer624.Add(
             self.comboBoxMenuSE, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         bSizer623.Add(bSizer624, 1, 0, 5)
 
-        self.bitmapButtonAudioTest = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        self.bitmapButtonAudioTest = wx.BitmapButton(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
         bSizer623.Add(
             self.bitmapButtonAudioTest, 0, wx.ALL | wx.ALIGN_BOTTOM, 5)
 
@@ -1299,39 +1239,39 @@ class Items_Panel_Template (wx.Panel):
 
         sizer9 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelOccasion = wx.StaticText(
-            self, wx.ID_ANY, _("Occasion:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelOccasion = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Occasion:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelOccasion.Wrap(-1)
         sizer9.Add(self.labelOccasion, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxOccasionChoices = [
-            _("Always"), _("Only in Battle"), _("Only from Menu"), _("Never")]
-        self.comboBoxOccasion = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0)
+            _("Always"), _("Only in Battle"), _("Only from Men"), _("Never")]
+        self.comboBoxOccasion = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0)
         self.comboBoxOccasion.SetSelection(0)
         sizer9.Add(self.comboBoxOccasion, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelTargetAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTargetAnimation = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTargetAnimation.Wrap(-1)
         sizer9.Add(self.labelTargetAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxTargetAnimationChoices = [_("(None)")]
-        self.comboBoxTargetAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
+        self.comboBoxTargetAnimation = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
         self.comboBoxTargetAnimation.SetSelection(0)
         sizer9.Add(self.comboBoxTargetAnimation, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelCommonEvent = wx.StaticText(
-            self, wx.ID_ANY, _("Common Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelCommonEvent = wx.StaticText(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, _("Common Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCommonEvent.Wrap(-1)
         sizer9.Add(self.labelCommonEvent, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxCommonEventChoices = [_("(None)")]
-        self.comboBoxCommonEvent = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0)
+        self.comboBoxCommonEvent = wx.Choice(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0)
         self.comboBoxCommonEvent.SetSelection(0)
         sizer9.Add(self.comboBoxCommonEvent, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -1340,28 +1280,28 @@ class Items_Panel_Template (wx.Panel):
 
         sizer1.Add(sizer6, 0, wx.EXPAND, 5)
 
-        sizerParameters = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Parameters")), wx.VERTICAL)
+        sizerParameters = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerItems.GetStaticBox(), wx.ID_ANY, _("Parameters")), wx.VERTICAL)
 
         bSizer651 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelPrice = wx.StaticText(
-            self, wx.ID_ANY, _("Price:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPrice = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Price:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPrice.Wrap(-1)
         bSizer651.Add(self.labelPrice, 1, wx.ALL, 5)
 
-        self.labelConsumable = wx.StaticText(
-            self, wx.ID_ANY, _("Consumable:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelConsumable = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Consumable:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelConsumable.Wrap(-1)
         bSizer651.Add(self.labelConsumable, 1, wx.ALL, 5)
 
-        self.labelParameter = wx.StaticText(
-            self, wx.ID_ANY, _("Parameter:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelParameter = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Parameter:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelParameter.Wrap(-1)
         bSizer651.Add(self.labelParameter, 1, wx.ALL, 5)
 
-        self.labelParameterInc = wx.StaticText(
-            self, wx.ID_ANY, _("Param Inc:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelParameterInc = wx.StaticText(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, _("Param Inc:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelParameterInc.Wrap(-1)
         bSizer651.Add(self.labelParameterInc, 1, wx.ALL, 5)
 
@@ -1369,27 +1309,27 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer652 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlPrice = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999999999, 0)
+        self.spinCtrlPrice = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999999999, 0)
         bSizer652.Add(self.spinCtrlPrice, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         comboBoxConsumableChoices = [_("Yes"), _("No")]
-        self.comboBoxConsumable = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxConsumableChoices, 0)
+        self.comboBoxConsumable = wx.Choice(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxConsumableChoices, 0)
         self.comboBoxConsumable.SetSelection(0)
         bSizer652.Add(
             self.comboBoxConsumable, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        comboBoxParameterChoices = [
-            _("(None)"), _("MaxHP"), _("MaxSP"), _("STR"), _("DEX"), _("AGI"), _("INT")]
-        self.comboBoxParameter = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxParameterChoices, 0)
+        comboBoxParameterChoices = [_("(None)"), _("MaxHP"), _(
+            "MaxSP"), _("STR"), _("DEX"), _("AGI"), _("INT")]
+        self.comboBoxParameter = wx.Choice(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxParameterChoices, 0)
         self.comboBoxParameter.SetSelection(0)
         bSizer652.Add(
             self.comboBoxParameter, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlParameterInc = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlParameterInc = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer652.Add(
             self.spinCtrlParameterInc, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -1397,23 +1337,23 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer653 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelRecrHPPercent = wx.StaticText(
-            self, wx.ID_ANY, _("Rcvr HP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelRecrHPPercent = wx.StaticText(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, _("Rcvr HP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelRecrHPPercent.Wrap(-1)
         bSizer653.Add(self.labelRecrHPPercent, 1, wx.ALL, 5)
 
-        self.labelRecrHP = wx.StaticText(
-            self, wx.ID_ANY, _("Rcvr HP:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelRecrHP = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Rcvr HP:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelRecrHP.Wrap(-1)
         bSizer653.Add(self.labelRecrHP, 1, wx.ALL, 5)
 
-        self.labelRcvrRate = wx.StaticText(
-            self, wx.ID_ANY, _("Rcvr SP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelRcvrRate = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Rcvr SP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelRcvrRate.Wrap(-1)
         bSizer653.Add(self.labelRcvrRate, 1, wx.ALL, 5)
 
-        self.labelRecrSP = wx.StaticText(
-            self, wx.ID_ANY, _("Recr SP:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelRecrSP = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Recr SP:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelRecrSP.Wrap(-1)
         bSizer653.Add(self.labelRecrSP, 1, wx.ALL, 5)
 
@@ -1421,23 +1361,23 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer654 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlRecrHPRate = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -10000, 10000, 0)
+        self.spinCtrlRecrHPRate = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -10000, 10000, 0)
         bSizer654.Add(
             self.spinCtrlRecrHPRate, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlRecrHP = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlRecrHP = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer654.Add(
             self.spinCtrlRecrHP, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlRecrSPRate = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0)
+        self.spinCtrlRecrSPRate = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0)
         bSizer654.Add(
             self.spinCtrlRecrSPRate, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlRecrSP = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlRecrSP = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer654.Add(
             self.spinCtrlRecrSP, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -1445,23 +1385,23 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer655 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelHitRate = wx.StaticText(
-            self, wx.ID_ANY, _("Hit Rate:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelHitRate = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Hit Rate:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelHitRate.Wrap(-1)
         bSizer655.Add(self.labelHitRate, 1, wx.ALL, 5)
 
-        self.labelPDEF = wx.StaticText(
-            self, wx.ID_ANY, _("PDEF-F:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPDEF = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "PDEF-F:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPDEF.Wrap(-1)
         bSizer655.Add(self.labelPDEF, 1, wx.ALL, 5)
 
-        self.labelMDEF = wx.StaticText(
-            self, wx.ID_ANY, _("MDEF-F:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMDEF = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "MDEF-F:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMDEF.Wrap(-1)
         bSizer655.Add(self.labelMDEF, 1, wx.ALL, 5)
 
-        self.labelVariance = wx.StaticText(
-            self, wx.ID_ANY, _("Variance:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelVariance = wx.StaticText(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Variance:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelVariance.Wrap(-1)
         bSizer655.Add(self.labelVariance, 1, wx.ALL, 5)
 
@@ -1469,21 +1409,21 @@ class Items_Panel_Template (wx.Panel):
 
         bSizer656 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlHitRate = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 100)
+        self.spinCtrlHitRate = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 100)
         bSizer656.Add(
             self.spinCtrlHitRate, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlPDEF = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlPDEF = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer656.Add(self.spinCtrlPDEF, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlMDEF = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlMDEF = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer656.Add(self.spinCtrlMDEF, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlVariance = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0)
+        self.spinCtrlVariance = wx.SpinCtrl(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0)
         bSizer656.Add(
             self.spinCtrlVariance, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -1497,13 +1437,13 @@ class Items_Panel_Template (wx.Panel):
 
         sizer14 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelElements = wx.StaticText(
-            self, wx.ID_ANY, _("Element:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelElements = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Element:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelElements.Wrap(-1)
         sizer14.Add(self.labelElements, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.labelStates = wx.StaticText(
-            self, wx.ID_ANY, _("State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStates = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStates.Wrap(-1)
         sizer14.Add(self.labelStates, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -1527,13 +1467,13 @@ class Items_Panel_Template (wx.Panel):
 
         sizer2.Add(sizer15, 1, wx.EXPAND, 5)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerItems.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         sizer2.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerItems.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
         
         sizer2.Add(
             self.textCtrlNotes, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -1600,121 +1540,92 @@ class Items_Panel_Template (wx.Panel):
         self.textCtrlNotes.Bind(wx.EVT_TEXT, self.textCtrlNotes_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxItems.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.bitmapButtonIcon.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlDescription.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxScope.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxUserAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxMenuSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.bitmapButtonAudioTest.Unbind(wx.EVT_BUTTON, None)
-        self.comboBoxOccasion.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxTargetAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxCommonEvent.Unbind(wx.EVT_CHOICE, None)
-        self.spinCtrlPrice.Unbind(wx.EVT_SPINCTRL, None)
-        self.comboBoxConsumable.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxParameter.Unbind(wx.EVT_CHOICE, None)
-        self.spinCtrlParameterInc.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlRecrHPRate.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlRecrHP.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlRecrSPRate.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlRecrSP.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlHitRate.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlPDEF.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlMDEF.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlVariance.Unbind(wx.EVT_SPINCTRL, None)
-        self.checkListElements.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListElements.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxItems_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def bitmapButtonIcon_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlDescription_TextChange(self, event):
-        pass
+        event.Skip()
 
     def comboBoxScope_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxUserAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxMenuSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def bitmapButtonAudioTest_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxOccasion_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTargetAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxCommonEvent_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlPrice_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxConsumable_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxParameter_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlParameterInc_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlRecrHPPercent_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlRecrHP_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlRecrSPPercent_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlRecrSP_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlHitRate_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlPDEF_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlMDEF_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlVariance_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def checkListElements_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_LeftClicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_RightClicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -1759,13 +1670,13 @@ class Weapons_Panel_Template (wx.Panel):
 
         bSizer621 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerWeapons.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         bSizer621.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         bSizer621.Add(
             self.textCtrlName, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -1774,31 +1685,31 @@ class Weapons_Panel_Template (wx.Panel):
 
         bSizer622 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelIcon = wx.StaticText(
-            self, wx.ID_ANY, _("Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIcon = wx.StaticText(staticSizerWeapons.GetStaticBox(), wx.ID_ANY, _(
+            "Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIcon.Wrap(-1)
         bSizer622.Add(self.labelIcon, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.labelIconName = wx.StaticText(
-            self, wx.ID_ANY, _("(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIconName = wx.StaticText(staticSizerWeapons.GetStaticBox(), wx.ID_ANY, _(
+            "(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIconName.Wrap(-1)
         bSizer622.Add(self.labelIconName, 0, wx.ALL | wx.EXPAND, 5)
 
         bSizer620.Add(bSizer622, 35, wx.EXPAND, 5)
 
-        self.bitmapButtonIcon = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
+        self.bitmapButtonIcon = wx.BitmapButton(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
         bSizer620.Add(self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM | wx.ALL, 5)
 
         sizer1.Add(bSizer620, 0, wx.EXPAND, 5)
 
-        self.labelDescription = wx.StaticText(
-            self, wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDescription = wx.StaticText(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDescription.Wrap(-1)
         sizer1.Add(self.labelDescription, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlDescription = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlDescription = wx.TextCtrl(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlDescription.SetMaxLength(0)
         sizer1.Add(self.textCtrlDescription, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -1807,14 +1718,14 @@ class Weapons_Panel_Template (wx.Panel):
 
         sizer8 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelUserAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("User Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelUserAnimation = wx.StaticText(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, _("User Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelUserAnimation.Wrap(-1)
         sizer8.Add(self.labelUserAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxUserAnimationChoices = [_("(None)")]
-        self.comboBoxUserAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0)
+        self.comboBoxUserAnimation = wx.Choice(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0)
         self.comboBoxUserAnimation.SetSelection(0)
         sizer8.Add(self.comboBoxUserAnimation, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -1823,14 +1734,14 @@ class Weapons_Panel_Template (wx.Panel):
 
         sizer9 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelTargetAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTargetAnimation = wx.StaticText(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTargetAnimation.Wrap(-1)
         sizer9.Add(self.labelTargetAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxTargetAnimationChoices = [_("(None)")]
-        self.comboBoxTargetAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
+        self.comboBoxTargetAnimation = wx.Choice(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
         self.comboBoxTargetAnimation.SetSelection(0)
         sizer9.Add(self.comboBoxTargetAnimation, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -1839,8 +1750,8 @@ class Weapons_Panel_Template (wx.Panel):
 
         sizer1.Add(sizer6, 0, wx.EXPAND, 5)
 
-        sizerParameters = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Parameters")), wx.VERTICAL)
+        sizerParameters = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerWeapons.GetStaticBox(), wx.ID_ANY, _("Parameters")), wx.VERTICAL)
 
         from .Extras import ParameterPanel
         self.panelParameters = ParameterPanel(self)
@@ -1854,13 +1765,13 @@ class Weapons_Panel_Template (wx.Panel):
 
         sizer14 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelElements = wx.StaticText(
-            self, wx.ID_ANY, _("Element:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelElements = wx.StaticText(staticSizerWeapons.GetStaticBox(), wx.ID_ANY, _(
+            "Element:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelElements.Wrap(-1)
         sizer14.Add(self.labelElements, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.labelStates = wx.StaticText(
-            self, wx.ID_ANY, _("State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStates = wx.StaticText(staticSizerWeapons.GetStaticBox(), wx.ID_ANY, _(
+            "State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStates.Wrap(-1)
         sizer14.Add(self.labelStates, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -1884,13 +1795,13 @@ class Weapons_Panel_Template (wx.Panel):
 
         sizer2.Add(sizer15, 1, wx.EXPAND, 5)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerWeapons.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         sizer2.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerWeapons.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
         
         sizer2.Add(
             self.textCtrlNotes, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -1926,53 +1837,41 @@ class Weapons_Panel_Template (wx.Panel):
         self.textCtrlNotes.Bind(wx.EVT_TEXT, self.textCtrlNotes_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxWeapons.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.bitmapButtonIcon.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlDescription.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxUserAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxTargetAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.checkListElements.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListElements.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxWeapons_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def bitmapButtonIcon_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlDescription_TextChange(self, event):
-        pass
+        event.Skip()
 
     def comboBoxUserAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTargetAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def checkListElements_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_LeftClicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_RightClicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -2017,13 +1916,13 @@ class Armors_Panel_Template (wx.Panel):
 
         bSizer621 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerArmors.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         bSizer621.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         bSizer621.Add(
             self.textCtrlName, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -2032,31 +1931,31 @@ class Armors_Panel_Template (wx.Panel):
 
         bSizer622 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelIcon = wx.StaticText(
-            self, wx.ID_ANY, _("Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIcon = wx.StaticText(staticSizerArmors.GetStaticBox(), wx.ID_ANY, _(
+            "Icon:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIcon.Wrap(-1)
         bSizer622.Add(self.labelIcon, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.labelIconName = wx.StaticText(
-            self, wx.ID_ANY, _("(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIconName = wx.StaticText(staticSizerArmors.GetStaticBox(), wx.ID_ANY, _(
+            "(Name of Icon)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIconName.Wrap(-1)
         bSizer622.Add(self.labelIconName, 0, wx.ALL | wx.EXPAND, 5)
 
         bSizer620.Add(bSizer622, 35, wx.EXPAND, 5)
 
-        self.bitmapButtonIcon = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
+        self.bitmapButtonIcon = wx.BitmapButton(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(32, 32), wx.BU_AUTODRAW)
         bSizer620.Add(self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM | wx.ALL, 5)
 
         sizer1.Add(bSizer620, 0, wx.EXPAND | wx.ALIGN_RIGHT, 5)
 
-        self.labelDescription = wx.StaticText(
-            self, wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDescription = wx.StaticText(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDescription.Wrap(-1)
         sizer1.Add(self.labelDescription, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlDescription = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlDescription = wx.TextCtrl(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlDescription.SetMaxLength(0)
         sizer1.Add(self.textCtrlDescription, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -2065,15 +1964,15 @@ class Armors_Panel_Template (wx.Panel):
 
         sizer8 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelKindAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Kind:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelKindAnimation = wx.StaticText(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, _("Kind:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelKindAnimation.Wrap(-1)
         sizer8.Add(self.labelKindAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxKindChoices = [
             _("Shield"), _("Helmet"), _("Body Armor"), _("Accessory")]
-        self.comboBoxKind = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxKindChoices, 0)
+        self.comboBoxKind = wx.Choice(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxKindChoices, 0)
         self.comboBoxKind.SetSelection(0)
         sizer8.Add(
             self.comboBoxKind, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -2082,14 +1981,14 @@ class Armors_Panel_Template (wx.Panel):
 
         sizer9 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelAutoState = wx.StaticText(
-            self, wx.ID_ANY, _("Auto State:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAutoState = wx.StaticText(staticSizerArmors.GetStaticBox(), wx.ID_ANY, _(
+            "Auto State:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAutoState.Wrap(-1)
         sizer9.Add(self.labelAutoState, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxAutoStateChoices = [_("(None)")]
-        self.comboBoxAutoState = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAutoStateChoices, 0)
+        self.comboBoxAutoState = wx.Choice(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAutoStateChoices, 0)
         self.comboBoxAutoState.SetSelection(0)
         sizer9.Add(self.comboBoxAutoState, 1, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -2098,8 +1997,8 @@ class Armors_Panel_Template (wx.Panel):
 
         sizer1.Add(sizer6, 0, wx.EXPAND, 5)
 
-        sizerParameters = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Parameters")), wx.VERTICAL)
+        sizerParameters = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerArmors.GetStaticBox(), wx.ID_ANY, _("Parameters")), wx.VERTICAL)
 
         from .Extras import ParameterPanel
         self.panelParameters = ParameterPanel(self)
@@ -2113,13 +2012,13 @@ class Armors_Panel_Template (wx.Panel):
 
         sizer14 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelElements = wx.StaticText(
-            self, wx.ID_ANY, _("Element Defense:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelElements = wx.StaticText(staticSizerArmors.GetStaticBox(), wx.ID_ANY, _(
+            "Element Defense:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelElements.Wrap(-1)
         sizer14.Add(self.labelElements, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.labelStates = wx.StaticText(
-            self, wx.ID_ANY, _("State Defense:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStates = wx.StaticText(staticSizerArmors.GetStaticBox(), wx.ID_ANY, _(
+            "State Defense:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStates.Wrap(-1)
         sizer14.Add(self.labelStates, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -2143,13 +2042,13 @@ class Armors_Panel_Template (wx.Panel):
 
         sizer2.Add(sizer15, 1, wx.EXPAND, 5)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerArmors.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         sizer2.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerArmors.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
         
         sizer2.Add(
             self.textCtrlNotes, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -2185,50 +2084,38 @@ class Armors_Panel_Template (wx.Panel):
         self.textCtrlNotes.Bind(wx.EVT_TEXT, self.textCtrlNotes_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxArmors.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.bitmapButtonIcon.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlDescription.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxKind.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxAutoState.Unbind(wx.EVT_CHOICE, None)
-        self.checkListElements.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListElements.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxArmors_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def bitmapButtonIcon_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlDescription_TextChange(self, event):
-        pass
+        event.Skip()
 
     def comboBoxKind_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutoState_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def checkListElements_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -2271,24 +2158,24 @@ class Enemies_Panel_Template (wx.Panel):
 
         sizer2 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizer2.Add(self.labelName, 0, wx.ALL, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizer2.Add(
             self.textCtrlName, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelBattlerGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Battler Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBattlerGraphic = wx.StaticText(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _("Battler Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBattlerGraphic.Wrap(-1)
         sizer2.Add(self.labelBattlerGraphic, 0, wx.ALL, 5)
 
-        self.panelEnemyGraphic = wx.Panel(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL)
+        self.panelEnemyGraphic = wx.Panel(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL)
         sizerEnemyGraphic = wx.BoxSizer(wx.VERTICAL)
 
         from .Extras import EditorGLPanel
@@ -2302,26 +2189,26 @@ class Enemies_Panel_Template (wx.Panel):
         sizerEnemyGraphic.Fit(self.panelEnemyGraphic)
         sizer2.Add(self.panelEnemyGraphic, 1, wx.EXPAND | wx.ALL, 5)
 
-        self.labelAttackAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Attack Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAttackAnimation = wx.StaticText(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _("Attack Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAttackAnimation.Wrap(-1)
         sizer2.Add(self.labelAttackAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxAttackAnimationChoices = [_("(None)")]
-        self.comboBoxAttackAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAttackAnimationChoices, 0)
+        self.comboBoxAttackAnimation = wx.Choice(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAttackAnimationChoices, 0)
         self.comboBoxAttackAnimation.SetSelection(0)
         sizer2.Add(self.comboBoxAttackAnimation, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelTargetAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTargetAnimation = wx.StaticText(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _("Target Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTargetAnimation.Wrap(-1)
         sizer2.Add(self.labelTargetAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxTargetAnimationChoices = [_("(None)")]
-        self.comboBoxTargetAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
+        self.comboBoxTargetAnimation = wx.Choice(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0)
         self.comboBoxTargetAnimation.SetSelection(0)
         sizer2.Add(self.comboBoxTargetAnimation, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -2330,19 +2217,19 @@ class Enemies_Panel_Template (wx.Panel):
 
         sizer3 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelDescription = wx.StaticText(
-            self, wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDescription = wx.StaticText(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _("Description:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDescription.Wrap(-1)
         sizer3.Add(self.labelDescription, 0, wx.ALL, 5)
 
-        self.textCtrlDescription = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlDescription = wx.TextCtrl(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlDescription.SetMaxLength(0)
         sizer3.Add(self.textCtrlDescription, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        sizerParameters = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Parameters")), wx.VERTICAL)
+        sizerParameters = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _("Parameters")), wx.VERTICAL)
 
         from .Extras import ParameterPanel
         self.panelParameters = ParameterPanel(self)
@@ -2358,12 +2245,13 @@ class Enemies_Panel_Template (wx.Panel):
 
         bSizer629 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelExp = wx.StaticText(
-            self, wx.ID_ANY, _("Experience:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelExp = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Experience:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelExp.Wrap(-1)
         bSizer629.Add(self.labelExp, 0, wx.ALL, 5)
 
-        self.comboBoxExp = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY)
+        self.comboBoxExp = wx.adv.BitmapComboBox(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY)
         bSizer629.Add(
             self.comboBoxExp, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -2371,12 +2259,13 @@ class Enemies_Panel_Template (wx.Panel):
 
         bSizer630 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelGold = wx.StaticText(
-            self, wx.ID_ANY, _("Gold:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelGold = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Gold:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelGold.Wrap(-1)
         bSizer630.Add(self.labelGold, 0, wx.ALL, 5)
 
-        self.comboBoxGold = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY)
+        self.comboBoxGold = wx.adv.BitmapComboBox(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY)
         bSizer630.Add(
             self.comboBoxGold, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -2384,12 +2273,13 @@ class Enemies_Panel_Template (wx.Panel):
 
         sizer3.Add(bSizer628, 0, wx.EXPAND, 5)
 
-        self.labelTreasure = wx.StaticText(
-            self, wx.ID_ANY, _("Treasure(s):"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTreasure = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Treasure(s):"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTreasure.Wrap(-1)
         sizer3.Add(self.labelTreasure, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxTreasure = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY)
+        self.comboBoxTreasure = wx.adv.BitmapComboBox(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY)
         sizer3.Add(self.comboBoxTreasure, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -2397,8 +2287,8 @@ class Enemies_Panel_Template (wx.Panel):
 
         sizer4 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelElements = wx.StaticText(
-            self, wx.ID_ANY, _("Element Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelElements = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Element Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelElements.Wrap(-1)
         sizer4.Add(self.labelElements, 0, wx.ALL | wx.EXPAND, 5)
 
@@ -2410,8 +2300,8 @@ class Enemies_Panel_Template (wx.Panel):
         sizer4.Add(self.checkListElements, 1, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelStates = wx.StaticText(
-            self, wx.ID_ANY, _("State Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStates = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "State Efficiency:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStates.Wrap(-1)
         sizer4.Add(self.labelStates, 0, wx.ALL | wx.EXPAND, 5)
 
@@ -2429,13 +2319,13 @@ class Enemies_Panel_Template (wx.Panel):
 
         bSizer625 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelAction = wx.StaticText(
-            self, wx.ID_ANY, _("Action:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAction = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Action:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAction.Wrap(-1)
         bSizer625.Add(self.labelAction, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.listCtrlActions = wx.ListCtrl(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT)
+        self.listCtrlActions = wx.ListCtrl(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT)
         bSizer625.Add(
             self.listCtrlActions, 30, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -2443,13 +2333,13 @@ class Enemies_Panel_Template (wx.Panel):
 
         bSizer626 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         bSizer626.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
         
         self.textCtrlNotes.SetToolTipString(
             _("Any user notes for this item. These notes can also be referenced via scripts."))
@@ -2494,62 +2384,47 @@ class Enemies_Panel_Template (wx.Panel):
         self.textCtrlNotes.Bind(wx.EVT_TEXT, self.textCtrlNotes_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxEnemies.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxAttackAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxTargetAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.textCtrlDescription.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxExp.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxGold.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxTreasure.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListElements.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListElements.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.listCtrlActions.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxEnemies_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAttackAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTargetAnimation_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlDescription_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxExp_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxGold_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTreasure_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_LeftClicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_RightClicked(self, event):
-        pass
+        event.Skip()
 
     def listCtrlAction_DoubleClick(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -2588,29 +2463,29 @@ class Troops_Panel_Template (wx.Panel):
         staticSizerEnemies = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, wx.EmptyString), wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         staticSizerEnemies.Add(self.labelName, 0, wx.ALL, 5)
 
         sizer1 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizer1.Add(self.textCtrlName, 40, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.buttonAutoname = wx.Button(
-            self, wx.ID_ANY, _("Autoname"), wx.DefaultPosition, wx.Size(-1, -1), 0)
+        self.buttonAutoname = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Autoname"), wx.DefaultPosition, wx.Size(-1, -1), 0)
         sizer1.Add(self.buttonAutoname, 20, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.buttonBattleback = wx.Button(
-            self, wx.ID_ANY, _("[ED] Battleback..."), wx.DefaultPosition, wx.Size(-1, -1), 0)
+        self.buttonBattleback = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "[ED] Battleback..."), wx.DefaultPosition, wx.Size(-1, -1), 0)
         sizer1.Add(
             self.buttonBattleback, 20, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.buttonBattleTest = wx.Button(
-            self, wx.ID_ANY, _("Battle Test..."), wx.DefaultPosition, wx.Size(-1, -1), 0)
+        self.buttonBattleTest = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Battle Test..."), wx.DefaultPosition, wx.Size(-1, -1), 0)
         sizer1.Add(
             self.buttonBattleTest, 20, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -2618,37 +2493,37 @@ class Troops_Panel_Template (wx.Panel):
 
         sizer2 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.bitmapTroopLayout = wx.StaticBitmap(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER)
+        self.bitmapTroopLayout = wx.StaticBitmap(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER)
         sizer2.Add(self.bitmapTroopLayout, 70, wx.ALL | wx.EXPAND, 5)
 
         sizer4 = wx.BoxSizer(wx.VERTICAL)
 
-        self.buttonAddEnemy = wx.Button(
-            self, wx.ID_ANY, _("<"), wx.DefaultPosition, wx.Size(23, -1), 0)
+        self.buttonAddEnemy = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "<"), wx.DefaultPosition, wx.Size(23, -1), 0)
         sizer4.Add(
             self.buttonAddEnemy, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 5)
 
-        self.buttonRemoveEnemy = wx.Button(
-            self, wx.ID_ANY, _(">"), wx.DefaultPosition, wx.Size(23, -1), 0)
+        self.buttonRemoveEnemy = wx.Button(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _(">"), wx.DefaultPosition, wx.Size(23, -1), 0)
         sizer4.Add(
             self.buttonRemoveEnemy, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 5)
 
-        self.buttonClearTroops = wx.Button(
-            self, wx.ID_ANY, _("C"), wx.DefaultPosition, wx.Size(23, -1), 0)
+        self.buttonClearTroops = wx.Button(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _("C"), wx.DefaultPosition, wx.Size(23, -1), 0)
         sizer4.Add(
             self.buttonClearTroops, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 5)
 
-        self.buttonAlignTroops = wx.Button(
-            self, wx.ID_ANY, _("A"), wx.DefaultPosition, wx.Size(23, -1), 0)
+        self.buttonAlignTroops = wx.Button(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _("A"), wx.DefaultPosition, wx.Size(23, -1), 0)
         sizer4.Add(
             self.buttonAlignTroops, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 5)
 
         sizer2.Add(sizer4, 0, wx.ALIGN_CENTER_VERTICAL, 5)
 
         listBoxEnemiesChoices = []
-        self.listBoxEnemies = wx.ListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxEnemiesChoices, 0)
+        self.listBoxEnemies = wx.ListBox(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxEnemiesChoices, 0)
         sizer2.Add(self.listBoxEnemies, 30, wx.ALL | wx.EXPAND, 5)
 
         staticSizerEnemies.Add(sizer2, 40, wx.EXPAND, 5)
@@ -2657,35 +2532,35 @@ class Troops_Panel_Template (wx.Panel):
 
         sizer5 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelBattleEvent = wx.StaticText(
-            self, wx.ID_ANY, _("Battle Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBattleEvent = wx.StaticText(staticSizerEnemies.GetStaticBox(
+        ), wx.ID_ANY, _("Battle Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBattleEvent.Wrap(-1)
         sizer5.Add(self.labelBattleEvent, 0, wx.ALL, 5)
 
-        self.buttonNewPage = wx.Button(
-            self, wx.ID_ANY, _("New\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonNewPage = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "New\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer5.Add(self.buttonNewPage, 1, wx.ALL, 5)
 
-        self.buttonCopyPage = wx.Button(
-            self, wx.ID_ANY, _("Copy\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonCopyPage = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Copy\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer5.Add(self.buttonCopyPage, 1, wx.ALL, 5)
 
-        self.buttonPastePage = wx.Button(
-            self, wx.ID_ANY, _("Paste\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonPastePage = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Paste\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer5.Add(self.buttonPastePage, 1, wx.ALL, 5)
 
-        self.buttonDeletePage = wx.Button(
-            self, wx.ID_ANY, _("Delete\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonDeletePage = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Delete\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer5.Add(self.buttonDeletePage, 1, wx.ALL, 5)
 
-        self.buttonClearPage = wx.Button(
-            self, wx.ID_ANY, _("Clear\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonClearPage = wx.Button(staticSizerEnemies.GetStaticBox(), wx.ID_ANY, _(
+            "Clear\nEvent Page"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer5.Add(self.buttonClearPage, 1, wx.ALL, 5)
 
         sizer3.Add(sizer5, 0, wx.EXPAND, 5)
 
         self.notebookEventsTabControl = wx.Notebook(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+            staticSizerEnemies.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
         self.panelEventPageTemplate = wx.Panel(
             self.notebookEventsTabControl, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         sizerPage = wx.BoxSizer(wx.VERTICAL)
@@ -2771,85 +2646,65 @@ class Troops_Panel_Template (wx.Panel):
             wx.EVT_LISTBOX_DCLICK, self.listBoxEvents_DoubleClick)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxTroops.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.buttonAutoname.Unbind(wx.EVT_BUTTON, None)
-        self.buttonBattleback.Unbind(wx.EVT_BUTTON, None)
-        self.buttonBattleTest.Unbind(wx.EVT_BUTTON, None)
-        self.buttonAddEnemy.Unbind(wx.EVT_BUTTON, None)
-        self.buttonRemoveEnemy.Unbind(wx.EVT_BUTTON, None)
-        self.buttonClearTroops.Unbind(wx.EVT_BUTTON, None)
-        self.buttonAlignTroops.Unbind(wx.EVT_BUTTON, None)
-        self.listBoxEnemies.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonNewPage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCopyPage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPastePage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonDeletePage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonClearPage.Unbind(wx.EVT_BUTTON, None)
-        self.comboBoxCondition.Unbind(wx.EVT_LEFT_UP, None)
-        self.comboBoxSpan.Unbind(wx.EVT_CHOICE, None)
-        self.listBoxEvents.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.listBoxEvents.Unbind(wx.EVT_LISTBOX_DCLICK, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxTroops_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonAutoname_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonBattleback_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonBattleTest_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonAddEnemy_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonRemoveEnemy_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonClearTroop_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonAlignTroop_Click(self, event):
-        pass
+        event.Skip()
 
     def listBoxEnemies_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonNewEventPage_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonCopyEventPage_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonPasteEventPage_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonDeleteEventPage_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonClearEventPage_Click(self, event):
-        pass
+        event.Skip()
 
     def comboBoxCondition_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxSpan_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def listBoxEvents_DoubleClick(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -2894,65 +2749,65 @@ class States_Panel_Template (wx.Panel):
 
         sizer12 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerStates.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizer12.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizer12.Add(
             self.textCtrlName, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAnimation = wx.StaticText(staticSizerStates.GetStaticBox(), wx.ID_ANY, _(
+            "Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAnimation.Wrap(-1)
         sizer12.Add(self.labelAnimation, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxAnimationChoices = []
-        self.comboBoxAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAnimationChoices, 0)
+        self.comboBoxAnimation = wx.Choice(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAnimationChoices, 0)
         self.comboBoxAnimation.SetSelection(0)
         sizer12.Add(
             self.comboBoxAnimation, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelRestriction = wx.StaticText(
-            self, wx.ID_ANY, _("Restriction:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelRestriction = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("Restriction:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelRestriction.Wrap(-1)
         sizer12.Add(self.labelRestriction, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxRestrictionChoices = []
-        self.comboBoxRestriction = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxRestrictionChoices, 0)
+        self.comboBoxRestriction = wx.Choice(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxRestrictionChoices, 0)
         self.comboBoxRestriction.SetSelection(0)
         sizer12.Add(self.comboBoxRestriction, 0, wx.BOTTOM |
                     wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
         sizer4.Add(sizer12, 1, wx.EXPAND, 5)
 
-        sizerParameters = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, wx.EmptyString), wx.VERTICAL)
+        sizerParameters = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerStates.GetStaticBox(), wx.ID_ANY, wx.EmptyString), wx.VERTICAL)
 
-        self.checkBoxNonresistance = wx.CheckBox(
-            self, wx.ID_ANY, _("Nonresistance"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxNonresistance = wx.CheckBox(sizerParameters.GetStaticBox(
+        ), wx.ID_ANY, _("Nonresistance"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerParameters.Add(
             self.checkBoxNonresistance, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.checkBoxRegardHP0 = wx.CheckBox(
-            self, wx.ID_ANY, _("Regard as HP 0"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxRegardHP0 = wx.CheckBox(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Regard as HP 0"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerParameters.Add(self.checkBoxRegardHP0, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.checkBoxNoExp = wx.CheckBox(
-            self, wx.ID_ANY, _("Can't Get EXP"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxNoExp = wx.CheckBox(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Can't Get EXP"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerParameters.Add(self.checkBoxNoExp, 0, wx.ALL, 5)
 
-        self.checkBoxNoEvade = wx.CheckBox(
-            self, wx.ID_ANY, _("Can't Evade"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxNoEvade = wx.CheckBox(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Can't Evade"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerParameters.Add(self.checkBoxNoEvade, 0, wx.ALL, 5)
 
-        self.checkBoxSlipDamage = wx.CheckBox(
-            self, wx.ID_ANY, _("Slip Damage"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxSlipDamage = wx.CheckBox(sizerParameters.GetStaticBox(), wx.ID_ANY, _(
+            "Slip Damage"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerParameters.Add(self.checkBoxSlipDamage, 0, wx.ALL, 5)
 
         sizer4.Add(sizerParameters, 1, wx.ALL, 5)
@@ -2961,23 +2816,23 @@ class States_Panel_Template (wx.Panel):
 
         sizer5 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelRating = wx.StaticText(
-            self, wx.ID_ANY, _("Rating:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelRating = wx.StaticText(staticSizerStates.GetStaticBox(), wx.ID_ANY, _(
+            "Rating:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelRating.Wrap(-1)
         sizer5.Add(self.labelRating, 1, wx.ALL, 5)
 
-        self.labelHitPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("Hit Rate %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelHitPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("Hit Rate %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelHitPercentage.Wrap(-1)
         sizer5.Add(self.labelHitPercentage, 1, wx.ALL, 5)
 
-        self.labelMaxHPPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("MaxHP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMaxHPPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("MaxHP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMaxHPPercentage.Wrap(-1)
         sizer5.Add(self.labelMaxHPPercentage, 1, wx.ALL, 5)
 
-        self.labelMaxSPPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("MaxSP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMaxSPPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("MaxSP %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMaxSPPercentage.Wrap(-1)
         sizer5.Add(self.labelMaxSPPercentage, 1, wx.ALL, 5)
 
@@ -2985,43 +2840,43 @@ class States_Panel_Template (wx.Panel):
 
         sizer6 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlRating = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlRating = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer6.Add(self.spinCtrlRating, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlHitRate = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlHitRate = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer6.Add(self.spinCtrlHitRate, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlMaxHP = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlMaxHP = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer6.Add(self.spinCtrlMaxHP, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlMaxSP = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlMaxSP = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer6.Add(self.spinCtrlMaxSP, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizer1.Add(sizer6, 0, wx.EXPAND, 5)
 
         sizer7 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelStrPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("STR %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStrPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("STR %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStrPercentage.Wrap(-1)
         sizer7.Add(self.labelStrPercentage, 1, wx.ALL, 5)
 
-        self.labelDexPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("DEX %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDexPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("DEX %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDexPercentage.Wrap(-1)
         sizer7.Add(self.labelDexPercentage, 1, wx.ALL, 5)
 
-        self.labelAgiPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("AGI %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAgiPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("AGI %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAgiPercentage.Wrap(-1)
         sizer7.Add(self.labelAgiPercentage, 1, wx.ALL, 5)
 
-        self.labelIntPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("INT %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelIntPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("INT %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelIntPercentage.Wrap(-1)
         sizer7.Add(self.labelIntPercentage, 1, wx.ALL, 5)
 
@@ -3029,43 +2884,43 @@ class States_Panel_Template (wx.Panel):
 
         sizer8 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlStr = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlStr = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer8.Add(self.spinCtrlStr, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlDex = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlDex = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer8.Add(self.spinCtrlDex, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlAgi = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlAgi = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer8.Add(self.spinCtrlAgi, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlInt = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlInt = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer8.Add(self.spinCtrlInt, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizer1.Add(sizer8, 0, wx.EXPAND, 5)
 
         sizer9 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelAtkPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("ATK %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAtkPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("ATK %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAtkPercentage.Wrap(-1)
         sizer9.Add(self.labelAtkPercentage, 1, wx.ALL, 5)
 
-        self.labelPdefPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("PDEF %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPdefPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("PDEF %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPdefPercentage.Wrap(-1)
         sizer9.Add(self.labelPdefPercentage, 1, wx.ALL, 5)
 
-        self.labelMdefPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("MDEF %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMdefPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("MDEF %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMdefPercentage.Wrap(-1)
         sizer9.Add(self.labelMdefPercentage, 1, wx.ALL, 5)
 
-        self.lavelEvaPercentage = wx.StaticText(
-            self, wx.ID_ANY, _("EVA %:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.lavelEvaPercentage = wx.StaticText(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, _("EVA %:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.lavelEvaPercentage.Wrap(-1)
         sizer9.Add(self.lavelEvaPercentage, 1, wx.ALL, 5)
 
@@ -3073,55 +2928,55 @@ class States_Panel_Template (wx.Panel):
 
         sizer10 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlAtk = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlAtk = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer10.Add(self.spinCtrlAtk, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlPdef = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlPdef = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer10.Add(self.spinCtrlPdef, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlMdef = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlMdef = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer10.Add(self.spinCtrlMdef, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlEva = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlEva = wx.SpinCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer10.Add(self.spinCtrlEva, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizer1.Add(sizer10, 0, wx.EXPAND, 5)
 
-        sizer11 = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Release Conditions")), wx.VERTICAL)
+        sizer11 = wx.StaticBoxSizer(wx.StaticBox(
+            staticSizerStates.GetStaticBox(), wx.ID_ANY, _("Release Conditions")), wx.VERTICAL)
 
-        self.lcheckBoxReleaseEnd = wx.CheckBox(self, wx.ID_ANY, _(
+        self.lcheckBoxReleaseEnd = wx.CheckBox(sizer11.GetStaticBox(), wx.ID_ANY, _(
             "Release at the end of battle"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer11.Add(self.lcheckBoxReleaseEnd, 0, wx.ALL, 5)
 
         sizer13 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelAfter = wx.StaticText(
-            self, wx.ID_ANY, _("After"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAfter = wx.StaticText(sizer11.GetStaticBox(), wx.ID_ANY, _(
+            "After"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAfter.Wrap(-1)
         sizer13.Add(self.labelAfter, 0, wx.TOP | wx.BOTTOM |
                     wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.spinCtrlConditionTurns = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlConditionTurns = wx.SpinCtrl(sizer11.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer13.Add(self.spinCtrlConditionTurns, 1, wx.TOP | wx.BOTTOM, 5)
 
-        self.labelTurns = wx.StaticText(
-            self, wx.ID_ANY, _("turns,"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTurns = wx.StaticText(sizer11.GetStaticBox(), wx.ID_ANY, _(
+            "turns,"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTurns.Wrap(-1)
         sizer13.Add(self.labelTurns, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
-        self.spinCtrlConditionTurnPercent = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlConditionTurnPercent = wx.SpinCtrl(sizer11.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer13.Add(
             self.spinCtrlConditionTurnPercent, 1, wx.TOP | wx.BOTTOM, 5)
 
-        self.labelChance1 = wx.StaticText(
-            self, wx.ID_ANY, _("% chance."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelChance1 = wx.StaticText(sizer11.GetStaticBox(), wx.ID_ANY, _(
+            "% chance."), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelChance1.Wrap(-1)
         sizer13.Add(self.labelChance1, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
@@ -3129,18 +2984,18 @@ class States_Panel_Template (wx.Panel):
 
         sizer14 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelPhysical = wx.StaticText(self, wx.ID_ANY, _(
+        self.labelPhysical = wx.StaticText(sizer11.GetStaticBox(), wx.ID_ANY, _(
             "Each physical damage deal,"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPhysical.Wrap(-1)
         sizer14.Add(
             self.labelPhysical, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
-        self.spinCtrlConditionPhysical = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlConditionPhysical = wx.SpinCtrl(sizer11.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer14.Add(self.spinCtrlConditionPhysical, 1, wx.TOP | wx.BOTTOM, 5)
 
-        self.labelChance2 = wx.StaticText(
-            self, wx.ID_ANY, _("% chance."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelChance2 = wx.StaticText(sizer11.GetStaticBox(), wx.ID_ANY, _(
+            "% chance."), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelChance2.Wrap(-1)
         sizer14.Add(self.labelChance2, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
@@ -3154,13 +3009,13 @@ class States_Panel_Template (wx.Panel):
 
         sizer2 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelElements = wx.StaticText(
-            self, wx.ID_ANY, _("Element Defense:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelElements = wx.StaticText(staticSizerStates.GetStaticBox(), wx.ID_ANY, _(
+            "Element Defense:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelElements.Wrap(-1)
         sizer2.Add(self.labelElements, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.labelStates = wx.StaticText(
-            self, wx.ID_ANY, _("State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStates = wx.StaticText(staticSizerStates.GetStaticBox(), wx.ID_ANY, _(
+            "State Change:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStates.Wrap(-1)
         sizer2.Add(self.labelStates, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -3184,13 +3039,13 @@ class States_Panel_Template (wx.Panel):
 
         sizer.Add(sizer3, 1, wx.EXPAND, 5)
 
-        self.labelNotes = wx.StaticText(
-            self, wx.ID_ANY, _("Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNotes = wx.StaticText(staticSizerStates.GetStaticBox(), wx.ID_ANY, _(
+            "Notes:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNotes.Wrap(-1)
         sizer.Add(self.labelNotes, 0, wx.ALL, 5)
 
-        self.textCtrlNotes = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
+        self.textCtrlNotes = wx.TextCtrl(staticSizerStates.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
         
         sizer.Add(self.textCtrlNotes, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -3255,126 +3110,95 @@ class States_Panel_Template (wx.Panel):
         self.textCtrlNotes.Bind(wx.EVT_TEXT, self.textCtrlNotes_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxStates.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxAnimation.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxRestriction.Unbind(wx.EVT_CHOICE, None)
-        self.checkBoxNonresistance.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxRegardHP0.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxNoExp.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxNoEvade.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxSlipDamage.Unbind(wx.EVT_CHECKBOX, None)
-        self.spinCtrlRating.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlHitRate.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlMaxHP.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlMaxSP.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlStr.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlDex.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlAgi.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlInt.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlAtk.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlPdef.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlMdef.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlEva.Unbind(wx.EVT_SPINCTRL, None)
-        self.lcheckBoxReleaseEnd.Unbind(wx.EVT_CHECKBOX, None)
-        self.spinCtrlConditionTurns.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlConditionTurnPercent.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlConditionPhysical.Unbind(wx.EVT_SPINCTRL, None)
-        self.checkListElements.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListElements.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.checkListStates.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.textCtrlNotes.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxStates_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAnimation_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxRestriction_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxNonresistance_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxHP0_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxNoExp_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxNoEvade_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxSlipDamage_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlRating_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlHitRate_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlMaxHP_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlMaxSP_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlStr_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlDex_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlAgi_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlInt_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlAtk_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlPdef_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlMdef_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlEva_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxBattleRelease_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlTurns_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlTurnPercent_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlPhysical_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def checkListElements_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkListStates_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlNotes_TextChanged(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -3418,37 +3242,37 @@ class Animations_Panel_Template (wx.Panel):
 
         sizer4 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizer4.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizer4.Add(
             self.textCtrlName, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Animation Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelGraphic = wx.StaticText(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, _("Animation Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelGraphic.Wrap(-1)
         sizer4.Add(self.labelGraphic, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxGraphicChoices = [_("(None)")]
-        self.comboBoxGraphic = wx.ComboBox(self, wx.ID_ANY, _(
+        self.comboBoxGraphic = wx.ComboBox(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
             "(None)"), wx.DefaultPosition, wx.DefaultSize, comboBoxGraphicChoices, 0)
         sizer4.Add(self.comboBoxGraphic, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizer7 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelPosition = wx.StaticText(
-            self, wx.ID_ANY, _("Position:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPosition = wx.StaticText(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, _("Position:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPosition.Wrap(-1)
         sizer7.Add(self.labelPosition, 1, wx.ALL | wx.EXPAND, 5)
 
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelFrames = wx.StaticText(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, _("Frames:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelFrames.Wrap(-1)
         sizer7.Add(self.labelFrames, 1, wx.ALL | wx.EXPAND, 5)
 
@@ -3458,14 +3282,14 @@ class Animations_Panel_Template (wx.Panel):
 
         comboBoxPositionChoices = [
             _("Top"), _("Middle"), _("Bottom"), _("Screen")]
-        self.comboBoxPosition = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxPositionChoices, 0)
+        self.comboBoxPosition = wx.Choice(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxPositionChoices, 0)
         self.comboBoxPosition.SetSelection(0)
         sizer8.Add(self.comboBoxPosition, 1, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         comboBoxFramesChoices = []
-        self.comboBoxFrames = wx.ComboBox(self, wx.ID_ANY, _(
+        self.comboBoxFrames = wx.ComboBox(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
             "16"), wx.DefaultPosition, wx.DefaultSize, comboBoxFramesChoices, 0)
         sizer8.Add(
             self.comboBoxFrames, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -3474,8 +3298,8 @@ class Animations_Panel_Template (wx.Panel):
 
         sizer1.Add(sizer4, 30, 0, 5)
 
-        self.listCtrlTiming = wx.ListCtrl(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT)
+        self.listCtrlTiming = wx.ListCtrl(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT)
         sizer1.Add(
             self.listCtrlTiming, 70, wx.EXPAND | wx.TOP | wx.RIGHT | wx.LEFT, 5)
 
@@ -3485,65 +3309,65 @@ class Animations_Panel_Template (wx.Panel):
 
         sizer5 = wx.BoxSizer(wx.VERTICAL)
 
-        self.buttonBack = wx.Button(
-            self, wx.ID_ANY, _("Back"), wx.DefaultPosition, wx.Size(56, -1), 0)
+        self.buttonBack = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Back"), wx.DefaultPosition, wx.Size(56, -1), 0)
         sizer5.Add(self.buttonBack, 0, wx.ALL, 5)
 
         listBoxFrameChoices = []
-        self.listBoxFrame = wx.ListBox(self, wx.ID_ANY, wx.DefaultPosition, wx.Size(
-            56, -1), listBoxFrameChoices, wx.LB_ALWAYS_SB)
+        self.listBoxFrame = wx.ListBox(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.Size(56, -1), listBoxFrameChoices, wx.LB_ALWAYS_SB)
         sizer5.Add(self.listBoxFrame, 1, wx.RIGHT | wx.LEFT, 5)
 
-        self.buttonNext = wx.Button(
-            self, wx.ID_ANY, _("Next"), wx.DefaultPosition, wx.Size(56, -1), 0)
+        self.buttonNext = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Next"), wx.DefaultPosition, wx.Size(56, -1), 0)
         sizer5.Add(self.buttonNext, 0, wx.ALL, 5)
 
         sizer2.Add(sizer5, 0, wx.EXPAND, 5)
 
-        self.bitmapPallette = wx.StaticBitmap(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER)
+        self.bitmapPallette = wx.StaticBitmap(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER)
         sizer2.Add(self.bitmapPallette, 1, wx.ALL | wx.EXPAND, 5)
 
         sizer6 = wx.BoxSizer(wx.VERTICAL)
 
         sizer6.SetMinSize(wx.Size(100, -1))
-        self.buttonBattler = wx.Button(
-            self, wx.ID_ANY, _("[ED] Battler..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonBattler = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "[ED] Battler..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(self.buttonBattler, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.buttonPaste = wx.Button(
-            self, wx.ID_ANY, _("Paste Last"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonPaste = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Paste Last"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(
             self.buttonPaste, 0, wx.TOP | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonCopy = wx.Button(
-            self, wx.ID_ANY, _("Copy Frames..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonCopy = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Copy Frames..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(self.buttonCopy, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonClear = wx.Button(
-            self, wx.ID_ANY, _("Clear Frames..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonClear = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Clear Frames..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(self.buttonClear, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonTweening = wx.Button(
-            self, wx.ID_ANY, _("Tweening..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonTweening = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Tweening..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(self.buttonTweening, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonCellBatch = wx.Button(
-            self, wx.ID_ANY, _("Cell Batch..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonCellBatch = wx.Button(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, _("Cell Batch..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(self.buttonCellBatch, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonEntireSlide = wx.Button(
-            self, wx.ID_ANY, _("Entire Slide..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonEntireSlide = wx.Button(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, _("Entire Slide..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(self.buttonEntireSlide, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonPlayHit = wx.Button(
-            self, wx.ID_ANY, _("Play Hit"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonPlayHit = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Play Hit"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(
             self.buttonPlayHit, 0, wx.TOP | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonPlayMiss = wx.Button(
-            self, wx.ID_ANY, _("Play Miss"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonPlayMiss = wx.Button(staticSizerAnimations.GetStaticBox(), wx.ID_ANY, _(
+            "Play Miss"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizer6.Add(
             self.buttonPlayMiss, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -3553,8 +3377,8 @@ class Animations_Panel_Template (wx.Panel):
 
         sizer3 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.m_scrolledWindow3 = wx.ScrolledWindow(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.ALWAYS_SHOW_SB | wx.HSCROLL | wx.SUNKEN_BORDER | wx.VSCROLL)
+        self.m_scrolledWindow3 = wx.ScrolledWindow(staticSizerAnimations.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.ALWAYS_SHOW_SB | wx.HSCROLL | wx.SUNKEN_BORDER | wx.VSCROLL)
         self.m_scrolledWindow3.SetScrollRate(5, 5)
         bSizer196 = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -3604,88 +3428,68 @@ class Animations_Panel_Template (wx.Panel):
             wx.EVT_LEFT_DOWN, self.bitmapAnimationFrames_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxAnimations.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxGraphic.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxPosition.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxFrames.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.listCtrlTiming.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.buttonBack.Unbind(wx.EVT_BUTTON, None)
-        self.listBoxFrame.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonNext.Unbind(wx.EVT_BUTTON, None)
-        self.buttonBattler.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPaste.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCopy.Unbind(wx.EVT_BUTTON, None)
-        self.buttonClear.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTweening.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCellBatch.Unbind(wx.EVT_BUTTON, None)
-        self.buttonEntireSlide.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlayHit.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlayMiss.Unbind(wx.EVT_BUTTON, None)
-        self.bitmapAnimationFrames.Unbind(wx.EVT_LEFT_DOWN, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxAnimations_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxGraphic_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxPosition_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxFrames_Clicked(self, event):
-        pass
+        event.Skip()
 
     def listControlTiming_DoubleClicked(self, event):
-        pass
+        event.Skip()
 
     def buttonBack_Clicked(self, event):
-        pass
+        event.Skip()
 
     def listBoxFrames_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonNext_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonBattler_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonPaste_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCopy_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonClear_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTweening_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCellBatch_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonEntireSlide_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonPlayHit_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonPlayMiss_Clicked(self, event):
-        pass
+        event.Skip()
 
     def bitmapAnimationFrames_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -3726,96 +3530,104 @@ class Tilesets_Panel_Template (wx.Panel):
 
         sizer1 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizer1.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizer1.Add(
             self.textCtrlName, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelTileset = wx.StaticText(
-            self, wx.ID_ANY, _("Tileset Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTileset = wx.StaticText(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Tileset Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTileset.Wrap(-1)
         sizer1.Add(self.labelTileset, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxTileset = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxTileset = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxTileset, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelAutotiles = wx.StaticText(
-            self, wx.ID_ANY, _("Autotile Graphics:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAutotiles = wx.StaticText(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, _("Autotile Graphics:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAutotiles.Wrap(-1)
         sizer1.Add(self.labelAutotiles, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles1 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxAutotiles1 = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxAutotiles1, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles2 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxAutotiles2 = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxAutotiles2, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles3 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxAutotiles3 = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxAutotiles3, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles4 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxAutotiles4 = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxAutotiles4, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles5 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxAutotiles5 = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxAutotiles5, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles6 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxAutotiles6 = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxAutotiles6, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles7 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
+        self.comboBoxAutotiles7 = wx.adv.BitmapComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
         sizer1.Add(self.comboBoxAutotiles7, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelPanorama = wx.StaticText(
-            self, wx.ID_ANY, _("Panorama Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPanorama = wx.StaticText(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, _("Panorama Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPanorama.Wrap(-1)
         sizer1.Add(self.labelPanorama, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxPanoramaChoices = []
-        self.comboBoxPanorama = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxPanoramaChoices, 0)
+        self.comboBoxPanorama = wx.ComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxPanoramaChoices, 0)
         sizer1.Add(self.comboBoxPanorama, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelFog = wx.StaticText(
-            self, wx.ID_ANY, _("Fog Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelFog = wx.StaticText(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Fog Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelFog.Wrap(-1)
         sizer1.Add(self.labelFog, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxFogChoices = []
-        self.comboBoxFog = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxFogChoices, 0)
+        self.comboBoxFog = wx.ComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxFogChoices, 0)
         sizer1.Add(
             self.comboBoxFog, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelBattleback = wx.StaticText(
-            self, wx.ID_ANY, _("Battleback Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBattleback = wx.StaticText(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, _("Battleback Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBattleback.Wrap(-1)
         sizer1.Add(self.labelBattleback, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxBattlebackChoices = []
-        self.comboBoxBattleback = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattlebackChoices, 0)
+        self.comboBoxBattleback = wx.ComboBox(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattlebackChoices, 0)
         sizer1.Add(self.comboBoxBattleback, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
         staticSizerTilesets.Add(sizer1, 0, wx.EXPAND, 5)
 
-        self.m_scrolledWindow4 = wx.ScrolledWindow(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL | wx.SUNKEN_BORDER | wx.VSCROLL)
+        self.m_scrolledWindow4 = wx.ScrolledWindow(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL | wx.SUNKEN_BORDER | wx.VSCROLL)
         self.m_scrolledWindow4.SetScrollRate(5, 5)
         self.m_scrolledWindow4.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW))
@@ -3837,28 +3649,28 @@ class Tilesets_Panel_Template (wx.Panel):
 
         sizer2 = wx.BoxSizer(wx.VERTICAL)
 
-        self.buttonPassage = wx.Button(
-            self, wx.ID_ANY, _("Passage"), wx.DefaultPosition, wx.Size(-1, 46), 0)
+        self.buttonPassage = wx.Button(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Passage"), wx.DefaultPosition, wx.Size(-1, 46), 0)
         sizer2.Add(self.buttonPassage, 0, wx.ALL, 5)
 
-        self.buttonPassage4Dir = wx.Button(
-            self, wx.ID_ANY, _("Passage\n(4 Dir)"), wx.DefaultPosition, wx.Size(-1, 46), 0)
+        self.buttonPassage4Dir = wx.Button(staticSizerTilesets.GetStaticBox(
+        ), wx.ID_ANY, _("Passage\n(4 Dir)"), wx.DefaultPosition, wx.Size(-1, 46), 0)
         sizer2.Add(self.buttonPassage4Dir, 0, wx.ALL, 5)
 
-        self.buttonPriority = wx.Button(
-            self, wx.ID_ANY, _("Priority"), wx.DefaultPosition, wx.Size(-1, 46), 0)
+        self.buttonPriority = wx.Button(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Priority"), wx.DefaultPosition, wx.Size(-1, 46), 0)
         sizer2.Add(self.buttonPriority, 0, wx.ALL, 5)
 
-        self.buttonBushFlag = wx.Button(
-            self, wx.ID_ANY, _("Bush\nFlag"), wx.DefaultPosition, wx.Size(-1, 46), 0)
+        self.buttonBushFlag = wx.Button(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Bush\nFlag"), wx.DefaultPosition, wx.Size(-1, 46), 0)
         sizer2.Add(self.buttonBushFlag, 0, wx.ALL, 5)
 
-        self.buttonCounter = wx.Button(
-            self, wx.ID_ANY, _("Counter\nFlag"), wx.DefaultPosition, wx.Size(-1, 46), 0)
+        self.buttonCounter = wx.Button(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Counter\nFlag"), wx.DefaultPosition, wx.Size(-1, 46), 0)
         sizer2.Add(self.buttonCounter, 0, wx.ALL, 5)
 
-        self.buttonTerrainTag = wx.Button(
-            self, wx.ID_ANY, _("Terrain\nTag"), wx.DefaultPosition, wx.Size(-1, 46), 0)
+        self.buttonTerrainTag = wx.Button(staticSizerTilesets.GetStaticBox(), wx.ID_ANY, _(
+            "Terrain\nTag"), wx.DefaultPosition, wx.Size(-1, 46), 0)
         sizer2.Add(self.buttonTerrainTag, 0, wx.ALL, 5)
 
         staticSizerTilesets.Add(sizer2, 0, wx.EXPAND, 5)
@@ -3912,112 +3724,86 @@ class Tilesets_Panel_Template (wx.Panel):
             wx.EVT_BUTTON, self.buttonTerrainTag_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxTilesets.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxTileset.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxAutotiles1.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxAutotiles2.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxAutotiles3.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxAutotiles4.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxAutotiles5.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxAutotiles6.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxAutotiles7.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxPanorama.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxFog.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxBattleback.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.m_bitmap36.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.m_bitmap36.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.m_bitmap36.Unbind(wx.EVT_LEFT_UP, None)
-        self.m_bitmap36.Unbind(wx.EVT_RIGHT_DCLICK, None)
-        self.m_bitmap36.Unbind(wx.EVT_RIGHT_DOWN, None)
-        self.m_bitmap36.Unbind(wx.EVT_RIGHT_UP, None)
-        self.buttonPassage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPassage4Dir.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPriority.Unbind(wx.EVT_BUTTON, None)
-        self.buttonBushFlag.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCounter.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTerrainTag.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxTilesets_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTileset_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutotiles1_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutotiles2_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutotiles3_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutotiles4_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutotiles5_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutotiles6_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxAutotiles7_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxPanorama_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxFog_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxBattleback_Clicked(self, event):
-        pass
+        event.Skip()
 
     def bitmapTileset_LeftClick(self, event):
-        pass
+        event.Skip()
 
     def bitmapTileset_LMouseDown(self, event):
-        pass
+        event.Skip()
 
     def bitmapTileset_LeftMouseUp(self, event):
-        pass
+        event.Skip()
 
     def bitmapTileset_RightClick(self, event):
-        pass
+        event.Skip()
 
     def bitmapTileset_RightMouseDown(self, event):
-        pass
+        event.Skip()
 
     def bitmapTileset_RightMouseUP(self, event):
-        pass
+        event.Skip()
 
     def buttonPassage_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonPassage4Dir_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonPriority_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonBushFlag_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCounter_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTerrainTag_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -4059,18 +3845,18 @@ class CommonEvents_Panel_Template (wx.Panel):
 
         sizer1 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(staticSizerCommonEvents.GetStaticBox(
+        ), wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizer1.Add(self.labelName, 35, wx.ALL, 5)
 
-        self.labelTrigger = wx.StaticText(
-            self, wx.ID_ANY, _("Trigger:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTrigger = wx.StaticText(staticSizerCommonEvents.GetStaticBox(
+        ), wx.ID_ANY, _("Trigger:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTrigger.Wrap(-1)
         sizer1.Add(self.labelTrigger, 30, wx.ALL, 5)
 
-        self.labelCondition = wx.StaticText(
-            self, wx.ID_ANY, _("Condition Switch:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelCondition = wx.StaticText(staticSizerCommonEvents.GetStaticBox(
+        ), wx.ID_ANY, _("Condition Switch:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCondition.Wrap(-1)
         sizer1.Add(self.labelCondition, 35, wx.ALL, 5)
 
@@ -4078,28 +3864,28 @@ class CommonEvents_Panel_Template (wx.Panel):
 
         sizer2 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(staticSizerCommonEvents.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizer2.Add(self.textCtrlName, 35, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         comboBoxTriggerChoices = [_("None"), _("Autorun"), _("Parallel")]
-        self.comboBoxTrigger = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTriggerChoices, 0)
+        self.comboBoxTrigger = wx.Choice(staticSizerCommonEvents.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTriggerChoices, 0)
         self.comboBoxTrigger.SetSelection(0)
         sizer2.Add(self.comboBoxTrigger, 30, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         comboBoxConditionChoices = []
-        self.comboBoxCondition = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxConditionChoices, 0)
+        self.comboBoxCondition = wx.ComboBox(staticSizerCommonEvents.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxConditionChoices, 0)
         sizer2.Add(
             self.comboBoxCondition, 35, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         staticSizerCommonEvents.Add(sizer2, 0, wx.EXPAND, 5)
 
         listBoxPageChoices = [_(">@")]
-        self.listBoxPage = wx.ListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxPageChoices, 0)
+        self.listBoxPage = wx.ListBox(staticSizerCommonEvents.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxPageChoices, 0)
         staticSizerCommonEvents.Add(self.listBoxPage, 1, wx.ALL | wx.EXPAND, 5)
 
         MainSizer.Add(staticSizerCommonEvents, 75, wx.EXPAND | wx.ALL, 5)
@@ -4122,36 +3908,29 @@ class CommonEvents_Panel_Template (wx.Panel):
             wx.EVT_LISTBOX, self.listBoxPage_SelectionChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxCommonEvents.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.comboBoxTrigger.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxCondition.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.listBoxPage.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.listBoxPage.Unbind(wx.EVT_LISTBOX, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxCommonEvents_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTrigger_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxCondition_Clicked(self, event):
-        pass
+        event.Skip()
 
     def listBoxEvents_DoubleClicked(self, event):
-        pass
+        event.Skip()
 
     def listBoxPage_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -4206,113 +3985,113 @@ class System_Panel_Template (wx.Panel):
 
         sizer4 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelWindowskinGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Windowskin Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelWindowskinGraphic = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Windowskin Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelWindowskinGraphic.Wrap(-1)
         sizer4.Add(self.labelWindowskinGraphic, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxWindowskinGraphicChoices = []
-        self.comboBoxWindowskinGraphic = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxWindowskinGraphicChoices, 0)
+        self.comboBoxWindowskinGraphic = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxWindowskinGraphicChoices, 0)
         sizer4.Add(self.comboBoxWindowskinGraphic, 0,
                    wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelTitleGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Title Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTitleGraphic = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Title Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTitleGraphic.Wrap(-1)
         sizer4.Add(self.labelTitleGraphic, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxTitleGraphicChoices = []
-        self.comboBoxTitleGraphic = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxTitleGraphicChoices, 0)
+        self.comboBoxTitleGraphic = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxTitleGraphicChoices, 0)
         sizer4.Add(self.comboBoxTitleGraphic, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelGameoverGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Gameover Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelGameoverGraphic = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Gameover Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelGameoverGraphic.Wrap(-1)
         sizer4.Add(self.labelGameoverGraphic, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxGameoverGraphicChoices = []
-        self.comboBoxGameoverGraphic = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxGameoverGraphicChoices, 0)
+        self.comboBoxGameoverGraphic = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxGameoverGraphicChoices, 0)
         sizer4.Add(self.comboBoxGameoverGraphic, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelBattleTransitionGraphic = wx.StaticText(self, wx.ID_ANY, _(
+        self.labelBattleTransitionGraphic = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
             "Battle Transition Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBattleTransitionGraphic.Wrap(-1)
         sizer4.Add(self.labelBattleTransitionGraphic, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxBattleTransitionGraphicChoices = []
-        self.comboBoxBattleTransitionGraphic = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleTransitionGraphicChoices, 0)
+        self.comboBoxBattleTransitionGraphic = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleTransitionGraphicChoices, 0)
         sizer4.Add(self.comboBoxBattleTransitionGraphic, 0,
                    wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelTitleBGM = wx.StaticText(
-            self, wx.ID_ANY, _("Title BGM:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelTitleBGM = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Title BGM:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelTitleBGM.Wrap(-1)
         sizer4.Add(self.labelTitleBGM, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxTitleBGMChoices = []
-        self.comboBoxTitleBGM = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxTitleBGMChoices, 0)
+        self.comboBoxTitleBGM = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxTitleBGMChoices, 0)
         sizer4.Add(self.comboBoxTitleBGM, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelBattleBGM = wx.StaticText(
-            self, wx.ID_ANY, _("Battle BGM:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBattleBGM = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Battle BGM:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBattleBGM.Wrap(-1)
         sizer4.Add(self.labelBattleBGM, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxBattleBGMChoices = []
-        self.comboBoxBattleBGM = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleBGMChoices, 0)
+        self.comboBoxBattleBGM = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleBGMChoices, 0)
         sizer4.Add(self.comboBoxBattleBGM, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelBattleEndME = wx.StaticText(
-            self, wx.ID_ANY, _("Battle End ME:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBattleEndME = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Battle End ME:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBattleEndME.Wrap(-1)
         sizer4.Add(self.labelBattleEndME, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxBattleEndMEChoices = []
-        self.comboBoxBattleEndME = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleEndMEChoices, 0)
+        self.comboBoxBattleEndME = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleEndMEChoices, 0)
         sizer4.Add(self.comboBoxBattleEndME, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelGameoverME = wx.StaticText(
-            self, wx.ID_ANY, _("Gameover ME:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelGameoverME = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Gameover ME:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelGameoverME.Wrap(-1)
         sizer4.Add(self.labelGameoverME, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxGameoverMEChoices = []
-        self.comboBoxGameoverME = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxGameoverMEChoices, 0)
+        self.comboBoxGameoverME = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxGameoverMEChoices, 0)
         sizer4.Add(self.comboBoxGameoverME, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelCursorSE = wx.StaticText(
-            self, wx.ID_ANY, _("Cursor SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelCursorSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Cursor SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCursorSE.Wrap(-1)
         sizer4.Add(self.labelCursorSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxCursorSEChoices = []
-        self.comboBoxCursorSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCursorSEChoices, 0)
+        self.comboBoxCursorSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCursorSEChoices, 0)
         sizer4.Add(self.comboBoxCursorSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelDecisionSE = wx.StaticText(
-            self, wx.ID_ANY, _("Decision SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDecisionSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Decision SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDecisionSE.Wrap(-1)
         sizer4.Add(self.labelDecisionSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxDecisionSEChoices = []
-        self.comboBoxDecisionSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxDecisionSEChoices, 0)
+        self.comboBoxDecisionSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxDecisionSEChoices, 0)
         sizer4.Add(self.comboBoxDecisionSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -4320,113 +4099,113 @@ class System_Panel_Template (wx.Panel):
 
         sizer5 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelCancelSE = wx.StaticText(
-            self, wx.ID_ANY, _("Cancel SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelCancelSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Cancel SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCancelSE.Wrap(-1)
         sizer5.Add(self.labelCancelSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxCancelSEChoices = []
-        self.comboBoxCancelSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCancelSEChoices, 0)
+        self.comboBoxCancelSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCancelSEChoices, 0)
         sizer5.Add(self.comboBoxCancelSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelBuzzerSE = wx.StaticText(
-            self, wx.ID_ANY, _("Buzzer SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBuzzerSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Buzzer SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBuzzerSE.Wrap(-1)
         sizer5.Add(self.labelBuzzerSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxBuzzerSEChoices = []
-        self.comboBoxBuzzerSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBuzzerSEChoices, 0)
+        self.comboBoxBuzzerSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBuzzerSEChoices, 0)
         sizer5.Add(self.comboBoxBuzzerSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelEquipSE = wx.StaticText(
-            self, wx.ID_ANY, _("Equip SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelEquipSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Equip SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelEquipSE.Wrap(-1)
         sizer5.Add(self.labelEquipSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxEquipSEChoices = []
-        self.comboBoxEquipSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEquipSEChoices, 0)
+        self.comboBoxEquipSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEquipSEChoices, 0)
         sizer5.Add(self.comboBoxEquipSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelShopSE = wx.StaticText(
-            self, wx.ID_ANY, _("Shop SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelShopSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Shop SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelShopSE.Wrap(-1)
         sizer5.Add(self.labelShopSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxShopSEChoices = []
-        self.comboBoxShopSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxShopSEChoices, 0)
+        self.comboBoxShopSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxShopSEChoices, 0)
         sizer5.Add(
             self.comboBoxShopSE, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelSaveSE = wx.StaticText(
-            self, wx.ID_ANY, _("Save SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelSaveSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Save SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelSaveSE.Wrap(-1)
         sizer5.Add(self.labelSaveSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxSaveSEChoices = []
-        self.comboBoxSaveSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSaveSEChoices, 0)
+        self.comboBoxSaveSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSaveSEChoices, 0)
         sizer5.Add(
             self.comboBoxSaveSE, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelLoadSE = wx.StaticText(
-            self, wx.ID_ANY, _("Load SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelLoadSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Load SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelLoadSE.Wrap(-1)
         sizer5.Add(self.labelLoadSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxLoadSEChoices = []
-        self.comboBoxLoadSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxLoadSEChoices, 0)
+        self.comboBoxLoadSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxLoadSEChoices, 0)
         sizer5.Add(
             self.comboBoxLoadSE, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelBattleStartSE = wx.StaticText(
-            self, wx.ID_ANY, _("Battle Start SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBattleStartSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Battle Start SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBattleStartSE.Wrap(-1)
         sizer5.Add(self.labelBattleStartSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxBattleStartSEChoices = []
-        self.comboBoxBattleStartSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleStartSEChoices, 0)
+        self.comboBoxBattleStartSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleStartSEChoices, 0)
         sizer5.Add(self.comboBoxBattleStartSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelEscapeSE = wx.StaticText(
-            self, wx.ID_ANY, _("Escape SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelEscapeSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Escape SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelEscapeSE.Wrap(-1)
         sizer5.Add(self.labelEscapeSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxEscapeSEChoices = []
-        self.comboBoxEscapeSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEscapeSEChoices, 0)
+        self.comboBoxEscapeSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEscapeSEChoices, 0)
         sizer5.Add(self.comboBoxEscapeSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelActorCollapseSE = wx.StaticText(
-            self, wx.ID_ANY, _("Actor Collapse SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelActorCollapseSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Actor Collapse SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelActorCollapseSE.Wrap(-1)
         sizer5.Add(self.labelActorCollapseSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxActorCollapseSEChoices = []
-        self.comboBoxActorCollapseSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxActorCollapseSEChoices, 0)
+        self.comboBoxActorCollapseSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxActorCollapseSEChoices, 0)
         sizer5.Add(self.comboBoxActorCollapseSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.labelEnemyCollapseSE = wx.StaticText(
-            self, wx.ID_ANY, _("Enemy Collapse SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelEnemyCollapseSE = wx.StaticText(sizer2.GetStaticBox(), wx.ID_ANY, _(
+            "Enemy Collapse SE:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelEnemyCollapseSE.Wrap(-1)
         sizer5.Add(self.labelEnemyCollapseSE, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxEnemyCollapseSEChoices = []
-        self.comboBoxEnemyCollapseSE = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyCollapseSEChoices, 0)
+        self.comboBoxEnemyCollapseSE = wx.ComboBox(sizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyCollapseSEChoices, 0)
         sizer5.Add(self.comboBoxEnemyCollapseSE, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -4439,112 +4218,112 @@ class System_Panel_Template (wx.Panel):
 
         sizer6 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelGold = wx.StaticText(
-            self, wx.ID_ANY, _("G (currency):"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelGold = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "G (currency):"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelGold.Wrap(-1)
         sizer6.Add(self.labelGold, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlGold = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlGold = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlGold.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlGold, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelHP = wx.StaticText(
-            self, wx.ID_ANY, _("HP:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelHP = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "HP:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelHP.Wrap(-1)
         sizer6.Add(self.labelHP, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlHP = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlHP = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlHP.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlHP, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelSP = wx.StaticText(
-            self, wx.ID_ANY, _("SP:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelSP = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "SP:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelSP.Wrap(-1)
         sizer6.Add(self.labelSP, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlSP = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlSP = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlSP.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlSP, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelStr = wx.StaticText(
-            self, wx.ID_ANY, _("STR:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStr = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "STR:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStr.Wrap(-1)
         sizer6.Add(self.labelStr, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlStr = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlStr = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlStr.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlStr, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelDex = wx.StaticText(
-            self, wx.ID_ANY, _("DEX:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDex = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "DEX:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDex.Wrap(-1)
         sizer6.Add(self.labelDex, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlDex = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlDex = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlDex.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlDex, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelAgi = wx.StaticText(
-            self, wx.ID_ANY, _("AGI:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAgi = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "AGI:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAgi.Wrap(-1)
         sizer6.Add(self.labelAgi, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlAgi = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlAgi = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlAgi.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlAgi, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelInt = wx.StaticText(
-            self, wx.ID_ANY, _("INT:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelInt = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "INT:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelInt.Wrap(-1)
         sizer6.Add(self.labelInt, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlInt = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlInt = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlInt.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlInt, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelAtk = wx.StaticText(
-            self, wx.ID_ANY, _("ATK:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAtk = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "ATK:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAtk.Wrap(-1)
         sizer6.Add(self.labelAtk, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlAtk = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlAtk = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlAtk.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlAtk, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelPdef = wx.StaticText(
-            self, wx.ID_ANY, _("PDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPdef = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "PDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPdef.Wrap(-1)
         sizer6.Add(self.labelPdef, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlPdef = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlPdef = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlPdef.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlPdef, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelMdef = wx.StaticText(
-            self, wx.ID_ANY, _("MDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMdef = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "MDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMdef.Wrap(-1)
         sizer6.Add(self.labelMdef, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlMdef = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlMdef = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlMdef.SetMaxLength(0)
         sizer6.Add(
             self.textCtrlMdef, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -4553,112 +4332,112 @@ class System_Panel_Template (wx.Panel):
 
         sizer7 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelWeapon = wx.StaticText(
-            self, wx.ID_ANY, _("Weapon:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelWeapon = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Weapon:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelWeapon.Wrap(-1)
         sizer7.Add(self.labelWeapon, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlWeapon = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlWeapon = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlWeapon.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlWeapon, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelShield = wx.StaticText(
-            self, wx.ID_ANY, _("Shield:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelShield = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Shield:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelShield.Wrap(-1)
         sizer7.Add(self.labelShield, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlShield = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlShield = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlShield.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlShield, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelHelmet = wx.StaticText(
-            self, wx.ID_ANY, _("Helmet:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelHelmet = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Helmet:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelHelmet.Wrap(-1)
         sizer7.Add(self.labelHelmet, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlHelmet = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlHelmet = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlHelmet.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlHelmet, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelBodyArmor = wx.StaticText(
-            self, wx.ID_ANY, _("Body Armor:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBodyArmor = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Body Armor:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBodyArmor.Wrap(-1)
         sizer7.Add(self.labelBodyArmor, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlBodyArmor = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlBodyArmor = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlBodyArmor.SetMaxLength(0)
         sizer7.Add(self.textCtrlBodyArmor, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelAccessory = wx.StaticText(
-            self, wx.ID_ANY, _("Accessory:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAccessory = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Accessory:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAccessory.Wrap(-1)
         sizer7.Add(self.labelAccessory, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlAccessory = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlAccessory = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlAccessory.SetMaxLength(0)
         sizer7.Add(self.textCtrlAccessory, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelAttack = wx.StaticText(
-            self, wx.ID_ANY, _("Attack:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAttack = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Attack:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAttack.Wrap(-1)
         sizer7.Add(self.labelAttack, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlAttack = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlAttack = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlAttack.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlAttack, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelSkill = wx.StaticText(
-            self, wx.ID_ANY, _("Skill:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelSkill = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Skill:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelSkill.Wrap(-1)
         sizer7.Add(self.labelSkill, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlSkill = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlSkill = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlSkill.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlSkill, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelDefend = wx.StaticText(
-            self, wx.ID_ANY, _("Defend:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDefend = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Defend:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDefend.Wrap(-1)
         sizer7.Add(self.labelDefend, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlDefend = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlDefend = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlDefend.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlDefend, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelItem = wx.StaticText(
-            self, wx.ID_ANY, _("Item:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelItem = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Item:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelItem.Wrap(-1)
         sizer7.Add(self.labelItem, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlItem = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlItem = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlItem.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlItem, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelEquip = wx.StaticText(
-            self, wx.ID_ANY, _("Equip:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelEquip = wx.StaticText(sizer3.GetStaticBox(), wx.ID_ANY, _(
+            "Equip:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelEquip.Wrap(-1)
         sizer7.Add(self.labelEquip, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.textCtrlEquip = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlEquip = wx.TextCtrl(sizer3.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlEquip.SetMaxLength(0)
         sizer7.Add(
             self.textCtrlEquip, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -4741,1762 +4520,143 @@ class System_Panel_Template (wx.Panel):
         self.textCtrlEquip.Bind(wx.EVT_TEXT, self.textCtrlEquip_TextChanged)
 
     def __del__(self):
-        # Disconnect Events
-        self.listCtrlInitialParty.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.listCtrlInitialParty.Unbind(wx.EVT_LIST_DELETE_ITEM, None)
-        self.listBoxElements.Unbind(wx.EVT_LISTBOX, None)
-        self.textControlElementName.Unbind(wx.EVT_TEXT, None)
-        self.buttonMaximum.Unbind(wx.EVT_BUTTON, None)
-        self.comboBoxWindowskinGraphic.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxTitleGraphic.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxGameoverGraphic.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxBattleTransitionGraphic.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxTitleBGM.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxBattleBGM.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxBattleEndME.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxGameoverME.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxCursorSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxDecisionSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxCancelSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxBuzzerSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxEquipSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxShopSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxSaveSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxLoadSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxBattleStartSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxEscapeSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxActorCollapseSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxEnemyCollapseSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.textCtrlGold.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlHP.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlSP.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlStr.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlDex.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlAgi.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlInt.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlAtk.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlPdef.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlMdef.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlWeapon.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlShield.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlHelmet.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlBodyArmor.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlAccessory.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlAttack.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlSkill.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlDefend.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlItem.Unbind(wx.EVT_TEXT, None)
-        self.textCtrlEquip.Unbind(wx.EVT_TEXT, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listCtrlInitialParty_DoubleClicked(self, event):
-        pass
+        event.Skip()
 
     def listCtrlInitialParty_ItemDeleted(self, event):
-        pass
+        event.Skip()
 
     def listBoxElements_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlElement_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMaximum_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxWindowskinGraphic_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTitleGraphic_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxGameoverGraphic_Clciked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxBattleTransitionGraphic_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxTitleBGM_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxBattleBGM_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxBattleEndME_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxGameoverME_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxCursorSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxDecisionSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxCancelSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxBuzzerSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxEquipSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxShopSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxSaveSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxLoadSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxBattleStartSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxEscapeSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxActorCollapseSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxEnemyCollapseSE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlGold_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlHP_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlSP_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlStr_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlDex_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlAgi_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlInt_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlAtk_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlPdef_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlMdef_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlWeapon_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlShield_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlHelmet_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlBodyArmor_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlAccessory_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlAttack_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlSkill_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlDefend_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlItem_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlEquip_TextChanged(self, event):
-        pass
-
-
-###########################################################################
-# Class EventCommands1_Panel_Template
-###########################################################################
-
-class EventCommands1_Panel_Template (wx.Panel):
-
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(
-            400, 450), style=wx.TAB_TRAVERSAL)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerLeft = wx.BoxSizer(wx.VERTICAL)
-
-        sizerMessages = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Message")), wx.VERTICAL)
-
-        self.buttonShowText = wx.Button(
-            self, wx.ID_ANY, _("Show Text..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerMessages.Add(
-            self.buttonShowText, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonShowChoices = wx.Button(
-            self, wx.ID_ANY, _("Show Choices..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerMessages.Add(
-            self.buttonShowChoices, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonInputNumber = wx.Button(
-            self, wx.ID_ANY, _("Input Number..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerMessages.Add(
-            self.buttonInputNumber, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonChangeTextOptions = wx.Button(self, wx.ID_ANY, _(
-            "Change Text Options..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerMessages.Add(
-            self.buttonChangeTextOptions, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonChangeWindowskin = wx.Button(self, wx.ID_ANY, _(
-            "Change Windowskin..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMessages.Add(
-            self.buttonChangeWindowskin, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerLeft.Add(sizerMessages, 0, wx.ALL | wx.EXPAND, 5)
-
-        sizerFlowControl = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Flow Control")), wx.VERTICAL)
-
-        self.buttonConditionalBranch = wx.Button(self, wx.ID_ANY, _(
-            "Conditional Branch..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(self.buttonConditionalBranch, 0,
-                             wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_HORIZONTAL | wx.EXPAND, 5)
-
-        self.buttonWait = wx.Button(
-            self, wx.ID_ANY, _("Wait..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonWait, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonLoop = wx.Button(
-            self, wx.ID_ANY, _("Loop"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonLoop, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonBreakLoop = wx.Button(
-            self, wx.ID_ANY, _("Break Loop"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonBreakLoop, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonExitEventProcessing = wx.Button(self, wx.ID_ANY, _(
-            "Exit Event Processing"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonExitEventProcessing, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonCallCommonEvent = wx.Button(self, wx.ID_ANY, _(
-            "Call Common Event..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonCallCommonEvent, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonLabel = wx.Button(
-            self, wx.ID_ANY, _("Label..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonLabel, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonJumpToLabel = wx.Button(
-            self, wx.ID_ANY, _("Jump To Label..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonJumpToLabel, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonComment = wx.Button(
-            self, wx.ID_ANY, _("Comment..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerFlowControl.Add(
-            self.buttonComment, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerLeft.Add(sizerFlowControl, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerScript = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Advanced")), wx.VERTICAL)
-
-        self.buttonScript = wx.Button(
-            self, wx.ID_ANY, _("Script..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerScript.Add(
-            self.buttonScript, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        sizerLeft.Add(sizerScript, 0, wx.EXPAND | wx.ALL, 5)
-
-        MainSizer.Add(sizerLeft, 1, wx.EXPAND, 5)
-
-        sizerRight = wx.BoxSizer(wx.VERTICAL)
-
-        sizerGameProgression = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Game Progression")), wx.VERTICAL)
-
-        self.buttonControlSwitches = wx.Button(self, wx.ID_ANY, _(
-            "Control Switches..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerGameProgression.Add(
-            self.buttonControlSwitches, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonControlVariables = wx.Button(self, wx.ID_ANY, _(
-            "Control Variables..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerGameProgression.Add(
-            self.buttonControlVariables, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonControlSelfSwitch = wx.Button(self, wx.ID_ANY, _(
-            "Control Self-Switch..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerGameProgression.Add(
-            self.buttonControlSelfSwitch, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonControlTimer = wx.Button(
-            self, wx.ID_ANY, _("Control Timer..."), wx.DefaultPosition, wx.Size(150, -1), 0)
-        sizerGameProgression.Add(
-            self.buttonControlTimer, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerRight.Add(
-            sizerGameProgression, 0, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_HORIZONTAL, 5)
-
-        sizerAudio = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Audio")), wx.VERTICAL)
-
-        self.buttonPlayBGM = wx.Button(
-            self, wx.ID_ANY, _("Play BGM..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(
-            self.buttonPlayBGM, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonFadeOutBGM = wx.Button(
-            self, wx.ID_ANY, _("Fade Out BGM..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(
-            self.buttonFadeOutBGM, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonPlayBGS = wx.Button(
-            self, wx.ID_ANY, _("Play BGS..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(
-            self.buttonPlayBGS, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonFadeOutBGS = wx.Button(
-            self, wx.ID_ANY, _("Fade Out BGS..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(
-            self.buttonFadeOutBGS, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonMemorizeBGMBGS = wx.Button(
-            self, wx.ID_ANY, _("Memorize BGM/BGS"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(
-            self.buttonMemorizeBGMBGS, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.m_button158 = wx.Button(
-            self, wx.ID_ANY, _("Restore BGS/BGM"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(self.m_button158, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonPlayME = wx.Button(
-            self, wx.ID_ANY, _("Play ME..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(self.buttonPlayME, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonPlaySE = wx.Button(
-            self, wx.ID_ANY, _("Play SE..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(self.buttonPlaySE, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonStopSE = wx.Button(
-            self, wx.ID_ANY, _("Stop SE..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(self.buttonStopSE, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonChangeBattleBGM = wx.Button(self, wx.ID_ANY, _(
-            "Change Battle BGM..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(
-            self.buttonChangeBattleBGM, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeBattleEndME = wx.Button(self, wx.ID_ANY, _(
-            "Change Battle End ME..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerAudio.Add(
-            self.buttonChangeBattleEndME, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerRight.Add(
-            sizerAudio, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerRight, 1, wx.EXPAND, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        # Connect Events
-        self.buttonShowText.Bind(wx.EVT_BUTTON, self.buttonShowText_Clicked)
-        self.buttonShowChoices.Bind(
-            wx.EVT_BUTTON, self.buttonShowChoices_Clicked)
-        self.buttonInputNumber.Bind(
-            wx.EVT_BUTTON, self.buttonInputNumber_Clicked)
-        self.buttonChangeTextOptions.Bind(
-            wx.EVT_BUTTON, self.buttonChangeTextOptions_Clicked)
-        self.buttonChangeWindowskin.Bind(
-            wx.EVT_BUTTON, self.buttonChangeWindowskin_Clicked)
-        self.buttonConditionalBranch.Bind(
-            wx.EVT_BUTTON, self.buttonConditionalBranch_Clicked)
-        self.buttonWait.Bind(wx.EVT_BUTTON, self.buttonWait_Clicked)
-        self.buttonLoop.Bind(wx.EVT_BUTTON, self.buttonLoop_Clicked)
-        self.buttonBreakLoop.Bind(wx.EVT_BUTTON, self.buttonBreakLoop_Clicked)
-        self.buttonExitEventProcessing.Bind(
-            wx.EVT_BUTTON, self.buttonExitEventProcessing_Clicked)
-        self.buttonCallCommonEvent.Bind(
-            wx.EVT_BUTTON, self.buttonCallCommonEvent_Clicked)
-        self.buttonLabel.Bind(wx.EVT_BUTTON, self.buttonLabel_Clicked)
-        self.buttonJumpToLabel.Bind(
-            wx.EVT_BUTTON, self.button_ClickedJumpToLabel)
-        self.buttonComment.Bind(wx.EVT_BUTTON, self.buttonComment_Clicked)
-        self.buttonScript.Bind(wx.EVT_BUTTON, self.buttonScript_Clicked)
-        self.buttonControlSwitches.Bind(
-            wx.EVT_BUTTON, self.buttonControlSwitches_Clicked)
-        self.buttonControlVariables.Bind(
-            wx.EVT_BUTTON, self.buttonControlVariables_Clicked)
-        self.buttonControlSelfSwitch.Bind(
-            wx.EVT_BUTTON, self.buttonControlSelfSwitch_Clicked)
-        self.buttonControlTimer.Bind(
-            wx.EVT_BUTTON, self.buttonControlTimer_Clicked)
-        self.buttonPlayBGM.Bind(wx.EVT_BUTTON, self.buttonPlayBGM_Clicked)
-        self.buttonFadeOutBGM.Bind(
-            wx.EVT_BUTTON, self.buttonFadeOutBGM_Clicked)
-        self.buttonPlayBGS.Bind(wx.EVT_BUTTON, self.buttonPlayBGS_Clicked)
-        self.buttonFadeOutBGS.Bind(
-            wx.EVT_BUTTON, self.buttonFadeOutBGS_Clicked)
-        self.buttonMemorizeBGMBGS.Bind(
-            wx.EVT_BUTTON, self.buttonMemorizeBGMBGS_Clicked)
-        self.m_button158.Bind(wx.EVT_BUTTON, self.buttonRestoreBGMBGS_Clicked)
-        self.buttonPlayME.Bind(wx.EVT_BUTTON, self.buttonPlayME_Clicked)
-        self.buttonPlaySE.Bind(wx.EVT_BUTTON, self.buttonPlaySE_Clicked)
-        self.buttonStopSE.Bind(wx.EVT_BUTTON, self.buttonStopSE_Clicked)
-        self.buttonChangeBattleBGM.Bind(
-            wx.EVT_BUTTON, self.buttonChangeBattleBGM_Clicked)
-        self.buttonChangeBattleEndME.Bind(
-            wx.EVT_BUTTON, self.buttonChangeBattleEndME_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonShowText.Unbind(wx.EVT_BUTTON, None)
-        self.buttonShowChoices.Unbind(wx.EVT_BUTTON, None)
-        self.buttonInputNumber.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeTextOptions.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeWindowskin.Unbind(wx.EVT_BUTTON, None)
-        self.buttonConditionalBranch.Unbind(wx.EVT_BUTTON, None)
-        self.buttonWait.Unbind(wx.EVT_BUTTON, None)
-        self.buttonLoop.Unbind(wx.EVT_BUTTON, None)
-        self.buttonBreakLoop.Unbind(wx.EVT_BUTTON, None)
-        self.buttonExitEventProcessing.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCallCommonEvent.Unbind(wx.EVT_BUTTON, None)
-        self.buttonLabel.Unbind(wx.EVT_BUTTON, None)
-        self.buttonJumpToLabel.Unbind(wx.EVT_BUTTON, None)
-        self.buttonComment.Unbind(wx.EVT_BUTTON, None)
-        self.buttonScript.Unbind(wx.EVT_BUTTON, None)
-        self.buttonControlSwitches.Unbind(wx.EVT_BUTTON, None)
-        self.buttonControlVariables.Unbind(wx.EVT_BUTTON, None)
-        self.buttonControlSelfSwitch.Unbind(wx.EVT_BUTTON, None)
-        self.buttonControlTimer.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlayBGM.Unbind(wx.EVT_BUTTON, None)
-        self.buttonFadeOutBGM.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlayBGS.Unbind(wx.EVT_BUTTON, None)
-        self.buttonFadeOutBGS.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMemorizeBGMBGS.Unbind(wx.EVT_BUTTON, None)
-        self.m_button158.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlayME.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlaySE.Unbind(wx.EVT_BUTTON, None)
-        self.buttonStopSE.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeBattleBGM.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeBattleEndME.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonShowText_Clicked(self, event):
-        pass
-
-    def buttonShowChoices_Clicked(self, event):
-        pass
-
-    def buttonInputNumber_Clicked(self, event):
-        pass
-
-    def buttonChangeTextOptions_Clicked(self, event):
-        pass
-
-    def buttonChangeWindowskin_Clicked(self, event):
-        pass
-
-    def buttonConditionalBranch_Clicked(self, event):
-        pass
-
-    def buttonWait_Clicked(self, event):
-        pass
-
-    def buttonLoop_Clicked(self, event):
-        pass
-
-    def buttonBreakLoop_Clicked(self, event):
-        pass
-
-    def buttonExitEventProcessing_Clicked(self, event):
-        pass
-
-    def buttonCallCommonEvent_Clicked(self, event):
-        pass
-
-    def buttonLabel_Clicked(self, event):
-        pass
-
-    def button_ClickedJumpToLabel(self, event):
-        pass
-
-    def buttonComment_Clicked(self, event):
-        pass
-
-    def buttonScript_Clicked(self, event):
-        pass
-
-    def buttonControlSwitches_Clicked(self, event):
-        pass
-
-    def buttonControlVariables_Clicked(self, event):
-        pass
-
-    def buttonControlSelfSwitch_Clicked(self, event):
-        pass
-
-    def buttonControlTimer_Clicked(self, event):
-        pass
-
-    def buttonPlayBGM_Clicked(self, event):
-        pass
-
-    def buttonFadeOutBGM_Clicked(self, event):
-        pass
-
-    def buttonPlayBGS_Clicked(self, event):
-        pass
-
-    def buttonFadeOutBGS_Clicked(self, event):
-        pass
-
-    def buttonMemorizeBGMBGS_Clicked(self, event):
-        pass
-
-    def buttonRestoreBGMBGS_Clicked(self, event):
-        pass
-
-    def buttonPlayME_Clicked(self, event):
-        pass
-
-    def buttonPlaySE_Clicked(self, event):
-        pass
-
-    def buttonStopSE_Clicked(self, event):
-        pass
-
-    def buttonChangeBattleBGM_Clicked(self, event):
-        pass
-
-    def buttonChangeBattleEndME_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class EventCommands2_Panel_Template
-###########################################################################
-
-class EventCommands2_Panel_Template (wx.Panel):
-
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(
-            400, 450), style=wx.TAB_TRAVERSAL)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerLeft = wx.BoxSizer(wx.VERTICAL)
-
-        sizerMovement = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Movement")), wx.VERTICAL)
-
-        self.buttonTransferPlayer = wx.Button(
-            self, wx.ID_ANY, _("Transfer Player..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMovement.Add(
-            self.buttonTransferPlayer, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonSetMoveRoute = wx.Button(
-            self, wx.ID_ANY, _("Set Move Route..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMovement.Add(
-            self.buttonSetMoveRoute, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonSentEventLocation = wx.Button(self, wx.ID_ANY, _(
-            "Set Event Location..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMovement.Add(
-            self.buttonSentEventLocation, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonScrollMap = wx.Button(
-            self, wx.ID_ANY, _("Scroll Map..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMovement.Add(
-            self.buttonScrollMap, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonWaitForMovesCompletion = wx.Button(self, wx.ID_ANY, _(
-            "Wait For Move's Completion"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMovement.Add(
-            self.buttonWaitForMovesCompletion, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerLeft.Add(sizerMovement, 0, wx.ALL | wx.EXPAND, 5)
-
-        sizerScreen = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Screen")), wx.VERTICAL)
-
-        self.buttonPrepareForTransition = wx.Button(self, wx.ID_ANY, _(
-            "Prepare For Transition"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerScreen.Add(
-            self.buttonPrepareForTransition, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonExecuteTransition = wx.Button(
-            self, wx.ID_ANY, _("Execute Transition"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerScreen.Add(
-            self.buttonExecuteTransition, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeScreenTone = wx.Button(self, wx.ID_ANY, _(
-            "Change Screen Tone..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerScreen.Add(
-            self.buttonChangeScreenTone, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonScreenFlash = wx.Button(
-            self, wx.ID_ANY, _("Screen Flash..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerScreen.Add(
-            self.buttonScreenFlash, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonScreenShake = wx.Button(
-            self, wx.ID_ANY, _("Screen Shake..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerScreen.Add(
-            self.buttonScreenShake, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerLeft.Add(sizerScreen, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerParty = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Party")), wx.VERTICAL)
-
-        self.buttonChangePartyMember = wx.Button(self, wx.ID_ANY, _(
-            "Change Party Member..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerParty.Add(
-            self.buttonChangePartyMember, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonChangeGold = wx.Button(
-            self, wx.ID_ANY, _("Change Gold..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerParty.Add(
-            self.buttonChangeGold, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeItem = wx.Button(
-            self, wx.ID_ANY, _("Change Item..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerParty.Add(
-            self.buttonChangeItem, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeWeapon = wx.Button(
-            self, wx.ID_ANY, _("Change Weapon..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerParty.Add(
-            self.buttonChangeWeapon, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeArmor = wx.Button(
-            self, wx.ID_ANY, _("Change Armor..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerParty.Add(
-            self.buttonChangeArmor, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        sizerLeft.Add(sizerParty, 0, wx.EXPAND | wx.ALL, 5)
-
-        MainSizer.Add(sizerLeft, 1, wx.EXPAND, 5)
-
-        sizerRight = wx.BoxSizer(wx.VERTICAL)
-
-        sizerMap = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Map")), wx.VERTICAL)
-
-        self.buttonChangeMapSettings = wx.Button(self, wx.ID_ANY, _(
-            "Change Map Settings..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMap.Add(
-            self.buttonChangeMapSettings, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonSetWeatherEffects = wx.Button(self, wx.ID_ANY, _(
-            "Set Weather Effects..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMap.Add(
-            self.buttonSetWeatherEffects, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeFogColorTone = wx.Button(self, wx.ID_ANY, _(
-            "Change Fog Color Tone..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMap.Add(
-            self.buttonChangeFogColorTone, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeFogOpacity = wx.Button(self, wx.ID_ANY, _(
-            "Change Fog Opacity..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMap.Add(
-            self.buttonChangeFogOpacity, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeEncounter = wx.Button(
-            self, wx.ID_ANY, _("Change Encounter..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMap.Add(
-            self.buttonChangeEncounter, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerRight.Add(sizerMap, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerSceneControl = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Scene Control")), wx.VERTICAL)
-
-        self.buttonBattleProcessing = wx.Button(self, wx.ID_ANY, _(
-            "Battle Processing..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonBattleProcessing, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonShopProcessing = wx.Button(
-            self, wx.ID_ANY, _("Shop Processing..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonShopProcessing, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonNameInputProcessing = wx.Button(self, wx.ID_ANY, _(
-            "Name Input Processing..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonNameInputProcessing, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonButtonInputProcessing = wx.Button(self, wx.ID_ANY, _(
-            "Button Input Processing..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonButtonInputProcessing, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonGameOver = wx.Button(
-            self, wx.ID_ANY, _("Game Over"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonGameOver, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonReturnToTitleScreen = wx.Button(self, wx.ID_ANY, _(
-            "Return To Title Screen"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonReturnToTitleScreen, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeMenuAccess = wx.Button(self, wx.ID_ANY, _(
-            "Change Menu Access..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonChangeMenuAccess, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonChangeSaveAccess = wx.Button(self, wx.ID_ANY, _(
-            "Change Save Access..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonChangeSaveAccess, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonCallMenuScreen = wx.Button(
-            self, wx.ID_ANY, _("Call Menu Screen"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonCallMenuScreen, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonCallSaveScreen = wx.Button(
-            self, wx.ID_ANY, _("Call Save Screen"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerSceneControl.Add(
-            self.buttonCallSaveScreen, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerRight.Add(sizerSceneControl, 0, wx.EXPAND | wx.ALL, 5)
-
-        MainSizer.Add(sizerRight, 1, wx.EXPAND, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        # Connect Events
-        self.buttonTransferPlayer.Bind(
-            wx.EVT_BUTTON, self.buttonTransferPlayer_Clicked)
-        self.buttonSetMoveRoute.Bind(
-            wx.EVT_BUTTON, self.buttonSetMoveRoute_Clicked)
-        self.buttonSentEventLocation.Bind(
-            wx.EVT_BUTTON, self.buttonSetEventLocation_Clicked)
-        self.buttonScrollMap.Bind(wx.EVT_BUTTON, self.buttonScrollMap_Clicked)
-        self.buttonWaitForMovesCompletion.Bind(
-            wx.EVT_BUTTON, self.buttonWaitForMovesCompletion_Clicked)
-        self.buttonPrepareForTransition.Bind(
-            wx.EVT_BUTTON, self.buttonPrepareForTransition_Clicked)
-        self.buttonExecuteTransition.Bind(
-            wx.EVT_BUTTON, self.buttonExecuteTransition_Clicked)
-        self.buttonChangeScreenTone.Bind(
-            wx.EVT_BUTTON, self.buttonChangeScreenTone_Clicked)
-        self.buttonScreenFlash.Bind(
-            wx.EVT_BUTTON, self.buttonScreenFlash_Clicked)
-        self.buttonScreenShake.Bind(
-            wx.EVT_BUTTON, self.buttonScreenShake_Clicked)
-        self.buttonChangePartyMember.Bind(
-            wx.EVT_BUTTON, self.buttonChangePartyMember_Clicked)
-        self.buttonChangeGold.Bind(
-            wx.EVT_BUTTON, self.buttonChangeGold_Clicked)
-        self.buttonChangeItem.Bind(
-            wx.EVT_BUTTON, self.buttonChangeItem_Clicked)
-        self.buttonChangeWeapon.Bind(
-            wx.EVT_BUTTON, self.buttonChangeWeapon_Clicked)
-        self.buttonChangeArmor.Bind(wx.EVT_BUTTON, self.buttonArmor_Clicked)
-        self.buttonChangeMapSettings.Bind(
-            wx.EVT_BUTTON, self.buttonChangeMapSettings_Clicked)
-        self.buttonSetWeatherEffects.Bind(
-            wx.EVT_BUTTON, self.buttonSetWeatherEffects_Clicked)
-        self.buttonChangeFogColorTone.Bind(
-            wx.EVT_BUTTON, self.buttonChangeFogColorTone_Clicked)
-        self.buttonChangeFogOpacity.Bind(
-            wx.EVT_BUTTON, self.buttonChangeFogOpacity_Clicked)
-        self.buttonChangeEncounter.Bind(
-            wx.EVT_BUTTON, self.buttonChangeEncounter_Clicked)
-        self.buttonBattleProcessing.Bind(
-            wx.EVT_BUTTON, self.buttonBattleProcessing_Clicked)
-        self.buttonShopProcessing.Bind(
-            wx.EVT_BUTTON, self.buttonShopProcessing_Clicked)
-        self.buttonNameInputProcessing.Bind(
-            wx.EVT_BUTTON, self.buttonNameInputProcessing_Clicked)
-        self.buttonButtonInputProcessing.Bind(
-            wx.EVT_BUTTON, self.buttonButtonInputProcessing_Clicked)
-        self.buttonGameOver.Bind(wx.EVT_BUTTON, self.buttonGameOver_Clicked)
-        self.buttonReturnToTitleScreen.Bind(
-            wx.EVT_BUTTON, self.buttonReturnToTitleScreen_Clicked)
-        self.buttonChangeMenuAccess.Bind(
-            wx.EVT_BUTTON, self.buttonChangeMenuAccess_Clicked)
-        self.buttonChangeSaveAccess.Bind(
-            wx.EVT_BUTTON, self.buttonChangeSaveAccess_Clicked)
-        self.buttonCallMenuScreen.Bind(
-            wx.EVT_BUTTON, self.buttonCallMenuScreen_Clicked)
-        self.buttonCallSaveScreen.Bind(
-            wx.EVT_BUTTON, self.buttonCallSaveScreen_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonTransferPlayer.Unbind(wx.EVT_BUTTON, None)
-        self.buttonSetMoveRoute.Unbind(wx.EVT_BUTTON, None)
-        self.buttonSentEventLocation.Unbind(wx.EVT_BUTTON, None)
-        self.buttonScrollMap.Unbind(wx.EVT_BUTTON, None)
-        self.buttonWaitForMovesCompletion.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPrepareForTransition.Unbind(wx.EVT_BUTTON, None)
-        self.buttonExecuteTransition.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeScreenTone.Unbind(wx.EVT_BUTTON, None)
-        self.buttonScreenFlash.Unbind(wx.EVT_BUTTON, None)
-        self.buttonScreenShake.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangePartyMember.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeGold.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeItem.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeWeapon.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeArmor.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeMapSettings.Unbind(wx.EVT_BUTTON, None)
-        self.buttonSetWeatherEffects.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeFogColorTone.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeFogOpacity.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeEncounter.Unbind(wx.EVT_BUTTON, None)
-        self.buttonBattleProcessing.Unbind(wx.EVT_BUTTON, None)
-        self.buttonShopProcessing.Unbind(wx.EVT_BUTTON, None)
-        self.buttonNameInputProcessing.Unbind(wx.EVT_BUTTON, None)
-        self.buttonButtonInputProcessing.Unbind(wx.EVT_BUTTON, None)
-        self.buttonGameOver.Unbind(wx.EVT_BUTTON, None)
-        self.buttonReturnToTitleScreen.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeMenuAccess.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeSaveAccess.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCallMenuScreen.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCallSaveScreen.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonTransferPlayer_Clicked(self, event):
-        pass
-
-    def buttonSetMoveRoute_Clicked(self, event):
-        pass
-
-    def buttonSetEventLocation_Clicked(self, event):
-        pass
-
-    def buttonScrollMap_Clicked(self, event):
-        pass
-
-    def buttonWaitForMovesCompletion_Clicked(self, event):
-        pass
-
-    def buttonPrepareForTransition_Clicked(self, event):
-        pass
-
-    def buttonExecuteTransition_Clicked(self, event):
-        pass
-
-    def buttonChangeScreenTone_Clicked(self, event):
-        pass
-
-    def buttonScreenFlash_Clicked(self, event):
-        pass
-
-    def buttonScreenShake_Clicked(self, event):
-        pass
-
-    def buttonChangePartyMember_Clicked(self, event):
-        pass
-
-    def buttonChangeGold_Clicked(self, event):
-        pass
-
-    def buttonChangeItem_Clicked(self, event):
-        pass
-
-    def buttonChangeWeapon_Clicked(self, event):
-        pass
-
-    def buttonArmor_Clicked(self, event):
-        pass
-
-    def buttonChangeMapSettings_Clicked(self, event):
-        pass
-
-    def buttonSetWeatherEffects_Clicked(self, event):
-        pass
-
-    def buttonChangeFogColorTone_Clicked(self, event):
-        pass
-
-    def buttonChangeFogOpacity_Clicked(self, event):
-        pass
-
-    def buttonChangeEncounter_Clicked(self, event):
-        pass
-
-    def buttonBattleProcessing_Clicked(self, event):
-        pass
-
-    def buttonShopProcessing_Clicked(self, event):
-        pass
-
-    def buttonNameInputProcessing_Clicked(self, event):
-        pass
-
-    def buttonButtonInputProcessing_Clicked(self, event):
-        pass
-
-    def buttonGameOver_Clicked(self, event):
-        pass
-
-    def buttonReturnToTitleScreen_Clicked(self, event):
-        pass
-
-    def buttonChangeMenuAccess_Clicked(self, event):
-        pass
-
-    def buttonChangeSaveAccess_Clicked(self, event):
-        pass
-
-    def buttonCallMenuScreen_Clicked(self, event):
-        pass
-
-    def buttonCallSaveScreen_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class EventCommands3_Panel_Template
-###########################################################################
-
-class EventCommands3_Panel_Template (wx.Panel):
-
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(
-            400, 450), style=wx.TAB_TRAVERSAL)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerLeft = wx.BoxSizer(wx.VERTICAL)
-
-        sizerCharacter = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Character")), wx.VERTICAL)
-
-        self.buttonChangeTransparency = wx.Button(self, wx.ID_ANY, _(
-            "Change Transparency..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerCharacter.Add(
-            self.buttonChangeTransparency, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonShowAnimation = wx.Button(
-            self, wx.ID_ANY, _("Show Animation..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerCharacter.Add(
-            self.buttonShowAnimation, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonEraseEvent = wx.Button(
-            self, wx.ID_ANY, _("Erase Event"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerCharacter.Add(
-            self.buttonEraseEvent, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerLeft.Add(sizerCharacter, 0, wx.ALL | wx.EXPAND, 5)
-
-        sizerActor = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Actor")), wx.VERTICAL)
-
-        self.buttonChangeHP = wx.Button(
-            self, wx.ID_ANY, _("Change HP..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeHP, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonChangeSP = wx.Button(
-            self, wx.ID_ANY, _("Change SP..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeSP, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeState = wx.Button(
-            self, wx.ID_ANY, _("Change State..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeState, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonRecoverAll = wx.Button(
-            self, wx.ID_ANY, _("Recover All"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonRecoverAll, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeExperience = wx.Button(self, wx.ID_ANY, _(
-            "Change Experience..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeExperience, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeLevel = wx.Button(
-            self, wx.ID_ANY, _("Change Level..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeLevel, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeParamters = wx.Button(self, wx.ID_ANY, _(
-            "Change Parameters..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeParamters, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeSkills = wx.Button(
-            self, wx.ID_ANY, _("Change Skills..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeSkills, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeEquipment = wx.Button(
-            self, wx.ID_ANY, _("Change Equipment..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeEquipment, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeActorName = wx.Button(self, wx.ID_ANY, _(
-            "Change Actor Name..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeActorName, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeActorClass = wx.Button(self, wx.ID_ANY, _(
-            "Change Actor Class..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeActorClass, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeActorGraphic = wx.Button(self, wx.ID_ANY, _(
-            "Change Actor Graphic..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerActor.Add(
-            self.buttonChangeActorGraphic, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerLeft.Add(sizerActor, 0, wx.EXPAND | wx.ALL, 5)
-
-        MainSizer.Add(sizerLeft, 1, wx.EXPAND, 5)
-
-        sizerRight = wx.BoxSizer(wx.VERTICAL)
-
-        sizerPicture = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Picture")), wx.VERTICAL)
-
-        self.buttonShowPicture = wx.Button(
-            self, wx.ID_ANY, _("Show Picture..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerPicture.Add(
-            self.buttonShowPicture, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonMovePicture = wx.Button(
-            self, wx.ID_ANY, _("Move Picture..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerPicture.Add(
-            self.buttonMovePicture, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonRotatePicture = wx.Button(
-            self, wx.ID_ANY, _("Rotate Picture..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerPicture.Add(
-            self.buttonRotatePicture, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangePictureColorTone = wx.Button(self, wx.ID_ANY, _(
-            "Change Picture Color Tone..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerPicture.Add(
-            self.buttonChangePictureColorTone, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonErasePicture = wx.Button(
-            self, wx.ID_ANY, _("Erase Picture..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerPicture.Add(
-            self.buttonErasePicture, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerRight.Add(sizerPicture, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerBattle = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Battle")), wx.VERTICAL)
-
-        self.buttonChangeEnemyHP = wx.Button(
-            self, wx.ID_ANY, _("Change Enemy HP..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonChangeEnemyHP, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        self.buttonChangeEnemySP = wx.Button(
-            self, wx.ID_ANY, _("Change Enemy SP..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonChangeEnemySP, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonChangeEnemyState = wx.Button(self, wx.ID_ANY, _(
-            "Change Enemy State..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonChangeEnemyState, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonEnemyRecoverAll = wx.Button(self, wx.ID_ANY, _(
-            "Enemy Recover All..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonEnemyRecoverAll, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonEnemyApperance = wx.Button(
-            self, wx.ID_ANY, _("Enemy Appearance..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonEnemyApperance, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonEnemyTransform = wx.Button(
-            self, wx.ID_ANY, _("Enemy Transform..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonEnemyTransform, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonShowBattleAnimation = wx.Button(self, wx.ID_ANY, _(
-            "Show Battle Animation..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonShowBattleAnimation, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonDealDamage = wx.Button(
-            self, wx.ID_ANY, _("Deal Damage..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonDealDamage, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonForceAction = wx.Button(
-            self, wx.ID_ANY, _("Force Action..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonForceAction, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.buttonAbortBattle = wx.Button(
-            self, wx.ID_ANY, _("Abort Battle"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerBattle.Add(
-            self.buttonAbortBattle, 0, wx.EXPAND | wx.RIGHT | wx.LEFT, 5)
-
-        sizerRight.Add(sizerBattle, 0, wx.EXPAND | wx.ALL, 5)
-
-        MainSizer.Add(sizerRight, 1, wx.EXPAND, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        # Connect Events
-        self.buttonChangeTransparency.Bind(
-            wx.EVT_BUTTON, self.buttonChangeTransparency_Clicked)
-        self.buttonShowAnimation.Bind(
-            wx.EVT_BUTTON, self.buttonShowAnimation_Clicked)
-        self.buttonEraseEvent.Bind(
-            wx.EVT_BUTTON, self.buttonEraseEvent_Clicked)
-        self.buttonChangeHP.Bind(wx.EVT_BUTTON, self.buttonChangeHP_Clicked)
-        self.buttonChangeSP.Bind(wx.EVT_BUTTON, self.buttonChangeSP_Clicked)
-        self.buttonChangeState.Bind(
-            wx.EVT_BUTTON, self.buttonChangeState_Clicked)
-        self.buttonRecoverAll.Bind(
-            wx.EVT_BUTTON, self.buttonRecoverAll_Clicked)
-        self.buttonChangeExperience.Bind(
-            wx.EVT_BUTTON, self.buttonChangeExperience_Clicked)
-        self.buttonChangeLevel.Bind(
-            wx.EVT_BUTTON, self.buttonChangeLevel_Clicked)
-        self.buttonChangeParamters.Bind(
-            wx.EVT_BUTTON, self.buttonChangeParameters_Clicked)
-        self.buttonChangeSkills.Bind(
-            wx.EVT_BUTTON, self.buttonChangeSkills_Clicked)
-        self.buttonChangeEquipment.Bind(
-            wx.EVT_BUTTON, self.buttonChangeEquipment_Clicked)
-        self.buttonChangeActorName.Bind(
-            wx.EVT_BUTTON, self.buttonChangeActorName_Clicked)
-        self.buttonChangeActorClass.Bind(
-            wx.EVT_BUTTON, self.buttonChangeActorClass_Clicked)
-        self.buttonChangeActorGraphic.Bind(
-            wx.EVT_BUTTON, self.buttonChangeActorGraphic_Clicked)
-        self.buttonShowPicture.Bind(
-            wx.EVT_BUTTON, self.buttonShowPicture_Clicked)
-        self.buttonMovePicture.Bind(
-            wx.EVT_BUTTON, self.buttonMovePicture_Clicked)
-        self.buttonRotatePicture.Bind(
-            wx.EVT_BUTTON, self.buttonRotatePicture_Clicked)
-        self.buttonChangePictureColorTone.Bind(
-            wx.EVT_BUTTON, self.buttonChangePictureColorTone_Clicked)
-        self.buttonErasePicture.Bind(
-            wx.EVT_BUTTON, self.buttonErasePicture_Clicked)
-        self.buttonChangeEnemyHP.Bind(
-            wx.EVT_BUTTON, self.buttonChangeEnemyHP_Clicked)
-        self.buttonChangeEnemySP.Bind(
-            wx.EVT_BUTTON, self.buttonChangeEnemySP_Clicked)
-        self.buttonChangeEnemyState.Bind(
-            wx.EVT_BUTTON, self.buttonChangeEnemyState_Clicked)
-        self.buttonEnemyRecoverAll.Bind(
-            wx.EVT_BUTTON, self.buttonEnemyRecoverAll_Clicked)
-        self.buttonEnemyApperance.Bind(
-            wx.EVT_BUTTON, self.buttonEnemyAppearance_Clicked)
-        self.buttonEnemyTransform.Bind(
-            wx.EVT_BUTTON, self.buttonEnemyTransform_Clicked)
-        self.buttonShowBattleAnimation.Bind(
-            wx.EVT_BUTTON, self.buttonShowBattleAnimation_Clicked)
-        self.buttonDealDamage.Bind(
-            wx.EVT_BUTTON, self.buttonDealDamage_Clicked)
-        self.buttonForceAction.Bind(
-            wx.EVT_BUTTON, self.buttonForceAction_Clicked)
-        self.buttonAbortBattle.Bind(
-            wx.EVT_BUTTON, self.buttonAbortBattle_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonChangeTransparency.Unbind(wx.EVT_BUTTON, None)
-        self.buttonShowAnimation.Unbind(wx.EVT_BUTTON, None)
-        self.buttonEraseEvent.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeHP.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeSP.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeState.Unbind(wx.EVT_BUTTON, None)
-        self.buttonRecoverAll.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeExperience.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeLevel.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeParamters.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeSkills.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeEquipment.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeActorName.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeActorClass.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeActorGraphic.Unbind(wx.EVT_BUTTON, None)
-        self.buttonShowPicture.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMovePicture.Unbind(wx.EVT_BUTTON, None)
-        self.buttonRotatePicture.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangePictureColorTone.Unbind(wx.EVT_BUTTON, None)
-        self.buttonErasePicture.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeEnemyHP.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeEnemySP.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeEnemyState.Unbind(wx.EVT_BUTTON, None)
-        self.buttonEnemyRecoverAll.Unbind(wx.EVT_BUTTON, None)
-        self.buttonEnemyApperance.Unbind(wx.EVT_BUTTON, None)
-        self.buttonEnemyTransform.Unbind(wx.EVT_BUTTON, None)
-        self.buttonShowBattleAnimation.Unbind(wx.EVT_BUTTON, None)
-        self.buttonDealDamage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonForceAction.Unbind(wx.EVT_BUTTON, None)
-        self.buttonAbortBattle.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonChangeTransparency_Clicked(self, event):
-        pass
-
-    def buttonShowAnimation_Clicked(self, event):
-        pass
-
-    def buttonEraseEvent_Clicked(self, event):
-        pass
-
-    def buttonChangeHP_Clicked(self, event):
-        pass
-
-    def buttonChangeSP_Clicked(self, event):
-        pass
-
-    def buttonChangeState_Clicked(self, event):
-        pass
-
-    def buttonRecoverAll_Clicked(self, event):
-        pass
-
-    def buttonChangeExperience_Clicked(self, event):
-        pass
-
-    def buttonChangeLevel_Clicked(self, event):
-        pass
-
-    def buttonChangeParameters_Clicked(self, event):
-        pass
-
-    def buttonChangeSkills_Clicked(self, event):
-        pass
-
-    def buttonChangeEquipment_Clicked(self, event):
-        pass
-
-    def buttonChangeActorName_Clicked(self, event):
-        pass
-
-    def buttonChangeActorClass_Clicked(self, event):
-        pass
-
-    def buttonChangeActorGraphic_Clicked(self, event):
-        pass
-
-    def buttonShowPicture_Clicked(self, event):
-        pass
-
-    def buttonMovePicture_Clicked(self, event):
-        pass
-
-    def buttonRotatePicture_Clicked(self, event):
-        pass
-
-    def buttonChangePictureColorTone_Clicked(self, event):
-        pass
-
-    def buttonErasePicture_Clicked(self, event):
-        pass
-
-    def buttonChangeEnemyHP_Clicked(self, event):
-        pass
-
-    def buttonChangeEnemySP_Clicked(self, event):
-        pass
-
-    def buttonChangeEnemyState_Clicked(self, event):
-        pass
-
-    def buttonEnemyRecoverAll_Clicked(self, event):
-        pass
-
-    def buttonEnemyAppearance_Clicked(self, event):
-        pass
-
-    def buttonEnemyTransform_Clicked(self, event):
-        pass
-
-    def buttonShowBattleAnimation_Clicked(self, event):
-        pass
-
-    def buttonDealDamage_Clicked(self, event):
-        pass
-
-    def buttonForceAction_Clicked(self, event):
-        pass
-
-    def buttonAbortBattle_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class EventEditor_Panel_Template
-###########################################################################
-
-class EventEditor_Panel_Template (wx.Panel):
-
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(
-            683, 479), style=wx.TAB_TRAVERSAL)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerControls = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerName = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelName.Wrap(-1)
-        sizerName.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(-1, -1), 0)
-        self.textCtrlName.SetMaxLength(0)
-        sizerName.Add(
-            self.textCtrlName, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        sizerControls.Add(sizerName, 1, wx.EXPAND, 5)
-
-        self.buttonNewPage = wx.Button(
-            self, wx.ID_ANY, _("New\nEvent Page"), wx.DefaultPosition, wx.Size(-1, 42), 0)
-        sizerControls.Add(self.buttonNewPage, 0, wx.ALL, 5)
-
-        self.buttonCopyPage = wx.Button(
-            self, wx.ID_ANY, _("Copy\nEvent Page"), wx.DefaultPosition, wx.Size(-1, 42), 0)
-        sizerControls.Add(self.buttonCopyPage, 0, wx.ALL, 5)
-
-        self.buttonPastePage = wx.Button(
-            self, wx.ID_ANY, _("Paste\nEvent Page"), wx.DefaultPosition, wx.Size(-1, 42), 0)
-        sizerControls.Add(self.buttonPastePage, 0, wx.ALL, 5)
-
-        self.buttonDeletePage = wx.Button(
-            self, wx.ID_ANY, _("Delete\nEvent Page"), wx.DefaultPosition, wx.Size(-1, 42), 0)
-        sizerControls.Add(self.buttonDeletePage, 0, wx.ALL, 5)
-
-        self.buttonClearPage = wx.Button(
-            self, wx.ID_ANY, _("Clear\nEvent Page"), wx.DefaultPosition, wx.Size(-1, 42), 0)
-        sizerControls.Add(self.buttonClearPage, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerControls, 0, wx.EXPAND, 5)
-
-        self.noteBookEventPages = wx.Notebook(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
-
-        MainSizer.Add(self.noteBookEventPages, 1, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        self.buttonApply = wx.Button(
-            self, wx.ID_ANY, _("Apply"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonApply, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        # Connect Events
-        self.buttonNewPage.Bind(wx.EVT_BUTTON, self.buttonNewPage_Clicked)
-        self.buttonCopyPage.Bind(wx.EVT_BUTTON, self.buttonCopyPage_Clicked)
-        self.buttonPastePage.Bind(wx.EVT_BUTTON, self.buttonPastePage_Clicked)
-        self.buttonDeletePage.Bind(
-            wx.EVT_BUTTON, self.buttonDeletePage_Clicked)
-        self.buttonClearPage.Bind(wx.EVT_BUTTON, self.buttonClearPage_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-        self.buttonApply.Bind(wx.EVT_BUTTON, self.buttonApply_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonNewPage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCopyPage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPastePage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonDeletePage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonClearPage.Unbind(wx.EVT_BUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-        self.buttonApply.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonNewPage_Clicked(self, event):
-        pass
-
-    def buttonCopyPage_Clicked(self, event):
-        pass
-
-    def buttonPastePage_Clicked(self, event):
-        pass
-
-    def buttonDeletePage_Clicked(self, event):
-        pass
-
-    def buttonClearPage_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-    def buttonApply_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class EventPage_Panel_Template
-###########################################################################
-
-class EventPage_Panel_Template (wx.Panel):
-
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(
-            742, 509), style=wx.TAB_TRAVERSAL)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerSettings = wx.BoxSizer(wx.VERTICAL)
-
-        sizerConditions = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Conditions")), wx.VERTICAL)
-
-        sizerSwitch1 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.checkBoxSwitch1 = wx.CheckBox(
-            self, wx.ID_ANY, _("Switch"), wx.DefaultPosition, wx.Size(76, -1), 0)
-        sizerSwitch1.Add(
-            self.checkBoxSwitch1, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
-
-        comboBoxSwitch1Choices = []
-        self.comboBoxSwitch1 = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSwitch1Choices, 0)
-        sizerSwitch1.Add(self.comboBoxSwitch1, 0, wx.ALL, 5)
-
-        self.labelSwitchOn1 = wx.StaticText(
-            self, wx.ID_ANY, _("is ON"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSwitchOn1.Wrap(-1)
-        sizerSwitch1.Add(
-            self.labelSwitchOn1, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
-
-        sizerConditions.Add(sizerSwitch1, 0, wx.EXPAND, 5)
-
-        sizerSwitch2 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.checkBoxSwitch2 = wx.CheckBox(
-            self, wx.ID_ANY, _("Switch"), wx.DefaultPosition, wx.Size(76, -1), 0)
-        sizerSwitch2.Add(
-            self.checkBoxSwitch2, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        comboBoxSwitch2Choices = []
-        self.comboBoxSwitch2 = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSwitch2Choices, 0)
-        sizerSwitch2.Add(
-            self.comboBoxSwitch2, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelSwitchOn2 = wx.StaticText(
-            self, wx.ID_ANY, _("is ON"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSwitchOn2.Wrap(-1)
-        sizerSwitch2.Add(
-            self.labelSwitchOn2, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerConditions.Add(sizerSwitch2, 0, wx.EXPAND, 5)
-
-        sizerVariable1 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.checkBoxVariable = wx.CheckBox(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(76, -1), 0)
-        sizerVariable1.Add(
-            self.checkBoxVariable, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        sizerVariable1.Add(
-            self.comboBoxVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labeVariable1 = wx.StaticText(
-            self, wx.ID_ANY, _("is"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labeVariable1.Wrap(-1)
-        sizerVariable1.Add(
-            self.labeVariable1, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerConditions.Add(sizerVariable1, 0, wx.EXPAND, 5)
-
-        sizerVariable2 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(76, -1), 0)
-        self.labelDummy.Wrap(-1)
-        sizerVariable2.Add(self.labelDummy, 0, wx.ALL, 5)
-
-        self.spinCtrlVariable = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(96, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerVariable2.Add(
-            self.spinCtrlVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelVariable2 = wx.StaticText(
-            self, wx.ID_ANY, _("or Higher"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelVariable2.Wrap(-1)
-        sizerVariable2.Add(self.labelVariable2, 0, wx.BOTTOM |
-                           wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerConditions.Add(sizerVariable2, 0, wx.EXPAND, 5)
-
-        sizerSelfSwitch = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.checkBoxSelfSwitch = wx.CheckBox(
-            self, wx.ID_ANY, _("Self Switch"), wx.DefaultPosition, wx.Size(76, -1), 0)
-        sizerSelfSwitch.Add(self.checkBoxSelfSwitch, 0, wx.BOTTOM |
-                            wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxSelfSwitchChoices = [_("A"), _("B"), _("C"), _("D"), _("E"), _("F"), _("G"), _("H"), _("I"), _("J"), _("K"), _(
-            "L"), _("M"), _("N"), _("O"), _("P"), _("Q"), _("R"), _("S"), _("T"), _("U"), _("V"), _("W"), _("X"), _("Y"), _("Z")]
-        self.comboBoxSelfSwitch = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(96, -1), comboBoxSelfSwitchChoices, 0)
-        self.comboBoxSelfSwitch.SetSelection(0)
-        sizerSelfSwitch.Add(
-            self.comboBoxSelfSwitch, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelSelfSwitch = wx.StaticText(
-            self, wx.ID_ANY, _("is ON"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSelfSwitch.Wrap(-1)
-        sizerSelfSwitch.Add(self.labelSelfSwitch, 0, wx.BOTTOM |
-                            wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerConditions.Add(sizerSelfSwitch, 0, wx.EXPAND, 5)
-
-        sizerSelfVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.checkBoxSelfVariable = wx.CheckBox(
-            self, wx.ID_ANY, _("Self Variable"), wx.DefaultPosition, wx.Size(76, -1), 0)
-        sizerSelfVariable.Add(
-            self.checkBoxSelfVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlSelfVariable = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(96, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerSelfVariable.Add(
-            self.spinCtrlSelfVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelSelfVariable = wx.StaticText(
-            self, wx.ID_ANY, _("or Higher"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSelfVariable.Wrap(-1)
-        sizerSelfVariable.Add(
-            self.labelSelfVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerConditions.Add(sizerSelfVariable, 0, 0, 5)
-
-        sizerScript = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelScript = wx.CheckBox(
-            self, wx.ID_ANY, _("Script"), wx.DefaultPosition, wx.Size(76, -1), 0)
-        sizerScript.Add(self.labelScript, 0, wx.BOTTOM |
-                        wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxScriptChoices = []
-        self.comboBoxScript = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(96, -1), comboBoxScriptChoices, 0)
-        sizerScript.Add(
-            self.comboBoxScript, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelScript = wx.StaticText(
-            self, wx.ID_ANY, _("is TRUE"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelScript.Wrap(-1)
-        sizerScript.Add(
-            self.labelScript, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerConditions.Add(sizerScript, 0, wx.EXPAND, 5)
-
-        sizerSettings.Add(sizerConditions, 0, wx.ALL | wx.EXPAND, 5)
-
-        sizerLookRoute = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerGraphic = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelGraphic.Wrap(-1)
-        sizerGraphic.Add(self.labelGraphic, 0, wx.ALL, 5)
-
-        self.bitmapGraphic = wx.StaticBitmap(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(90, 120), wx.SUNKEN_BORDER)
-        sizerGraphic.Add(
-            self.bitmapGraphic, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerLookRoute.Add(sizerGraphic, 0, 0, 5)
-
-        sizerMovement = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Autonomous Movement")), wx.VERTICAL)
-
-        sizerMoveType = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelMoveType = wx.StaticText(
-            self, wx.ID_ANY, _("Type:"), wx.DefaultPosition, wx.Size(36, -1), 0)
-        self.labelMoveType.Wrap(-1)
-        sizerMoveType.Add(
-            self.labelMoveType, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
-
-        comboBoxMoveTypeChoices = [
-            _("Fixed"), _("Random"), _("Approach"), _("Custom")]
-        self.comboBoxMoveType = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxMoveTypeChoices, 0)
-        self.comboBoxMoveType.SetSelection(0)
-        sizerMoveType.Add(
-            self.comboBoxMoveType, 1, wx.EXPAND | wx.ALIGN_BOTTOM | wx.ALL, 5)
-
-        sizerMovement.Add(sizerMoveType, 0, wx.EXPAND, 5)
-
-        sizerMoveRoute = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelMoveDummy = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(36, -1), 0)
-        self.labelMoveDummy.Wrap(-1)
-        sizerMoveRoute.Add(self.labelMoveDummy, 0, wx.ALL, 5)
-
-        self.buttonMoveRoute = wx.Button(
-            self, wx.ID_ANY, _("Move Route..."), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerMoveRoute.Add(
-            self.buttonMoveRoute, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_RIGHT, 5)
-
-        sizerMovement.Add(sizerMoveRoute, 0, wx.EXPAND, 5)
-
-        sizerMoveSpeed = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelMoveSpeed = wx.StaticText(
-            self, wx.ID_ANY, _("Speed:"), wx.DefaultPosition, wx.Size(36, -1), 0)
-        self.labelMoveSpeed.Wrap(-1)
-        sizerMoveSpeed.Add(
-            self.labelMoveSpeed, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        comboBoxMoveSpeedChoices = [_("1: Slowest"), _("2: Slower"), _(
-            "3: Slow"), _("4: Fast"), _("5: Faster"), _("6: Fastest")]
-        self.comboBoxMoveSpeed = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxMoveSpeedChoices, 0)
-        self.comboBoxMoveSpeed.SetSelection(3)
-        sizerMoveSpeed.Add(self.comboBoxMoveSpeed, 1, wx.EXPAND |
-                           wx.ALIGN_BOTTOM | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerMovement.Add(sizerMoveSpeed, 0, wx.EXPAND, 5)
-
-        sizerMoveFreq = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelMoveFreq = wx.StaticText(
-            self, wx.ID_ANY, _("Freq:"), wx.DefaultPosition, wx.Size(36, -1), 0)
-        self.labelMoveFreq.Wrap(-1)
-        sizerMoveFreq.Add(
-            self.labelMoveFreq, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        comboBoxMoveFreqChoices = [_("1: Lowest"), _("2: Lower"), _(
-            "3: Low"), _("4: High"), _("5: Higher"), _("6: Highest")]
-        self.comboBoxMoveFreq = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxMoveFreqChoices, 0)
-        self.comboBoxMoveFreq.SetSelection(3)
-        sizerMoveFreq.Add(self.comboBoxMoveFreq, 1, wx.EXPAND |
-                          wx.ALIGN_BOTTOM | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerMovement.Add(sizerMoveFreq, 0, wx.EXPAND, 5)
-
-        sizerLookRoute.Add(sizerMovement, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerSettings.Add(sizerLookRoute, 0, wx.EXPAND, 5)
-
-        sizerOptionsTrigger = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerOptions = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Options")), wx.VERTICAL)
-
-        self.checkBoxMoveAnimation = wx.CheckBox(
-            self, wx.ID_ANY, _("Move Animation"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.checkBoxMoveAnimation.SetValue(True)
-        sizerOptions.Add(self.checkBoxMoveAnimation, 0, wx.ALL, 5)
-
-        self.checkBoxStopAnimation = wx.CheckBox(
-            self, wx.ID_ANY, _("Stop Animation"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOptions.Add(
-            self.checkBoxStopAnimation, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.checkBoxDirectionFix = wx.CheckBox(
-            self, wx.ID_ANY, _("Direction Fix"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOptions.Add(
-            self.checkBoxDirectionFix, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.checkBoxThrough = wx.CheckBox(
-            self, wx.ID_ANY, _("Through"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOptions.Add(
-            self.checkBoxThrough, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.checkBoxAlwaysTop = wx.CheckBox(
-            self, wx.ID_ANY, _("Always on Top"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOptions.Add(
-            self.checkBoxAlwaysTop, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerOptionsTrigger.Add(sizerOptions, 1, wx.EXPAND | wx.ALL, 5)
-
-        radioBoxTriggerChoices = [_("Action Button"), _("Player Touch"), _(
-            "Event Touch"), _("Autorun"), _("Parallel Process")]
-        self.radioBoxTrigger = wx.RadioBox(self, wx.ID_ANY, _(
-            "Trigger"), wx.DefaultPosition, wx.DefaultSize, radioBoxTriggerChoices, 1, wx.RA_SPECIFY_COLS)
-        self.radioBoxTrigger.SetSelection(0)
-        sizerOptionsTrigger.Add(self.radioBoxTrigger, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerSettings.Add(sizerOptionsTrigger, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerSettings, 0, wx.EXPAND, 5)
-
-        sizerCommands = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelCommands = wx.StaticText(self, wx.ID_ANY, _(
-            "List of Event Commands:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelCommands.Wrap(-1)
-        sizerCommands.Add(self.labelCommands, 0, wx.ALL, 5)
-
-        listBoxCommandsChoices = [_("@>")]
-        self.listBoxCommands = wx.ListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxCommandsChoices, 0)
-        sizerCommands.Add(
-            self.listBoxCommands, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerCommands, 1, wx.EXPAND, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-    def __del__(self):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -6552,15 +4712,15 @@ class BattleTestActor_Panel_Template (wx.Panel):
 
         sizerWeapon = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelWeapon = wx.StaticText(
-            self, wx.ID_ANY, _("Weapon:"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.labelWeapon = wx.StaticText(sizerEquipment.GetStaticBox(), wx.ID_ANY, _(
+            "Weapon:"), wx.DefaultPosition, wx.Size(64, -1), 0)
         self.labelWeapon.Wrap(-1)
         sizerWeapon.Add(
             self.labelWeapon, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxWeaponChoices = []
-        self.comboBoxWeapon = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0)
+        self.comboBoxWeapon = wx.Choice(sizerEquipment.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0)
         self.comboBoxWeapon.SetSelection(0)
         sizerWeapon.Add(self.comboBoxWeapon, 1, wx.ALL, 5)
 
@@ -6568,15 +4728,15 @@ class BattleTestActor_Panel_Template (wx.Panel):
 
         sizerShield = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelShield = wx.StaticText(
-            self, wx.ID_ANY, _("Shield:"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.labelShield = wx.StaticText(sizerEquipment.GetStaticBox(), wx.ID_ANY, _(
+            "Shield:"), wx.DefaultPosition, wx.Size(64, -1), 0)
         self.labelShield.Wrap(-1)
         sizerShield.Add(
             self.labelShield, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxShieldChoices = []
-        self.comboBoxShield = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxShieldChoices, 0)
+        self.comboBoxShield = wx.Choice(sizerEquipment.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxShieldChoices, 0)
         self.comboBoxShield.SetSelection(0)
         sizerShield.Add(self.comboBoxShield, 1, wx.ALL, 5)
 
@@ -6584,15 +4744,15 @@ class BattleTestActor_Panel_Template (wx.Panel):
 
         sizerHelmet = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelHelmet = wx.StaticText(
-            self, wx.ID_ANY, _("Helmet:"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.labelHelmet = wx.StaticText(sizerEquipment.GetStaticBox(), wx.ID_ANY, _(
+            "Helmet:"), wx.DefaultPosition, wx.Size(64, -1), 0)
         self.labelHelmet.Wrap(-1)
         sizerHelmet.Add(
             self.labelHelmet, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxHelmetChoices = []
-        self.comboBoxHelmet = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxHelmetChoices, 0)
+        self.comboBoxHelmet = wx.Choice(sizerEquipment.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxHelmetChoices, 0)
         self.comboBoxHelmet.SetSelection(0)
         sizerHelmet.Add(self.comboBoxHelmet, 1, wx.ALL, 5)
 
@@ -6600,15 +4760,15 @@ class BattleTestActor_Panel_Template (wx.Panel):
 
         sizerArmor = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelBodyArmor = wx.StaticText(
-            self, wx.ID_ANY, _("Body Armor:"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.labelBodyArmor = wx.StaticText(sizerEquipment.GetStaticBox(), wx.ID_ANY, _(
+            "Body Armor:"), wx.DefaultPosition, wx.Size(64, -1), 0)
         self.labelBodyArmor.Wrap(-1)
         sizerArmor.Add(
             self.labelBodyArmor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxBodyArmorChoices = []
-        self.comboBoxBodyArmor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBodyArmorChoices, 0)
+        self.comboBoxBodyArmor = wx.Choice(sizerEquipment.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBodyArmorChoices, 0)
         self.comboBoxBodyArmor.SetSelection(0)
         sizerArmor.Add(self.comboBoxBodyArmor, 1, wx.ALL, 5)
 
@@ -6616,15 +4776,15 @@ class BattleTestActor_Panel_Template (wx.Panel):
 
         sizerAccessory = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelAccessory = wx.StaticText(
-            self, wx.ID_ANY, _("Accessory:"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.labelAccessory = wx.StaticText(sizerEquipment.GetStaticBox(), wx.ID_ANY, _(
+            "Accessory:"), wx.DefaultPosition, wx.Size(64, -1), 0)
         self.labelAccessory.Wrap(-1)
         sizerAccessory.Add(
             self.labelAccessory, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxAccessoryChoices = []
-        self.comboBoxAccessory = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAccessoryChoices, 0)
+        self.comboBoxAccessory = wx.Choice(sizerEquipment.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAccessoryChoices, 0)
         self.comboBoxAccessory.SetSelection(0)
         sizerAccessory.Add(self.comboBoxAccessory, 1, wx.ALL, 5)
 
@@ -6641,53 +4801,53 @@ class BattleTestActor_Panel_Template (wx.Panel):
 
         sizerStatName = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelNameMaxHP = wx.StaticText(
-            self, wx.ID_ANY, _("MaxHP:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameMaxHP = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "MaxHP:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameMaxHP.Wrap(-1)
         sizerStatName.Add(self.labelNameMaxHP, 0, wx.ALL, 5)
 
-        self.labelNameMaxSP = wx.StaticText(
-            self, wx.ID_ANY, _("MaxSP:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameMaxSP = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "MaxSP:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameMaxSP.Wrap(-1)
         sizerStatName.Add(
             self.labelNameMaxSP, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelNameStr = wx.StaticText(
-            self, wx.ID_ANY, _("STR:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameStr = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "STR:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameStr.Wrap(-1)
         sizerStatName.Add(self.labelNameStr, 0, wx.ALL, 5)
 
-        self.labelNameDex = wx.StaticText(
-            self, wx.ID_ANY, _("DEX:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameDex = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "DEX:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameDex.Wrap(-1)
         sizerStatName.Add(
             self.labelNameDex, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelNameAgi = wx.StaticText(
-            self, wx.ID_ANY, _("AGI:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameAgi = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "AGI:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameAgi.Wrap(-1)
         sizerStatName.Add(
             self.labelNameAgi, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelNameInt = wx.StaticText(
-            self, wx.ID_ANY, _("INT:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameInt = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "INT:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameInt.Wrap(-1)
         sizerStatName.Add(
             self.labelNameInt, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelNameAtk = wx.StaticText(
-            self, wx.ID_ANY, _("ATK:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameAtk = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "ATK:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameAtk.Wrap(-1)
         sizerStatName.Add(self.labelNameAtk, 0, wx.ALL, 5)
 
-        self.labelNamePdef = wx.StaticText(
-            self, wx.ID_ANY, _("PDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNamePdef = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "PDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNamePdef.Wrap(-1)
         sizerStatName.Add(
             self.labelNamePdef, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelNameMdef = wx.StaticText(
-            self, wx.ID_ANY, _("MDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelNameMdef = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "MDEF:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelNameMdef.Wrap(-1)
         sizerStatName.Add(
             self.labelNameMdef, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -6696,53 +4856,53 @@ class BattleTestActor_Panel_Template (wx.Panel):
 
         sizerStatValue = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelValueMaxHP = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueMaxHP = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueMaxHP.Wrap(-1)
         sizerStatValue.Add(self.labelValueMaxHP, 0, wx.ALL | wx.ALIGN_RIGHT, 5)
 
-        self.labelValueMaxSP = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueMaxSP = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueMaxSP.Wrap(-1)
         sizerStatValue.Add(
             self.labelValueMaxSP, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_RIGHT, 5)
 
-        self.labelValueStr = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueStr = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueStr.Wrap(-1)
         sizerStatValue.Add(self.labelValueStr, 0, wx.ALL | wx.ALIGN_RIGHT, 5)
 
-        self.labelValueDex = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueDex = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueDex.Wrap(-1)
         sizerStatValue.Add(
             self.labelValueDex, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_RIGHT, 5)
 
-        self.labelValueAgi = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueAgi = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueAgi.Wrap(-1)
         sizerStatValue.Add(
             self.labelValueAgi, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_RIGHT, 5)
 
-        self.labelValueInt = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueInt = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueInt.Wrap(-1)
         sizerStatValue.Add(
             self.labelValueInt, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_RIGHT, 5)
 
-        self.labelValueAtk = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueAtk = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueAtk.Wrap(-1)
         sizerStatValue.Add(self.labelValueAtk, 0, wx.ALL | wx.ALIGN_RIGHT, 5)
 
-        self.labelValuePdef = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValuePdef = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValuePdef.Wrap(-1)
         sizerStatValue.Add(
             self.labelValuePdef, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_RIGHT, 5)
 
-        self.labelValueMdef = wx.StaticText(
-            self, wx.ID_ANY, _("(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelValueMdef = wx.StaticText(sizerStatus.GetStaticBox(), wx.ID_ANY, _(
+            "(Value)"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelValueMdef.Wrap(-1)
         sizerStatValue.Add(
             self.labelValueMdef, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_RIGHT, 5)
@@ -6769,20 +4929,17 @@ class BattleTestActor_Panel_Template (wx.Panel):
         self.buttonIntialize.Bind(wx.EVT_BUTTON, self.buttonInitialize_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.comboBoxActor.Unbind(wx.EVT_CHOICE, None)
-        self.spinCtrlLevel.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonIntialize.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def comboBoxActor_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlLevel_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonInitialize_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -6832,16 +4989,14 @@ class ChangeMaximum_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -6890,12 +5045,12 @@ class ExpCurve_Dialog_Template (wx.Dialog):
         sizerBasis = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Basis")), wx.HORIZONTAL)
 
-        self.sliderBasis = wx.Slider(
-            self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderBasis = wx.Slider(sizerBasis.GetStaticBox(
+        ), wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerBasis.Add(self.sliderBasis, 1, wx.ALL, 5)
 
-        self.spinCtrlBasis = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            60, -1), wx.SP_ARROW_KEYS, 10, 50, 35)
+        self.spinCtrlBasis = wx.SpinCtrl(sizerBasis.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(60, -1), wx.SP_ARROW_KEYS, 10, 50, 35)
         sizerBasis.Add(self.spinCtrlBasis, 0, wx.ALL, 5)
 
         sizerControls.Add(sizerBasis, 1, wx.ALL, 5)
@@ -6903,12 +5058,12 @@ class ExpCurve_Dialog_Template (wx.Dialog):
         sizerInflation = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Inflation")), wx.HORIZONTAL)
 
-        self.sliderInflation = wx.Slider(
-            self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderInflation = wx.Slider(sizerInflation.GetStaticBox(
+        ), wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerInflation.Add(self.sliderInflation, 1, wx.ALL, 5)
 
-        self.spinCtrlInflation = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(60, -1), wx.SP_ARROW_KEYS, 10, 50, 35)
+        self.spinCtrlInflation = wx.SpinCtrl(sizerInflation.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(60, -1), wx.SP_ARROW_KEYS, 10, 50, 35)
         sizerInflation.Add(self.spinCtrlInflation, 0, wx.ALL, 5)
 
         sizerControls.Add(sizerInflation, 1, wx.ALL, 5)
@@ -6955,40 +5110,32 @@ class ExpCurve_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.noteBookExpList.Unbind(wx.EVT_NOTEBOOK_PAGE_CHANGED, None)
-        self.sliderBasis.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlBasis.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderInflation.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlInflation.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonViewGraph.Unbind(wx.EVT_BUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def noteBookExpCurve_PageChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderBasis_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlBasis__ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderInflation_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlInflation_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonViewGraph_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -7072,20 +5219,17 @@ class GenerateCurve_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.sliderSpeed.Unbind(wx.EVT_SCROLL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def sliderSpeed_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -7129,8 +5273,8 @@ class ChooseGraphic_Dialog_Template (wx.Dialog):
         sizerHue = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Hue")), wx.VERTICAL)
 
-        self.sliderHue = wx.Slider(
-            self, wx.ID_ANY, 0, 0, 359, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderHue = wx.Slider(sizerHue.GetStaticBox(
+        ), wx.ID_ANY, 0, 0, 359, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerHue.Add(self.sliderHue, 0, wx.ALL | wx.EXPAND, 5)
 
         sizerGraphic.Add(sizerHue, 0, wx.EXPAND | wx.ALL, 5)
@@ -7164,24 +5308,20 @@ class ChooseGraphic_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxGraphics.Unbind(wx.EVT_LISTBOX, None)
-        self.sliderHue.Unbind(wx.EVT_SCROLL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxGraphics_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderHue_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -7251,16 +5391,14 @@ class Skill_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -7282,26 +5420,26 @@ class EnemyAction_Dialog_Template (wx.Dialog):
 
         sizerTurm = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.checkBoxTurn = wx.CheckBox(
-            self, wx.ID_ANY, _("Turn"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.checkBoxTurn = wx.CheckBox(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "Turn"), wx.DefaultPosition, wx.Size(64, -1), 0)
         sizerTurm.Add(
             self.checkBoxTurn, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.spinCtrlTurn1 = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(75, -1), wx.SP_ARROW_KEYS, 0, 10, 1)
+        self.spinCtrlTurn1 = wx.SpinCtrl(sizerCondition.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(75, -1), wx.SP_ARROW_KEYS, 0, 10, 1)
         sizerTurm.Add(self.spinCtrlTurn1, 0, wx.ALL, 5)
 
-        self.labelPlus = wx.StaticText(
-            self, wx.ID_ANY, _("+"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelPlus = wx.StaticText(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "+"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelPlus.Wrap(-1)
         sizerTurm.Add(self.labelPlus, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.spinCtrlTurn2 = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(75, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlTurn2 = wx.SpinCtrl(sizerCondition.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(75, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
         sizerTurm.Add(self.spinCtrlTurn2, 0, wx.ALL, 5)
 
-        self.labelX = wx.StaticText(
-            self, wx.ID_ANY, _("X"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelX = wx.StaticText(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "X"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelX.Wrap(-1)
         sizerTurm.Add(self.labelX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
@@ -7309,16 +5447,16 @@ class EnemyAction_Dialog_Template (wx.Dialog):
 
         sizerHP = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.checkBoxTurn = wx.CheckBox(
-            self, wx.ID_ANY, _("HP"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.checkBoxTurn = wx.CheckBox(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "HP"), wx.DefaultPosition, wx.Size(64, -1), 0)
         sizerHP.Add(self.checkBoxTurn, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.spinCtrlHP = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            75, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlHP = wx.SpinCtrl(sizerCondition.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(75, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
         sizerHP.Add(self.spinCtrlHP, 0, wx.ALL, 5)
 
-        self.labelBelow = wx.StaticText(
-            self, wx.ID_ANY, _("% or below"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBelow = wx.StaticText(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "% or below"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBelow.Wrap(-1)
         sizerHP.Add(self.labelBelow, 0, wx.ALIGN_CENTER_VERTICAL |
                     wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
@@ -7327,17 +5465,17 @@ class EnemyAction_Dialog_Template (wx.Dialog):
 
         sizerLevel = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.checkBoxLevel = wx.CheckBox(
-            self, wx.ID_ANY, _("Level"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.checkBoxLevel = wx.CheckBox(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "Level"), wx.DefaultPosition, wx.Size(64, -1), 0)
         sizerLevel.Add(
             self.checkBoxLevel, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.spinCtrlLevel = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(75, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlLevel = wx.SpinCtrl(sizerCondition.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(75, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
         sizerLevel.Add(self.spinCtrlLevel, 0, wx.ALL, 5)
 
-        self.labelAbove = wx.StaticText(
-            self, wx.ID_ANY, _("or above"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelAbove = wx.StaticText(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "or above"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelAbove.Wrap(-1)
         sizerLevel.Add(
             self.labelAbove, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
@@ -7346,19 +5484,19 @@ class EnemyAction_Dialog_Template (wx.Dialog):
 
         sizerSwitch = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.checkBoxSwitch = wx.CheckBox(
-            self, wx.ID_ANY, _("Switch"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.checkBoxSwitch = wx.CheckBox(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "Switch"), wx.DefaultPosition, wx.Size(64, -1), 0)
         sizerSwitch.Add(
             self.checkBoxSwitch, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxSwitchChoices = []
-        self.comboBoxSwitch = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSwitchChoices, 0)
+        self.comboBoxSwitch = wx.Choice(sizerCondition.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSwitchChoices, 0)
         self.comboBoxSwitch.SetSelection(0)
         sizerSwitch.Add(self.comboBoxSwitch, 1, wx.ALL, 5)
 
-        self.labelON = wx.StaticText(
-            self, wx.ID_ANY, _("is ON"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelON = wx.StaticText(sizerCondition.GetStaticBox(), wx.ID_ANY, _(
+            "is ON"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelON.Wrap(-1)
         sizerSwitch.Add(
             self.labelON, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
@@ -7372,14 +5510,14 @@ class EnemyAction_Dialog_Template (wx.Dialog):
 
         sizerBasic = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.radioBtnBasic = wx.RadioButton(
-            self, wx.ID_ANY, _("Basic"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.radioBtnBasic = wx.RadioButton(sizerAction.GetStaticBox(), wx.ID_ANY, _(
+            "Basic"), wx.DefaultPosition, wx.Size(64, -1), 0)
         sizerBasic.Add(
             self.radioBtnBasic, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxBasicChoices = []
-        self.comboBoxBasic = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBasicChoices, 0)
+        self.comboBoxBasic = wx.Choice(sizerAction.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBasicChoices, 0)
         self.comboBoxBasic.SetSelection(0)
         sizerBasic.Add(
             self.comboBoxBasic, 1, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
@@ -7388,14 +5526,14 @@ class EnemyAction_Dialog_Template (wx.Dialog):
 
         sizerSkill = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.radioBtnSkill = wx.RadioButton(
-            self, wx.ID_ANY, _("Skill"), wx.DefaultPosition, wx.Size(64, -1), 0)
+        self.radioBtnSkill = wx.RadioButton(sizerAction.GetStaticBox(), wx.ID_ANY, _(
+            "Skill"), wx.DefaultPosition, wx.Size(64, -1), 0)
         sizerSkill.Add(
             self.radioBtnSkill, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
         comboBoxSkillChoices = []
-        self.comboBoxSkill = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSkillChoices, 0)
+        self.comboBoxSkill = wx.Choice(sizerAction.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSkillChoices, 0)
         self.comboBoxSkill.SetSelection(0)
         sizerSkill.Add(self.comboBoxSkill, 1, wx.ALL, 5)
 
@@ -7406,12 +5544,12 @@ class EnemyAction_Dialog_Template (wx.Dialog):
         sizerRating = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Rating")), wx.HORIZONTAL)
 
-        self.sliderRating = wx.Slider(
-            self, wx.ID_ANY, 5, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS | wx.SL_HORIZONTAL)
+        self.sliderRating = wx.Slider(sizerRating.GetStaticBox(
+        ), wx.ID_ANY, 5, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS | wx.SL_HORIZONTAL)
         sizerRating.Add(self.sliderRating, 1, wx.ALL, 5)
 
-        self.spinCtrlRating = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 5)
+        self.spinCtrlRating = wx.SpinCtrl(sizerRating.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 5)
         sizerRating.Add(self.spinCtrlRating, 0, wx.ALL, 5)
 
         MainSizer.Add(sizerRating, 0, wx.ALL | wx.EXPAND, 5)
@@ -7451,48 +5589,38 @@ class EnemyAction_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.checkBoxTurn.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxTurn.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxLevel.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxSwitch.Unbind(wx.EVT_CHECKBOX, None)
-        self.radioBtnBasic.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioBtnSkill.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.sliderRating.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlRating.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def checkBoxTurn_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxHP_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxLevel_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxSwitch_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def radioBtnBasic_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def radioBtnSkill_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderRating_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlRating_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -7520,25 +5648,25 @@ class ChooseTreasure_Dialog_Template (wx.Dialog):
 
         bSizer623 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelProbability = wx.StaticText(
-            self, wx.ID_ANY, _("Probability:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelProbability = wx.StaticText(sizerTreasure.GetStaticBox(), wx.ID_ANY, _(
+            "Probability:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelProbability.Wrap(-1)
         bSizer623.Add(self.labelProbability, 0,
                       wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.LEFT, 5)
 
-        self.spinCtrlProbability = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            56, -1), wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 100, 50)
+        self.spinCtrlProbability = wx.SpinCtrl(sizerTreasure.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(56, -1), wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 100, 50)
         bSizer623.Add(
             self.spinCtrlProbability, 0, wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
 
-        self.labelQuantity = wx.StaticText(
-            self, wx.ID_ANY, _("Quantity:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelQuantity = wx.StaticText(sizerTreasure.GetStaticBox(), wx.ID_ANY, _(
+            "Quantity:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelQuantity.Wrap(-1)
         bSizer623.Add(
             self.labelQuantity, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.LEFT, 5)
 
-        self.spinCtrlQuantity = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 1, 10, 1)
+        self.spinCtrlQuantity = wx.SpinCtrl(sizerTreasure.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 1, 10, 1)
         bSizer623.Add(
             self.spinCtrlQuantity, 1, wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
 
@@ -7546,14 +5674,14 @@ class ChooseTreasure_Dialog_Template (wx.Dialog):
 
         sizerItem = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.radioBtnItem = wx.RadioButton(
-            self, wx.ID_ANY, _("Item"), wx.DefaultPosition, wx.Size(80, -1), wx.RB_GROUP)
+        self.radioBtnItem = wx.RadioButton(sizerTreasure.GetStaticBox(), wx.ID_ANY, _(
+            "Item"), wx.DefaultPosition, wx.Size(80, -1), wx.RB_GROUP)
         self.radioBtnItem.SetValue(True)
         sizerItem.Add(self.radioBtnItem, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxItemChoices = []
-        self.comboBoxItem = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxItemChoices, 0)
+        self.comboBoxItem = wx.Choice(sizerTreasure.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxItemChoices, 0)
         self.comboBoxItem.SetSelection(0)
         sizerItem.Add(self.comboBoxItem, 1, wx.ALL, 5)
 
@@ -7561,14 +5689,14 @@ class ChooseTreasure_Dialog_Template (wx.Dialog):
 
         sizerWeapon = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.radioBtnWeapon = wx.RadioButton(
-            self, wx.ID_ANY, _("Weapon"), wx.DefaultPosition, wx.Size(80, -1), 0)
+        self.radioBtnWeapon = wx.RadioButton(sizerTreasure.GetStaticBox(), wx.ID_ANY, _(
+            "Weapon"), wx.DefaultPosition, wx.Size(80, -1), 0)
         sizerWeapon.Add(
             self.radioBtnWeapon, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
         comboBoxWeaponChoices = []
-        self.comboBoxWeapon = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0)
+        self.comboBoxWeapon = wx.Choice(sizerTreasure.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0)
         self.comboBoxWeapon.SetSelection(0)
         self.comboBoxWeapon.Enable(False)
 
@@ -7578,14 +5706,14 @@ class ChooseTreasure_Dialog_Template (wx.Dialog):
 
         sizerArmor = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.radioBtnArmor = wx.RadioButton(
-            self, wx.ID_ANY, _("Armor"), wx.DefaultPosition, wx.Size(80, -1), 0)
+        self.radioBtnArmor = wx.RadioButton(sizerTreasure.GetStaticBox(), wx.ID_ANY, _(
+            "Armor"), wx.DefaultPosition, wx.Size(80, -1), 0)
         sizerArmor.Add(
             self.radioBtnArmor, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
         comboBoxArmorChoices = []
-        self.comboBoxArmor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxArmorChoices, 0)
+        self.comboBoxArmor = wx.Choice(sizerTreasure.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxArmorChoices, 0)
         self.comboBoxArmor.SetSelection(0)
         self.comboBoxArmor.Enable(False)
 
@@ -7597,12 +5725,12 @@ class ChooseTreasure_Dialog_Template (wx.Dialog):
 
         bSizer619 = wx.BoxSizer(wx.VERTICAL)
 
-        self.buttonAdd = wx.Button(
-            self, wx.ID_ANY, _("Add"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonAdd = wx.Button(sizerTreasure.GetStaticBox(), wx.ID_ANY, _(
+            "Add"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer619.Add(self.buttonAdd, 0, wx.TOP | wx.RIGHT | wx.LEFT, 5)
 
-        self.buttonRemove = wx.Button(
-            self, wx.ID_ANY, _("Remove"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonRemove = wx.Button(sizerTreasure.GetStaticBox(), wx.ID_ANY, _(
+            "Remove"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer619.Add(self.buttonRemove, 0, wx.ALL, 5)
 
         sizerTreasure.Add(bSizer619, 0, wx.EXPAND, 5)
@@ -7642,40 +5770,32 @@ class ChooseTreasure_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listCtrlTreasure.Unbind(wx.EVT_KEY_DOWN, None)
-        self.radioBtnItem.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioBtnWeapon.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioBtnArmor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonAdd.Unbind(wx.EVT_BUTTON, None)
-        self.buttonRemove.Unbind(wx.EVT_BUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listCtrlTreasure_KeyPressed(self, event):
-        pass
+        event.Skip()
 
     def radioButtonItem_Clicked(self, event):
-        pass
+        event.Skip()
 
     def radioButtonWeapon_Clicked(self, event):
-        pass
+        event.Skip()
 
     def radioButtonArmor_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonAdd_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonRemove_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -7853,32 +5973,26 @@ class EventCondition_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.checkBoxTurn.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxEnemy.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxActor.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxSwitch.Unbind(wx.EVT_CHECKBOX, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def checkBoxTurn_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxEnemy_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxActor_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxSwitch_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -7949,20 +6063,20 @@ class AnimationTiming_Dialog_Template (wx.Dialog):
 
         sizerFlashArea = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.radioButtonNone = wx.RadioButton(
-            self, wx.ID_ANY, _("None"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.radioButtonNone = wx.RadioButton(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "None"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFlashArea.Add(self.radioButtonNone, 0, wx.ALL, 5)
 
-        self.radioButtonTarget = wx.RadioButton(
-            self, wx.ID_ANY, _("Target"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.radioButtonTarget = wx.RadioButton(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Target"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFlashArea.Add(self.radioButtonTarget, 0, wx.ALL, 5)
 
-        self.radioButtonScreen = wx.RadioButton(
-            self, wx.ID_ANY, _("Screen"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.radioButtonScreen = wx.RadioButton(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Screen"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFlashArea.Add(self.radioButtonScreen, 0, wx.ALL, 5)
 
-        self.radioButtonHideTarget = wx.RadioButton(
-            self, wx.ID_ANY, _("Hide Target"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.radioButtonHideTarget = wx.RadioButton(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, _("Hide Target"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFlashArea.Add(self.radioButtonHideTarget, 0, wx.ALL, 5)
 
         sizerFlash.Add(sizerFlashArea, 0, wx.EXPAND, 5)
@@ -7975,80 +6089,80 @@ class AnimationTiming_Dialog_Template (wx.Dialog):
 
         sizerRed = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelRed = wx.StaticText(
-            self, wx.ID_ANY, _("Red:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelRed = wx.StaticText(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Red:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelRed.Wrap(-1)
         sizerRed.Add(
             self.labelRed, 20, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.sliderRed = wx.Slider(
-            self, wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderRed = wx.Slider(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerRed.Add(self.sliderRed, 55, wx.ALL, 5)
 
-        self.spinCtrlRed = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
+        self.spinCtrlRed = wx.SpinCtrl(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
         sizerRed.Add(self.spinCtrlRed, 25, wx.ALL, 5)
 
         sizer7.Add(sizerRed, 0, wx.EXPAND, 5)
 
         sizerGreen = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelGreen = wx.StaticText(
-            self, wx.ID_ANY, _("Green:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelGreen = wx.StaticText(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Green:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelGreen.Wrap(-1)
         sizerGreen.Add(
             self.labelGreen, 20, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.sliderGreen = wx.Slider(
-            self, wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderGreen = wx.Slider(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerGreen.Add(self.sliderGreen, 55, wx.ALL, 5)
 
-        self.spinCtrlGreen = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
+        self.spinCtrlGreen = wx.SpinCtrl(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
         sizerGreen.Add(self.spinCtrlGreen, 25, wx.ALL, 5)
 
         sizer7.Add(sizerGreen, 0, wx.EXPAND, 5)
 
         sizerBlue = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelBlue = wx.StaticText(
-            self, wx.ID_ANY, _("Blue:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBlue = wx.StaticText(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Blue:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBlue.Wrap(-1)
         sizerBlue.Add(
             self.labelBlue, 20, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.sliderBlue = wx.Slider(
-            self, wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderBlue = wx.Slider(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerBlue.Add(self.sliderBlue, 55, wx.ALL, 5)
 
-        self.spinCtrlBlue = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
+        self.spinCtrlBlue = wx.SpinCtrl(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
         sizerBlue.Add(self.spinCtrlBlue, 25, wx.ALL, 5)
 
         sizer7.Add(sizerBlue, 0, wx.EXPAND, 5)
 
         sizerStrength = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelStrength = wx.StaticText(
-            self, wx.ID_ANY, _("Strength:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelStrength = wx.StaticText(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Strength:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelStrength.Wrap(-1)
         sizerStrength.Add(
             self.labelStrength, 20, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.sliderStrength = wx.Slider(
-            self, wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderStrength = wx.Slider(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerStrength.Add(self.sliderStrength, 55, wx.ALL, 5)
 
-        self.spinCtrlStrength = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
+        self.spinCtrlStrength = wx.SpinCtrl(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 255)
         sizerStrength.Add(self.spinCtrlStrength, 25, wx.ALL, 5)
 
         sizer7.Add(sizerStrength, 0, wx.EXPAND, 5)
 
         sizer6.Add(sizer7, 75, wx.EXPAND, 5)
 
-        self.m_bitmap33 = wx.StaticBitmap(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER)
+        self.m_bitmap33 = wx.StaticBitmap(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER)
         sizer6.Add(self.m_bitmap33, 25, wx.ALL | wx.EXPAND, 5)
 
         sizer4.Add(sizer6, 1, wx.EXPAND, 5)
@@ -8057,17 +6171,17 @@ class AnimationTiming_Dialog_Template (wx.Dialog):
 
         sizer5 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelDuration = wx.StaticText(
-            self, wx.ID_ANY, _("Duration:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelDuration = wx.StaticText(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Duration:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelDuration.Wrap(-1)
         sizer5.Add(self.labelDuration, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.spinCtrlDurationFrames = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlDurationFrames = wx.SpinCtrl(sizerFlash.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
         sizer5.Add(self.spinCtrlDurationFrames, 0, wx.ALL, 5)
 
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelFrames = wx.StaticText(sizerFlash.GetStaticBox(), wx.ID_ANY, _(
+            "Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelFrames.Wrap(-1)
         sizer5.Add(self.labelFrames, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
@@ -8123,80 +6237,62 @@ class AnimationTiming_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.spinCtrlFrames.Unbind(wx.EVT_SPINCTRL, None)
-        self.comboBoxSE.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxCondition.Unbind(wx.EVT_CHOICE, None)
-        self.radioButtonNone.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonTarget.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonScreen.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonHideTarget.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.sliderRed.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlRed.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderGreen.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlGreen.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderBlue.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlBlue.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderStrength.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlStrength.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlDurationFrames.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def spinCtrlFrame_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxSE_LeftClicked(self, event):
-        pass
+        event.Skip()
 
     def comboBoxCondition_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def radioButtonNone_Checked(self, event):
-        pass
+        event.Skip()
 
     def radioButtonTarget_Checked(self, event):
-        pass
+        event.Skip()
 
     def radioButtonScreen_Checked(self, event):
-        pass
+        event.Skip()
 
     def radioButtonHideTarget_Checked(self, event):
-        pass
+        event.Skip()
 
     def slideCtrlRed_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlRed_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def slideCtrlGreen_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlGreen_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def slideCtrlBlue_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlBlue_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def slideCtrlStrength_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlStrength_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlDurationFrames_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -8266,16 +6362,16 @@ class AnimationTweening_Dialog_Template (wx.Dialog):
         sizerTweeningItems = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Tweening Items")), wx.VERTICAL)
 
-        self.checkBoxPattern = wx.CheckBox(
-            self, wx.ID_ANY, _("Pattern"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxPattern = wx.CheckBox(sizerTweeningItems.GetStaticBox(), wx.ID_ANY, _(
+            "Pattern"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerTweeningItems.Add(self.checkBoxPattern, 0, wx.ALL, 5)
 
-        self.checkBoxPosition = wx.CheckBox(self, wx.ID_ANY, _(
+        self.checkBoxPosition = wx.CheckBox(sizerTweeningItems.GetStaticBox(), wx.ID_ANY, _(
             "Position / Zoom / Angle"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerTweeningItems.Add(self.checkBoxPosition, 0, wx.ALL, 5)
 
-        self.checkBoxOpacity = wx.CheckBox(
-            self, wx.ID_ANY, _("Opacity / Blending"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxOpacity = wx.CheckBox(sizerTweeningItems.GetStaticBox(), wx.ID_ANY, _(
+            "Opacity / Blending"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerTweeningItems.Add(self.checkBoxOpacity, 0, wx.ALL, 5)
 
         MainSizer.Add(sizerTweeningItems, 0, wx.EXPAND | wx.ALL, 5)
@@ -8310,32 +6406,26 @@ class AnimationTweening_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.spinCtrlFramesStart.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlFramesEnd.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlCellsStart.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlCellsEnd.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def spinCtrlFramesStart_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlFramesEnd_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlCellsStart_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlCellsEnd_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -8381,13 +6471,13 @@ class AnimationEntireSlide_Dialog_Template (wx.Dialog):
 
         bSizer258 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelMoveX = wx.StaticText(
-            self, wx.ID_ANY, _("X:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMoveX = wx.StaticText(sizerMovement.GetStaticBox(), wx.ID_ANY, _(
+            "X:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMoveX.Wrap(-1)
         bSizer258.Add(self.labelMoveX, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlMoveX = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlMoveX = wx.SpinCtrl(sizerMovement.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer258.Add(
             self.spinCtrlMoveX, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -8395,13 +6485,13 @@ class AnimationEntireSlide_Dialog_Template (wx.Dialog):
 
         bSizer259 = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelMoveY = wx.StaticText(
-            self, wx.ID_ANY, _("Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMoveY = wx.StaticText(sizerMovement.GetStaticBox(), wx.ID_ANY, _(
+            "Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMoveY.Wrap(-1)
         bSizer259.Add(self.labelMoveY, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlMoveY = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlMoveY = wx.SpinCtrl(sizerMovement.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer259.Add(
             self.spinCtrlMoveY, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -8435,24 +6525,20 @@ class AnimationEntireSlide_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Click)
 
     def __del__(self):
-        # Disconnect Events
-        self.sinCtrlFramesStart.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlFramesEnd.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def spinCtrlFramesStart_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlFramesEnd_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Click(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Click(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -8522,21 +6608,21 @@ class AnimationCellBatch_Dialog_Template (wx.Dialog):
 
         bSizer268 = wx.BoxSizer(wx.VERTICAL)
 
-        self.checkBoxPattern = wx.CheckBox(
-            self, wx.ID_ANY, _("Pattern"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxPattern = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "Pattern"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer268.Add(self.checkBoxPattern, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlPattern = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlPattern = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer268.Add(
             self.spinCtrlPattern, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxAngle = wx.CheckBox(
-            self, wx.ID_ANY, _("Angle"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxAngle = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "Angle"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer268.Add(self.checkBoxAngle, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlAngle = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlAngle = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer268.Add(
             self.spinCtrlAngle, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -8544,21 +6630,21 @@ class AnimationCellBatch_Dialog_Template (wx.Dialog):
 
         bSizer2681 = wx.BoxSizer(wx.VERTICAL)
 
-        self.checkBoxX = wx.CheckBox(
-            self, wx.ID_ANY, _("X"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxX = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "X"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer2681.Add(self.checkBoxX, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlX = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlX = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer2681.Add(
             self.spinCtrlX, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxFlip = wx.CheckBox(
-            self, wx.ID_ANY, _("Flip"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxFlip = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "Flip"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer2681.Add(self.checkBoxFlip, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlFlip = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlFlip = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer2681.Add(
             self.spinCtrlFlip, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -8566,21 +6652,21 @@ class AnimationCellBatch_Dialog_Template (wx.Dialog):
 
         bSizer2682 = wx.BoxSizer(wx.VERTICAL)
 
-        self.checkBoxY = wx.CheckBox(
-            self, wx.ID_ANY, _("Y"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxY = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "Y"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer2682.Add(self.checkBoxY, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlY = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlY = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer2682.Add(
             self.spinCtrlY, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxOpacity = wx.CheckBox(
-            self, wx.ID_ANY, _("Opacity"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxOpacity = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "Opacity"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer2682.Add(self.checkBoxOpacity, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlOpacity = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlOpacity = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer2682.Add(
             self.spinCtrlOpacity, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -8588,21 +6674,21 @@ class AnimationCellBatch_Dialog_Template (wx.Dialog):
 
         bSizer2683 = wx.BoxSizer(wx.VERTICAL)
 
-        self.checkBoxZoom = wx.CheckBox(
-            self, wx.ID_ANY, _("Zoom"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxZoom = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "Zoom"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer2683.Add(self.checkBoxZoom, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlZoom = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlZoom = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer2683.Add(
             self.spinCtrlZoom, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxBlending = wx.CheckBox(
-            self, wx.ID_ANY, _("Blending"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxBlending = wx.CheckBox(sizerSettings.GetStaticBox(), wx.ID_ANY, _(
+            "Blending"), wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer2683.Add(self.checkBoxBlending, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlBlending = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlBlending = wx.SpinCtrl(sizerSettings.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
         bSizer2683.Add(
             self.spinCtrlBlending, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -8652,64 +6738,50 @@ class AnimationCellBatch_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.spinCtrlFramesStart.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlFramesEnd.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlCellsStart.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlCellsEnd.Unbind(wx.EVT_SPINCTRL, None)
-        self.checkBoxPattern.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxAngle.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxX.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxFlip.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxY.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxOpacity.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxZoom.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxBlending.Unbind(wx.EVT_CHECKBOX, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def spinCtrlFramesStart_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlFramesEnd_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlCellsStart_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlCellsEnd_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxPattern_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxAngle_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxX_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxFlip_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxY_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxOpacity_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxZoom_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxBlending_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -8844,16 +6916,14 @@ class AnimationCellProperties_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -8899,54 +6969,54 @@ class ChooseFogGraphic_Dialog_Template (wx.Dialog):
         sizerOptions = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Options")), wx.VERTICAL)
 
-        self.labelOpacity = wx.StaticText(
-            self, wx.ID_ANY, _("Opacity:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelOpacity = wx.StaticText(sizerOptions.GetStaticBox(), wx.ID_ANY, _(
+            "Opacity:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelOpacity.Wrap(-1)
         sizerOptions.Add(self.labelOpacity, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlOpacity = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 255, 255)
+        self.spinCtrlOpacity = wx.SpinCtrl(sizerOptions.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 255, 255)
         sizerOptions.Add(
             self.spinCtrlOpacity, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelBlending = wx.StaticText(
-            self, wx.ID_ANY, _("Blending:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelBlending = wx.StaticText(sizerOptions.GetStaticBox(), wx.ID_ANY, _(
+            "Blending:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelBlending.Wrap(-1)
         sizerOptions.Add(self.labelBlending, 0, wx.ALL | wx.EXPAND, 5)
 
         comboBoxBlendingChoices = [
             _("Normal"), _("Addition"), _("Subtraction")]
-        self.comboBoxBlending = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxBlendingChoices, 0)
+        self.comboBoxBlending = wx.Choice(sizerOptions.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxBlendingChoices, 0)
         self.comboBoxBlending.SetSelection(0)
         sizerOptions.Add(self.comboBoxBlending, 0, wx.ALL, 5)
 
-        self.labelZoom = wx.StaticText(
-            self, wx.ID_ANY, _("Zoom:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelZoom = wx.StaticText(sizerOptions.GetStaticBox(), wx.ID_ANY, _(
+            "Zoom:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelZoom.Wrap(-1)
         sizerOptions.Add(self.labelZoom, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlZoom = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlZoom = wx.SpinCtrl(sizerOptions.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
         sizerOptions.Add(
             self.spinCtrlZoom, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelSX = wx.StaticText(
-            self, wx.ID_ANY, _("SX:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelSX = wx.StaticText(sizerOptions.GetStaticBox(), wx.ID_ANY, _(
+            "SX:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelSX.Wrap(-1)
         sizerOptions.Add(self.labelSX, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlSX = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlSX = wx.SpinCtrl(sizerOptions.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
         sizerOptions.Add(self.spinCtrlSX, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.labelSY = wx.StaticText(
-            self, wx.ID_ANY, _("SY:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelSY = wx.StaticText(sizerOptions.GetStaticBox(), wx.ID_ANY, _(
+            "SY:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelSY.Wrap(-1)
         sizerOptions.Add(self.labelSY, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.spinCtrlSY = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
+        self.spinCtrlSY = wx.SpinCtrl(sizerOptions.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
         sizerOptions.Add(self.spinCtrlSY, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizerGraphic.Add(sizerOptions, 0, wx.EXPAND | wx.ALL, 5)
@@ -8956,8 +7026,8 @@ class ChooseFogGraphic_Dialog_Template (wx.Dialog):
         sizerHue = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Hue")), wx.VERTICAL)
 
-        self.sliderHue = wx.Slider(
-            self, wx.ID_ANY, 0, 0, 359, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderHue = wx.Slider(sizerHue.GetStaticBox(
+        ), wx.ID_ANY, 0, 0, 359, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerHue.Add(self.sliderHue, 0, wx.ALL | wx.EXPAND, 5)
 
         sizerPreview.Add(sizerHue, 0, wx.EXPAND | wx.ALL, 5)
@@ -8998,44 +7068,35 @@ class ChooseFogGraphic_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxGraphics.Unbind(wx.EVT_LISTBOX, None)
-        self.spinCtrlOpacity.Unbind(wx.EVT_SPINCTRL, None)
-        self.comboBoxBlending.Unbind(wx.EVT_CHOICE, None)
-        self.spinCtrlZoom.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlSX.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlSY.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderHue.Unbind(wx.EVT_SCROLL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxGraphics_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrOpacityl_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxBlending_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlZoom_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlSX_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlSY_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderHue_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -9091,16 +7152,14 @@ class ChooseActor_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -9122,7 +7181,7 @@ class ChooseSwitchVariable_Dialog_Template (wx.Dialog):
         sizerGroup = wx.BoxSizer(wx.VERTICAL)
 
         self.bitmapHeader = wx.StaticBitmap(self, wx.ID_ANY, wx.Bitmap(
-            "/run/media/ryex/Storage/Projects/ARC/editor/Welder/Database Panel Images/Switch.png", wx.BITMAP_TYPE_ANY), wx.DefaultPosition, wx.DefaultSize, 0)
+            "G:\\Projects\\arcreator\\editor\\Welder\\Database Panel Images\\Switch.png", wx.BITMAP_TYPE_ANY), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerGroup.Add(self.bitmapHeader, 0, wx.ALL | wx.EXPAND, 5)
 
         listBoxGroupChoices = []
@@ -9141,19 +7200,19 @@ class ChooseSwitchVariable_Dialog_Template (wx.Dialog):
             wx.StaticBox(self, wx.ID_ANY, wx.EmptyString), wx.VERTICAL)
 
         listBoxItemsChoices = []
-        self.listBoxItems = wx.ListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxItemsChoices, 0)
+        self.listBoxItems = wx.ListBox(sizerItemList.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxItemsChoices, 0)
         sizerItemList.Add(self.listBoxItems, 1, wx.ALL | wx.EXPAND, 5)
 
         sizerName = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(sizerItemList.GetStaticBox(), wx.ID_ANY, _(
+            "Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizerName.Add(self.labelName, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlName = wx.TextCtrl(sizerItemList.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlName.SetMaxLength(0)
         sizerName.Add(self.textCtrlName, 1, wx.ALL, 5)
 
@@ -9197,2772 +7256,29 @@ class ChooseSwitchVariable_Dialog_Template (wx.Dialog):
         self.buttonApply.Bind(wx.EVT_BUTTON, self.buttonApply_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxGroup.Unbind(wx.EVT_LISTBOX, None)
-        self.buttonChangeMax.Unbind(wx.EVT_BUTTON, None)
-        self.listBoxItems.Unbind(wx.EVT_LISTBOX, None)
-        self.textCtrlName.Unbind(wx.EVT_TEXT, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-        self.buttonApply.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxGroup_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonMax_Clicked(self, event):
-        pass
+        event.Skip()
 
     def listBoxItems_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlName_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonApply_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ShowText_Dialog_Template
-###########################################################################
-
-class ShowText_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Show Text"), pos=wx.DefaultPosition, size=wx.Size(432, 193), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.textCtrlMessageText = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_WORDWRAP)
-        self.textCtrlMessageText.SetMaxLength(0)
-        MainSizer.Add(self.textCtrlMessageText, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ShowChoices_Dialog_Template
-###########################################################################
-
-class ShowChoices_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Show Choices"), pos=wx.DefaultPosition, size=wx.Size(315, 290), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerControls = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerChoices = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelChoice1 = wx.StaticText(
-            self, wx.ID_ANY, _("Choice 1:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelChoice1.Wrap(-1)
-        sizerChoices.Add(self.labelChoice1, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.textCtrlChoice1 = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlChoice1.SetMaxLength(0)
-        sizerChoices.Add(
-            self.textCtrlChoice1, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.labelChoice2 = wx.StaticText(
-            self, wx.ID_ANY, _("Choice 2:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelChoice2.Wrap(-1)
-        sizerChoices.Add(self.labelChoice2, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.textCtrlChoice2 = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlChoice2.SetMaxLength(0)
-        sizerChoices.Add(
-            self.textCtrlChoice2, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.labelChoice3 = wx.StaticText(
-            self, wx.ID_ANY, _("Choice 3:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelChoice3.Wrap(-1)
-        sizerChoices.Add(self.labelChoice3, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.textCtrlChoice3 = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlChoice3.SetMaxLength(0)
-        sizerChoices.Add(
-            self.textCtrlChoice3, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.labelChoice4 = wx.StaticText(
-            self, wx.ID_ANY, _("Choice 4:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelChoice4.Wrap(-1)
-        sizerChoices.Add(self.labelChoice4, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.textCtrlChoice4 = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlChoice4.SetMaxLength(0)
-        sizerChoices.Add(
-            self.textCtrlChoice4, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        sizerControls.Add(sizerChoices, 1, wx.EXPAND, 5)
-
-        radioBoxCancelChoices = [_("Disallow"), _("Choice 1"), _(
-            "Choice 2"), _("Choice 3"), _("Choice 4"), _("Branch")]
-        self.radioBoxCancel = wx.RadioBox(self, wx.ID_ANY, _(
-            "When Cancel"), wx.DefaultPosition, wx.DefaultSize, radioBoxCancelChoices, 1, wx.RA_SPECIFY_COLS)
-        self.radioBoxCancel.SetSelection(1)
-        sizerControls.Add(self.radioBoxCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerControls, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class InputNumber_Dialog_Template
-###########################################################################
-
-class InputNumber_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Input Number"), pos=wx.DefaultPosition, size=wx.Size(284, 130), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerVariable = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelVariable = wx.StaticText(self, wx.ID_ANY, _(
-            "Variable for Number:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelVariable.Wrap(-1)
-        sizerVariable.Add(self.labelVariable, 0, wx.ALL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        sizerVariable.Add(
-            self.comboBoxVariable, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelDigits = wx.StaticText(
-            self, wx.ID_ANY, _("Digits:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelDigits.Wrap(-1)
-        sizerVariable.Add(self.labelDigits, 0, wx.ALL, 5)
-
-        self.spinCtrlDigits = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerVariable.Add(
-            self.spinCtrlDigits, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerVariable, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.comboBoxVariable.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxVariable_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.comboBoxVariable.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def comboBoxVariable_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeTextOptions_Dialog_Template
-###########################################################################
-
-class ChangeTextOptions_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Text Options"), pos=wx.DefaultPosition, size=wx.Size(238, 137), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        radioBoxPositionChoices = [_("Top"), _("Middle"), _("Bottom")]
-        self.radioBoxPosition = wx.RadioBox(self, wx.ID_ANY, _(
-            "Position"), wx.DefaultPosition, wx.DefaultSize, radioBoxPositionChoices, 1, wx.RA_SPECIFY_COLS)
-        self.radioBoxPosition.SetSelection(0)
-        MainSizer.Add(self.radioBoxPosition, 0, wx.ALL, 5)
-
-        radioBoxWindowChoices = [_("Show"), _("Hide")]
-        self.radioBoxWindow = wx.RadioBox(self, wx.ID_ANY, _(
-            "Window"), wx.DefaultPosition, wx.DefaultSize, radioBoxWindowChoices, 1, wx.RA_SPECIFY_COLS)
-        self.radioBoxWindow.SetSelection(0)
-        MainSizer.Add(self.radioBoxWindow, 0, wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.EXPAND, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ButtonProcessing_Dialog_Template
-###########################################################################
-
-class ButtonProcessing_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Button Input Processing"), pos=wx.DefaultPosition, size=wx.Size(274, 97), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerVariable = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelVariable = wx.StaticText(self, wx.ID_ANY, _(
-            "Variable for Button Code:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelVariable.Wrap(-1)
-        sizerVariable.Add(self.labelVariable, 0, wx.ALL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        sizerVariable.Add(
-            self.comboBoxVariable, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerVariable, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.EXPAND, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.comboBoxVariable.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxVariable_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.comboBoxVariable.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def comboBoxVariable_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class Wait_Dialog_Template
-###########################################################################
-
-class Wait_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Wait"), pos=wx.DefaultPosition, size=wx.Size(242, 94), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerControls = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerControls.Add(self.labelTime, 0, wx.ALL, 5)
-
-        sizerWait = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.spinCtrlFrames = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerWait.Add(
-            self.spinCtrlFrames, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFrames.Wrap(-1)
-        sizerWait.Add(self.labelFrames, 0, wx.ALL, 5)
-
-        sizerControls.Add(sizerWait, 0, 0, 5)
-
-        MainSizer.Add(sizerControls, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class Comment_Dialog_Template
-###########################################################################
-
-class Comment_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Comment"), pos=wx.DefaultPosition, size=wx.Size(256, 177), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.textCtrlComment = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_WORDWRAP)
-        self.textCtrlComment.SetMaxLength(0)
-        MainSizer.Add(self.textCtrlComment, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class CallCommonEvent_Dialog_Template
-###########################################################################
-
-class CallCommonEvent_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Call Common Event"), pos=wx.DefaultPosition, size=wx.Size(290, 94), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerCommonEvent = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelCommonEvent = wx.StaticText(
-            self, wx.ID_ANY, _("Common Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelCommonEvent.Wrap(-1)
-        sizerCommonEvent.Add(self.labelCommonEvent, 0, wx.ALL, 5)
-
-        comboBoxCommonEventChoices = []
-        self.comboBoxCommonEvent = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0)
-        self.comboBoxCommonEvent.SetSelection(0)
-        sizerCommonEvent.Add(
-            self.comboBoxCommonEvent, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerCommonEvent, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ConditionalBranch_Dialog_Template
-###########################################################################
-
-class ConditionalBranch_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Conditional Branch"), pos=wx.DefaultPosition, size=wx.Size(375, 367), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.noteBookConditions = wx.Notebook(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.panelConditions1 = wx.Panel(
-            self.noteBookConditions, wx.ID_ANY, wx.DefaultPosition, wx.Size(9, -1), wx.TAB_TRAVERSAL)
-        sizerTab1 = wx.BoxSizer(wx.VERTICAL)
-
-        sizerLineSwitch = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonSwitch = wx.RadioButton(self.panelConditions1, wx.ID_ANY, _(
-            "Switch"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_SINGLE)
-        sizerLineSwitch.Add(
-            self.radioButtonSwitch, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxSwitchChoices = []
-        self.comboBoxSwitch = wx.ComboBox(self.panelConditions1, wx.ID_ANY, _(
-            "Combo!"), wx.DefaultPosition, wx.Size(160, -1), comboBoxSwitchChoices, 0)
-        sizerLineSwitch.Add(self.comboBoxSwitch, 0, wx.ALL, 5)
-
-        self.labelIsONOFF = wx.StaticText(
-            self.panelConditions1, wx.ID_ANY, _("is"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelIsONOFF.Wrap(-1)
-        sizerLineSwitch.Add(
-            self.labelIsONOFF, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxSwitchValueChoices = [_("ON"), _("OFF")]
-        self.comboBoxSwitchValue = wx.Choice(
-            self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxSwitchValueChoices, 0)
-        self.comboBoxSwitchValue.SetSelection(0)
-        sizerLineSwitch.Add(self.comboBoxSwitchValue, 0, wx.ALL, 5)
-
-        sizerTab1.Add(sizerLineSwitch, 0, wx.EXPAND, 5)
-
-        sizerLineVariable1 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(self.panelConditions1, wx.ID_ANY, _(
-            "Variable"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_SINGLE)
-        sizerLineVariable1.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(self.panelConditions1, wx.ID_ANY, _(
-            "Combo!"), wx.DefaultPosition, wx.Size(160, -1), comboBoxVariableChoices, 0)
-        sizerLineVariable1.Add(self.comboBoxVariable, 0, wx.ALL, 5)
-
-        self.labelIsValue = wx.StaticText(
-            self.panelConditions1, wx.ID_ANY, _("is"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelIsValue.Wrap(-1)
-        sizerLineVariable1.Add(
-            self.labelIsValue, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab1.Add(sizerLineVariable1, 0, wx.EXPAND, 5)
-
-        sizerLineVariable2 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy1 = wx.StaticText(
-            self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy1.Wrap(-1)
-        sizerLineVariable2.Add(self.labelDummy1, 0, wx.ALL, 5)
-
-        comboBoxVariableModifierChoices = []
-        self.comboBoxVariableModifier = wx.ComboBox(self.panelConditions1, wx.ID_ANY, _(
-            "Combo!"), wx.DefaultPosition, wx.Size(192, -1), comboBoxVariableModifierChoices, 0)
-        sizerLineVariable2.Add(self.comboBoxVariableModifier, 0, wx.ALL, 5)
-
-        sizerTab1.Add(sizerLineVariable2, 0, wx.EXPAND, 5)
-
-        sizerLineVariable3 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy2 = wx.StaticText(
-            self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy2.Wrap(-1)
-        sizerLineVariable3.Add(self.labelDummy2, 0, wx.ALL, 5)
-
-        self.radioButtonConstant = wx.RadioButton(self.panelConditions1, wx.ID_ANY, _(
-            "Constant"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP)
-        sizerLineVariable3.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstantValue = wx.SpinCtrl(
-            self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(110, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerLineVariable3.Add(self.spinCtrlConstantValue, 0, wx.ALL, 5)
-
-        sizerTab1.Add(sizerLineVariable3, 0, wx.EXPAND, 5)
-
-        sizerLineVariable4 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy3 = wx.StaticText(
-            self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy3.Wrap(-1)
-        sizerLineVariable4.Add(self.labelDummy3, 0, wx.ALL, 5)
-
-        self.radioButtonVariableValue = wx.RadioButton(self.panelConditions1, wx.ID_ANY, _(
-            "Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerLineVariable4.Add(
-            self.radioButtonVariableValue, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableValueChoices = []
-        self.comboBoxVariableValue = wx.ComboBox(self.panelConditions1, wx.ID_ANY, _(
-            "Combo!"), wx.DefaultPosition, wx.DefaultSize, comboBoxVariableValueChoices, 0)
-        sizerLineVariable4.Add(self.comboBoxVariableValue, 1, wx.ALL, 5)
-
-        sizerTab1.Add(sizerLineVariable4, 0, wx.EXPAND, 5)
-
-        sizerSelfSwitch = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonSelfSwitch = wx.RadioButton(self.panelConditions1, wx.ID_ANY, _(
-            "Self-Switch"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP | wx.RB_SINGLE)
-        sizerSelfSwitch.Add(
-            self.radioButtonSelfSwitch, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxLettersChoices = [_("A"), _("B"), _("C"), _("D"), _("E"), _("F"), _("G"), _("H"), _("I"), _("J"), _("K"), _(
-            "L"), _("M"), _("N"), _("O"), _("P"), _("Q"), _("R"), _("S"), _("T"), _("U"), _("V"), _("W"), _("X"), _("Y"), _("Z")]
-        self.comboBoxLetters = wx.Choice(
-            self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxLettersChoices, 0)
-        self.comboBoxLetters.SetSelection(0)
-        sizerSelfSwitch.Add(self.comboBoxLetters, 0, wx.ALL, 5)
-
-        self.labelIsSelfSwitch = wx.StaticText(
-            self.panelConditions1, wx.ID_ANY, _("is"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelIsSelfSwitch.Wrap(-1)
-        sizerSelfSwitch.Add(
-            self.labelIsSelfSwitch, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxSelfSwitchValueChoices = [_("ON"), _("OFF")]
-        self.comboBoxSelfSwitchValue = wx.Choice(
-            self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxSelfSwitchValueChoices, 0)
-        self.comboBoxSelfSwitchValue.SetSelection(0)
-        sizerSelfSwitch.Add(self.comboBoxSelfSwitchValue, 0, wx.ALL, 5)
-
-        sizerTab1.Add(sizerSelfSwitch, 0, wx.EXPAND, 5)
-
-        sizerTimer = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonTimer = wx.RadioButton(self.panelConditions1, wx.ID_ANY, _(
-            "Timer"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_SINGLE)
-        sizerTimer.Add(
-            self.radioButtonTimer, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlMinutes = wx.SpinCtrl(
-            self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerTimer.Add(self.spinCtrlMinutes, 0, wx.ALL, 5)
-
-        self.labelMinutes = wx.StaticText(self.panelConditions1, wx.ID_ANY, _(
-            "Min"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelMinutes.Wrap(-1)
-        sizerTimer.Add(
-            self.labelMinutes, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM, 5)
-
-        self.spinCtrlSeconds = wx.SpinCtrl(
-            self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerTimer.Add(self.spinCtrlSeconds, 0, wx.ALL, 5)
-
-        self.labelSeconds = wx.StaticText(self.panelConditions1, wx.ID_ANY, _(
-            "Sec"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSeconds.Wrap(-1)
-        sizerTimer.Add(
-            self.labelSeconds, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM, 5)
-
-        spinCtrlTimerValueChoices = [_("or More"), _("or Less")]
-        self.spinCtrlTimerValue = wx.Choice(
-            self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, spinCtrlTimerValueChoices, 0)
-        self.spinCtrlTimerValue.SetSelection(0)
-        sizerTimer.Add(self.spinCtrlTimerValue, 1, wx.ALL, 5)
-
-        sizerTab1.Add(sizerTimer, 0, wx.EXPAND, 5)
-
-        self.panelConditions1.SetSizer(sizerTab1)
-        self.panelConditions1.Layout()
-        self.noteBookConditions.AddPage(self.panelConditions1, _("1"), False)
-        self.panelConditions2 = wx.Panel(
-            self.noteBookConditions, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        sizerTab2 = wx.BoxSizer(wx.VERTICAL)
-
-        sizerActor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonActor = wx.RadioButton(self.panelConditions2, wx.ID_ANY, _(
-            "Actor"), wx.DefaultPosition, wx.DefaultSize, wx.RB_USE_CHECKBOX)
-        sizerActor.Add(
-            self.radioButtonActor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorsChoices = []
-        self.comboBoxActors = wx.Choice(
-            self.panelConditions2, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxActorsChoices, 0)
-        self.comboBoxActors.SetSelection(0)
-        sizerActor.Add(self.comboBoxActors, 0, wx.ALL, 5)
-
-        self.labelIsActor = wx.StaticText(
-            self.panelConditions2, wx.ID_ANY, _("is"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelIsActor.Wrap(-1)
-        sizerActor.Add(
-            self.labelIsActor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab2.Add(sizerActor, 0, wx.EXPAND, 5)
-
-        sizerInParty = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy4 = wx.StaticText(
-            self.panelConditions2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(32, -1), 0)
-        self.labelDummy4.Wrap(-1)
-        sizerInParty.Add(
-            self.labelDummy4, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.radioButtonInParty = wx.RadioButton(self.panelConditions2, wx.ID_ANY, _(
-            "In the Party"), wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP)
-        sizerInParty.Add(
-            self.radioButtonInParty, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab2.Add(sizerInParty, 0, wx.EXPAND, 5)
-
-        sizerActorName = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy5 = wx.StaticText(
-            self.panelConditions2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(32, -1), 0)
-        self.labelDummy5.Wrap(-1)
-        sizerActorName.Add(
-            self.labelDummy5, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.radioButtonActorName = wx.RadioButton(self.panelConditions2, wx.ID_ANY, _(
-            "Name"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerActorName.Add(
-            self.radioButtonActorName, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorNameChoices = []
-        self.comboBoxActorName = wx.Choice(
-            self.panelConditions2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorNameChoices, 0)
-        self.comboBoxActorName.SetSelection(0)
-        sizerActorName.Add(self.comboBoxActorName, 1, wx.ALL, 5)
-
-        self.labelNameApplied = wx.StaticText(self.panelConditions2, wx.ID_ANY, _(
-            "Applied"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        self.labelNameApplied.Wrap(-1)
-        sizerActorName.Add(
-            self.labelNameApplied, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab2.Add(sizerActorName, 0, wx.EXPAND, 5)
-
-        sizerActorSkill = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy6 = wx.StaticText(
-            self.panelConditions2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(32, -1), 0)
-        self.labelDummy6.Wrap(-1)
-        sizerActorSkill.Add(
-            self.labelDummy6, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.radioButtonActorSkill = wx.RadioButton(self.panelConditions2, wx.ID_ANY, _(
-            "Skill"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerActorSkill.Add(
-            self.radioButtonActorSkill, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorSkillChoices = []
-        self.comboBoxActorSkill = wx.Choice(
-            self.panelConditions2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorSkillChoices, 0)
-        self.comboBoxActorSkill.SetSelection(0)
-        sizerActorSkill.Add(self.comboBoxActorSkill, 1, wx.ALL, 5)
-
-        self.labelSkillLearned = wx.StaticText(self.panelConditions2, wx.ID_ANY, _(
-            "Learned"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        self.labelSkillLearned.Wrap(-1)
-        sizerActorSkill.Add(
-            self.labelSkillLearned, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab2.Add(sizerActorSkill, 0, wx.EXPAND, 5)
-
-        SizerActorWeapon = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy7 = wx.StaticText(
-            self.panelConditions2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(32, -1), 0)
-        self.labelDummy7.Wrap(-1)
-        SizerActorWeapon.Add(
-            self.labelDummy7, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.radioButtonActorWeapon = wx.RadioButton(self.panelConditions2, wx.ID_ANY, _(
-            "Weapons"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        SizerActorWeapon.Add(
-            self.radioButtonActorWeapon, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorWeaponChoices = []
-        self.comboBoxActorWeapon = wx.Choice(
-            self.panelConditions2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorWeaponChoices, 0)
-        self.comboBoxActorWeapon.SetSelection(0)
-        SizerActorWeapon.Add(self.comboBoxActorWeapon, 1, wx.ALL, 5)
-
-        self.labelActorEquipped1 = wx.StaticText(self.panelConditions2, wx.ID_ANY, _(
-            "Equipped"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        self.labelActorEquipped1.Wrap(-1)
-        SizerActorWeapon.Add(
-            self.labelActorEquipped1, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab2.Add(SizerActorWeapon, 0, wx.EXPAND, 5)
-
-        sizerActorArmor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy8 = wx.StaticText(
-            self.panelConditions2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(32, -1), 0)
-        self.labelDummy8.Wrap(-1)
-        sizerActorArmor.Add(
-            self.labelDummy8, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.radioButtonActorArmor = wx.RadioButton(self.panelConditions2, wx.ID_ANY, _(
-            "Armor"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerActorArmor.Add(
-            self.radioButtonActorArmor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorArmorChoices = []
-        self.comboBoxActorArmor = wx.Choice(
-            self.panelConditions2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorArmorChoices, 0)
-        self.comboBoxActorArmor.SetSelection(0)
-        sizerActorArmor.Add(self.comboBoxActorArmor, 1, wx.ALL, 5)
-
-        self.labelActorEquipped2 = wx.StaticText(self.panelConditions2, wx.ID_ANY, _(
-            "Equipped"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        self.labelActorEquipped2.Wrap(-1)
-        sizerActorArmor.Add(
-            self.labelActorEquipped2, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab2.Add(sizerActorArmor, 0, wx.EXPAND, 5)
-
-        sizerActorState = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy9 = wx.StaticText(
-            self.panelConditions2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(32, -1), 0)
-        self.labelDummy9.Wrap(-1)
-        sizerActorState.Add(
-            self.labelDummy9, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.radioButtonActorState = wx.RadioButton(self.panelConditions2, wx.ID_ANY, _(
-            "State"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerActorState.Add(
-            self.radioButtonActorState, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorStateChoices = []
-        self.comboBoxActorState = wx.Choice(
-            self.panelConditions2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorStateChoices, 0)
-        self.comboBoxActorState.SetSelection(0)
-        sizerActorState.Add(self.comboBoxActorState, 1, wx.ALL, 5)
-
-        self.labelStateInflicted = wx.StaticText(self.panelConditions2, wx.ID_ANY, _(
-            "Inflicted"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        self.labelStateInflicted.Wrap(-1)
-        sizerActorState.Add(
-            self.labelStateInflicted, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab2.Add(sizerActorState, 0, wx.EXPAND, 5)
-
-        self.panelConditions2.SetSizer(sizerTab2)
-        self.panelConditions2.Layout()
-        sizerTab2.Fit(self.panelConditions2)
-        self.noteBookConditions.AddPage(self.panelConditions2, _("2"), False)
-        self.panelConditions3 = wx.Panel(
-            self.noteBookConditions, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        sizerTab3 = wx.BoxSizer(wx.VERTICAL)
-
-        sizerEnemy = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelEnemy = wx.RadioButton(self.panelConditions3, wx.ID_ANY, _(
-            "Enemy"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerEnemy.Add(self.labelEnemy, 0, wx.ALL | wx.EXPAND, 5)
-
-        comboBoxEnemyChoices = []
-        self.comboBoxEnemy = wx.Choice(
-            self.panelConditions3, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxEnemyChoices, 0)
-        self.comboBoxEnemy.SetSelection(0)
-        sizerEnemy.Add(self.comboBoxEnemy, 0, wx.ALL, 5)
-
-        self.labelIsEnemy = wx.StaticText(
-            self.panelConditions3, wx.ID_ANY, _("is"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelIsEnemy.Wrap(-1)
-        sizerEnemy.Add(
-            self.labelIsEnemy, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab3.Add(sizerEnemy, 0, wx.EXPAND, 5)
-
-        sizerEnemyAppeared = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy10 = wx.StaticText(
-            self.panelConditions3, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy10.Wrap(-1)
-        sizerEnemyAppeared.Add(self.labelDummy10, 0, wx.ALL, 5)
-
-        self.radioButtonEnemyAppeared = wx.RadioButton(self.panelConditions3, wx.ID_ANY, _(
-            "Appeared"), wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP)
-        sizerEnemyAppeared.Add(self.radioButtonEnemyAppeared, 0, wx.ALL, 5)
-
-        sizerTab3.Add(sizerEnemyAppeared, 0, wx.EXPAND, 5)
-
-        sizerEnemyState = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy11 = wx.StaticText(
-            self.panelConditions3, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy11.Wrap(-1)
-        sizerEnemyState.Add(self.labelDummy11, 0, wx.ALL, 5)
-
-        self.radioButtonEnemyState = wx.RadioButton(self.panelConditions3, wx.ID_ANY, _(
-            "State"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerEnemyState.Add(
-            self.radioButtonEnemyState, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxEnemyStateChoices = []
-        self.comboBoxEnemyState = wx.Choice(
-            self.panelConditions3, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxEnemyStateChoices, 0)
-        self.comboBoxEnemyState.SetSelection(0)
-        sizerEnemyState.Add(self.comboBoxEnemyState, 1, wx.ALL, 5)
-
-        self.labelEnemyStateInflicted = wx.StaticText(self.panelConditions3, wx.ID_ANY, _(
-            "Inflicted"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelEnemyStateInflicted.Wrap(-1)
-        sizerEnemyState.Add(self.labelEnemyStateInflicted, 0,
-                            wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        sizerTab3.Add(sizerEnemyState, 0, wx.EXPAND, 5)
-
-        sizerCharacter = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelCharacter = wx.RadioButton(self.panelConditions3, wx.ID_ANY, _(
-            "Character"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP | wx.RB_SINGLE)
-        sizerCharacter.Add(
-            self.labelCharacter, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxCharacterChoices = []
-        self.comboBoxCharacter = wx.Choice(
-            self.panelConditions3, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxCharacterChoices, 0)
-        self.comboBoxCharacter.SetSelection(-1)
-        sizerCharacter.Add(self.comboBoxCharacter, 0, wx.ALL, 5)
-
-        self.labelIsCharacter = wx.StaticText(
-            self.panelConditions3, wx.ID_ANY, _("is"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelIsCharacter.Wrap(-1)
-        sizerCharacter.Add(
-            self.labelIsCharacter, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab3.Add(sizerCharacter, 0, wx.EXPAND, 5)
-
-        sizerCharacterFacing = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy12 = wx.StaticText(
-            self.panelConditions3, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy12.Wrap(-1)
-        sizerCharacterFacing.Add(self.labelDummy12, 0, wx.ALL, 5)
-
-        self.labelFacing = wx.StaticText(self.panelConditions3, wx.ID_ANY, _(
-            "Facing"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFacing.Wrap(-1)
-        sizerCharacterFacing.Add(
-            self.labelFacing, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxFacingChoices = [_("LEFT"), _("RIGHT"), _("UP"), _("DOWN")]
-        self.comboBoxFacing = wx.Choice(
-            self.panelConditions3, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxFacingChoices, 0)
-        self.comboBoxFacing.SetSelection(0)
-        sizerCharacterFacing.Add(self.comboBoxFacing, 0, wx.ALL, 5)
-
-        sizerTab3.Add(sizerCharacterFacing, 0, wx.EXPAND, 5)
-
-        self.panelConditions3.SetSizer(sizerTab3)
-        self.panelConditions3.Layout()
-        sizerTab3.Fit(self.panelConditions3)
-        self.noteBookConditions.AddPage(self.panelConditions3, _("3"), False)
-        self.panelConditions4 = wx.Panel(
-            self.noteBookConditions, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        sizerTab4 = wx.BoxSizer(wx.VERTICAL)
-
-        sizerInventoryGold = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonGold = wx.RadioButton(self.panelConditions4, wx.ID_ANY, _(
-            "Gold"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerInventoryGold.Add(
-            self.radioButtonGold, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlGold = wx.SpinCtrl(
-            self.panelConditions4, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerInventoryGold.Add(self.spinCtrlGold, 0, wx.ALL, 5)
-
-        comboBoxGoldModifierChoices = [_("or More"), _("or Less")]
-        self.comboBoxGoldModifier = wx.Choice(
-            self.panelConditions4, wx.ID_ANY, wx.DefaultPosition, wx.Size(72, -1), comboBoxGoldModifierChoices, 0)
-        self.comboBoxGoldModifier.SetSelection(0)
-        sizerInventoryGold.Add(self.comboBoxGoldModifier, 0, wx.ALL, 5)
-
-        sizerTab4.Add(sizerInventoryGold, 0, wx.EXPAND, 5)
-
-        sizerInventoryItem = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonItem = wx.RadioButton(self.panelConditions4, wx.ID_ANY, _(
-            "Item"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerInventoryItem.Add(
-            self.radioButtonItem, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxInventoryItemChoices = []
-        self.comboBoxInventoryItem = wx.Choice(
-            self.panelConditions4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxInventoryItemChoices, 0)
-        self.comboBoxInventoryItem.SetSelection(0)
-        sizerInventoryItem.Add(self.comboBoxInventoryItem, 1, wx.ALL, 5)
-
-        self.labelInventoryItem = wx.StaticText(self.panelConditions4, wx.ID_ANY, _(
-            "In Inventory"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelInventoryItem.Wrap(-1)
-        sizerInventoryItem.Add(
-            self.labelInventoryItem, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab4.Add(sizerInventoryItem, 0, wx.EXPAND, 5)
-
-        sizerInventoryWeapon = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonWeapon = wx.RadioButton(self.panelConditions4, wx.ID_ANY, _(
-            "Weapon"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerInventoryWeapon.Add(
-            self.radioButtonWeapon, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxInventoryWeaponChoices = []
-        self.comboBoxInventoryWeapon = wx.Choice(
-            self.panelConditions4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxInventoryWeaponChoices, 0)
-        self.comboBoxInventoryWeapon.SetSelection(0)
-        sizerInventoryWeapon.Add(self.comboBoxInventoryWeapon, 1, wx.ALL, 5)
-
-        self.labelInventoryWeapon = wx.StaticText(self.panelConditions4, wx.ID_ANY, _(
-            "In Inventory"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelInventoryWeapon.Wrap(-1)
-        sizerInventoryWeapon.Add(
-            self.labelInventoryWeapon, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab4.Add(sizerInventoryWeapon, 0, wx.EXPAND, 5)
-
-        sizerInventoryArmor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonArmor = wx.RadioButton(self.panelConditions4, wx.ID_ANY, _(
-            "Armor"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerInventoryArmor.Add(
-            self.radioButtonArmor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxInventoryArmorChoices = []
-        self.comboBoxInventoryArmor = wx.Choice(
-            self.panelConditions4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxInventoryArmorChoices, 0)
-        self.comboBoxInventoryArmor.SetSelection(0)
-        sizerInventoryArmor.Add(self.comboBoxInventoryArmor, 1, wx.ALL, 5)
-
-        self.labelInventoryArmor = wx.StaticText(self.panelConditions4, wx.ID_ANY, _(
-            "In Inventory"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelInventoryArmor.Wrap(-1)
-        sizerInventoryArmor.Add(
-            self.labelInventoryArmor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab4.Add(sizerInventoryArmor, 0, wx.EXPAND, 5)
-
-        sizerButtonPress = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonButton = wx.RadioButton(self.panelConditions4, wx.ID_ANY, _(
-            "Button"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerButtonPress.Add(
-            self.radioButtonButton, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxButtonPressChoices = []
-        self.comboBoxButtonPress = wx.Choice(
-            self.panelConditions4, wx.ID_ANY, wx.DefaultPosition, wx.Size(72, -1), comboBoxButtonPressChoices, 0)
-        self.comboBoxButtonPress.SetSelection(-1)
-        sizerButtonPress.Add(self.comboBoxButtonPress, 0, wx.ALL, 5)
-
-        self.labelButtonPressed = wx.StaticText(self.panelConditions4, wx.ID_ANY, _(
-            "Is Being Pressed"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelButtonPressed.Wrap(-1)
-        sizerButtonPress.Add(
-            self.labelButtonPressed, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTab4.Add(sizerButtonPress, 0, wx.EXPAND, 5)
-
-        sizerScriptCondition = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonScript = wx.RadioButton(self.panelConditions4, wx.ID_ANY, _(
-            "Script"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerScriptCondition.Add(
-            self.radioButtonScript, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.textCtrlScriptCondition = wx.TextCtrl(
-            self.panelConditions4, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlScriptCondition.SetMaxLength(0)
-        sizerScriptCondition.Add(self.textCtrlScriptCondition, 1, wx.ALL, 5)
-
-        sizerTab4.Add(sizerScriptCondition, 0, wx.EXPAND, 5)
-
-        self.panelConditions4.SetSizer(sizerTab4)
-        self.panelConditions4.Layout()
-        sizerTab4.Fit(self.panelConditions4)
-        self.noteBookConditions.AddPage(self.panelConditions4, _("4"), True)
-
-        MainSizer.Add(self.noteBookConditions, 1, wx.EXPAND | wx.ALL, 5)
-
-        self.labelElseCondition = wx.CheckBox(self, wx.ID_ANY, _(
-            "Set handling when conditions do not apply"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelElseCondition.SetValue(True)
-        MainSizer.Add(self.labelElseCondition, 0, wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonSwitch.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonSwitch_CheckedChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariableValue.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.radioButtonSelfSwitch.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonSelfSwitch_CheckChanged)
-        self.radioButtonTimer.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonTimer_CheckChanged)
-        self.radioButtonActor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonActor_CheckChanged)
-        self.radioButtonInParty.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonInParty_CheckChanged)
-        self.radioButtonActorName.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonName_CheckChanged)
-        self.radioButtonActorSkill.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonSkill_CheckChanged)
-        self.radioButtonActorWeapon.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonWeapons_CheckChanged)
-        self.radioButtonActorArmor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonArmor_CheckChanged)
-        self.radioButtonActorState.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonState_CheckChanged)
-        self.labelEnemy.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonEnemy_CheckChanged)
-        self.radioButtonEnemyAppeared.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonAppeared_CheckChanged)
-        self.radioButtonEnemyState.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonState_ValueChanged)
-        self.labelCharacter.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonCharacter_CheckChanged)
-        self.radioButtonGold.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonGold_CheckChanged)
-        self.radioButtonItem.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonItem_CheckChanged)
-        self.radioButtonWeapon.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonWeapon_CheckChanged)
-        self.radioButtonArmor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonArmor_CheckChanged)
-        self.radioButtonButton.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonButton_CheckChanged)
-        self.radioButtonScript.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonScript_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonSwitch.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariableValue.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonSelfSwitch.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonTimer.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonInParty.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActorName.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActorSkill.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActorWeapon.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActorArmor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActorState.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.labelEnemy.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonEnemyAppeared.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonEnemyState.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.labelCharacter.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonGold.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonItem.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonWeapon.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonArmor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonButton.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonScript.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonSwitch_CheckedChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonSelfSwitch_CheckChanged(self, event):
-        pass
-
-    def radioButtonTimer_CheckChanged(self, event):
-        pass
-
-    def radioButtonActor_CheckChanged(self, event):
-        pass
-
-    def radioButtonInParty_CheckChanged(self, event):
-        pass
-
-    def radioButtonName_CheckChanged(self, event):
-        pass
-
-    def radioButtonSkill_CheckChanged(self, event):
-        pass
-
-    def radioButtonWeapons_CheckChanged(self, event):
-        pass
-
-    def radioButtonArmor_CheckChanged(self, event):
-        pass
-
-    def radioButtonState_CheckChanged(self, event):
-        pass
-
-    def radioButtonEnemy_CheckChanged(self, event):
-        pass
-
-    def radioButtonAppeared_CheckChanged(self, event):
-        pass
-
-    def radioButtonState_ValueChanged(self, event):
-        pass
-
-    def radioButtonCharacter_CheckChanged(self, event):
-        pass
-
-    def radioButtonGold_CheckChanged(self, event):
-        pass
-
-    def radioButtonItem_CheckChanged(self, event):
-        pass
-
-    def radioButtonWeapon_CheckChanged(self, event):
-        pass
-
-    def radioButtonButton_CheckChanged(self, event):
-        pass
-
-    def radioButtonScript_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class Label_Dialog_Template
-###########################################################################
-
-class Label_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
-                           pos=wx.DefaultPosition, size=wx.Size(290, 94), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerLabel = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelLabel = wx.StaticText(
-            self, wx.ID_ANY, _("Label Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelLabel.Wrap(-1)
-        sizerLabel.Add(self.labelLabel, 0, wx.ALL, 5)
-
-        self.textCtrlLabel = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlLabel.SetMaxLength(0)
-        sizerLabel.Add(
-            self.textCtrlLabel, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerLabel, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ControlSwitches_Dialog_Template
-###########################################################################
-
-class ControlSwitches_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Control Switches"), pos=wx.DefaultPosition, size=wx.Size(310, 213), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerSwitch = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Switch")), wx.VERTICAL)
-
-        sizerSingleSwitch = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonSingleSwitch = wx.RadioButton(
-            self, wx.ID_ANY, _("Single"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerSingleSwitch.Add(
-            self.radioButtonSingleSwitch, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxSingleSwitchChoices = []
-        self.comboBoxSingleSwitch = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSingleSwitchChoices, 0)
-        self.comboBoxSingleSwitch.SetSelection(0)
-        sizerSingleSwitch.Add(self.comboBoxSingleSwitch, 1, wx.ALL, 5)
-
-        sizerSwitch.Add(sizerSingleSwitch, 0, wx.EXPAND, 5)
-
-        sizerBatchSwitch = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonBatchSwitch = wx.RadioButton(
-            self, wx.ID_ANY, _("Batch"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerBatchSwitch.Add(
-            self.radioButtonBatchSwitch, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlBatchStart = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerBatchSwitch.Add(self.spinCtrlBatchStart, 1, wx.ALL, 5)
-
-        self.labelTilde = wx.StaticText(
-            self, wx.ID_ANY, _("~"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTilde.Wrap(-1)
-        sizerBatchSwitch.Add(
-            self.labelTilde, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlBatchEnd = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerBatchSwitch.Add(self.spinCtrlBatchEnd, 1, wx.ALL, 5)
-
-        sizerSwitch.Add(sizerBatchSwitch, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerSwitch, 1, wx.EXPAND | wx.ALL, 5)
-
-        radioBoxOperationChoices = [_("ON"), _("OFF")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        MainSizer.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.spinCtrlBatchStart.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlBatchStart_ValueChanged)
-        self.spinCtrlBatchEnd.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlBatchEnd_ValueChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.spinCtrlBatchStart.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlBatchEnd.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def spinCtrlBatchStart_ValueChanged(self, event):
-        pass
-
-    def spinCtrlBatchEnd_ValueChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ControlVariables_Dialog_Template
-###########################################################################
-
-class ControlVariables_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Control Variables"), pos=wx.DefaultPosition, size=wx.Size(359, 490), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerVariableSelect = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Variable")), wx.VERTICAL)
-
-        sizerSingleSwitch = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonSingleVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Single"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerSingleSwitch.Add(
-            self.radioButtonSingleVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxSingleVariableChoices = []
-        self.comboBoxSingleVariable = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSingleVariableChoices, 0)
-        self.comboBoxSingleVariable.SetSelection(0)
-        sizerSingleSwitch.Add(self.comboBoxSingleVariable, 1, wx.ALL, 5)
-
-        sizerVariableSelect.Add(sizerSingleSwitch, 0, wx.EXPAND, 5)
-
-        sizerBatchVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonBatchVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Batch"), wx.DefaultPosition, wx.Size(64, -1), 0)
-        sizerBatchVariable.Add(
-            self.radioButtonBatchVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlBatchStart = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerBatchVariable.Add(self.spinCtrlBatchStart, 1, wx.ALL, 5)
-
-        self.labelTilde1 = wx.StaticText(
-            self, wx.ID_ANY, _("~"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTilde1.Wrap(-1)
-        sizerBatchVariable.Add(
-            self.labelTilde1, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlBatchEnd = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerBatchVariable.Add(self.spinCtrlBatchEnd, 1, wx.ALL, 5)
-
-        sizerVariableSelect.Add(sizerBatchVariable, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerVariableSelect, 0, wx.ALL | wx.EXPAND, 5)
-
-        radioBoxOperationChoices = [
-            _("Set"), _("Add"), _("Sub"), _("Mul"), _("Div"), _("Mod")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(5)
-        MainSizer.Add(self.radioBoxOperation, 0, wx.ALL | wx.EXPAND, 5)
-
-        sizerOperand = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Operand")), wx.VERTICAL)
-
-        sizerConstant = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerConstant.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstant = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(96, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstant.Add(self.spinCtrlConstant, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerConstant, 1, wx.EXPAND, 5)
-
-        sizerVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariable.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxVariableChoices, 0)
-        self.comboBoxVariable.SetSelection(-1)
-        sizerVariable.Add(self.comboBoxVariable, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerVariable, 1, wx.EXPAND, 5)
-
-        sizerRandom = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonRandom = wx.RadioButton(
-            self, wx.ID_ANY, _("Random"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerRandom.Add(
-            self.radioButtonRandom, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlRandomStart = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerRandom.Add(self.spinCtrlRandomStart, 1, wx.ALL, 5)
-
-        self.labelTilde2 = wx.StaticText(
-            self, wx.ID_ANY, _("~"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTilde2.Wrap(-1)
-        sizerRandom.Add(
-            self.labelTilde2, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlRandomEnd = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerRandom.Add(self.spinCtrlRandomEnd, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerRandom, 1, wx.EXPAND, 5)
-
-        sizerItem = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonItem = wx.RadioButton(
-            self, wx.ID_ANY, _("Item"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerItem.Add(
-            self.radioButtonItem, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxItemChoices = []
-        self.comboBoxItem = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxItemChoices, 0)
-        self.comboBoxItem.SetSelection(0)
-        sizerItem.Add(self.comboBoxItem, 1, wx.ALL, 5)
-
-        self.labelItemInInventory = wx.StaticText(
-            self, wx.ID_ANY, _("In Inventory"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelItemInInventory.Wrap(-1)
-        sizerItem.Add(
-            self.labelItemInInventory, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOperand.Add(sizerItem, 1, wx.EXPAND, 5)
-
-        sizerActor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonActor = wx.RadioButton(
-            self, wx.ID_ANY, _("Actor"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerActor.Add(
-            self.radioButtonActor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerActor.Add(self.comboBoxActor, 0, wx.ALL, 5)
-
-        self.labelPossessive1 = wx.StaticText(
-            self, wx.ID_ANY, _("'s"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelPossessive1.Wrap(-1)
-        sizerActor.Add(self.labelPossessive1, 0,
-                       wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        comboBoxActorParametersChoices = [_("Level"), _("EXP"), _("HP"), _("SP"), _(
-            "MaxHP"), _("MaxSP"), _("STR"), _("DEX"), _("AGI"), _("INT"), _("PDEF"), _("MDEF")]
-        self.comboBoxActorParameters = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorParametersChoices, 0)
-        self.comboBoxActorParameters.SetSelection(0)
-        sizerActor.Add(self.comboBoxActorParameters, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerActor, 1, wx.EXPAND, 5)
-
-        sizerEnemy = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonEnemy = wx.RadioButton(
-            self, wx.ID_ANY, _("Enemy"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerEnemy.Add(
-            self.radioButtonEnemy, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxEnemyChoices = []
-        self.comboBoxEnemy = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0)
-        self.comboBoxEnemy.SetSelection(0)
-        sizerEnemy.Add(self.comboBoxEnemy, 0, wx.ALL, 5)
-
-        self.labelPossessive2 = wx.StaticText(
-            self, wx.ID_ANY, _("'s"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelPossessive2.Wrap(-1)
-        sizerEnemy.Add(self.labelPossessive2, 0,
-                       wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        comboBoxEnemyParametersChoices = [_("HP"), _("SP"), _("MaxHP"), _(
-            "MaxSP"), _("STR"), _("DEX"), _("AGI"), _("INT"), _("PDEF"), _("MDEF")]
-        self.comboBoxEnemyParameters = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyParametersChoices, 0)
-        self.comboBoxEnemyParameters.SetSelection(0)
-        sizerEnemy.Add(self.comboBoxEnemyParameters, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerEnemy, 1, wx.EXPAND, 5)
-
-        sizerCharacter = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonCharacter = wx.RadioButton(
-            self, wx.ID_ANY, _("Character"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerCharacter.Add(
-            self.radioButtonCharacter, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxCharacterChoices = []
-        self.comboBoxCharacter = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterChoices, 0)
-        self.comboBoxCharacter.SetSelection(0)
-        sizerCharacter.Add(self.comboBoxCharacter, 0, wx.ALL, 5)
-
-        self.labelPossessive3 = wx.StaticText(
-            self, wx.ID_ANY, _("'s"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelPossessive3.Wrap(-1)
-        sizerCharacter.Add(
-            self.labelPossessive3, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        comboBoxCharacterParametersChoices = [_("Map X"), _("Map Y"), _(
-            "Direction"), _("Screen X"), _("Screen Y"), _("Terrain Tag")]
-        self.comboBoxCharacterParameters = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterParametersChoices, 0)
-        self.comboBoxCharacterParameters.SetSelection(5)
-        sizerCharacter.Add(self.comboBoxCharacterParameters, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerCharacter, 1, wx.EXPAND, 5)
-
-        sizerOther = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonOther = wx.RadioButton(
-            self, wx.ID_ANY, _("Other"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerOther.Add(
-            self.radioButtonOther, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxOtherChoices = [_("Map ID"), _("Party Members"), _(
-            "Gold"), _("Steps"), _("Play Time"), _("Timer"), _("Save Count")]
-        self.comboBoxOther = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOtherChoices, 0)
-        self.comboBoxOther.SetSelection(0)
-        sizerOther.Add(self.comboBoxOther, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerOther, 1, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerOperand, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.spinCtrlBatchStart.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlBatchStart_ValueChanged)
-        self.spinCtrlBatchEnd.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlBatchEnd_ValueChanged)
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.radioButtonRandom.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonRandom_CheckChanged)
-        self.radioButtonItem.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonItem_CheckChanged)
-        self.radioButtonActor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonActor_CheckChanged)
-        self.radioButtonEnemy.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonEnemy_CheckChanged)
-        self.radioButtonCharacter.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonCharacter_CheckChanged)
-        self.radioButtonOther.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonOther_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.spinCtrlBatchStart.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlBatchEnd.Unbind(wx.EVT_SPINCTRL, None)
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonRandom.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonItem.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonEnemy.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonCharacter.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonOther.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def spinCtrlBatchStart_ValueChanged(self, event):
-        pass
-
-    def spinCtrlBatchEnd_ValueChanged(self, event):
-        pass
-
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def radioButtonRandom_CheckChanged(self, event):
-        pass
-
-    def radioButtonItem_CheckChanged(self, event):
-        pass
-
-    def radioButtonActor_CheckChanged(self, event):
-        pass
-
-    def radioButtonEnemy_CheckChanged(self, event):
-        pass
-
-    def radioButtonCharacter_CheckChanged(self, event):
-        pass
-
-    def radioButtonOther_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ControlSelfSwitches_Dialog_Template
-###########################################################################
-
-class ControlSelfSwitches_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Control Self Switch"), pos=wx.DefaultPosition, size=wx.Size(208, 139), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerSelfSwitch = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelSelfSwicth = wx.StaticText(
-            self, wx.ID_ANY, _("Self Switch:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSelfSwicth.Wrap(-1)
-        sizerSelfSwitch.Add(self.labelSelfSwicth, 0, wx.ALL, 5)
-
-        comboBoxLettersChoices = [_("A"), _("B"), _("C"), _("D"), _("E"), _("F"), _("G"), _("H"), _("I"), _("J"), _("K"), _(
-            "L"), _("M"), _("N"), _("O"), _("P"), _("Q"), _("R"), _("S"), _("T"), _("U"), _("V"), _("W"), _("X"), _("Y"), _("Z")]
-        self.comboBoxLetters = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(64, -1), comboBoxLettersChoices, 0)
-        self.comboBoxLetters.SetSelection(0)
-        sizerSelfSwitch.Add(
-            self.comboBoxLetters, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        radioBoxOperationChoices = [_("ON"), _("OFF")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        sizerSelfSwitch.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerSelfSwitch, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ControlTimer_Dialog_Template
-###########################################################################
-
-class ControlTimer_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Control Timer"), pos=wx.DefaultPosition, size=wx.Size(296, 116), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerControls = wx.BoxSizer(wx.VERTICAL)
-
-        radioBoxOperationChoices = [_("Start"), _("Stop")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        sizerControls.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        sizerTimer = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.spinCtrlTimerMin = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 9999, 0)
-        sizerTimer.Add(self.spinCtrlTimerMin, 1, wx.ALL, 5)
-
-        self.labelMinutes = wx.StaticText(
-            self, wx.ID_ANY, _("Min"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelMinutes.Wrap(-1)
-        sizerTimer.Add(
-            self.labelMinutes, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        self.spinCtrlTimerSec = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 59, 0)
-        sizerTimer.Add(self.spinCtrlTimerSec, 1, wx.ALL, 5)
-
-        self.labelSeconds = wx.StaticText(
-            self, wx.ID_ANY, _("Sec"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSeconds.Wrap(-1)
-        sizerTimer.Add(
-            self.labelSeconds, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        sizerControls.Add(sizerTimer, 1, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerControls, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangelGold_Dialog_Template
-###########################################################################
-
-class ChangelGold_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Gold"), pos=wx.DefaultPosition, size=wx.Size(287, 211), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        radioBoxOperationChoices = [_("Increase"), _("Decrease")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        MainSizer.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        sizerOperand = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Operand")), wx.VERTICAL)
-
-        sizerConstant = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerConstant.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstant = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstant.Add(self.spinCtrlConstant, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerConstant, 0, wx.EXPAND, 5)
-
-        sizerVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariable.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        self.comboBoxVariable.SetSelection(0)
-        sizerVariable.Add(self.comboBoxVariable, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerVariable, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerOperand, 1, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangelPartyEquipment_Dialog_Template
-###########################################################################
-
-class ChangelPartyEquipment_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change (Equipment Type)"), pos=wx.DefaultPosition, size=wx.Size(287, 261), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelEquipmentType = wx.StaticText(
-            self, wx.ID_ANY, _("(Equipment Type):"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelEquipmentType.Wrap(-1)
-        MainSizer.Add(self.labelEquipmentType, 0, wx.ALL, 5)
-
-        comboBoxEquipmentChoices = []
-        self.comboBoxEquipment = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEquipmentChoices, 0)
-        self.comboBoxEquipment.SetSelection(0)
-        MainSizer.Add(
-            self.comboBoxEquipment, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        radioBoxOperationChoices = [_("Increase"), _("Decrease")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        MainSizer.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        sizerOperand = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Operand")), wx.VERTICAL)
-
-        sizerConstant = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerConstant.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstant = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstant.Add(self.spinCtrlConstant, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerConstant, 0, wx.EXPAND, 5)
-
-        sizerVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariable.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        self.comboBoxVariable.SetSelection(0)
-        sizerVariable.Add(self.comboBoxVariable, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerVariable, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerOperand, 1, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangePartyMember_Dialog_Template
-###########################################################################
-
-class ChangePartyMember_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Party Member"), pos=wx.DefaultPosition, size=wx.Size(283, 157), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerActor = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        sizerActor.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerActor.Add(
-            self.comboBoxActor, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        radioBoxOperationChoices = [_("Add"), _("Remove")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        sizerActor.Add(self.radioBoxOperation, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.checkBoxInitialize = wx.CheckBox(
-            self, wx.ID_ANY, _("Initialize"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.checkBoxInitialize.SetValue(True)
-        sizerActor.Add(self.checkBoxInitialize, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerActor, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeAccess_Dialog_Template
-###########################################################################
-
-class ChangeAccess_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change (Menu/Save/Encounter)"), pos=wx.DefaultPosition, size=wx.Size(241, 93), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        radioBoxOperationChoices = [_("Enable"), _("Disable")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        MainSizer.Add(
-            self.radioBoxOperation, 1, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class TransferPlayer_Dialog_Template
-###########################################################################
-
-class TransferPlayer_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Transfer Player"), pos=wx.DefaultPosition, size=wx.Size(251, 283), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelDirect = wx.RadioButton(
-            self, wx.ID_ANY, _("Direct Appointment"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.labelDirect, 0, wx.ALL, 5)
-
-        sizerDirect = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy1 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy1.Wrap(-1)
-        sizerDirect.Add(self.labelDummy1, 0, wx.ALL, 5)
-
-        comboBoxDirectAppointmentChoices = []
-        self.comboBoxDirectAppointment = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxDirectAppointmentChoices, 0)
-        sizerDirect.Add(self.comboBoxDirectAppointment, 1, wx.ALL, 5)
-
-        MainSizer.Add(sizerDirect, 0, wx.EXPAND, 5)
-
-        self.comboBoxVaribleAppointment = wx.RadioButton(self, wx.ID_ANY, _(
-            "Appoint with Variables"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.comboBoxVaribleAppointment, 0, wx.ALL, 5)
-
-        sizerMapID = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy2 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy2.Wrap(-1)
-        sizerMapID.Add(self.labelDummy2, 0, wx.ALL, 5)
-
-        self.labelMapID = wx.StaticText(
-            self, wx.ID_ANY, _("Map ID:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelMapID.Wrap(-1)
-        sizerMapID.Add(
-            self.labelMapID, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxMapIDChoices = []
-        self.comboBoxMapID = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMapIDChoices, 0)
-        sizerMapID.Add(self.comboBoxMapID, 1, wx.ALL, 5)
-
-        MainSizer.Add(sizerMapID, 0, wx.EXPAND, 5)
-
-        sizerMapX = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy3 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy3.Wrap(-1)
-        sizerMapX.Add(self.labelDummy3, 0, wx.ALL, 5)
-
-        self.labelMapX = wx.StaticText(
-            self, wx.ID_ANY, _("Map X:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelMapX.Wrap(-1)
-        sizerMapX.Add(self.labelMapX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxMapXChoices = []
-        self.comboBoxMapX = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMapXChoices, 0)
-        sizerMapX.Add(self.comboBoxMapX, 1, wx.ALL, 5)
-
-        MainSizer.Add(sizerMapX, 0, wx.EXPAND, 5)
-
-        sizerMapY = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy4 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy4.Wrap(-1)
-        sizerMapY.Add(self.labelDummy4, 0, wx.ALL, 5)
-
-        self.labelMapY = wx.StaticText(
-            self, wx.ID_ANY, _("Map Y:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelMapY.Wrap(-1)
-        sizerMapY.Add(self.labelMapY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxMapYChoices = []
-        self.comboBoxMapY = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMapYChoices, 0)
-        sizerMapY.Add(self.comboBoxMapY, 1, wx.ALL, 5)
-
-        MainSizer.Add(sizerMapY, 0, wx.EXPAND, 5)
-
-        sizerSettings = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerDirection = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelDirection = wx.StaticText(
-            self, wx.ID_ANY, _("Direction:"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDirection.Wrap(-1)
-        sizerDirection.Add(self.labelDirection, 0, wx.ALL, 5)
-
-        comboBoxDirectionChoices = [
-            _("Retain"), _("Left"), _("Right"), _("Up"), _("Down")]
-        self.comboBoxDirection = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(72, -1), comboBoxDirectionChoices, 0)
-        self.comboBoxDirection.SetSelection(0)
-        sizerDirection.Add(
-            self.comboBoxDirection, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerSettings.Add(sizerDirection, 1, wx.EXPAND, 5)
-
-        sizerFading = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelFading = wx.StaticText(
-            self, wx.ID_ANY, _("Fading:"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelFading.Wrap(-1)
-        sizerFading.Add(self.labelFading, 0, wx.ALL, 5)
-
-        comboBoxFadingChoices = [_("Yes"), _("No")]
-        self.comboBoxFading = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(72, -1), comboBoxFadingChoices, 0)
-        self.comboBoxFading.SetSelection(0)
-        sizerFading.Add(
-            self.comboBoxFading, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerSettings.Add(sizerFading, 1, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerSettings, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.labelDirect.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonDirect_CheckChanged)
-        self.comboBoxDirectAppointment.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxDirectAppointment_Clicked)
-        self.comboBoxVaribleAppointment.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariables_CheckChanged)
-        self.comboBoxMapID.Bind(wx.EVT_LEFT_DOWN, self.comboBoxMapID_Clicked)
-        self.comboBoxMapX.Bind(wx.EVT_LEFT_DOWN, self.comboBoxMapX_Clicked)
-        self.comboBoxMapY.Bind(wx.EVT_LEFT_DOWN, self.comboBoxMapY_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.labelDirect.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxDirectAppointment.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxVaribleAppointment.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxMapID.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxMapX.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxMapY.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonDirect_CheckChanged(self, event):
-        pass
-
-    def comboBoxDirectAppointment_Clicked(self, event):
-        pass
-
-    def radioButtonVariables_CheckChanged(self, event):
-        pass
-
-    def comboBoxMapID_Clicked(self, event):
-        pass
-
-    def comboBoxMapX_Clicked(self, event):
-        pass
-
-    def comboBoxMapY_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class SetEventLocation_Dialog_Template
-###########################################################################
-
-class SetEventLocation_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
-                           pos=wx.DefaultPosition, size=wx.Size(251, 385), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelEvent = wx.StaticText(
-            self, wx.ID_ANY, _("Event:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelEvent.Wrap(-1)
-        MainSizer.Add(self.labelEvent, 0, wx.ALL, 5)
-
-        comboBoxEventChoices = []
-        self.comboBoxEvent = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxEventChoices, 0)
-        self.comboBoxEvent.SetSelection(0)
-        MainSizer.Add(self.comboBoxEvent, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelDirect = wx.RadioButton(
-            self, wx.ID_ANY, _("Direct Appointment"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.labelDirect, 0, wx.ALL, 5)
-
-        bSizer510 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy1 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy1.Wrap(-1)
-        bSizer510.Add(self.labelDummy1, 0, wx.ALL, 5)
-
-        comboBoxDirectAppointmentChoices = []
-        self.comboBoxDirectAppointment = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxDirectAppointmentChoices, 0)
-        bSizer510.Add(self.comboBoxDirectAppointment, 1, wx.ALL, 5)
-
-        MainSizer.Add(bSizer510, 0, wx.EXPAND, 5)
-
-        self.comboBoxVaribleAppointment = wx.RadioButton(self, wx.ID_ANY, _(
-            "Appoint with Variables"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.comboBoxVaribleAppointment, 0, wx.ALL, 5)
-
-        bSizer511 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy2 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy2.Wrap(-1)
-        bSizer511.Add(self.labelDummy2, 0, wx.ALL, 5)
-
-        self.labelMapID = wx.StaticText(
-            self, wx.ID_ANY, _("Map ID:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelMapID.Wrap(-1)
-        bSizer511.Add(self.labelMapID, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxMapIDChoices = []
-        self.comboBoxMapID = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMapIDChoices, 0)
-        bSizer511.Add(self.comboBoxMapID, 1, wx.ALL, 5)
-
-        MainSizer.Add(bSizer511, 0, wx.EXPAND, 5)
-
-        bSizer5111 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy3 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy3.Wrap(-1)
-        bSizer5111.Add(self.labelDummy3, 0, wx.ALL, 5)
-
-        self.labelMapX = wx.StaticText(
-            self, wx.ID_ANY, _("Map X:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelMapX.Wrap(-1)
-        bSizer5111.Add(self.labelMapX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxMapXChoices = []
-        self.comboBoxMapX = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMapXChoices, 0)
-        bSizer5111.Add(self.comboBoxMapX, 1, wx.ALL, 5)
-
-        MainSizer.Add(bSizer5111, 0, wx.EXPAND, 5)
-
-        bSizer5112 = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy4 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy4.Wrap(-1)
-        bSizer5112.Add(self.labelDummy4, 0, wx.ALL, 5)
-
-        self.labelMapY = wx.StaticText(
-            self, wx.ID_ANY, _("Map Y:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelMapY.Wrap(-1)
-        bSizer5112.Add(self.labelMapY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxMapYChoices = []
-        self.comboBoxMapY = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMapYChoices, 0)
-        bSizer5112.Add(self.comboBoxMapY, 1, wx.ALL, 5)
-
-        MainSizer.Add(bSizer5112, 0, wx.EXPAND, 5)
-
-        self.radioButtonExchange = wx.RadioButton(self, wx.ID_ANY, _(
-            "Exchange with another event"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.radioButtonExchange, 0, wx.ALL, 5)
-
-        sizerExchange = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy5 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy5.Wrap(-1)
-        sizerExchange.Add(self.labelDummy5, 0, wx.ALL, 5)
-
-        comboBoxExchangeChoices = []
-        self.comboBoxExchange = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxExchangeChoices, 0)
-        self.comboBoxExchange.SetSelection(-1)
-        sizerExchange.Add(self.comboBoxExchange, 1, wx.ALL | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerExchange, 0, wx.EXPAND, 5)
-
-        self.labelDirection = wx.StaticText(
-            self, wx.ID_ANY, _("Direction:"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDirection.Wrap(-1)
-        MainSizer.Add(self.labelDirection, 0, wx.ALL, 5)
-
-        comboBoxDirectionChoices = [
-            _("Retain"), _("Left"), _("Right"), _("Up"), _("Down")]
-        self.comboBoxDirection = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(72, -1), comboBoxDirectionChoices, 0)
-        self.comboBoxDirection.SetSelection(0)
-        MainSizer.Add(
-            self.comboBoxDirection, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.labelDirect.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonDirect_CheckChanged)
-        self.comboBoxDirectAppointment.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxDirectAppointment_Clicked)
-        self.comboBoxVaribleAppointment.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.comboBoxMapID.Bind(wx.EVT_LEFT_DOWN, self.comboBoxMapID_Clicked)
-        self.comboBoxMapX.Bind(wx.EVT_LEFT_DOWN, self.comboBoxMapX_Clicked)
-        self.comboBoxMapY.Bind(wx.EVT_LEFT_DOWN, self.comboBoxMapY_Clicked)
-        self.radioButtonExchange.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonExchange_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.labelDirect.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxDirectAppointment.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxVaribleAppointment.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxMapID.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxMapX.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.comboBoxMapY.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.radioButtonExchange.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonDirect_CheckChanged(self, event):
-        pass
-
-    def comboBoxDirectAppointment_Clicked(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def comboBoxMapID_Clicked(self, event):
-        pass
-
-    def comboBoxMapX_Clicked(self, event):
-        pass
-
-    def comboBoxMapY_Clicked(self, event):
-        pass
-
-    def radioButtonExchange_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -12066,36 +7382,29 @@ class TransferPlayerTilemap_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.treeCtrlMap.Unbind(wx.EVT_TREE_SEL_CHANGED, None)
-        self.buttonFull.Unbind(wx.EVT_BUTTON, None)
-        self.buttonThreeQuarter.Unbind(wx.EVT_BUTTON, None)
-        self.buttonHalf.Unbind(wx.EVT_BUTTON, None)
-        self.buttonQuarter.Unbind(wx.EVT_BUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def treeCtrlMaps_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonFull_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonThreeQuarter_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonHalf_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonQuarter_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -12189,531 +7498,26 @@ class TransferEventTilemap_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonFull.Unbind(wx.EVT_BUTTON, None)
-        self.buttonThreeQuarter.Unbind(wx.EVT_BUTTON, None)
-        self.buttonHalf.Unbind(wx.EVT_BUTTON, None)
-        self.buttonQuarter.Unbind(wx.EVT_BUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonFull_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonThreeQuarter_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonHalf_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonQuarter_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ScrollMap_Dialog_Template
-###########################################################################
-
-class ScrollMap_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Scroll Map"), pos=wx.DefaultPosition, size=wx.Size(265, 130), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerControls = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerDirection = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Direction")), wx.HORIZONTAL)
-
-        sizerDirColumn1 = wx.BoxSizer(wx.VERTICAL)
-
-        self.radioButtonUpperLeft = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn1.Add(self.radioButtonUpperLeft, 0, wx.ALL, 5)
-
-        self.radioButtonLeft = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn1.Add(self.radioButtonLeft, 0, wx.ALL, 5)
-
-        self.radioButtonLowerLeft = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn1.Add(self.radioButtonLowerLeft, 0, wx.ALL, 5)
-
-        sizerDirection.Add(sizerDirColumn1, 0, 0, 5)
-
-        sizerDirColumn2 = wx.BoxSizer(wx.VERTICAL)
-
-        self.radioButtonUp = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn2.Add(self.radioButtonUp, 0, wx.ALL, 5)
-
-        self.labelDummy = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelDummy.Wrap(-1)
-        sizerDirColumn2.Add(self.labelDummy, 0, wx.ALL, 5)
-
-        self.radioButtonDown = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn2.Add(self.radioButtonDown, 0, wx.ALL, 5)
-
-        sizerDirection.Add(sizerDirColumn2, 0, 0, 5)
-
-        sizerDirColumn3 = wx.BoxSizer(wx.VERTICAL)
-
-        self.radioButtonUpperRight = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn3.Add(self.radioButtonUpperRight, 0, wx.ALL, 5)
-
-        self.radioButtonRight = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn3.Add(self.radioButtonRight, 0, wx.ALL, 5)
-
-        self.radioButtonLowerRight = wx.RadioButton(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerDirColumn3.Add(self.radioButtonLowerRight, 0, wx.ALL, 5)
-
-        sizerDirection.Add(sizerDirColumn3, 1, wx.EXPAND, 5)
-
-        sizerControls.Add(sizerDirection, 0, wx.ALL, 5)
-
-        sizerDistance = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelDistance = wx.StaticText(
-            self, wx.ID_ANY, _("Distance:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelDistance.Wrap(-1)
-        sizerDistance.Add(self.labelDistance, 0, wx.ALL, 5)
-
-        self.spinCtrlDistance = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 500, 0)
-        sizerDistance.Add(
-            self.spinCtrlDistance, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerControls.Add(sizerDistance, 1, wx.EXPAND, 5)
-
-        sizerSpeed = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelSpeed = wx.StaticText(
-            self, wx.ID_ANY, _("Speed:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSpeed.Wrap(-1)
-        sizerSpeed.Add(self.labelSpeed, 0, wx.ALL, 5)
-
-        comboBoxSpeedChoices = [_("1: Slowest"), _("2: Slower"), _(
-            "3: Slow"), _("4: Fast"), _("5: Faster"), _("6: Fastest")]
-        self.comboBoxSpeed = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSpeedChoices, 0)
-        self.comboBoxSpeed.SetSelection(5)
-        sizerSpeed.Add(
-            self.comboBoxSpeed, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerControls.Add(sizerSpeed, 1, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerControls, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeMapSettings_Dialog_Template
-###########################################################################
-
-class ChangeMapSettings_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Map Settings"), pos=wx.DefaultPosition, size=wx.Size(207, 212), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.radioButtonPanorama = wx.RadioButton(
-            self, wx.ID_ANY, _("Panorama Graphic"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.radioButtonPanorama, 0, wx.ALL, 5)
-
-        sizerPanorama = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy1 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy1.Wrap(-1)
-        sizerPanorama.Add(self.labelDummy1, 0, wx.ALL, 5)
-
-        comboBoxPanoramaChoices = []
-        self.comboBoxPanorama = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxPanoramaChoices, 0)
-        sizerPanorama.Add(
-            self.comboBoxPanorama, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerPanorama, 0, wx.EXPAND, 5)
-
-        self.radioButtonFog = wx.RadioButton(
-            self, wx.ID_ANY, _("Fog Graphic"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.radioButtonFog, 0, wx.ALL, 5)
-
-        sizerFog = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy2 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy2.Wrap(-1)
-        sizerFog.Add(self.labelDummy2, 0, wx.ALL, 5)
-
-        comboBoxFogChoices = []
-        self.comboBoxFog = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxFogChoices, 0)
-        sizerFog.Add(self.comboBoxFog, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerFog, 0, wx.EXPAND, 5)
-
-        self.radioButtonBattleback = wx.RadioButton(
-            self, wx.ID_ANY, _("Battleback Graphic"), wx.DefaultPosition, wx.DefaultSize, 0)
-        MainSizer.Add(self.radioButtonBattleback, 0, wx.ALL, 5)
-
-        sizerBattleback = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy3 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(16, -1), 0)
-        self.labelDummy3.Wrap(-1)
-        sizerBattleback.Add(self.labelDummy3, 0, wx.ALL, 5)
-
-        comboBoxBattleBackChoices = []
-        self.comboBoxBattleBack = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleBackChoices, 0)
-        sizerBattleback.Add(
-            self.comboBoxBattleBack, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerBattleback, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonPanorama.Bind(
-            wx.EVT_RADIOBUTTON, self.radioBoxPanorama_CheckChanged)
-        self.comboBoxPanorama.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxPanorama_Clicked)
-        self.radioButtonFog.Bind(
-            wx.EVT_RADIOBUTTON, self.radioBoxFog_CheckChanged)
-        self.comboBoxFog.Bind(wx.EVT_LEFT_DOWN, self.comboBoxFog_Clicked)
-        self.radioButtonBattleback.Bind(
-            wx.EVT_RADIOBUTTON, self.radioBoxBattleback_CheckChanged)
-        self.comboBoxBattleBack.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxBattleback_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonPanorama.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxPanorama.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.radioButtonFog.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxFog.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.radioButtonBattleback.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxBattleBack.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioBoxPanorama_CheckChanged(self, event):
-        pass
-
-    def comboBoxPanorama_Clicked(self, event):
-        pass
-
-    def radioBoxFog_CheckChanged(self, event):
-        pass
-
-    def comboBoxFog_Clicked(self, event):
-        pass
-
-    def radioBoxBattleback_CheckChanged(self, event):
-        pass
-
-    def comboBoxBattleback_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeFogOpacity_Dialog_Template
-###########################################################################
-
-class ChangeFogOpacity_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Fog Opacity"), pos=wx.DefaultPosition, size=wx.Size(208, 112), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerControls = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerOpacity = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelOpacity = wx.StaticText(
-            self, wx.ID_ANY, _("Opacity:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelOpacity.Wrap(-1)
-        sizerOpacity.Add(self.labelOpacity, 0, wx.ALL, 5)
-
-        self.spinCtrlOpacity = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 255, 255)
-        sizerOpacity.Add(
-            self.spinCtrlOpacity, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerControls.Add(sizerOpacity, 0, wx.EXPAND, 5)
-
-        sizerTime = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerTime.Add(self.labelTime, 0, wx.ALL, 5)
-
-        sizerFrames = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.spinCtrlTime = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 2000, 200)
-        sizerFrames.Add(
-            self.spinCtrlTime, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFrames.Wrap(-1)
-        sizerFrames.Add(self.labelFrames, 0, wx.TOP |
-                        wx.BOTTOM | wx.RIGHT | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerTime.Add(sizerFrames, 1, wx.EXPAND, 5)
-
-        sizerControls.Add(sizerTime, 1, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerControls, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ShowAnimation_Dialog_Template
-###########################################################################
-
-class ShowAnimation_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
-                           pos=wx.DefaultPosition, size=wx.Size(290, 127), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerAnimation = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelCharacter = wx.StaticText(
-            self, wx.ID_ANY, _("Character:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelCharacter.Wrap(-1)
-        sizerAnimation.Add(self.labelCharacter, 0, wx.ALL, 5)
-
-        comboBoxCharacterChoices = [_("Player"), _("This Event")]
-        self.comboBoxCharacter = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterChoices, 0)
-        self.comboBoxCharacter.SetSelection(0)
-        sizerAnimation.Add(
-            self.comboBoxCharacter, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.labelAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelAnimation.Wrap(-1)
-        sizerAnimation.Add(self.labelAnimation, 0, wx.ALL, 5)
-
-        comboBoxAnimationChoices = []
-        self.comboBoxAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAnimationChoices, 0)
-        self.comboBoxAnimation.SetSelection(0)
-        sizerAnimation.Add(
-            self.comboBoxAnimation, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerAnimation, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class TransparentFlag_Dialog_Template
-###########################################################################
-
-class TransparentFlag_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Transparent Flag"), pos=wx.DefaultPosition, size=wx.Size(278, 91), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        radioBoxTranparentFlagChoices = [_("Transparent"), _("Normal")]
-        self.radioBoxTranparentFlag = wx.RadioBox(self, wx.ID_ANY, _(
-            "Tranparent Flag"), wx.DefaultPosition, wx.DefaultSize, radioBoxTranparentFlagChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxTranparentFlag.SetSelection(0)
-        MainSizer.Add(
-            self.radioBoxTranparentFlag, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -12754,11 +7558,11 @@ class MoveRoute_Dialog_Template (wx.Dialog):
         sizerOptions = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Options")), wx.VERTICAL)
 
-        self.checkBoxRepeatAction = wx.CheckBox(
-            self, wx.ID_ANY, _("Repeat Action"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxRepeatAction = wx.CheckBox(sizerOptions.GetStaticBox(), wx.ID_ANY, _(
+            "Repeat Action"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerOptions.Add(self.checkBoxRepeatAction, 0, wx.ALL, 5)
 
-        self.checkBoxIgnore = wx.CheckBox(self, wx.ID_ANY, _(
+        self.checkBoxIgnore = wx.CheckBox(sizerOptions.GetStaticBox(), wx.ID_ANY, _(
             "Ignore If Can't Move "), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerOptions.Add(self.checkBoxIgnore, 0, wx.ALL, 5)
 
@@ -12917,8 +7721,8 @@ class MoveRoute_Dialog_Template (wx.Dialog):
         sizerButtons2.Add(
             self.buttonChangeSpeed, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonChangeFreq = wx.Button(
-            self, wx.ID_ANY, _("Change Frequency..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonChangeFreq = wx.Button(self, wx.ID_ANY, _(
+            "Change Frequency..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerButtons2.Add(
             self.buttonChangeFreq, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -13101,200 +7905,152 @@ class MoveRoute_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.listBoxMoveRoute.Unbind(wx.EVT_CHAR, None)
-        self.buttonMoveDown.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveLeft.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveRight.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveUp.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveLowerLeft.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveLowerRight.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveUpperLeft.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveUpperRight.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveRandom.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveTowardPlayer.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveAwayPlayer.Unbind(wx.EVT_BUTTON, None)
-        self.buttonStepForward.Unbind(wx.EVT_BUTTON, None)
-        self.buttonStepBackward.Unbind(wx.EVT_BUTTON, None)
-        self.buttonJump.Unbind(wx.EVT_BUTTON, None)
-        self.buttonWait.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurnDown.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurnLeft.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurnRight.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurnUp.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurn90Left.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurn90Right.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurn180.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurn90.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurnRandom.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurnTowardPlayer.Unbind(wx.EVT_BUTTON, None)
-        self.buttonTurnAwayPlayer.Unbind(wx.EVT_BUTTON, None)
-        self.buttonSwitchOn.Unbind(wx.EVT_BUTTON, None)
-        self.buttonSwitchOff.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeSpeed.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeFreq.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveAnimationOn.Unbind(wx.EVT_BUTTON, None)
-        self.buttonMoveAnimationOff.Unbind(wx.EVT_BUTTON, None)
-        self.buttonStopAnimationOn.Unbind(wx.EVT_BUTTON, None)
-        self.buttonStopAnimationOff.Unbind(wx.EVT_BUTTON, None)
-        self.buttonDirectionFixOn.Unbind(wx.EVT_BUTTON, None)
-        self.buttonDirectionFixOff.Unbind(wx.EVT_BUTTON, None)
-        self.buttonThroughOn.Unbind(wx.EVT_BUTTON, None)
-        self.buttonThroughOff.Unbind(wx.EVT_BUTTON, None)
-        self.buttonAlwaysTopOn.Unbind(wx.EVT_BUTTON, None)
-        self.buttonAlwaysTopOff.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeGraphic.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeOpacity.Unbind(wx.EVT_BUTTON, None)
-        self.buttonChangeBlending.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlaySE.Unbind(wx.EVT_BUTTON, None)
-        self.buttonScript.Unbind(wx.EVT_BUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def listBoxMoveRoute_OnChar(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveDown_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveLeft_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveRight_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveUp_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveLowerLeft_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveLowerRight_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveUpperLeft_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveUpperRight_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveRandom_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveTowardPlayer_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveAwayPlayer_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonStepForward_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonStepBackward_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonJump_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonWait_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurnDown_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurnLeft_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurnRight_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurnUp_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurn90Left_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurn90Right_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurn180_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurn90_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurnRandom_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurnTowardPlayer_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonTurnAwayPlayer_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonSwitchOn_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonSwitchOff_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonChangeSpeed_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonChangeFreq_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveAnimationOn_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonMoveAnimationOff_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonStopAnimationOn_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonStopAnimationOff_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonDirectionFixOn_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonDirectionFixOff_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonThroughOn_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonThroughOff_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonAlwaysTopOn_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonAlwaysTopOff_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonChangeGraphic_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonChangeOpacity_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonChangeBlending_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonPlaySE_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonScript_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -13350,16 +8106,14 @@ class ChangeBlending_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -13423,16 +8177,14 @@ class Jump_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -13489,16 +8241,14 @@ class ChangeSpeed_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -13555,3461 +8305,14 @@ class ChangeFrequency_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeTone_Dialog_Template
-###########################################################################
-
-class ChangeTone_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "(Change Screen Tone / Screen Flash)"), pos=wx.DefaultPosition, size=wx.Size(424, 226), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerControls = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerSettings = wx.BoxSizer(wx.VERTICAL)
-
-        sizerRed = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelRed = wx.StaticText(
-            self, wx.ID_ANY, _("Red:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelRed.Wrap(-1)
-        sizerRed.Add(self.labelRed, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderRed = wx.Slider(
-            self, wx.ID_ANY, 0, -255, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerRed.Add(self.sliderRed, 1, wx.ALL, 5)
-
-        self.spinCtrlRed = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, -255, 255, 0)
-        sizerRed.Add(self.spinCtrlRed, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerRed, 0, wx.EXPAND, 5)
-
-        sizerGreen = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelGreen = wx.StaticText(
-            self, wx.ID_ANY, _("Green:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelGreen.Wrap(-1)
-        sizerGreen.Add(
-            self.labelGreen, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderGreen = wx.Slider(
-            self, wx.ID_ANY, 0, -255, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerGreen.Add(self.sliderGreen, 1, wx.ALL, 5)
-
-        self.spinCtrlGreen = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, -255, 255, 0)
-        sizerGreen.Add(
-            self.spinCtrlGreen, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerGreen, 0, wx.EXPAND, 5)
-
-        sizerBlue = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelBlue = wx.StaticText(
-            self, wx.ID_ANY, _("Blue:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelBlue.Wrap(-1)
-        sizerBlue.Add(self.labelBlue, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderBlue = wx.Slider(
-            self, wx.ID_ANY, 0, -255, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerBlue.Add(self.sliderBlue, 1, wx.ALL, 5)
-
-        self.spinCtrlBlue = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, -255, 255, 0)
-        sizerBlue.Add(
-            self.spinCtrlBlue, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerBlue, 0, wx.EXPAND, 5)
-
-        sizerStrGray = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelStrGray = wx.StaticText(
-            self, wx.ID_ANY, _("Str/Gray:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelStrGray.Wrap(-1)
-        sizerStrGray.Add(
-            self.labelStrGray, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderStrGray = wx.Slider(
-            self, wx.ID_ANY, 0, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerStrGray.Add(self.sliderStrGray, 1, wx.ALL, 5)
-
-        self.spinCtrlStrGray = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 255, 0)
-        sizerStrGray.Add(
-            self.spinCtrlStrGray, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerStrGray, 0, wx.EXPAND, 5)
-
-        sizerControls.Add(sizerSettings, 1, 0, 5)
-
-        self.bitmapSample = wx.StaticBitmap(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(96, -1), wx.SUNKEN_BORDER)
-        sizerControls.Add(self.bitmapSample, 0, wx.ALL | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerControls, 0, wx.EXPAND, 5)
-
-        sizerFrames = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerFrames.Add(
-            self.labelTime, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlFrames = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            72, -1), wx.SP_ARROW_KEYS, 0, 2000, 200)
-        sizerFrames.Add(
-            self.spinCtrlFrames, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFrames.Wrap(-1)
-        sizerFrames.Add(
-            self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        MainSizer.Add(sizerFrames, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.sliderRed.Bind(wx.EVT_SCROLL, self.sliderRed_ScrollChanged)
-        self.spinCtrlRed.Bind(wx.EVT_SPINCTRL, self.spinCtrlRed_ValueChanged)
-        self.sliderGreen.Bind(wx.EVT_SCROLL, self.sliderGreen_ScrollChanged)
-        self.spinCtrlGreen.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrGreenl_ValueChanged)
-        self.sliderBlue.Bind(wx.EVT_SCROLL, self.sliderBlue_ScrollChanged)
-        self.spinCtrlBlue.Bind(wx.EVT_SPINCTRL, self.spinCtrlBlue_ValueChanged)
-        self.sliderStrGray.Bind(
-            wx.EVT_SCROLL, self.sliderStrGray_ScrollChanged)
-        self.spinCtrlStrGray.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlStrGray_ValueChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.sliderRed.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlRed.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderGreen.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlGreen.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderBlue.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlBlue.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderStrGray.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlStrGray.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def sliderRed_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlRed_ValueChanged(self, event):
-        pass
-
-    def sliderGreen_ScrollChanged(self, event):
-        pass
-
-    def spinCtrGreenl_ValueChanged(self, event):
-        pass
-
-    def sliderBlue_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlBlue_ValueChanged(self, event):
-        pass
-
-    def sliderStrGray_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlStrGray_ValueChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangePictureColorTone_Dialog_Template
-###########################################################################
-
-class ChangePictureColorTone_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Picture Color Tone"), pos=wx.DefaultPosition, size=wx.Size(424, 285), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerPicture = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerNumber = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelNumber = wx.StaticText(
-            self, wx.ID_ANY, _("Number:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelNumber.Wrap(-1)
-        sizerNumber.Add(self.labelNumber, 0, wx.ALL, 5)
-
-        self.spinCtrlNumber = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerNumber.Add(
-            self.spinCtrlNumber, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerPicture.Add(sizerNumber, 0, 0, 5)
-
-        sizerTime = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerTime.Add(self.labelTime, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerFrames = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.spinCtrlFrames = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            72, -1), wx.SP_ARROW_KEYS, 0, 2000, 200)
-        sizerFrames.Add(
-            self.spinCtrlFrames, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFrames.Wrap(-1)
-        sizerFrames.Add(
-            self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        sizerTime.Add(sizerFrames, 0, wx.EXPAND, 5)
-
-        sizerPicture.Add(sizerTime, 1, 0, 5)
-
-        MainSizer.Add(sizerPicture, 0, wx.EXPAND, 5)
-
-        sizerColorTone = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Color Tone")), wx.HORIZONTAL)
-
-        sizerSettings = wx.BoxSizer(wx.VERTICAL)
-
-        sizerRed = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelRed = wx.StaticText(
-            self, wx.ID_ANY, _("Red:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelRed.Wrap(-1)
-        sizerRed.Add(self.labelRed, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderRed = wx.Slider(
-            self, wx.ID_ANY, 0, -255, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerRed.Add(self.sliderRed, 1, wx.ALL, 5)
-
-        self.spinCtrlRed = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, -255, 255, 0)
-        sizerRed.Add(self.spinCtrlRed, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerRed, 0, wx.EXPAND, 5)
-
-        sizerGreen = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelGreen = wx.StaticText(
-            self, wx.ID_ANY, _("Green:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelGreen.Wrap(-1)
-        sizerGreen.Add(
-            self.labelGreen, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderGreen = wx.Slider(
-            self, wx.ID_ANY, 0, -255, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerGreen.Add(self.sliderGreen, 1, wx.ALL, 5)
-
-        self.spinCtrlGreen = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, -255, 255, 0)
-        sizerGreen.Add(
-            self.spinCtrlGreen, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerGreen, 0, wx.EXPAND, 5)
-
-        sizerBlue = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelBlue = wx.StaticText(
-            self, wx.ID_ANY, _("Blue:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelBlue.Wrap(-1)
-        sizerBlue.Add(self.labelBlue, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderBlue = wx.Slider(
-            self, wx.ID_ANY, 0, -255, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerBlue.Add(self.sliderBlue, 1, wx.ALL, 5)
-
-        self.spinCtrlBlue = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, -255, 255, 0)
-        sizerBlue.Add(
-            self.spinCtrlBlue, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerBlue, 0, wx.EXPAND, 5)
-
-        sizerGray = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelGray = wx.StaticText(
-            self, wx.ID_ANY, _("Gray:"), wx.DefaultPosition, wx.Size(48, -1), 0)
-        self.labelGray.Wrap(-1)
-        sizerGray.Add(self.labelGray, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderGray = wx.Slider(
-            self, wx.ID_ANY, 0, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        sizerGray.Add(self.sliderGray, 1, wx.ALL, 5)
-
-        self.spinCtrlGray = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 255, 0)
-        sizerGray.Add(
-            self.spinCtrlGray, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSettings.Add(sizerGray, 0, wx.EXPAND, 5)
-
-        sizerColorTone.Add(sizerSettings, 1, 0, 5)
-
-        self.bitmapSample = wx.StaticBitmap(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(96, -1), wx.SUNKEN_BORDER)
-        sizerColorTone.Add(self.bitmapSample, 0, wx.ALL | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerColorTone, 0, wx.ALL | wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.sliderRed.Bind(wx.EVT_SCROLL, self.sliderRed_ScrollChanged)
-        self.spinCtrlRed.Bind(wx.EVT_SPINCTRL, self.spinCtrlRed_ValueChanged)
-        self.sliderGreen.Bind(wx.EVT_SCROLL, self.sliderGreen_ScrollChanged)
-        self.spinCtrlGreen.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrGreenl_ValueChanged)
-        self.sliderBlue.Bind(wx.EVT_SCROLL, self.sliderBlue_ScrollChanged)
-        self.spinCtrlBlue.Bind(wx.EVT_SPINCTRL, self.spinCtrlBlue_ValueChanged)
-        self.sliderGray.Bind(wx.EVT_SCROLL, self.sliderStrGray_ScrollChanged)
-        self.spinCtrlGray.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlStrGray_ValueChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.sliderRed.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlRed.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderGreen.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlGreen.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderBlue.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlBlue.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderGray.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlGray.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def sliderRed_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlRed_ValueChanged(self, event):
-        pass
-
-    def sliderGreen_ScrollChanged(self, event):
-        pass
-
-    def spinCtrGreenl_ValueChanged(self, event):
-        pass
-
-    def sliderBlue_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlBlue_ValueChanged(self, event):
-        pass
-
-    def sliderStrGray_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlStrGray_ValueChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ScreenShake_Dialog_Template
-###########################################################################
-
-class ScreenShake_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Screen Shake"), pos=wx.DefaultPosition, size=wx.Size(338, 179), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerPower = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelPower = wx.StaticText(
-            self, wx.ID_ANY, _("Power:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelPower.Wrap(-1)
-        sizerPower.Add(
-            self.labelPower, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderPower = wx.Slider(
-            self, wx.ID_ANY, 5, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS | wx.SL_HORIZONTAL)
-        sizerPower.Add(self.sliderPower, 1, wx.ALL, 5)
-
-        self.spinCtrlPower = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 5)
-        sizerPower.Add(
-            self.spinCtrlPower, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        MainSizer.Add(sizerPower, 0, wx.EXPAND, 5)
-
-        sizerSpeed = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelSpeed = wx.StaticText(
-            self, wx.ID_ANY, _("Speed:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSpeed.Wrap(-1)
-        sizerSpeed.Add(
-            self.labelSpeed, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderSpeed = wx.Slider(
-            self, wx.ID_ANY, 5, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS | wx.SL_HORIZONTAL)
-        sizerSpeed.Add(self.sliderSpeed, 1, wx.ALL, 5)
-
-        self.spinCtrlSpeed = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 5)
-        sizerSpeed.Add(
-            self.spinCtrlSpeed, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        MainSizer.Add(sizerSpeed, 0, wx.EXPAND, 5)
-
-        sizerDuration = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerDuration.Add(
-            self.labelTime, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlFrames = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 2000, 200)
-        sizerDuration.Add(self.spinCtrlFrames, 0, wx.ALL, 5)
-
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFrames.Wrap(-1)
-        sizerDuration.Add(
-            self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        MainSizer.Add(sizerDuration, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.sliderPower.Bind(wx.EVT_SCROLL, self.sliderPower_ScrollChanged)
-        self.spinCtrlPower.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlPower_ValueChanged)
-        self.sliderSpeed.Bind(wx.EVT_SCROLL, self.sliderSpeed_ScrollChanged)
-        self.spinCtrlSpeed.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlSpeed_ValueChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.sliderPower.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlPower.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderSpeed.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlSpeed.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def sliderPower_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlPower_ValueChanged(self, event):
-        pass
-
-    def sliderSpeed_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlSpeed_ValueChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ShowPicture_Dialog_Template
-###########################################################################
-
-class ShowPicture_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Show Picture"), pos=wx.DefaultPosition, size=wx.Size(288, 418), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerPicture = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerNumber = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelNumber = wx.StaticText(
-            self, wx.ID_ANY, _("Number:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelNumber.Wrap(-1)
-        sizerNumber.Add(self.labelNumber, 0, wx.ALL, 5)
-
-        self.m_spinCtrl162 = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerNumber.Add(
-            self.m_spinCtrl162, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerPicture.Add(sizerNumber, 0, 0, 5)
-
-        sizerGraphic = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Picture Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelGraphic.Wrap(-1)
-        sizerGraphic.Add(self.labelGraphic, 0, wx.ALL, 5)
-
-        comboBoxGraphicChoices = []
-        self.comboBoxGraphic = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxGraphicChoices, 0)
-        sizerGraphic.Add(
-            self.comboBoxGraphic, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        sizerPicture.Add(sizerGraphic, 1, 0, 5)
-
-        MainSizer.Add(sizerPicture, 0, wx.EXPAND, 5)
-
-        sizerDisplayOrigin = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Display Origin")), wx.VERTICAL)
-
-        radioBoxOriginChoices = [_("Upper-Left Corner"), _("Center")]
-        self.radioBoxOrigin = wx.RadioBox(self, wx.ID_ANY, _(
-            "Origin Point"), wx.DefaultPosition, wx.DefaultSize, radioBoxOriginChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOrigin.SetSelection(0)
-        sizerDisplayOrigin.Add(self.radioBoxOrigin, 0, wx.ALL, 5)
-
-        sizerConstantX = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerConstantX.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.labelConstantX = wx.StaticText(
-            self, wx.ID_ANY, _("X:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelConstantX.Wrap(-1)
-        sizerConstantX.Add(
-            self.labelConstantX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstantX = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstantX.Add(self.spinCtrlConstantX, 0, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerConstantX, 0, wx.EXPAND, 5)
-
-        sizerConstantY = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy1 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy1.Wrap(-1)
-        sizerConstantY.Add(self.labelDummy1, 0, wx.ALL, 5)
-
-        self.labelConstantY = wx.StaticText(
-            self, wx.ID_ANY, _("Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelConstantY.Wrap(-1)
-        sizerConstantY.Add(
-            self.labelConstantY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstantY = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstantY.Add(self.spinCtrlConstantY, 0, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerConstantY, 0, wx.EXPAND, 5)
-
-        sizerVariableX = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariableX.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.labelVariableX = wx.StaticText(
-            self, wx.ID_ANY, _("X:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelVariableX.Wrap(-1)
-        sizerVariableX.Add(
-            self.labelVariableX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableXChoices = []
-        self.comboBoxVariableX = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableXChoices, 0)
-        sizerVariableX.Add(self.comboBoxVariableX, 1, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerVariableX, 0, wx.EXPAND, 5)
-
-        sizerVariableY = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.abelDummy2 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.abelDummy2.Wrap(-1)
-        sizerVariableY.Add(self.abelDummy2, 0, wx.ALL, 5)
-
-        self.labelVariableY = wx.StaticText(
-            self, wx.ID_ANY, _("Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelVariableY.Wrap(-1)
-        sizerVariableY.Add(
-            self.labelVariableY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableYChoices = []
-        self.comboBoxVariableY = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableYChoices, 0)
-        sizerVariableY.Add(self.comboBoxVariableY, 1, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerVariableY, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerDisplayOrigin, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerSettings = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerZoom = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Zoom")), wx.VERTICAL)
-
-        sizerZoomX = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelZoomX = wx.StaticText(
-            self, wx.ID_ANY, _("X:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelZoomX.Wrap(-1)
-        sizerZoomX.Add(
-            self.labelZoomX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlZoomX = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerZoomX.Add(self.spinCtrlZoomX, 1, wx.ALL, 5)
-
-        sizerZoom.Add(sizerZoomX, 0, wx.EXPAND, 5)
-
-        sizerZoomY = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelZoomY = wx.StaticText(
-            self, wx.ID_ANY, _("Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelZoomY.Wrap(-1)
-        sizerZoomY.Add(
-            self.labelZoomY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlZoomY = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerZoomY.Add(self.spinCtrlZoomY, 1, wx.ALL, 5)
-
-        sizerZoom.Add(sizerZoomY, 0, wx.EXPAND, 5)
-
-        sizerSettings.Add(sizerZoom, 1, wx.ALL, 5)
-
-        sizerOpacity = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelOpacity = wx.StaticText(
-            self, wx.ID_ANY, _("Opacity:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelOpacity.Wrap(-1)
-        sizerOpacity.Add(self.labelOpacity, 0, wx.ALL, 5)
-
-        self.spinCtrlOpacity = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 255, 255)
-        sizerOpacity.Add(
-            self.spinCtrlOpacity, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerSettings.Add(sizerOpacity, 0, 0, 5)
-
-        sizerBlending = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelBlending = wx.StaticText(
-            self, wx.ID_ANY, _("Blending:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelBlending.Wrap(-1)
-        sizerBlending.Add(self.labelBlending, 0, wx.ALL, 5)
-
-        comboBoxBlendingChoices = [_("Normal"), _("Add"), _("Subtract")]
-        self.comboBoxBlending = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(80, -1), comboBoxBlendingChoices, 0)
-        self.comboBoxBlending.SetSelection(0)
-        sizerBlending.Add(
-            self.comboBoxBlending, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerSettings.Add(sizerBlending, 0, 0, 5)
-
-        MainSizer.Add(sizerSettings, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.comboBoxGraphic.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxPictureGraphic_Clicked)
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.comboBoxGraphic.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def comboBoxPictureGraphic_Clicked(self, event):
-        pass
-
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class MovePicture_Dialog_Template
-###########################################################################
-
-class MovePicture_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Move Picture"), pos=wx.DefaultPosition, size=wx.Size(288, 418), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerPicture = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerNumber = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelNumber = wx.StaticText(
-            self, wx.ID_ANY, _("Number:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelNumber.Wrap(-1)
-        sizerNumber.Add(self.labelNumber, 0, wx.ALL, 5)
-
-        self.m_spinCtrl162 = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerNumber.Add(
-            self.m_spinCtrl162, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerPicture.Add(sizerNumber, 1, wx.EXPAND, 5)
-
-        sizerTime = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerTime.Add(self.labelTime, 0, wx.ALL, 5)
-
-        sizerFrames = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.m_spinCtrl163 = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerFrames.Add(
-            self.m_spinCtrl163, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFrames.Wrap(-1)
-        sizerFrames.Add(self.labelFrames, 0, wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        sizerTime.Add(sizerFrames, 1, wx.EXPAND, 5)
-
-        sizerPicture.Add(sizerTime, 1, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerPicture, 0, 0, 5)
-
-        sizerDisplayOrigin = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Display Origin")), wx.VERTICAL)
-
-        radioBoxOriginChoices = [_("Upper-Left Corner"), _("Center")]
-        self.radioBoxOrigin = wx.RadioBox(self, wx.ID_ANY, _(
-            "Origin Point"), wx.DefaultPosition, wx.DefaultSize, radioBoxOriginChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOrigin.SetSelection(0)
-        sizerDisplayOrigin.Add(self.radioBoxOrigin, 0, wx.ALL, 5)
-
-        sizerConstantX = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerConstantX.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.labelConstantX = wx.StaticText(
-            self, wx.ID_ANY, _("X:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelConstantX.Wrap(-1)
-        sizerConstantX.Add(
-            self.labelConstantX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstantX = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstantX.Add(self.spinCtrlConstantX, 0, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerConstantX, 0, wx.EXPAND, 5)
-
-        sizerConstantY = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelDummy1 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelDummy1.Wrap(-1)
-        sizerConstantY.Add(self.labelDummy1, 0, wx.ALL, 5)
-
-        self.labelConstantY = wx.StaticText(
-            self, wx.ID_ANY, _("Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelConstantY.Wrap(-1)
-        sizerConstantY.Add(
-            self.labelConstantY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstantY = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstantY.Add(self.spinCtrlConstantY, 0, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerConstantY, 0, wx.EXPAND, 5)
-
-        sizerVariableX = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariableX.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.labelVariableX = wx.StaticText(
-            self, wx.ID_ANY, _("X:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelVariableX.Wrap(-1)
-        sizerVariableX.Add(
-            self.labelVariableX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableXChoices = []
-        self.comboBoxVariableX = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableXChoices, 0)
-        sizerVariableX.Add(self.comboBoxVariableX, 1, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerVariableX, 0, wx.EXPAND, 5)
-
-        sizerVariableY = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.abelDummy2 = wx.StaticText(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.abelDummy2.Wrap(-1)
-        sizerVariableY.Add(self.abelDummy2, 0, wx.ALL, 5)
-
-        self.labelVariableY = wx.StaticText(
-            self, wx.ID_ANY, _("Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelVariableY.Wrap(-1)
-        sizerVariableY.Add(
-            self.labelVariableY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableYChoices = []
-        self.comboBoxVariableY = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableYChoices, 0)
-        sizerVariableY.Add(self.comboBoxVariableY, 1, wx.ALL, 5)
-
-        sizerDisplayOrigin.Add(sizerVariableY, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerDisplayOrigin, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerSettings = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerZoom = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Zoom")), wx.VERTICAL)
-
-        sizerZoomX = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelZoomX = wx.StaticText(
-            self, wx.ID_ANY, _("X:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelZoomX.Wrap(-1)
-        sizerZoomX.Add(
-            self.labelZoomX, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlZoomX = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerZoomX.Add(self.spinCtrlZoomX, 1, wx.ALL, 5)
-
-        sizerZoom.Add(sizerZoomX, 0, wx.EXPAND, 5)
-
-        sizerZoomY = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelZoomY = wx.StaticText(
-            self, wx.ID_ANY, _("Y:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelZoomY.Wrap(-1)
-        sizerZoomY.Add(
-            self.labelZoomY, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlZoomY = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerZoomY.Add(self.spinCtrlZoomY, 1, wx.ALL, 5)
-
-        sizerZoom.Add(sizerZoomY, 0, wx.EXPAND, 5)
-
-        sizerSettings.Add(sizerZoom, 1, wx.ALL, 5)
-
-        sizerOpacity = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelOpacity = wx.StaticText(
-            self, wx.ID_ANY, _("Opacity:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelOpacity.Wrap(-1)
-        sizerOpacity.Add(self.labelOpacity, 0, wx.ALL, 5)
-
-        self.spinCtrlOpacity = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 255, 255)
-        sizerOpacity.Add(
-            self.spinCtrlOpacity, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerSettings.Add(sizerOpacity, 0, 0, 5)
-
-        sizerBlending = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelBlending = wx.StaticText(
-            self, wx.ID_ANY, _("Blending:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelBlending.Wrap(-1)
-        sizerBlending.Add(self.labelBlending, 0, wx.ALL, 5)
-
-        comboBoxBlendingChoices = [_("Normal"), _("Add"), _("Subtract")]
-        self.comboBoxBlending = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(80, -1), comboBoxBlendingChoices, 0)
-        self.comboBoxBlending.SetSelection(0)
-        sizerBlending.Add(
-            self.comboBoxBlending, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerSettings.Add(sizerBlending, 0, 0, 5)
-
-        MainSizer.Add(sizerSettings, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class RotatePicture_Dialog_Template
-###########################################################################
-
-class RotatePicture_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Rotate Picture"), pos=wx.DefaultPosition, size=wx.Size(277, 91), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerNumber = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelNumber = wx.StaticText(
-            self, wx.ID_ANY, _("Number:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelNumber.Wrap(-1)
-        sizerNumber.Add(self.labelNumber, 0, wx.ALL, 5)
-
-        self.spinCtrlSpeed = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerNumber.Add(
-            self.spinCtrlSpeed, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerNumber, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerSpeed = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelSpeed = wx.StaticText(
-            self, wx.ID_ANY, _("Speed:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSpeed.Wrap(-1)
-        sizerSpeed.Add(self.labelSpeed, 0, wx.ALL, 5)
-
-        self.spinCtrlSpeed = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerSpeed.Add(
-            self.spinCtrlSpeed, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerSpeed, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ErasePicture_Dialog_Template
-###########################################################################
-
-class ErasePicture_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Erase Picture"), pos=wx.DefaultPosition, size=wx.Size(200, 93), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerNumber = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelNumber = wx.StaticText(
-            self, wx.ID_ANY, _("Number:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelNumber.Wrap(-1)
-        sizerNumber.Add(self.labelNumber, 0, wx.ALL, 5)
-
-        self.spinCtrlNumber = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerNumber.Add(
-            self.spinCtrlNumber, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerNumber, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class WeatherEffects_Dialog_Template
-###########################################################################
-
-class WeatherEffects_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Set Weather Effects"), pos=wx.DefaultPosition, size=wx.Size(305, 273), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        listCtrlEffectsChoices = [_("None"), _("Rain"), _("Storm"), _("Snow"), _("Blizzard"), _(
-            "Hail"), _("Green Leaves"), _("Autumn Leaves"), _("Rose Petals"), _("Sakura Petals")]
-        self.listCtrlEffects = wx.ListBox(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listCtrlEffectsChoices, wx.LB_NEEDED_SB | wx.LB_SINGLE)
-        MainSizer.Add(self.listCtrlEffects, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerPower = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelPower = wx.StaticText(
-            self, wx.ID_ANY, _("Power:"), wx.DefaultPosition, wx.Size(-1, -1), 0)
-        self.labelPower.Wrap(-1)
-        sizerPower.Add(
-            self.labelPower, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.sliderPower = wx.Slider(
-            self, wx.ID_ANY, 25, 0, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL | wx.SL_LABELS | wx.SL_TOP)
-        sizerPower.Add(self.sliderPower, 1, wx.ALL, 5)
-
-        self.m_spinCtrl157 = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 50, 25)
-        sizerPower.Add(
-            self.m_spinCtrl157, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        MainSizer.Add(sizerPower, 0, wx.EXPAND, 5)
-
-        sizerTime = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:  "), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerTime.Add(self.labelTime, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlFrames = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            64, -1), wx.SP_ARROW_KEYS, 0, 2000, 200)
-        sizerTime.Add(self.spinCtrlFrames, 0, wx.ALL, 5)
-
-        self.labelFrames = wx.StaticText(
-            self, wx.ID_ANY, _("Frames"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelFrames.Wrap(-1)
-        sizerTime.Add(
-            self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL | wx.TOP | wx.BOTTOM | wx.RIGHT, 5)
-
-        MainSizer.Add(sizerTime, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.sliderPower.Bind(wx.EVT_SCROLL, self.sliderPower_ScrollChanged)
-        self.m_spinCtrl157.Bind(
-            wx.EVT_SPINCTRL, self.spinCtrlPower_ValueChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.sliderPower.Unbind(wx.EVT_SCROLL, None)
-        self.m_spinCtrl157.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def sliderPower_ScrollChanged(self, event):
-        pass
-
-    def spinCtrlPower_ValueChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class FadeOutAudio_Dialog_Template
-###########################################################################
-
-class FadeOutAudio_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Fade Out (BGM/BGS)"), pos=wx.DefaultPosition, size=wx.Size(241, 91), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerFade = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelTime = wx.StaticText(
-            self, wx.ID_ANY, _("Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTime.Wrap(-1)
-        sizerFade.Add(self.labelTime, 0, wx.ALL, 5)
-
-        sizerSeconds = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.spinCtrlSeconds = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerSeconds.Add(
-            self.spinCtrlSeconds, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelSeconds = wx.StaticText(
-            self, wx.ID_ANY, _("Sec"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSeconds.Wrap(-1)
-        sizerSeconds.Add(
-            self.labelSeconds, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerFade.Add(sizerSeconds, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerFade, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class BattleProcessing_Dialog_Template
-###########################################################################
-
-class BattleProcessing_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Battle Processing"), pos=wx.DefaultPosition, size=wx.Size(301, 128), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerTroop = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelTroop = wx.StaticText(
-            self, wx.ID_ANY, _("Troop:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTroop.Wrap(-1)
-        sizerTroop.Add(self.labelTroop, 0, wx.ALL, 5)
-
-        comboBoxTroopChoices = []
-        self.comboBoxTroop = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTroopChoices, 0)
-        self.comboBoxTroop.SetSelection(0)
-        sizerTroop.Add(
-            self.comboBoxTroop, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.checkBoxCanEscape = wx.CheckBox(
-            self, wx.ID_ANY, _("Can Escape"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.checkBoxCanEscape.SetValue(True)
-        sizerTroop.Add(self.checkBoxCanEscape, 0, wx.ALL, 5)
-
-        self.checkBoxContinueLost = wx.CheckBox(
-            self, wx.ID_ANY, _("Continue After Loss"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerTroop.Add(self.checkBoxContinueLost, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerTroop, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ShopProcessing_Dialog_Template
-###########################################################################
-
-class ShopProcessing_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Shop Processing"), pos=wx.DefaultPosition, size=wx.Size(276, 316), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.listCtrlShopGoods = wx.ListCtrl(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_ICON | wx.LC_REPORT)
-        MainSizer.Add(self.listCtrlShopGoods, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.listCtrlShopGoods.Bind(
-            wx.EVT_LEFT_DCLICK, self.listCtrlShopGoods_DoubleClick)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.listCtrlShopGoods.Unbind(wx.EVT_LEFT_DCLICK, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def listCtrlShopGoods_DoubleClick(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ShopGoods_Dialog_Template
-###########################################################################
-
-class ShopGoods_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Goods"), pos=wx.DefaultPosition, size=wx.Size(281, 157), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerItem = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonItem = wx.RadioButton(
-            self, wx.ID_ANY, _("Item"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerItem.Add(
-            self.radioButtonItem, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxItemChoices = []
-        self.comboBoxItem = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxItemChoices, 0)
-        self.comboBoxItem.SetSelection(0)
-        sizerItem.Add(self.comboBoxItem, 1, wx.ALL, 5)
-
-        MainSizer.Add(sizerItem, 0, wx.EXPAND, 5)
-
-        sizerWeapons = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonWeapon = wx.RadioButton(
-            self, wx.ID_ANY, _("Weapon"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerWeapons.Add(
-            self.radioButtonWeapon, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxWeaponChoices = []
-        self.comboBoxWeapon = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0)
-        self.comboBoxWeapon.SetSelection(0)
-        sizerWeapons.Add(self.comboBoxWeapon, 1, wx.ALL, 5)
-
-        MainSizer.Add(sizerWeapons, 0, wx.EXPAND, 5)
-
-        sizerArmor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonArmor = wx.RadioButton(
-            self, wx.ID_ANY, _("Armor"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerArmor.Add(
-            self.radioButtonArmor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxArmorChoices = []
-        self.comboBoxArmor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxArmorChoices, 0)
-        self.comboBoxArmor.SetSelection(0)
-        sizerArmor.Add(self.comboBoxArmor, 1, wx.ALL, 5)
-
-        MainSizer.Add(sizerArmor, 0, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonItem.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonItem_CheckChanged)
-        self.radioButtonWeapon.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonWeapon_CheckChanged)
-        self.radioButtonArmor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonArmor_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonItem.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonWeapon.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonArmor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonItem_CheckChanged(self, event):
-        pass
-
-    def radioButtonWeapon_CheckChanged(self, event):
-        pass
-
-    def radioButtonArmor_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class NameProcessing_Dialog_Template
-###########################################################################
-
-class NameProcessing_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Name Input Processing"), pos=wx.DefaultPosition, size=wx.Size(276, 136), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerName = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        sizerName.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerName.Add(
-            self.comboBoxActor, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelMaxCharacters = wx.StaticText(
-            self, wx.ID_ANY, _("Max Characters:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelMaxCharacters.Wrap(-1)
-        sizerName.Add(self.labelMaxCharacters, 0, wx.ALL, 5)
-
-        self.spinCtrlMaxCharacters = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(64, -1), wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerName.Add(
-            self.spinCtrlMaxCharacters, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerName, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.EXPAND | wx.ALIGN_BOTTOM, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeHP_Dialog_Template
-###########################################################################
-
-class ChangeHP_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change HP"), pos=wx.DefaultPosition, size=wx.Size(241, 283), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        MainSizer.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        MainSizer.Add(self.comboBoxActor, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        radioBoxOperationChoices = [_("Increase"), _("Decrease")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        MainSizer.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        sizerOperand = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Operand")), wx.VERTICAL)
-
-        sizerConstant = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP)
-        sizerConstant.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstant = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstant.Add(self.spinCtrlConstant, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerConstant, 0, wx.EXPAND, 5)
-
-        sizerVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariable.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        sizerVariable.Add(self.comboBoxVariable, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerVariable, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerOperand, 0, wx.EXPAND | wx.ALL, 5)
-
-        self.checkBoxKnockout = wx.CheckBox(self, wx.ID_ANY, _(
-            "Allow Knockout in Battle"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.checkBoxKnockout.SetValue(True)
-        MainSizer.Add(self.checkBoxKnockout, 0, wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.comboBoxVariable.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxVariable_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxVariable.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def comboBoxVariable_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeStat_Dialog_Template
-###########################################################################
-
-class ChangeStat_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change (SP/Exp/Level)"), pos=wx.DefaultPosition, size=wx.Size(241, 260), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        MainSizer.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        MainSizer.Add(self.comboBoxActor, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        radioBoxOperationChoices = [_("Increase"), _("Decrease")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        MainSizer.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        sizerOperand = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Operand")), wx.VERTICAL)
-
-        sizerConstant = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP)
-        sizerConstant.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstant = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstant.Add(self.spinCtrlConstant, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerConstant, 0, wx.EXPAND, 5)
-
-        sizerVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariable.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        sizerVariable.Add(self.comboBoxVariable, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerVariable, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerOperand, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.comboBoxVariable.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxVariable_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxVariable.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def comboBoxVariable_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeParameters_Dialog_Template
-###########################################################################
-
-class ChangeParameters_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Parameters"), pos=wx.DefaultPosition, size=wx.Size(248, 309), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        MainSizer.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        MainSizer.Add(self.comboBoxActor, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelParameter = wx.StaticText(
-            self, wx.ID_ANY, _("Parameter:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelParameter.Wrap(-1)
-        MainSizer.Add(self.labelParameter, 0, wx.ALL, 5)
-
-        comboBoxParameterChoices = [
-            _("MaxHP"), _("MaxSP"), _("STR"), _("DEX"), _("AGI"), _("INT")]
-        self.comboBoxParameter = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(72, -1), comboBoxParameterChoices, 0)
-        self.comboBoxParameter.SetSelection(0)
-        MainSizer.Add(
-            self.comboBoxParameter, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        radioBoxOperationChoices = [_("Increase"), _("Decrease")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        MainSizer.Add(self.radioBoxOperation, 0, wx.ALL, 5)
-
-        sizerOperand = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Operand")), wx.VERTICAL)
-
-        sizerConstant = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP)
-        sizerConstant.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstant = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstant.Add(self.spinCtrlConstant, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerConstant, 0, wx.EXPAND, 5)
-
-        sizerVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariable.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        sizerVariable.Add(self.comboBoxVariable, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerVariable, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerOperand, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.comboBoxVariable.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxVariable_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxVariable.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def comboBoxVariable_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeState_Dialog_Template
-###########################################################################
-
-class ChangeState_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change State"), pos=wx.DefaultPosition, size=wx.Size(249, 186), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerState = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        sizerState.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerState.Add(
-            self.comboBoxActor, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        radioBoxOperationChoices = [_("Add"), _("Remove")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        sizerState.Add(self.radioBoxOperation, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.labelState = wx.StaticText(
-            self, wx.ID_ANY, _("State:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelState.Wrap(-1)
-        sizerState.Add(self.labelState, 0, wx.ALL, 5)
-
-        comboBoxStateChoices = []
-        self.comboBoxState = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxStateChoices, 0)
-        self.comboBoxState.SetSelection(0)
-        sizerState.Add(
-            self.comboBoxState, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerState, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeSkills_Dialog_Template
-###########################################################################
-
-class ChangeSkills_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Skills"), pos=wx.DefaultPosition, size=wx.Size(275, 183), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerSkill = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        sizerSkill.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerSkill.Add(
-            self.comboBoxActor, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        radioBoxOperationChoices = [_("Learn"), _("Forget")]
-        self.radioBoxOperation = wx.RadioBox(self, wx.ID_ANY, _(
-            "Operation"), wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS)
-        self.radioBoxOperation.SetSelection(0)
-        sizerSkill.Add(self.radioBoxOperation, 0, wx.ALL | wx.EXPAND, 5)
-
-        self.labelSkill = wx.StaticText(
-            self, wx.ID_ANY, _("Skill:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelSkill.Wrap(-1)
-        sizerSkill.Add(self.labelSkill, 0, wx.ALL, 5)
-
-        comboBoxSkillChoices = []
-        self.comboBoxSkill = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSkillChoices, 0)
-        self.comboBoxSkill.SetSelection(0)
-        sizerSkill.Add(
-            self.comboBoxSkill, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerSkill, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeEquipment_Dialog_Template
-###########################################################################
-
-class ChangeEquipment_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Equipment"), pos=wx.DefaultPosition, size=wx.Size(283, 299), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        MainSizer.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(160, -1), comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        MainSizer.Add(self.comboBoxActor, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerEquipment = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Equipment")), wx.VERTICAL)
-
-        sizerWeapon = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonWeapon = wx.RadioButton(
-            self, wx.ID_ANY, _("Weapon"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerWeapon.Add(
-            self.radioButtonWeapon, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxWeaponChoices = []
-        self.comboBoxWeapon = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0)
-        self.comboBoxWeapon.SetSelection(0)
-        sizerWeapon.Add(self.comboBoxWeapon, 1, wx.ALL, 5)
-
-        sizerEquipment.Add(sizerWeapon, 0, wx.EXPAND, 5)
-
-        sizerShield = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonShield = wx.RadioButton(
-            self, wx.ID_ANY, _("Shield"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerShield.Add(
-            self.radioButtonShield, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxShieldChoices = []
-        self.comboBoxShield = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxShieldChoices, 0)
-        self.comboBoxShield.SetSelection(0)
-        sizerShield.Add(self.comboBoxShield, 1, wx.ALL, 5)
-
-        sizerEquipment.Add(sizerShield, 0, wx.EXPAND, 5)
-
-        sizerHelmet = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonHelmet = wx.RadioButton(
-            self, wx.ID_ANY, _("Helmet"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerHelmet.Add(
-            self.radioButtonHelmet, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxHelmetChoices = []
-        self.comboBoxHelmet = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxHelmetChoices, 0)
-        self.comboBoxHelmet.SetSelection(0)
-        sizerHelmet.Add(self.comboBoxHelmet, 1, wx.ALL, 5)
-
-        sizerEquipment.Add(sizerHelmet, 0, wx.EXPAND, 5)
-
-        sizerBodyArmor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonBodyArmor = wx.RadioButton(
-            self, wx.ID_ANY, _("Body Armor"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerBodyArmor.Add(
-            self.radioButtonBodyArmor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxBodyArmorChoices = []
-        self.comboBoxBodyArmor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBodyArmorChoices, 0)
-        self.comboBoxBodyArmor.SetSelection(0)
-        sizerBodyArmor.Add(self.comboBoxBodyArmor, 1, wx.ALL, 5)
-
-        sizerEquipment.Add(sizerBodyArmor, 0, wx.EXPAND, 5)
-
-        sizerAccessory = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonAccessory = wx.RadioButton(
-            self, wx.ID_ANY, _("Accessory"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerAccessory.Add(
-            self.radioButtonAccessory, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxAccessoryChoices = []
-        self.comboBoxAccessory = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAccessoryChoices, 0)
-        self.comboBoxAccessory.SetSelection(0)
-        sizerAccessory.Add(self.comboBoxAccessory, 1, wx.ALL, 5)
-
-        sizerEquipment.Add(sizerAccessory, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerEquipment, 1, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonWeapon.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonWeapon_CheckChanged)
-        self.radioButtonShield.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonShield_CheckChanged)
-        self.radioButtonHelmet.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonHelmet_CheckChanged)
-        self.radioButtonBodyArmor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonArmor_CheckChanged)
-        self.radioButtonAccessory.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonAccessory_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonWeapon.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonShield.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonHelmet.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonBodyArmor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonAccessory.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonWeapon_CheckChanged(self, event):
-        pass
-
-    def radioButtonShield_CheckChanged(self, event):
-        pass
-
-    def radioButtonHelmet_CheckChanged(self, event):
-        pass
-
-    def radioButtonArmor_CheckChanged(self, event):
-        pass
-
-    def radioButtonAccessory_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeActorName_Dialog_Template
-###########################################################################
-
-class ChangeActorName_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Actor Name:"), pos=wx.DefaultPosition, size=wx.Size(261, 128), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerName = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        sizerName.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerName.Add(
-            self.comboBoxActor, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelName = wx.StaticText(
-            self, wx.ID_ANY, _("Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelName.Wrap(-1)
-        sizerName.Add(self.labelName, 0, wx.ALL, 5)
-
-        self.textCtrlName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlName.SetMaxLength(0)
-        sizerName.Add(
-            self.textCtrlName, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        MainSizer.Add(sizerName, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeActorClass_Dialog_Template
-###########################################################################
-
-class ChangeActorClass_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Actor Class"), pos=wx.DefaultPosition, size=wx.Size(258, 129), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerClass = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        sizerClass.Add(self.labelActor, 0, wx.ALL, 5)
-
-        comboBoxActorChoices = []
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerClass.Add(
-            self.comboBoxActor, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelClass = wx.StaticText(
-            self, wx.ID_ANY, _("Class:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelClass.Wrap(-1)
-        sizerClass.Add(self.labelClass, 0, wx.ALL, 5)
-
-        comboBoxClassChoices = []
-        self.comboBoxClass = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxClassChoices, 0)
-        self.comboBoxClass.SetSelection(0)
-        sizerClass.Add(
-            self.comboBoxClass, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerClass, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ChangeActorGraphic_Dialog_Template
-###########################################################################
-
-class ChangeActorGraphic_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Change Actor Graphic"), pos=wx.DefaultPosition, size=wx.Size(254, 179), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerGraphic = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelActor = wx.StaticText(
-            self, wx.ID_ANY, _("Actor:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelActor.Wrap(-1)
-        sizerGraphic.Add(self.labelActor, 0, wx.ALL, 5)
-
-        m_choice90Choices = []
-        self.m_choice90 = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice90Choices, 0)
-        self.m_choice90.SetSelection(0)
-        sizerGraphic.Add(
-            self.m_choice90, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelCharacterGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Character Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelCharacterGraphic.Wrap(-1)
-        sizerGraphic.Add(self.labelCharacterGraphic, 0, wx.ALL, 5)
-
-        comboBoxCharacterChoices = []
-        self.comboBoxCharacter = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterChoices, 0)
-        sizerGraphic.Add(
-            self.comboBoxCharacter, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        self.labelBattlerGraphic = wx.StaticText(
-            self, wx.ID_ANY, _("Battler Graphic:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelBattlerGraphic.Wrap(-1)
-        sizerGraphic.Add(self.labelBattlerGraphic, 0, wx.ALL, 5)
-
-        comboBoxBattlerChoices = []
-        self.comboBoxBattler = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattlerChoices, 0)
-        sizerGraphic.Add(
-            self.comboBoxBattler, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerGraphic, 1, wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.comboBoxCharacter.Bind(
-            wx.EVT_LEFT_UP, self.comboBoxCharacter_Clicked)
-        self.comboBoxBattler.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxBattler_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.comboBoxCharacter.Unbind(wx.EVT_LEFT_UP, None)
-        self.comboBoxBattler.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def comboBoxCharacter_Clicked(self, event):
-        pass
-
-    def comboBoxBattler_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class RecoverAll_Dialog_Template
-###########################################################################
-
-class RecoverAll_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Recover All"), pos=wx.DefaultPosition, size=wx.Size(275, 90), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerControls = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelBattler = wx.StaticText(
-            self, wx.ID_ANY, _("(Actor/Enemy)"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelBattler.Wrap(-1)
-        sizerControls.Add(self.labelBattler, 0, wx.ALL, 5)
-
-        comboBoxBattlerChoices = []
-        self.comboBoxBattler = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBattlerChoices, 0)
-        self.comboBoxBattler.SetSelection(-1)
-        sizerControls.Add(
-            self.comboBoxBattler, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerControls, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class EnemyAppearance_Dialog_Template
-###########################################################################
-
-class EnemyAppearance_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Enemy Appearance"), pos=wx.DefaultPosition, size=wx.Size(275, 90), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerControls = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelEnemy = wx.StaticText(
-            self, wx.ID_ANY, _("Enemy:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelEnemy.Wrap(-1)
-        sizerControls.Add(self.labelEnemy, 0, wx.ALL, 5)
-
-        comboBoxEnemyChoices = []
-        self.comboBoxEnemy = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0)
-        self.comboBoxEnemy.SetSelection(0)
-        sizerControls.Add(
-            self.comboBoxEnemy, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerControls, 1, wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class EnemyTransform_Dialog_Template
-###########################################################################
-
-class EnemyTransform_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Enemy Transformation"), pos=wx.DefaultPosition, size=wx.Size(305, 129), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-
-        sizerControls = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelEnemy = wx.StaticText(
-            self, wx.ID_ANY, _("Enemy:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelEnemy.Wrap(-1)
-        sizerControls.Add(self.labelEnemy, 0, wx.ALL, 5)
-
-        comboBoxEnemyChoices = []
-        self.comboBoxEnemy = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0)
-        sizerControls.Add(
-            self.comboBoxEnemy, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        self.labelTransform = wx.StaticText(
-            self, wx.ID_ANY, _("Transform to:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelTransform.Wrap(-1)
-        sizerControls.Add(self.labelTransform, 0, wx.ALL, 5)
-
-        comboBoxTransformChoices = []
-        self.comboBoxTransform = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTransformChoices, 0)
-        self.comboBoxTransform.SetSelection(0)
-        sizerControls.Add(
-            self.comboBoxTransform, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
-        MainSizer.Add(
-            sizerControls, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.VERTICAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(
-            self.buttonCancel, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, 0, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.comboBoxEnemy.Bind(wx.EVT_LEFT_DOWN, self.comboBoxEnemy_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.comboBoxEnemy.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def comboBoxEnemy_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class BattleAnimation_Dialog_Template
-###########################################################################
-
-class BattleAnimation_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Show Battle Animation"), pos=wx.DefaultPosition, size=wx.Size(267, 205), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerTarget = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Target")), wx.VERTICAL)
-
-        sizerEnemy = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonEnemy = wx.RadioButton(
-            self, wx.ID_ANY, _("Enemy"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerEnemy.Add(
-            self.radioButtonEnemy, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxEnemyChoices = [_("Entire Troop")]
-        self.comboBoxEnemy = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0)
-        self.comboBoxEnemy.SetSelection(0)
-        sizerEnemy.Add(self.comboBoxEnemy, 1, wx.ALL, 5)
-
-        sizerTarget.Add(sizerEnemy, 0, wx.EXPAND, 5)
-
-        sizerActor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonActor = wx.RadioButton(
-            self, wx.ID_ANY, _("Actor"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerActor.Add(
-            self.radioButtonActor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorChoices = [_("Entire Party"), _("Actor 1"), _("Actor 2"), _("Actor 3"), _(
-            "Actor 4"), _("Actor 5"), _("Actor 6"), _("Actor 7"), _("Actor 8"), _("Actor 9"), _("Actor 10")]
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerActor.Add(self.comboBoxActor, 1, wx.ALL, 5)
-
-        sizerTarget.Add(sizerActor, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerTarget, 0, wx.EXPAND | wx.ALL, 5)
-
-        self.labelAnimation = wx.StaticText(
-            self, wx.ID_ANY, _("Animation:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelAnimation.Wrap(-1)
-        MainSizer.Add(self.labelAnimation, 0, wx.ALL, 5)
-
-        comboBoxAnimationChoices = []
-        self.comboBoxAnimation = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAnimationChoices, 0)
-        self.comboBoxAnimation.SetSelection(0)
-        MainSizer.Add(
-            self.comboBoxAnimation, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonEnemy.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonEnemy_CheckChanged)
-        self.radioButtonActor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonActor_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonEnemy.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonEnemy_CheckChanged(self, event):
-        pass
-
-    def radioButtonActor_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class DealDamage_Dialog_Template
-###########################################################################
-
-class DealDamage_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Deal Damage"), pos=wx.DefaultPosition, size=wx.Size(284, 252), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerTarget = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Target")), wx.VERTICAL)
-
-        sizerEnemy = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonEnemy = wx.RadioButton(
-            self, wx.ID_ANY, _("Enemy"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerEnemy.Add(
-            self.radioButtonEnemy, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxEnemyChoices = [_("Entire Troop")]
-        self.comboBoxEnemy = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0)
-        self.comboBoxEnemy.SetSelection(0)
-        sizerEnemy.Add(self.comboBoxEnemy, 1, wx.ALL, 5)
-
-        sizerTarget.Add(sizerEnemy, 0, wx.EXPAND, 5)
-
-        sizerActor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonActor = wx.RadioButton(
-            self, wx.ID_ANY, _("Actor"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerActor.Add(
-            self.radioButtonActor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorChoices = [_("Entire Party"), _("Actor 1"), _("Actor 2"), _("Actor 3"), _(
-            "Actor 4"), _("Actor 5"), _("Actor 6"), _("Actor 7"), _("Actor 8"), _("Actor 9"), _("Actor 10")]
-        self.comboBoxActor = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0)
-        self.comboBoxActor.SetSelection(0)
-        sizerActor.Add(self.comboBoxActor, 1, wx.ALL, 5)
-
-        sizerTarget.Add(sizerActor, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerTarget, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerOperand = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Operand")), wx.VERTICAL)
-
-        sizerConstant = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonConstant = wx.RadioButton(
-            self, wx.ID_ANY, _("Constant"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP)
-        sizerConstant.Add(
-            self.radioButtonConstant, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        self.spinCtrlConstant = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
-        sizerConstant.Add(self.spinCtrlConstant, 0, wx.ALL, 5)
-
-        sizerOperand.Add(sizerConstant, 0, wx.EXPAND, 5)
-
-        sizerVariable = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonVariable = wx.RadioButton(
-            self, wx.ID_ANY, _("Variable"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerVariable.Add(
-            self.radioButtonVariable, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
-        sizerVariable.Add(self.comboBoxVariable, 1, wx.ALL, 5)
-
-        sizerOperand.Add(sizerVariable, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerOperand, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonEnemy.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonEnemy_CheckChanged)
-        self.radioButtonActor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonActor_CheckChanged)
-        self.radioButtonConstant.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonConstant_CheckChanged)
-        self.radioButtonVariable.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonVariable_CheckChanged)
-        self.comboBoxVariable.Bind(
-            wx.EVT_LEFT_DOWN, self.comboBoxVariable_Clicked)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonEnemy.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonConstant.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonVariable.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.comboBoxVariable.Unbind(wx.EVT_LEFT_DOWN, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonEnemy_CheckChanged(self, event):
-        pass
-
-    def radioButtonActor_CheckChanged(self, event):
-        pass
-
-    def radioButtonConstant_CheckChanged(self, event):
-        pass
-
-    def radioButtonVariable_CheckChanged(self, event):
-        pass
-
-    def comboBoxVariable_Clicked(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ForceAction_Dialog_Template
-###########################################################################
-
-class ForceAction_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Force Action"), pos=wx.DefaultPosition, size=wx.Size(307, 367), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        sizerBattler = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Battler")), wx.VERTICAL)
-
-        sizerEnemy = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonEnemy = wx.RadioButton(
-            self, wx.ID_ANY, _("Enemy"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerEnemy.Add(
-            self.radioButtonEnemy, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxEnemiesChoices = [_("Entire Troop")]
-        self.comboBoxEnemies = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemiesChoices, 0)
-        self.comboBoxEnemies.SetSelection(0)
-        sizerEnemy.Add(self.comboBoxEnemies, 1, wx.ALL, 5)
-
-        sizerBattler.Add(sizerEnemy, 0, wx.EXPAND, 5)
-
-        sizerActor = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonActor = wx.RadioButton(
-            self, wx.ID_ANY, _("Actor"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerActor.Add(
-            self.radioButtonActor, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxActorsChoices = [_("Entire Party"), _("Actor 1"), _("Actor 2"), _("Actor 3"), _(
-            "Actor 4"), _("Actor 5"), _("Actor 6"), _("Actor 7"), _("Actor 8"), _("Actor 9"), _("Actor 10")]
-        self.comboBoxActors = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorsChoices, 0)
-        self.comboBoxActors.SetSelection(0)
-        sizerActor.Add(self.comboBoxActors, 1, wx.ALL, 5)
-
-        sizerBattler.Add(sizerActor, 1, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerBattler, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerAction = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Action")), wx.VERTICAL)
-
-        sizerBasic = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonBasic = wx.RadioButton(
-            self, wx.ID_ANY, _("Basic"), wx.DefaultPosition, wx.Size(72, -1), wx.RB_GROUP)
-        sizerBasic.Add(
-            self.radioButtonBasic, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxBasicChoices = [
-            _("Attack"), _("Defend"), _("Escape"), _("Do Nothing")]
-        self.comboBoxBasic = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBasicChoices, 0)
-        self.comboBoxBasic.SetSelection(0)
-        sizerBasic.Add(self.comboBoxBasic, 1, wx.ALL, 5)
-
-        sizerAction.Add(sizerBasic, 0, wx.EXPAND, 5)
-
-        sizerSkill = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.radioButtonSkill = wx.RadioButton(
-            self, wx.ID_ANY, _("Skill"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        sizerSkill.Add(
-            self.radioButtonSkill, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxSkillChoices = []
-        self.comboBoxSkill = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSkillChoices, 0)
-        self.comboBoxSkill.SetSelection(0)
-        sizerSkill.Add(self.comboBoxSkill, 1, wx.ALL, 5)
-
-        sizerAction.Add(sizerSkill, 0, wx.EXPAND, 5)
-
-        self.staticLine = wx.StaticLine(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL)
-        sizerAction.Add(self.staticLine, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizerTarget = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.labelTarget = wx.StaticText(
-            self, wx.ID_ANY, _("Action Target:"), wx.DefaultPosition, wx.Size(72, -1), 0)
-        self.labelTarget.Wrap(-1)
-        sizerTarget.Add(
-            self.labelTarget, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-
-        comboBoxTargetChoices = [_("Last Target"), _("Random"), _("Index 1"), _("Index 2"), _("Index 3"), _(
-            "Index 4"), _("Index 5"), _("Index 6"), _("Index 7"), _("Index 8"), _("Index 9"), _("Index 10")]
-        self.comboBoxTarget = wx.Choice(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetChoices, 0)
-        self.comboBoxTarget.SetSelection(0)
-        sizerTarget.Add(self.comboBoxTarget, 1, wx.ALL, 5)
-
-        sizerAction.Add(sizerTarget, 0, wx.EXPAND, 5)
-
-        MainSizer.Add(sizerAction, 0, wx.EXPAND | wx.ALL, 5)
-
-        radioBoxTimingChoices = [
-            _("Execute in Normal Sequence"), _("Execute Now")]
-        self.radioBoxTiming = wx.RadioBox(self, wx.ID_ANY, _(
-            "Timing"), wx.DefaultPosition, wx.DefaultSize, radioBoxTimingChoices, 1, wx.RA_SPECIFY_COLS)
-        self.radioBoxTiming.SetSelection(0)
-        MainSizer.Add(self.radioBoxTiming, 0, wx.ALL | wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.radioButtonEnemy.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonEnemy_CheckChanged)
-        self.radioButtonActor.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonActor_CheckChanged)
-        self.radioButtonBasic.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonBasic_CheckChanged)
-        self.radioButtonSkill.Bind(
-            wx.EVT_RADIOBUTTON, self.radioButtonSkill_CheckChanged)
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.radioButtonEnemy.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonActor.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonBasic.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.radioButtonSkill.Unbind(wx.EVT_RADIOBUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def radioButtonEnemy_CheckChanged(self, event):
-        pass
-
-    def radioButtonActor_CheckChanged(self, event):
-        pass
-
-    def radioButtonBasic_CheckChanged(self, event):
-        pass
-
-    def radioButtonSkill_CheckChanged(self, event):
-        pass
-
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class ScriptCall_Dialog_Template
-###########################################################################
-
-class ScriptCall_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_("Script"), pos=wx.DefaultPosition, size=wx.Size(
-            338, 253), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        MainSizer.SetMinSize(wx.Size(320, 196))
-        self.textCtrlScript = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_WORDWRAP)
-        self.textCtrlScript.SetMaxLength(0)
-        MainSizer.Add(self.textCtrlScript, 1, wx.ALL | wx.EXPAND, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class BattleTest_Dialog_Template
-###########################################################################
-
-class BattleTest_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Battle Test"), pos=wx.DefaultPosition, size=wx.Size(380, 305), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.noteBookBattler = wx.Notebook(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.panelDummyTab = wx.Panel(
-            self.noteBookBattler, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        self.noteBookBattler.AddPage(self.panelDummyTab, _("1"), False)
-
-        MainSizer.Add(self.noteBookBattler, 1, wx.EXPAND | wx.ALL, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.bittonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.bittonOK, 0, wx.ALL, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.BOTTOM | wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.bittonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.bittonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
-
-
-###########################################################################
-# Class AddParameter_Dialog_Template
-###########################################################################
-
-class AddParameter_Dialog_Template (wx.Dialog):
-
-    def __init__(self, parent):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(
-            "Add Parameter"), pos=wx.DefaultPosition, size=wx.Size(257, 110), style=wx.DEFAULT_DIALOG_STYLE)
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        MainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.labelParameterName = wx.StaticText(
-            self, wx.ID_ANY, _("Parameter Name:"), wx.DefaultPosition, wx.DefaultSize, 0)
-        self.labelParameterName.Wrap(-1)
-        MainSizer.Add(self.labelParameterName, 0, wx.ALL, 5)
-
-        self.textCtrlParameterName = wx.TextCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.textCtrlParameterName.SetMaxLength(0)
-        MainSizer.Add(
-            self.textCtrlParameterName, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
-
-        sizerOKCancel = wx.BoxSizer(wx.HORIZONTAL)
-
-        self.buttonOK = wx.Button(
-            self, wx.ID_ANY, _("OK"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonOK, 0, wx.TOP | wx.BOTTOM | wx.LEFT, 5)
-
-        self.buttonCancel = wx.Button(
-            self, wx.ID_ANY, _("Cancel"), wx.DefaultPosition, wx.DefaultSize, 0)
-        sizerOKCancel.Add(self.buttonCancel, 0, wx.ALL, 5)
-
-        MainSizer.Add(sizerOKCancel, 0, wx.ALIGN_RIGHT, 5)
-
-        self.SetSizer(MainSizer)
-        self.Layout()
-
-        self.Centre(wx.BOTH)
-
-        # Connect Events
-        self.buttonOK.Bind(wx.EVT_BUTTON, self.buttonOK_Clicked)
-        self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
-
-    def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
-
-    # Virtual event handlers, overide them in your derived class
-    def buttonOK_Clicked(self, event):
-        pass
-
-    def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -17121,28 +8424,23 @@ class ParameterGraph_Panel_Template (wx.Panel):
         self.buttonClose.Bind(wx.EVT_BUTTON, self.buttonClose_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.noteBookParameters.Unbind(wx.EVT_NOTEBOOK_PAGE_CHANGED, None)
-        self.buttonGenerate.Unbind(wx.EVT_BUTTON, None)
-        self.checkBoxScaled.Unbind(wx.EVT_CHECKBOX, None)
-        self.buttonApply.Unbind(wx.EVT_BUTTON, None)
-        self.buttonClose.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def noteBookParameters_PageChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonGenerate_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkBoxScaled_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonApply_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonClose_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -17161,8 +8459,8 @@ class EnemyExpGold_Dialog_Template (wx.Dialog):
 
         bSizer637 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelType = wx.StaticText(
-            self, wx.ID_ANY, _("(Gold/Experience):"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelType = wx.StaticText(self, wx.ID_ANY, _(
+            "(Gold/Experience):"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelType.Wrap(-1)
         bSizer637.Add(self.labelType, 70, wx.ALL, 5)
 
@@ -17209,16 +8507,14 @@ class EnemyExpGold_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -17239,7 +8535,7 @@ class AudioPlayer_Panel_Template (wx.Panel):
         sizerSelection = wx.BoxSizer(wx.HORIZONTAL)
 
         self.notebookAudio = wx.Notebook(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+            sizerControls.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
         self.panelBGM = wx.Panel(
             self.notebookAudio, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         bSizer6311 = wx.BoxSizer(wx.VERTICAL)
@@ -17260,17 +8556,17 @@ class AudioPlayer_Panel_Template (wx.Panel):
             self.notebookAudio, 1, wx.EXPAND | wx.TOP | wx.BOTTOM, 5)
 
         sizerVolume = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Volume")), wx.VERTICAL)
+            wx.StaticBox(sizerControls.GetStaticBox(), wx.ID_ANY, _("Volume")), wx.VERTICAL)
 
-        self.sliderVolume = wx.Slider(
-            self, wx.ID_ANY, 80, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE | wx.SL_LABELS | wx.SL_VERTICAL)
+        self.sliderVolume = wx.Slider(sizerVolume.GetStaticBox(
+        ), wx.ID_ANY, 80, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE | wx.SL_LABELS | wx.SL_VERTICAL)
         self.sliderVolume.SetHelpText(
             _("Adjust the volume to play the sound at"))
 
         sizerVolume.Add(self.sliderVolume, 1, wx.ALL, 5)
 
-        self.spinCtrlVolume = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            54, -1), wx.SP_ARROW_KEYS, 0, 100, 80)
+        self.spinCtrlVolume = wx.SpinCtrl(sizerVolume.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(54, -1), wx.SP_ARROW_KEYS, 0, 100, 80)
         self.spinCtrlVolume.SetHelpText(
             _("Adjust the volume to play the sound at"))
 
@@ -17279,17 +8575,17 @@ class AudioPlayer_Panel_Template (wx.Panel):
         sizerSelection.Add(sizerVolume, 0, wx.ALL | wx.EXPAND, 5)
 
         sizerPitch = wx.StaticBoxSizer(
-            wx.StaticBox(self, wx.ID_ANY, _("Pitch")), wx.VERTICAL)
+            wx.StaticBox(sizerControls.GetStaticBox(), wx.ID_ANY, _("Pitch")), wx.VERTICAL)
 
-        self.sliderPitch = wx.Slider(
-            self, wx.ID_ANY, 100, 25, 300, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE | wx.SL_LABELS | wx.SL_VERTICAL)
+        self.sliderPitch = wx.Slider(sizerPitch.GetStaticBox(
+        ), wx.ID_ANY, 100, 25, 300, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE | wx.SL_LABELS | wx.SL_VERTICAL)
         self.sliderPitch.SetHelpText(
             _("Adjust the pitch shift to apply to the sound"))
 
         sizerPitch.Add(self.sliderPitch, 1, wx.ALL, 5)
 
-        self.spinCtrlPitch = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            48, -1), wx.SP_ARROW_KEYS, 25, 300, 100)
+        self.spinCtrlPitch = wx.SpinCtrl(sizerPitch.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(48, -1), wx.SP_ARROW_KEYS, 25, 300, 100)
         self.spinCtrlPitch.SetHelpText(
             _("Adjust the pitch shift to apply to the sound"))
 
@@ -17325,8 +8621,8 @@ class AudioPlayer_Panel_Template (wx.Panel):
 
         bSizer6301 = wx.BoxSizer(wx.VERTICAL)
 
-        self.sliderPosition = wx.Slider(
-            self, wx.ID_ANY, 0, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderPosition = wx.Slider(sizerControls.GetStaticBox(
+        ), wx.ID_ANY, 0, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         self.sliderPosition.Enable(False)
         self.sliderPosition.SetHelpText(
             _("Adjust the offset that playback will begin from"))
@@ -17335,8 +8631,8 @@ class AudioPlayer_Panel_Template (wx.Panel):
 
         bSizer631 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.checkBoxRepeat = wx.CheckBox(
-            self, wx.ID_ANY, _("Repeat"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxRepeat = wx.CheckBox(sizerControls.GetStaticBox(), wx.ID_ANY, _(
+            "Repeat"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.checkBoxRepeat.SetHelpText(
             _("Check to loop playback when the end of the stream is reached"))
 
@@ -17344,8 +8640,8 @@ class AudioPlayer_Panel_Template (wx.Panel):
 
         sizerLabel = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelFileName = wx.StaticText(
-            self, wx.ID_ANY, _("FILENAME"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelFileName = wx.StaticText(sizerControls.GetStaticBox(), wx.ID_ANY, _(
+            "FILENAME"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelFileName.Wrap(-1)
         self.labelFileName.SetHelpText(
             _("The currently loaded file and duration of playback"))
@@ -17353,7 +8649,7 @@ class AudioPlayer_Panel_Template (wx.Panel):
         sizerLabel.Add(
             self.labelFileName, 0, wx.ALIGN_CENTER_VERTICAL | wx.EXPAND | wx.ALL, 5)
 
-        self.labelFileDuration = wx.StaticText(self, wx.ID_ANY, _(
+        self.labelFileDuration = wx.StaticText(sizerControls.GetStaticBox(), wx.ID_ANY, _(
             "[0.00.00]"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT)
         self.labelFileDuration.Wrap(-1)
         self.labelFileDuration.SetFont(
@@ -17364,21 +8660,22 @@ class AudioPlayer_Panel_Template (wx.Panel):
 
         bSizer631.Add(sizerLabel, 1, 0, 5)
 
-        self.buttonPlay = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
-        self.buttonPlay.SetHelpText(_("Play the sound on the current channel"))
+        self.buttonPlay = wx.BitmapButton(sizerControls.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        self.buttonPlay.SetHelpText(
+            _("Play the sound on the current channel"))
 
         bSizer631.Add(self.buttonPlay, 0, wx.ALL, 5)
 
-        self.buttonPause = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        self.buttonPause = wx.BitmapButton(sizerControls.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
         self.buttonPause.SetHelpText(
             _("Pause playback on the current channel"))
 
         bSizer631.Add(self.buttonPause, 0, wx.TOP | wx.BOTTOM, 5)
 
-        self.buttonStop = wx.BitmapButton(
-            self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        self.buttonStop = wx.BitmapButton(sizerControls.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
         self.buttonStop.SetHelpText(_("Stop playback on the current channel"))
 
         bSizer631.Add(self.buttonStop, 0, wx.ALL, 5)
@@ -17475,81 +8772,56 @@ class AudioPlayer_Panel_Template (wx.Panel):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.notebookAudio.Unbind(wx.EVT_NOTEBOOK_PAGE_CHANGED, None)
-        self.listBoxAudio.Unbind(wx.EVT_LISTBOX_DCLICK, None)
-        self.sliderVolume.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.sliderVolume.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlVolume.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.spinCtrlVolume.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderPitch.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.sliderPitch.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlPitch.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.spinCtrlPitch.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderPosition.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.sliderPosition.Unbind(wx.EVT_SCROLL, None)
-        self.checkBoxRepeat.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxRepeat.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.labelFileName.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonPlay.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPlay.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonPause.Unbind(wx.EVT_BUTTON, None)
-        self.buttonPause.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonStop.Unbind(wx.EVT_BUTTON, None)
-        self.buttonStop.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonStopAll.Unbind(wx.EVT_BUTTON, None)
-        self.checkBoxMicroseconds.Unbind(wx.EVT_CHECKBOX, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def notebookAudio_PageChanged(self, event):
-        pass
+        event.Skip()
 
     def listBoxAudio_DoubleClick(self, event):
-        pass
+        event.Skip()
 
     def ControlOnEraseBackground(self, event):
-        pass
+        event.Skip()
 
     def sliderVolume_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlVolume_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderPitch_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlPitch_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderPosition_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def checkBoxRepeat_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonPlay_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonPause_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonStop_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonStopAll_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkBoxMicroseconds_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -17593,16 +8865,14 @@ class ExpGraph_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -17679,12 +8949,12 @@ class ExpGrid_Dialog_Template (wx.Dialog):
         sizerBasis = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Basis")), wx.HORIZONTAL)
 
-        self.sliderBasis = wx.Slider(
-            self, wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderBasis = wx.Slider(sizerBasis.GetStaticBox(
+        ), wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerBasis.Add(self.sliderBasis, 1, wx.ALL, 5)
 
-        self.spinCtrlBasis = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(
-            60, -1), wx.SP_ARROW_KEYS, 5, 50, 35)
+        self.spinCtrlBasis = wx.SpinCtrl(sizerBasis.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(60, -1), wx.SP_ARROW_KEYS, 5, 50, 35)
         sizerBasis.Add(self.spinCtrlBasis, 0, wx.ALL, 5)
 
         sizerControls.Add(sizerBasis, 1, wx.ALL | wx.EXPAND, 5)
@@ -17692,12 +8962,12 @@ class ExpGrid_Dialog_Template (wx.Dialog):
         sizerInflation = wx.StaticBoxSizer(
             wx.StaticBox(self, wx.ID_ANY, _("Inflation")), wx.HORIZONTAL)
 
-        self.sliderInflation = wx.Slider(
-            self, wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
+        self.sliderInflation = wx.Slider(sizerInflation.GetStaticBox(
+        ), wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
         sizerInflation.Add(self.sliderInflation, 1, wx.ALL, 5)
 
-        self.spinCtrlInflation = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(60, -1), wx.SP_ARROW_KEYS, 5, 50, 35)
+        self.spinCtrlInflation = wx.SpinCtrl(sizerInflation.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(60, -1), wx.SP_ARROW_KEYS, 5, 50, 35)
         sizerInflation.Add(self.spinCtrlInflation, 0, wx.ALL, 5)
 
         sizerControls.Add(sizerInflation, 1, wx.ALL | wx.EXPAND, 5)
@@ -17709,18 +8979,18 @@ class ExpGrid_Dialog_Template (wx.Dialog):
 
         sizerLabels = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelMinValue = wx.StaticText(
-            self, wx.ID_ANY, _("First Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMinValue = wx.StaticText(sizerCurveGeneration.GetStaticBox(
+        ), wx.ID_ANY, _("First Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMinValue.Wrap(-1)
         sizerLabels.Add(self.labelMinValue, 30, wx.ALL, 5)
 
-        self.labelMaxLevel = wx.StaticText(
-            self, wx.ID_ANY, _("Final Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelMaxLevel = wx.StaticText(sizerCurveGeneration.GetStaticBox(
+        ), wx.ID_ANY, _("Final Level:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelMaxLevel.Wrap(-1)
         sizerLabels.Add(self.labelMaxLevel, 45, wx.ALL, 5)
 
-        self.labelSpeed = wx.StaticText(
-            self, wx.ID_ANY, _("Speed:"), wx.DefaultPosition, wx.Size(-1, -1), 0)
+        self.labelSpeed = wx.StaticText(sizerCurveGeneration.GetStaticBox(), wx.ID_ANY, _(
+            "Speed:"), wx.DefaultPosition, wx.Size(-1, -1), 0)
         self.labelSpeed.Wrap(-1)
         sizerLabels.Add(self.labelSpeed, 25, wx.ALL, 5)
 
@@ -17728,15 +8998,15 @@ class ExpGrid_Dialog_Template (wx.Dialog):
 
         sizerControls1 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.spinCtrlMinValue = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 2147483647, 0)
+        self.spinCtrlMinValue = wx.SpinCtrl(sizerCurveGeneration.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 2147483647, 0)
         self.spinCtrlMinValue.Enable(False)
 
         sizerControls1.Add(
             self.spinCtrlMinValue, 30, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlMaxValue = wx.SpinCtrl(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 2147483647, 0)
+        self.spinCtrlMaxValue = wx.SpinCtrl(sizerCurveGeneration.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS | wx.SP_WRAP, 0, 2147483647, 0)
         self.spinCtrlMaxValue.Enable(False)
 
         sizerControls1.Add(
@@ -17751,15 +9021,15 @@ class ExpGrid_Dialog_Template (wx.Dialog):
 
         sizerCurveGeneration.Add(sizerControls1, 1, wx.EXPAND, 5)
 
-        self.sliderSpeed = wx.Slider(
-            self, wx.ID_ANY, 0, -10, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS | wx.SL_HORIZONTAL | wx.SL_TOP)
+        self.sliderSpeed = wx.Slider(sizerCurveGeneration.GetStaticBox(
+        ), wx.ID_ANY, 0, -10, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS | wx.SL_HORIZONTAL | wx.SL_TOP)
         self.sliderSpeed.Enable(False)
 
         sizerCurveGeneration.Add(
             self.sliderSpeed, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.buttonGraphEditor = wx.Button(
-            self, wx.ID_ANY, _("Graph Editor..."), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonGraphEditor = wx.Button(sizerCurveGeneration.GetStaticBox(
+        ), wx.ID_ANY, _("Graph Editor..."), wx.DefaultPosition, wx.DefaultSize, 0)
         self.buttonGraphEditor.Enable(False)
 
         sizerCurveGeneration.Add(
@@ -17819,56 +9089,44 @@ class ExpGrid_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.noteBookExpList.Unbind(wx.EVT_NOTEBOOK_PAGE_CHANGED, None)
-        self.sliderBasis.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlBasis.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderInflation.Unbind(wx.EVT_SCROLL, None)
-        self.spinCtrlInflation.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlMinValue.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlMaxValue.Unbind(wx.EVT_SPINCTRL, None)
-        self.sliderSpeed.Unbind(wx.EVT_SCROLL, None)
-        self.buttonGraphEditor.Unbind(wx.EVT_BUTTON, None)
-        self.checkBoxCurveGeneration.Unbind(wx.EVT_CHECKBOX, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def noteBookExpCurve_PageChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderBasis_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlBasis__ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderInflation_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlInflation_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlMinValue_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlMaxValue_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def sliderSpeed_Scrolled(self, event):
-        pass
+        event.Skip()
 
     def buttonGraphEditor_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkBoxCurveGeneration_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -17966,28 +9224,29 @@ class FindReplace_Dialog_Template (wx.Dialog):
         sizerFindOptions = wx.StaticBoxSizer(
             wx.StaticBox(self.panelFind, wx.ID_ANY, _("Options")), wx.VERTICAL)
 
-        self.checkBoxFindMatchCase = wx.CheckBox(self.panelFind, wx.ID_ANY, _(
-            "Match case"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxFindMatchCase = wx.CheckBox(sizerFindOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Match case"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFindOptions.Add(self.checkBoxFindMatchCase, 0, wx.ALL, 5)
 
-        self.checkBoxFindWholeWord = wx.CheckBox(self.panelFind, wx.ID_ANY, _(
-            "Match whole word"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxFindWholeWord = wx.CheckBox(sizerFindOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Match whole word"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFindOptions.Add(
             self.checkBoxFindWholeWord, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxFindSearchUp = wx.CheckBox(
-            self.panelFind, wx.ID_ANY, _("Search up"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxFindSearchUp = wx.CheckBox(sizerFindOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Search up"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFindOptions.Add(
             self.checkBoxFindSearchUp, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxFindFlags = wx.CheckBox(
-            self.panelFind, wx.ID_ANY, _("Use:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxFindFlags = wx.CheckBox(sizerFindOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Use:"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerFindOptions.Add(
             self.checkBoxFindFlags, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        comboBoxFindFlagsChoices = [_("Regular Expressions"), _("Wild Cards")]
-        self.comboBoxFindFlags = wx.Choice(
-            self.panelFind, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxFindFlagsChoices, 0)
+        comboBoxFindFlagsChoices = [
+            _("Regular Expressions"), _("Wild Cards")]
+        self.comboBoxFindFlags = wx.Choice(sizerFindOptions.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxFindFlagsChoices, 0)
         self.comboBoxFindFlags.SetSelection(0)
         self.comboBoxFindFlags.Enable(False)
 
@@ -18045,29 +9304,29 @@ class FindReplace_Dialog_Template (wx.Dialog):
         sizerReplaceOptions = wx.StaticBoxSizer(
             wx.StaticBox(self.panelReplace, wx.ID_ANY, _("Options")), wx.VERTICAL)
 
-        self.checkBoxReplaceMatchCase = wx.CheckBox(self.panelReplace, wx.ID_ANY, _(
-            "Match case"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxReplaceMatchCase = wx.CheckBox(sizerReplaceOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Match case"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerReplaceOptions.Add(self.checkBoxReplaceMatchCase, 0, wx.ALL, 5)
 
-        self.checkBoxReplaceWholeWord = wx.CheckBox(self.panelReplace, wx.ID_ANY, _(
-            "Match whole word"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxReplaceWholeWord = wx.CheckBox(sizerReplaceOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Match whole word"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerReplaceOptions.Add(
             self.checkBoxReplaceWholeWord, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxReplaceSearchUp = wx.CheckBox(self.panelReplace, wx.ID_ANY, _(
-            "Search up"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxReplaceSearchUp = wx.CheckBox(sizerReplaceOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Search up"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerReplaceOptions.Add(
             self.checkBoxReplaceSearchUp, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.checkBoxReplaceFlags = wx.CheckBox(
-            self.panelReplace, wx.ID_ANY, _("Use:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.checkBoxReplaceFlags = wx.CheckBox(sizerReplaceOptions.GetStaticBox(
+        ), wx.ID_ANY, _("Use:"), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerReplaceOptions.Add(
             self.checkBoxReplaceFlags, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         comboBoxReplaceFlagsChoices = [
             _("Regular Expressions"), _("Wild Cards")]
-        self.comboBoxReplaceFlags = wx.Choice(
-            self.panelReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxReplaceFlagsChoices, 0)
+        self.comboBoxReplaceFlags = wx.Choice(sizerReplaceOptions.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxReplaceFlagsChoices, 0)
         self.comboBoxReplaceFlags.SetSelection(0)
         self.comboBoxReplaceFlags.Enable(False)
 
@@ -18097,7 +9356,8 @@ class FindReplace_Dialog_Template (wx.Dialog):
         self.panelReplace.SetSizer(sizerReplace)
         self.panelReplace.Layout()
         sizerReplace.Fit(self.panelReplace)
-        self.noteBookFindReplace.AddPage(self.panelReplace, _("Replace"), True)
+        self.noteBookFindReplace.AddPage(
+            self.panelReplace, _("Replace"), True)
 
         sizerNotebook.Add(self.noteBookFindReplace, 1, wx.EXPAND, 5)
 
@@ -18171,81 +9431,41 @@ class FindReplace_Dialog_Template (wx.Dialog):
         self.buttonReplaceAll.Bind(wx.EVT_ERASE_BACKGROUND, self.DoNothing)
 
     def __del__(self):
-        # Disconnect Events
-        self.noteBookFindReplace.Unbind(wx.EVT_NOTEBOOK_PAGE_CHANGED, None)
-        self.labelFind.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.textCtrlFindSearch.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.labelLookFind.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.comboBoxLook.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxLook.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxFindMatchCase.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxFindMatchCase.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxFindWholeWord.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxFindWholeWord.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxFindSearchUp.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxFindSearchUp.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxFindFlags.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxFindFlags.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.comboBoxFindFlags.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxFindFlags.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonFind.Unbind(wx.EVT_BUTTON, None)
-        self.buttonFind.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.labelReplace.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.textCtrlReplaceSearch.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.labelReplaceWith.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.textCtrlReplace.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.comboBoxLookReplace.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxLookReplace.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxReplaceMatchCase.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxReplaceMatchCase.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxReplaceWholeWord.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxReplaceWholeWord.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxReplaceSearchUp.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxReplaceSearchUp.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.checkBoxReplaceFlags.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxReplaceFlags.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.comboBoxReplaceFlags.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxReplaceFlags.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonFindNext.Unbind(wx.EVT_BUTTON, None)
-        self.buttonFindNext.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonReplace.Unbind(wx.EVT_BUTTON, None)
-        self.buttonReplace.Unbind(wx.EVT_ERASE_BACKGROUND, None)
-        self.buttonReplaceAll.Unbind(wx.EVT_BUTTON, None)
-        self.buttonReplaceAll.Unbind(wx.EVT_ERASE_BACKGROUND, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def noteBookFindReplace_PageChanged(self, event):
-        pass
+        event.Skip()
 
     def DoNothing(self, event):
-        pass
+        event.Skip()
 
     def comboBoxLook_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxMatchCase_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxWholeWord_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxSearchUP_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxFlags_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxFlags_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonFindNext_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonReplace_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonReplaceAll_Clicked(self, event):
-        pass
+        event.Skip()
 
 
 ###########################################################################
@@ -18440,20 +9660,20 @@ class ScriptSettings_Dialog_Template (wx.Dialog):
         sizerCaret = wx.StaticBoxSizer(
             wx.StaticBox(self.panelEditor, wx.ID_ANY, _("Caret Settings")), wx.VERTICAL)
 
-        self.labelCaretFore = wx.StaticText(self.panelEditor, wx.ID_ANY, _(
+        self.labelCaretFore = wx.StaticText(sizerCaret.GetStaticBox(), wx.ID_ANY, _(
             "Forecolor:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCaretFore.Wrap(-1)
         sizerCaret.Add(self.labelCaretFore, 0, wx.ALL, 5)
 
         sizerCaret1 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.panelCaretFore = wx.Panel(
-            self.panelEditor, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL)
+        self.panelCaretFore = wx.Panel(sizerCaret.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL)
         sizerCaret1.Add(
             self.panelCaretFore, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.textCtrlCaretFore = wx.TextCtrl(
-            self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlCaretFore = wx.TextCtrl(sizerCaret.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlCaretFore.SetMaxLength(0)
         sizerCaret1.Add(
             self.textCtrlCaretFore, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -18462,27 +9682,27 @@ class ScriptSettings_Dialog_Template (wx.Dialog):
 
         sizerCaret2 = wx.BoxSizer(wx.VERTICAL)
 
-        self.buttonCaretFore = wx.Button(self.panelEditor, wx.ID_ANY, _(
+        self.buttonCaretFore = wx.Button(sizerCaret.GetStaticBox(), wx.ID_ANY, _(
             "Choose..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerCaret2.Add(
             self.buttonCaretFore, 0, wx.ALIGN_RIGHT | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
         sizerCaret.Add(sizerCaret2, 0, wx.EXPAND, 5)
 
-        self.labelCaretBack = wx.StaticText(self.panelEditor, wx.ID_ANY, _(
+        self.labelCaretBack = wx.StaticText(sizerCaret.GetStaticBox(), wx.ID_ANY, _(
             "Background:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCaretBack.Wrap(-1)
         sizerCaret.Add(self.labelCaretBack, 0, wx.ALL, 5)
 
         sizerCaret11 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.panelCaretBack = wx.Panel(
-            self.panelEditor, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL)
+        self.panelCaretBack = wx.Panel(sizerCaret.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL)
         sizerCaret11.Add(
             self.panelCaretBack, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.textCtrlCaretBack = wx.TextCtrl(
-            self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.textCtrlCaretBack = wx.TextCtrl(sizerCaret.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.textCtrlCaretBack.SetMaxLength(0)
         sizerCaret11.Add(
             self.textCtrlCaretBack, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -18491,7 +9711,7 @@ class ScriptSettings_Dialog_Template (wx.Dialog):
 
         sizerCaret21 = wx.BoxSizer(wx.VERTICAL)
 
-        self.buttonCaretBack = wx.Button(self.panelEditor, wx.ID_ANY, _(
+        self.buttonCaretBack = wx.Button(sizerCaret.GetStaticBox(), wx.ID_ANY, _(
             "Choose..."), wx.DefaultPosition, wx.DefaultSize, 0)
         sizerCaret21.Add(
             self.buttonCaretBack, 0, wx.ALIGN_RIGHT | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
@@ -18500,14 +9720,14 @@ class ScriptSettings_Dialog_Template (wx.Dialog):
 
         sizerCaret3 = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.labelCaretAlpha = wx.StaticText(self.panelEditor, wx.ID_ANY, _(
+        self.labelCaretAlpha = wx.StaticText(sizerCaret.GetStaticBox(), wx.ID_ANY, _(
             "Caret Alpha:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelCaretAlpha.Wrap(-1)
         sizerCaret3.Add(
             self.labelCaretAlpha, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-        self.spinCtrlCaretAlpha = wx.SpinCtrl(
-            self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 40)
+        self.spinCtrlCaretAlpha = wx.SpinCtrl(sizerCaret.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 40)
         sizerCaret3.Add(
             self.spinCtrlCaretAlpha, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -18591,93 +9811,387 @@ class ScriptSettings_Dialog_Template (wx.Dialog):
         self.buttonCancel.Bind(wx.EVT_BUTTON, self.buttonCancel_Clicked)
 
     def __del__(self):
-        # Disconnect Events
-        self.noteBookSettings.Unbind(wx.EVT_NOTEBOOK_PAGE_CHANGED, None)
-        self.comboBoxFont.Unbind(wx.EVT_CHOICE, None)
-        self.comboBoxSize.Unbind(wx.EVT_CHOICE, None)
-        self.listBoxDisplayItems.Unbind(wx.EVT_LISTBOX, None)
-        self.textCtrlForeColor.Unbind(wx.EVT_TEXT, None)
-        self.buttonForeColor.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlBackColor.Unbind(wx.EVT_TEXT, None)
-        self.buttonBackColor.Unbind(wx.EVT_BUTTON, None)
-        self.checkBoxBold.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxItalic.Unbind(wx.EVT_CHECKBOX, None)
-        self.spinCtrlTabWidth.Unbind(wx.EVT_SPINCTRL, None)
-        self.spinCtrlEdgeColumn.Unbind(wx.EVT_SPINCTRL, None)
-        self.checkBoxIndentGuides.Unbind(wx.EVT_CHECKBOX, None)
-        self.checkBoxCaret.Unbind(wx.EVT_CHECKBOX, None)
-        self.textCtrlCaretFore.Unbind(wx.EVT_TEXT, None)
-        self.buttonCaretFore.Unbind(wx.EVT_BUTTON, None)
-        self.textCtrlCaretBack.Unbind(wx.EVT_TEXT, None)
-        self.buttonCaretBack.Unbind(wx.EVT_BUTTON, None)
-        self.spinCtrlCaretAlpha.Unbind(wx.EVT_SPINCTRL, None)
-        self.buttonDefault.Unbind(wx.EVT_BUTTON, None)
-        self.buttonOK.Unbind(wx.EVT_BUTTON, None)
-        self.buttonCancel.Unbind(wx.EVT_BUTTON, None)
+        pass
 
     # Virtual event handlers, overide them in your derived class
     def noteBookSettings_PageChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxFont_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def comboBoxSize_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def listBoxDisplayItems_SelectionChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlForeColor_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonForeColor_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlBackColor_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonBackColor_Clicked(self, event):
-        pass
+        event.Skip()
 
     def checkBoxBold_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxItalic_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlTabWidth_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlEdgeColumn_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxIndentGuide_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def checkBoxCaret_CheckChanged(self, event):
-        pass
+        event.Skip()
 
     def textCtrlCaretFore_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonCaretFore_Clicked(self, event):
-        pass
+        event.Skip()
 
     def textCtrlCaretBack_TextChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonCaretBack_Clicked(self, event):
-        pass
+        event.Skip()
 
     def spinCtrlCaretAlpha_ValueChanged(self, event):
-        pass
+        event.Skip()
 
     def buttonDefault_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonOK_Clicked(self, event):
-        pass
+        event.Skip()
 
     def buttonCancel_Clicked(self, event):
+        event.Skip()
+
+
+###########################################################################
+# Class MapManager_Panel_Template
+###########################################################################
+
+class MapManager_Panel_Template (wx.Panel):
+
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition,
+                          size=wx.Size(-1, -1), style=wx.TAB_TRAVERSAL)
+
+        MainSizer = wx.BoxSizer(wx.VERTICAL)
+
+        addMapSizer = wx.StaticBoxSizer(
+            wx.StaticBox(self, wx.ID_ANY, _("New Map")), wx.HORIZONTAL)
+
+        self.addNameLabel = wx.StaticText(addMapSizer.GetStaticBox(), wx.ID_ANY, _(
+            "Name"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.addNameLabel.Wrap(-1)
+        addMapSizer.Add(self.addNameLabel, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.addMapNameCtrl = wx.TextCtrl(addMapSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        addMapSizer.Add(self.addMapNameCtrl, 1, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.addMapButton = wx.BitmapButton(addMapSizer.GetStaticBox(), wx.ID_ANY, wx.ArtProvider.GetBitmap(
+            wx.ART_NEW,), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        addMapSizer.Add(self.addMapButton, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        MainSizer.Add(addMapSizer, 0, wx.EXPAND, 5)
+
+        self.mapDataViewTree = wx.dataview.DataViewTreeCtrl(
+            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+        MainSizer.Add(self.mapDataViewTree, 1, wx.ALL | wx.EXPAND, 5)
+
+        navSizer = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.moveUpLevelButton = wx.BitmapButton(self, wx.ID_ANY, wx.ArtProvider.GetBitmap(
+            wx.ART_GO_BACK,), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        navSizer.Add(self.moveUpLevelButton, 1, wx.ALL, 5)
+
+        self.moveDownLevelButton = wx.BitmapButton(self, wx.ID_ANY, wx.ArtProvider.GetBitmap(
+            wx.ART_GO_FORWARD,), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        navSizer.Add(self.moveDownLevelButton, 1, wx.ALL, 5)
+
+        self.moveUpButton = wx.BitmapButton(self, wx.ID_ANY, wx.ArtProvider.GetBitmap(
+            wx.ART_GO_UP,), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        navSizer.Add(self.moveUpButton, 1, wx.ALL, 5)
+
+        self.moveDownButton = wx.BitmapButton(self, wx.ID_ANY, wx.ArtProvider.GetBitmap(
+            wx.ART_GO_DOWN,), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        navSizer.Add(self.moveDownButton, 1, wx.ALL, 5)
+
+        self.mapDeleteButton = wx.BitmapButton(self, wx.ID_ANY, wx.ArtProvider.GetBitmap(
+            wx.ART_DELETE,), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        navSizer.Add(self.mapDeleteButton, 1, wx.ALL, 5)
+
+        MainSizer.Add(navSizer, 0, wx.EXPAND, 5)
+
+        mapPropertiesSizer = wx.StaticBoxSizer(
+            wx.StaticBox(self, wx.ID_ANY, _("Properties")), wx.VERTICAL)
+
+        mapNameSizer1 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.mapNameSizer = wx.StaticText(mapPropertiesSizer.GetStaticBox(), wx.ID_ANY, _(
+            "Name"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.mapNameSizer.Wrap(-1)
+        mapNameSizer1.Add(self.mapNameSizer, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.mapNameCtrl = wx.TextCtrl(mapPropertiesSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        mapNameSizer1.Add(self.mapNameCtrl, 1, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        mapPropertiesSizer.Add(mapNameSizer1, 0, wx.EXPAND, 5)
+
+        mapTilesetSizer = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.tilesetLabel = wx.StaticText(mapPropertiesSizer.GetStaticBox(), wx.ID_ANY, _(
+            "Tileset"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.tilesetLabel.Wrap(-1)
+        mapTilesetSizer.Add(self.tilesetLabel, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        tilesetChoiceBoxChoices = []
+        self.tilesetChoiceBox = wx.Choice(mapPropertiesSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, tilesetChoiceBoxChoices, 0)
+        self.tilesetChoiceBox.SetSelection(0)
+        mapTilesetSizer.Add(
+            self.tilesetChoiceBox, 1, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        mapPropertiesSizer.Add(mapTilesetSizer, 0, wx.EXPAND, 5)
+
+        soundSizer = wx.StaticBoxSizer(wx.StaticBox(
+            mapPropertiesSizer.GetStaticBox(), wx.ID_ANY, _("Auto Change Sound")), wx.VERTICAL)
+
+        BGMSizer = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.BGMCheckBox = wx.CheckBox(soundSizer.GetStaticBox(), wx.ID_ANY, _(
+            "BGM"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.BGMCheckBox.SetMinSize(wx.Size(45, -1))
+
+        BGMSizer.Add(self.BGMCheckBox, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        BGMChoiceBoxChoices = []
+        self.BGMChoiceBox = wx.Choice(soundSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, BGMChoiceBoxChoices, 0)
+        self.BGMChoiceBox.SetSelection(0)
+        self.BGMChoiceBox.Enable(False)
+
+        BGMSizer.Add(self.BGMChoiceBox, 1, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.playBGMButton = wx.BitmapButton(soundSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        BGMSizer.Add(self.playBGMButton, 0, wx.ALIGN_CENTER | wx.LEFT, 5)
+
+        soundSizer.Add(BGMSizer, 0, wx.EXPAND, 5)
+
+        BGSSizer = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.BGSCheckBox = wx.CheckBox(soundSizer.GetStaticBox(), wx.ID_ANY, _(
+            "BGS"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.BGSCheckBox.SetMinSize(wx.Size(45, -1))
+
+        BGSSizer.Add(self.BGSCheckBox, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        BGSChoiceBoxChoices = []
+        self.BGSChoiceBox = wx.Choice(soundSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, BGSChoiceBoxChoices, 0)
+        self.BGSChoiceBox.SetSelection(0)
+        self.BGSChoiceBox.Enable(False)
+
+        BGSSizer.Add(self.BGSChoiceBox, 1, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.playBGSButton = wx.BitmapButton(soundSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW)
+        BGSSizer.Add(self.playBGSButton, 0, wx.ALIGN_CENTER | wx.LEFT, 5)
+
+        soundSizer.Add(BGSSizer, 1, wx.EXPAND, 5)
+
+        mapPropertiesSizer.Add(soundSizer, 0, wx.EXPAND, 5)
+
+        encounterSizer = wx.StaticBoxSizer(wx.StaticBox(
+            mapPropertiesSizer.GetStaticBox(), wx.ID_ANY, _("Encounters")), wx.VERTICAL)
+
+        troopControllSizer = wx.BoxSizer(wx.HORIZONTAL)
+
+        troopListBoxChoices = []
+        self.troopListBox = wx.ListBox(encounterSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, troopListBoxChoices, wx.LB_EXTENDED | wx.LB_MULTIPLE)
+        troopControllSizer.Add(self.troopListBox, 1, wx.ALL | wx.EXPAND, 5)
+
+        troopAddRemoveSizer = wx.BoxSizer(wx.VERTICAL)
+
+        self.troopAddButton = wx.Button(encounterSizer.GetStaticBox(), wx.ID_ANY, _(
+            "+"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.troopAddButton.SetMinSize(wx.Size(25, -1))
+
+        troopAddRemoveSizer.Add(
+            self.troopAddButton, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.troopRemoveButton = wx.Button(encounterSizer.GetStaticBox(), wx.ID_ANY, _(
+            "-"), wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT)
+        self.troopRemoveButton.SetMinSize(wx.Size(25, -1))
+
+        troopAddRemoveSizer.Add(
+            self.troopRemoveButton, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.troopUpButton = wx.Button(encounterSizer.GetStaticBox(), wx.ID_ANY, _(
+            "▲"), wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT)
+        self.troopUpButton.SetMinSize(wx.Size(25, -1))
+
+        troopAddRemoveSizer.Add(
+            self.troopUpButton, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.troopDownButton = wx.Button(encounterSizer.GetStaticBox(), wx.ID_ANY, _(
+            "▼"), wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT)
+        self.troopDownButton.SetMinSize(wx.Size(25, -1))
+
+        troopAddRemoveSizer.Add(
+            self.troopDownButton, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        troopControllSizer.Add(troopAddRemoveSizer, 0, wx.EXPAND, 5)
+
+        encounterSizer.Add(troopControllSizer, 1, wx.EXPAND, 5)
+
+        encounterRateSizer = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.troopStepsLabel = wx.StaticText(encounterSizer.GetStaticBox(), wx.ID_ANY, _(
+            "Steps Average:"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.troopStepsLabel.Wrap(-1)
+        encounterRateSizer.Add(
+            self.troopStepsLabel, 0, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        self.troopStepsSpinner = wx.SpinCtrl(encounterSizer.GetStaticBox(
+        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
+        encounterRateSizer.Add(
+            self.troopStepsSpinner, 1, wx.ALIGN_CENTER | wx.ALL, 5)
+
+        encounterSizer.Add(encounterRateSizer, 0, wx.EXPAND, 5)
+
+        mapPropertiesSizer.Add(encounterSizer, 1, wx.EXPAND, 5)
+
+        MainSizer.Add(mapPropertiesSizer, 1, wx.EXPAND, 5)
+
+        self.SetSizer(MainSizer)
+        self.Layout()
+        MainSizer.Fit(self)
+
+        # Connect Events
+        self.addMapNameCtrl.Bind(wx.EVT_TEXT_ENTER, self.onNewMapCreate)
+        self.addMapButton.Bind(wx.EVT_BUTTON, self.onNewMapCreate)
+        self.moveUpLevelButton.Bind(wx.EVT_BUTTON, self.onUpLevelButtonClicked)
+        self.moveDownLevelButton.Bind(
+            wx.EVT_BUTTON, self.onDownLevelButtonClicked)
+        self.moveUpButton.Bind(wx.EVT_BUTTON, self.onUpButtonClicked)
+        self.moveDownButton.Bind(wx.EVT_BUTTON, self.onDownButtonClicked)
+        self.mapDeleteButton.Bind(wx.EVT_BUTTON, self.onDeleteButtonClicked)
+        self.mapNameCtrl.Bind(wx.EVT_TEXT, self.onMapNameChangeText)
+        self.mapNameCtrl.Bind(wx.EVT_TEXT_ENTER, self.onMapNameChangeEnter)
+        self.tilesetChoiceBox.Bind(
+            wx.EVT_CHOICE, self.onMapTilesetSelectionChanged)
+        self.BGMCheckBox.Bind(wx.EVT_CHECKBOX, self.onMapBGMCheckBox)
+        self.BGMChoiceBox.Bind(wx.EVT_CHOICE, self.onMapBGMChoice)
+        self.BGMChoiceBox.Bind(
+            wx.EVT_LEFT_DCLICK, self.onMapBGMChoiceLeftDClick)
+        self.playBGMButton.Bind(wx.EVT_BUTTON, self.onMapBGMPlayButtonClick)
+        self.BGSCheckBox.Bind(wx.EVT_CHECKBOX, self.onMapBGSCheckBox)
+        self.BGSChoiceBox.Bind(wx.EVT_CHOICE, self.onMapBGSChoice)
+        self.BGSChoiceBox.Bind(
+            wx.EVT_LEFT_DCLICK, self.onMapBGSChoiceLeftDClick)
+        self.playBGSButton.Bind(wx.EVT_BUTTON, self.onMapBGSPlayButtonClick)
+        self.troopListBox.Bind(wx.EVT_LISTBOX, self.onTroopSelectionChanged)
+        self.troopListBox.Bind(wx.EVT_LISTBOX_DCLICK, self.onTroopDClick)
+        self.troopAddButton.Bind(wx.EVT_BUTTON, self.onTroopAddButtonClick)
+        self.troopRemoveButton.Bind(
+            wx.EVT_BUTTON, self.onTroopRemoveButtonClick)
+        self.troopUpButton.Bind(wx.EVT_BUTTON, self.onTroopUpButtonClick)
+        self.troopDownButton.Bind(wx.EVT_BUTTON, self.onTroopDownButtonClick)
+        self.troopStepsSpinner.Bind(
+            wx.EVT_SPINCTRL, self.onEncounterStepsChanged)
+
+    def __del__(self):
         pass
+
+    # Virtual event handlers, overide them in your derived class
+    def onNewMapCreate(self, event):
+        event.Skip()
+
+    def onUpLevelButtonClicked(self, event):
+        event.Skip()
+
+    def onDownLevelButtonClicked(self, event):
+        event.Skip()
+
+    def onUpButtonClicked(self, event):
+        event.Skip()
+
+    def onDownButtonClicked(self, event):
+        event.Skip()
+
+    def onDeleteButtonClicked(self, event):
+        event.Skip()
+
+    def onMapNameChangeText(self, event):
+        event.Skip()
+
+    def onMapNameChangeEnter(self, event):
+        event.Skip()
+
+    def onMapTilesetSelectionChanged(self, event):
+        event.Skip()
+
+    def onMapBGMCheckBox(self, event):
+        event.Skip()
+
+    def onMapBGMChoice(self, event):
+        event.Skip()
+
+    def onMapBGMChoiceLeftDClick(self, event):
+        event.Skip()
+
+    def onMapBGMPlayButtonClick(self, event):
+        event.Skip()
+
+    def onMapBGSCheckBox(self, event):
+        event.Skip()
+
+    def onMapBGSChoice(self, event):
+        event.Skip()
+
+    def onMapBGSChoiceLeftDClick(self, event):
+        event.Skip()
+
+    def onMapBGSPlayButtonClick(self, event):
+        event.Skip()
+
+    def onTroopSelectionChanged(self, event):
+        event.Skip()
+
+    def onTroopDClick(self, event):
+        event.Skip()
+
+    def onTroopAddButtonClick(self, event):
+        event.Skip()
+
+    def onTroopRemoveButtonClick(self, event):
+        event.Skip()
+
+    def onTroopUpButtonClick(self, event):
+        event.Skip()
+
+    def onTroopDownButtonClick(self, event):
+        event.Skip()
+
+    def onEncounterStepsChanged(self, event):
+        event.Skip()

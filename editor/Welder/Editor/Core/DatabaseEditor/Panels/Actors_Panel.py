@@ -43,7 +43,6 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         """Basic constructor for the Actors panel"""
         Actors_Panel_Template.__init__(self, parent)
 
-        self.Hide()
         config = Kernel.Config.getUnified()
 
         # Set font for the note control
@@ -103,7 +102,6 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.listBoxActors.SetSelection(actorIndex)
         # Bind the panel to the Panel Manager
         self.bindPanelManager()
-        wx.CallAfter(self.Show)
 
     def AddParameterPage(self, title, activate=False):
         """Creates a page and adds it to the notebook control"""

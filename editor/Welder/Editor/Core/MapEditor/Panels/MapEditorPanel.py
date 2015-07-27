@@ -32,7 +32,7 @@ class MapEditorPanel(wx.Panel, PanelBase):
     def __init__(self, parent, map, tilesets):
         '''lays out a toolbar and the map window'''
         super(MapEditorPanel, self).__init__(parent)
-        self.Show(False)
+        
         # set data
         self.map = map
         self.caption = "Map Editor:"
@@ -49,7 +49,7 @@ class MapEditorPanel(wx.Panel, PanelBase):
         self.Layout()
 
         self.Bind(wx.EVT_UPDATE_UI, self.updateUI)
-        self.Show()
+        
 
     def Create_Toolbar(self):
         '''creates the toolbar and adds tools'''
