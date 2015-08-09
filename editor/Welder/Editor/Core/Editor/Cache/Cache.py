@@ -170,7 +170,8 @@ class RTPFunctions(object):
     def TestImageFiles(path, folder_name, name):
         for ext in RTPFunctions._image_ext:
             testpath = os.path.normpath(
-                os.path.expandvars(os.path.join(path, folder_name, name + ext)))
+                os.path.expandvars(
+                    os.path.join(path, folder_name, name + ext)))
             if os.path.exists(testpath) and os.path.isfile(testpath):
                 return True, testpath
         return False, ""
@@ -246,7 +247,8 @@ class RTPFunctions(object):
     def TestAudioFiles(path, folder_name, name):
         for ext in RTPFunctions._audio_ext:
             testpath = os.path.normpath(
-                os.path.expandvars(os.path.join(path, folder_name, name + ext)))
+                os.path.expandvars(
+                    os.path.join(path, folder_name, name + ext)))
             if os.path.exists(testpath) and os.path.isfile(testpath):
                 return True, testpath
         return False, ""
@@ -263,30 +265,27 @@ class PILCache(object):
     _hue_limit = 5
     _autotile_limit = 250
 
-    try:
-        config = Kernel.Config.getUnified()
-        if "Cache" in config:
-            section = config["Cache"]
-            if "normal_limit" in section:
-                _normal_limit = section["normal_limit"]
-                if _normal_limit <= 1:
-                    _normal_limit = 2
-            if "tile_limit" in section:
-                _tile_limit = section["tile_limit"]
-                if _tile_limit <= 1:
-                    _tile_limit = 2
-            if "autotile_limit" in section:
-                _autotile_limit = section["autotile_limit"]
-                if _autotile_limit <= 1:
-                    _autotile_limit = 2
-            if "hue_limit" in section:
-                _hue_limit = section["hue_limit"]
-                if _hue_limit <= 1:
-                    _hue_limit = 2
-            del section
-        del config
-    except:
-        Kernel.Log("Error setting PIL Cache Config", "[Cache]", error=True)
+    config = Kernel.Config.getUnified()
+    if "Cache" in config:
+        section = config["Cache"]
+        if "normal_limit" in section:
+            _normal_limit = section["normal_limit"]
+            if _normal_limit <= 1:
+                _normal_limit = 2
+        if "tile_limit" in section:
+            _tile_limit = section["tile_limit"]
+            if _tile_limit <= 1:
+                _tile_limit = 2
+        if "autotile_limit" in section:
+            _autotile_limit = section["autotile_limit"]
+            if _autotile_limit <= 1:
+                _autotile_limit = 2
+        if "hue_limit" in section:
+            _hue_limit = section["hue_limit"]
+            if _hue_limit <= 1:
+                _hue_limit = 2
+        del section
+    del config
 
     Autotiles = [
         [[27, 28, 33, 34], [5, 28, 33, 34], [27, 6, 33, 34],
@@ -307,7 +306,7 @@ class PILCache(object):
         [[37, 38, 43, 44], [37, 6, 43, 44], [13, 18, 19, 24],
          [13, 14, 43, 44], [37, 42, 43, 48], [17, 18, 47, 48],
          [13, 18, 43, 48], [1, 2, 7, 8]]
-    ]
+        ]
 
     @staticmethod
     def changeHue(image, hue):
@@ -317,8 +316,9 @@ class PILCache(object):
 
     @staticmethod
     def NormalCacheLimit():
-        if len(PILCache._NormalCache) > PILCache._normal_limit:
-            for i in range(len(PILCache._NormalCache) - PILCache._normal_limit):
+        cacheLen = len(PILCache._NormalCache)
+        if cacheLen > PILCache._normal_limit:
+            for i in range(cacheLen - PILCache._normal_limit):
                 item = PILCache._NormalCache.popitem(False)
                 del item
 
@@ -331,8 +331,9 @@ class PILCache(object):
 
     @staticmethod
     def AutotileCacheLimit():
-        if len(PILCache._AutoTileCache) > PILCache._autotile_limit:
-            for i in range(len(PILCache._AutoTileCache) - PILCache._autotile_limit):
+        cacheLen = len(PILCache._AutoTileCache)
+        if cacheLen > PILCache._autotile_limit:
+            for i in range(cacheLen - PILCache._autotile_limit):
                 item = PILCache._AutoTileCache.popitem(False)
                 del item
 

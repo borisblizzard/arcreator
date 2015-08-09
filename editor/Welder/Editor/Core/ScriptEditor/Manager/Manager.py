@@ -46,7 +46,7 @@ class ScriptEditorManager(object):
         if 'Scripts' in Kernel.GlobalObjects:
             Kernel.GlobalObjects['Scripts'] =  scripts
         else:
-            Kernel.GlobalObjects.request_new_key('Scripts', 'CORE', scripts)
+            Kernel.GlobalObjects.newKey('Scripts', 'CORE', scripts)
 
     # ----------------------------------------------------------------------------------
     @staticmethod

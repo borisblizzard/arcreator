@@ -19,6 +19,7 @@ for path in paths:
 
 import os
 import json
+import yaml
 import warnings
 from pathlib import Path
 
@@ -56,15 +57,19 @@ class ARCSplashScreen(wx.Frame):
 
         self.SetWindowShape()
 
-        textctl_size = (self.bmp.GetWidth() / 2 + 32, self.bmp.GetHeight() / 4 - 32)
+        textctl_size = (self.bmp.GetWidth() // 2 + 32,
+                        self.bmp.GetHeight() // 4 - 32)
         textctl_pos = (16, self.bmp.GetHeight() / 4 * 3 + 8)
 
-        gauge_size = (self.bmp.GetWidth() / 2 + 32, 14)
+        gauge_size = (self.bmp.GetWidth() // 2 + 32, 14)
         gauge_pos = (16, self.bmp.GetHeight() - 20)
 
-        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", textctl_pos, textctl_size,
+        self.logctl = wx.TextCtrl(
+            self, wx.ID_ANY, "", textctl_pos, textctl_size,
             wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_DONTWRAP)
-        self.gaugectl = wx.Gauge(self, wx.ID_ANY, 100, gauge_pos, gauge_size, wx.GA_HORIZONTAL)
+
+        self.gaugectl = wx.Gauge(
+            self, wx.ID_ANY, 100, gauge_pos, gauge_size, wx.GA_HORIZONTAL)
         self.gaugectl.Pulse()
 
         self.logctl.SetSize(textctl_size)
@@ -93,7 +98,9 @@ class ARCSplashScreen(wx.Frame):
         dc.DrawBitmap(self.bmp, 0, 0, True)
 
         string1 = "Version: %s" % Kernel.VERSION
-        string2 = "\n %s %s (%s)" % (Kernel.COPYRIGHT, Kernel.AUTHOR, Kernel.EMAIL)
+        string2 = "\n %s %s (%s)" % (Kernel.COPYRIGHT,
+                                     Kernel.AUTHOR,
+                                     Kernel.EMAIL)
 
         dc.SetFont(wx.Font(wx.FontInfo(9)))
         dc.SetTextBackground(wx.Colour(0, 0, 0))
@@ -127,17 +134,18 @@ class ARCSplashScreen(wx.Frame):
         if self.HasCapture():
             self.ReleaseMouse()
 
-    def Do_Setup(self):
-        # load up the editor
-
-        wx_config = wx.FileConfig(appName="Welder", vendorName="arc@chaos-project.com",
-                                  localFilename=os.path.join(Kernel.GetConfigFolder(), "filehistory.cfg"))
+    def getWXConfig(self):
+        wx_config = wx.FileConfig(
+            appName="Welder",
+            vendorName="arc@chaos-project.com",
+            localFilename=os.path.join(Kernel.GetConfigFolder(),
+                                       "filehistory.cfg"))
         if "WX_config" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["WX_config"] = wx_config
         else:
-            Kernel.GlobalObjects.request_new_key("WX_config", "CORE", wx_config)
+            Kernel.GlobalObjects.newKey("WX_config", "CORE", wx_config)
 
-        # load the plugin configuration
+    def getPluginConfig(self):
         try:
             programpath = Path(
                 Kernel.GlobalObjects["Program_Dir"], "plugins.cfg")
@@ -145,16 +153,17 @@ class ARCSplashScreen(wx.Frame):
 
             if programpath.exists():
                 with programpath.open() as f:
-                    Kernel.PluginCFG.updateProgram(json.load(f))
+                    Kernel.PluginCFG.updateProgram(yaml.load(f))
             if userpath.exists():
                 with userpath.open() as f:
-                    Kernel.PluginCFG.updateUser(json.load(f))
+                    Kernel.PluginCFG.updateUser(yaml.load(f))
         except:
             # we can theoreticly continue even with out plugin defaults, log
             # and continue
-            Kernel.Log("Error Loading Plugin Configuration", "[Main]", True, True)
+            Kernel.Log("Error Loading Plugin Configuration",
+                       "[Main]", True, True)
 
-        # load the genral configuration
+    def getGenralConfig(self):
         try:
             programpath = Path(
                 Kernel.GlobalObjects["Program_Dir"], "welder.cfg")
@@ -162,25 +171,24 @@ class ARCSplashScreen(wx.Frame):
 
             if programpath.exists():
                 with programpath.open() as f:
-                    Kernel.Config.updateProgram(json.load(f))
+                    Kernel.Config.updateProgram(yaml.load(f))
             if userpath.exists():
                 with userpath.open() as f:
                     try:
-                        Kernel.Config.updateUser(json.load(f))
+                        Kernel.Config.updateUser(yaml.load(f))
                     except:
                         Kernel.Log(
                             "Can not load user welder configuration",
                             "[BOOT]",
                             inform=True,
-                            error=True
-                        )
+                            error=True)
         except:
             Kernel.Log("Error Loading Configuration", "[Main]", True, True)
             # sadly there is also a ton of things that won't work if the genral
             # configuration didn't load properly so we have to exit
             wx.Exit()
 
-        # build the plugin system
+    def buildPluginSystem(self):
         try:
             # build the system setting up the plugin configuration
             Kernel.buildSystem(Kernel.PluginCFG.getUnified())
@@ -191,22 +199,40 @@ class ARCSplashScreen(wx.Frame):
             Kernel.System.bind_event('plugin_loaded', self.onPluginLoad)
             Kernel.System.bind_event('component_loaded', self.onComponentLoad)
 
-
             # search the Core for all Core plugins
-            Kernel.System.search(str(Path(Kernel.GlobalObjects["Program_Dir"], "Core")))
+            Kernel.System.search(str(
+                Path(Kernel.GlobalObjects["Program_Dir"], "Core")))
             # Kernel.System.plugins curently contains all plugins found inside
             # the Core, we want to enable all of these
-            corePlugs = [Kernel.System.plugins[n][v] for n in Kernel.System.plugins for v in Kernel.System.plugins[n]]
+            corePlugs = [
+                Kernel.System.plugins[n][v]
+                for n in Kernel.System.plugins
+                for v in Kernel.System.plugins[n]]
             Kernel.System.enable_plugins(corePlugs)
 
             # search the user Plugin folder for plugins
             Kernel.System.search(Kernel.GetPluginFolder())
-            # the new plugins can be filtered according to the user's white & black lists in the config
+            # the new plugins can be filtered according to the
+            # user's white & black lists in the config
             # TODO impliment user plugin enabeling
         except:
             Kernel.Log("Error Loading Plugins", "[Main]", True, True)
             # we can't recover from this so exit out
             wx.Exit()
+
+    def Do_Setup(self):
+        # load up the editor
+
+        self.getWXConfig()
+
+        # load the plugin configuration
+        self.getPluginConfig()
+
+        # load the genral configuration
+        self.getGenralConfig()
+
+        # build the plugin system
+        self.buildPluginSystem()
 
         # filter out the pyitect warnings about defaults, we dont really care
         warnings.filterwarnings('ignore', module="pyitect")
@@ -221,10 +247,10 @@ class ARCSplashScreen(wx.Frame):
         if "EditorMainWindow" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["EditorMainWindow"] = editor
         else:
-            Kernel.GlobalObjects.request_new_key("EditorMainWindow", "CORE", editor)
+            Kernel.GlobalObjects.newKey("EditorMainWindow", "CORE", editor)
 
     def OnClose(self, event):
-        # unbine events as we dont want them being called with the window destroied
+        # unbind events, we dont want them called with the window destroied
         Kernel.System.unbind_event('plugin_found', self.onPluginFound)
         Kernel.System.unbind_event('plugin_loaded', self.onPluginLoad)
         Kernel.System.unbind_event('component_loaded', self.onComponentLoad)
@@ -234,10 +260,16 @@ class ARCSplashScreen(wx.Frame):
         self.log("Plugin '%s' found at '%s'" % (plugin, path))
 
     def onPluginLoad(self, plugin, plugin_required, component_needed):
-        self.log("Plugin '%s' was loaded by plugin '%s' during a request for the '%s' component" % (plugin, plugin_required, component_needed))
+        self.log(
+            "Plugin '%s' was loaded by plugin '%s' "
+            "during a request for the '%s' component"
+            % (plugin, plugin_required, component_needed))
 
     def onComponentLoad(self, component, plugin_required, plugin_loaded):
-        self.log("Component '%s' loaded, required by plugin '%s', loaded from plugin '%s'" % (component, plugin_required, plugin_loaded))
+        self.log(
+            "Component '%s' loaded, required by plugin '%s', "
+            "loaded from plugin '%s'"
+            % (component, plugin_required, plugin_loaded))
 
     def log(self, message):
         self.logctl.AppendText(message + "\n")
@@ -270,12 +302,12 @@ def Run(programDir, argv):
     if "ARGV" in Kernel.GlobalObjects:
         Kernel.GlobalObjects["ARGV"] = argv
     else:
-        Kernel.GlobalObjects.request_new_key("ARGV", "CORE", argv)
+        Kernel.GlobalObjects.newKey("ARGV", "CORE", argv)
 
     if "Program_Dir" in Kernel.GlobalObjects:
         Kernel.GlobalObjects["Program_Dir"] = programDir
     else:
-        Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", programDir)
+        Kernel.GlobalObjects.newKey("Program_Dir", "CORE", programDir)
 
     print("[BOOT] Programming running in %s" % programDir)
     print("[BOOT] Running with arguments: %s" % argv)
@@ -288,7 +320,8 @@ def Run(programDir, argv):
     app.MainLoop()
 
     Kernel.GlobalObjects["WX_config"].Flush()
-    # we want to clean up PyXAL as much as we can, it's dead now anyway as the window it was bound to is gone
+    # we want to clean up PyXAL as much as we can
+    # it's dead now anyway as the window it was bound to is gone
     # try:
     #     PyXAL = Kernel.System.load("PyXAL")
     #     if PyXAL is not None:

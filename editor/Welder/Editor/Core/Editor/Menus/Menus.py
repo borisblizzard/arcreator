@@ -39,8 +39,8 @@ class FileMenu(wx.Menu):
         if "FileHistory" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["FileHistory"] =  self.filehistory
         else:
-            Kernel.GlobalObjects.request_new_key("FileHistory", "CORE", self.filehistory)
-          
+            Kernel.GlobalObjects.newKey("FileHistory", "CORE", self.filehistory)
+
         self.mainwindow = mainwindow
 
         self.AddMenuItems()
@@ -143,4 +143,3 @@ class PluginMenuItem(object):
 
     def remove_from_menu(self):
         PluginMenuItem.Menu.object.RemoveMenuItem(self.name)
-

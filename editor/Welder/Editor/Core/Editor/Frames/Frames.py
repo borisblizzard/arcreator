@@ -123,8 +123,7 @@ class EditorMainWindow(wx.Frame):
         if "MainMenuBar" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["MainMenuBar"] = self.menubar
         else:
-            Kernel.GlobalObjects.request_new_key(
-                "MainMenuBar", "CORE", self.menubar)
+            Kernel.GlobalObjects.newKey("MainMenuBar", "CORE", self.menubar)
 
     def CreateStatusBar(self):
         self.statusbar = MainStatusBar(self)
@@ -132,8 +131,7 @@ class EditorMainWindow(wx.Frame):
         if "MainStatusBar" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["MainStatusBar"] = self.menubar
         else:
-            Kernel.GlobalObjects.request_new_key(
-                "MainStatusBar", "CORE", self.statusbar)
+            Kernel.GlobalObjects.newKey("MainStatusBar", "CORE", self.statusbar)
 
     def ClearLayout(self):
         if self.layout_mgr is not None:

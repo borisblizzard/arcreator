@@ -94,7 +94,7 @@ class GlobalObjectsContainer(object):
             return True
         return False
 
-    def request_new_key(self, key, name="PLUGIN", value=None):
+    def newKey(self, key, name="PLUGIN", value=None):
         '''
         find out if a key exits if it does it return a tuple of (False, name)
         where name is an id for what

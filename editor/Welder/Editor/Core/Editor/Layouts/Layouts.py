@@ -17,11 +17,7 @@ class MainWindowLayout(object):
         if "PanelManager" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["PanelManager"] = self.mgr
         else:
-            Kernel.GlobalObjects.request_new_key(
-                "PanelManager",
-                "CORE",
-                self.mgr
-            )
+            Kernel.GlobalObjects.newKey("PanelManager", "CORE", self.mgr)
 
         self.CreateToolbars()
         self.CreateStartPanel()

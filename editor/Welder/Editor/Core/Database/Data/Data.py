@@ -39,24 +39,22 @@ def NewProject(mainwindow):
         if "PROJECT" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["PROJECT"] = projectcreator.getProject()
         else:
-            Kernel.GlobalObjects.request_new_key(
-                "PROJECT", "CORE", projectcreator.getProject())
+            Kernel.GlobalObjects.newKey("PROJECT", "CORE", projectcreator.getProject())
         # set the project title
         if "Title" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["Title"] = name
         else:
-            Kernel.GlobalObjects.request_new_key("Title", "CORE", name)
+            Kernel.GlobalObjects.newKey("Title", "CORE", name)
         # set the current project directory
         if "CurrentProjectDir" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["CurrentProjectDir"] = path
         else:
-            Kernel.GlobalObjects.request_new_key(
-                "CurrentProjectDir", "CORE", path)
+            Kernel.GlobalObjects.newKey("CurrentProjectDir", "CORE", path)
         # set that there is an open project
         if "ProjectOpen" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["ProjectOpen"] = True
         else:
-            Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
+            Kernel.GlobalObjects.newKey("ProjectOpen", "CORE", True)
         # refresh the interface on project data change
         Kernel.StatusBar.updateTask(1, "Refreshing Interface")
         Kernel.System.fire_event("RefreshProject")
@@ -115,26 +113,23 @@ def OpenProject(mainwindow, filehistory, path=""):
     if "PROJECT" in Kernel.GlobalObjects:
         Kernel.GlobalObjects["PROJECT"] = projectloader.getProject()
     else:
-        Kernel.GlobalObjects.request_new_key(
-            "PROJECT", "CORE", projectloader.getProject())
+        Kernel.GlobalObjects.newKey("PROJECT", "CORE", projectloader.getProject())
     # set the Project Title
     if "Title" in Kernel.GlobalObjects:
         Kernel.GlobalObjects[
             "Title"] = projectloader.getProject().getInfo("Title")
     else:
-        Kernel.GlobalObjects.request_new_key(
-            "Title", "CORE", projectloader.getProject().getInfo("Title"))
+        Kernel.GlobalObjects.newKey("Title", "CORE", projectloader.getProject().getInfo("Title"))
     # set the current project directory
     if "CurrentProjectDir" in Kernel.GlobalObjects:
         Kernel.GlobalObjects["CurrentProjectDir"] = os.path.dirname(path)
     else:
-        Kernel.GlobalObjects.request_new_key(
-            "CurrentProjectDir", "CORE", os.path.dirname(path))
+        Kernel.GlobalObjects.newKey("CurrentProjectDir", "CORE", os.path.dirname(path))
     # set that there is an open project
     if "ProjectOpen" in Kernel.GlobalObjects:
         Kernel.GlobalObjects["ProjectOpen"] = True
     else:
-        Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
+        Kernel.GlobalObjects.newKey("ProjectOpen", "CORE", True)
     # refresh the interface on project data change
     Kernel.StatusBar.updateTask(1, "Refreshing Interface")
     Kernel.System.fire_event("RefreshProject")
@@ -188,8 +183,7 @@ def SaveProjectAS(mainwindow, filehistory):
                 Kernel.GlobalObjects[
                     "CurrentProjectDir"] = os.path.dirname(path)
             else:
-                Kernel.GlobalObjects.request_new_key(
-                    "CurrentProjectDir", "CORE", os.path.dirname(path))
+                Kernel.GlobalObjects.newKey("CurrentProjectDir", "CORE", os.path.dirname(path))
             Kernel.StatusBar.EndTask()
     else:
         Kernel.Log(
