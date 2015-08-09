@@ -26,7 +26,6 @@ from pathlib import Path
 import wx
 
 import Kernel
-import WelderInfo
 
 import wx.lib.inspection
 
@@ -93,9 +92,8 @@ class ARCSplashScreen(wx.Frame):
 
         dc.DrawBitmap(self.bmp, 0, 0, True)
 
-        string1 = "Version: %s" % WelderInfo.VERSION
-        string2 = "\n %s %s (%s)" % (
-            WelderInfo.COPYRIGHT, WelderInfo.AUTHOR, WelderInfo.EMAIL)
+        string1 = "Version: %s" % Kernel.VERSION
+        string2 = "\n %s %s (%s)" % (Kernel.COPYRIGHT, Kernel.AUTHOR, Kernel.EMAIL)
 
         dc.SetFont(wx.Font(wx.FontInfo(9)))
         dc.SetTextBackground(wx.Colour(0, 0, 0))
@@ -173,7 +171,7 @@ class ARCSplashScreen(wx.Frame):
                         Kernel.Log(
                             "Can not load user welder configuration",
                             "[BOOT]",
-                            inform=True, 
+                            inform=True,
                             error=True
                         )
         except:

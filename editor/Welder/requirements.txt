@@ -1,7 +1,8 @@
 pyitect
 numpy
 pillow
+pyyaml
 pyglet
 https://github.com/Ryex/Rabbyt/archive/0.8.3-3-cythonpy3.zip
--f http://wxpython.org/Phoenix/snapshot-builds/ 
-wxPython_Phoenix>=3.0.3.dev 
+-f http://wxpython.org/Phoenix/snapshot-builds/
+wxPython_Phoenix>=3.0.3.dev

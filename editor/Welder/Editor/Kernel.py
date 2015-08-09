@@ -23,6 +23,15 @@ import pyitect
 import wx
 import wx.lib.agw.pycollapsiblepane as PCP
 
+#==============================================================================
+# * ARC Constants
+#==============================================================================
+
+VERSION = "0.8.5-r760"
+AUTHOR = "ARC Developers"
+EMAIL = "arc@gmail.com"
+COPYRIGHT = "©2015"
+
 
 # =========================================================================
 # Plugin System
