@@ -6,12 +6,12 @@ import Kernel
 from PyitectConsumes import Table, ActionTemplate
 
 
-class DatabaseAction(ActionTemplate):
+class DataAction(ActionTemplate):
 
     ''' an action that edits RGSS Datatypes'''
 
     def __init__(self, data={}, sub_action=False):
-        super(DatabaseAction, self).__init__(sub_action)
+        super(DataAction, self).__init__(sub_action)
         if not isinstance(data, dict):
             raise TypeError("Error: Expected dict type for 'data'")
         self.data = data
@@ -68,17 +68,21 @@ class DatabaseAction(ActionTemplate):
                         keys_applyed.append(key)
             return True
         except Exception:
-            Kernel.Log("Exception applying Database Action(%s), will atempt to revert" %
-                       self.type, "[DatabaseAction]", True, True)
+            Kernel.Log(
+                "Exception applying Database Action(%s), "
+                "will atempt to revert" % self.type,
+                "[DataAction]", True, True)
             try:
                 for key in keys_applyed:
                     self.data[key] = getattr(self.obj, key)
                     setattr(self.obj, key, self.old_data[key])
                 Kernel.Log("'Apply' Database Action(%s) sucessfuly reverted" %
-                           self.type, "[DatabaseAction]", True)
+                           self.type, "[DataAction]", True)
             except Exception:
-                Kernel.Log("Exception reverting failed 'Apply' Database Action(%s), Possible Project coruption" %
-                           self.type, "[DatabaseAction]", True, True)
+                Kernel.Log(
+                    "Exception reverting failed 'Apply' "
+                    "Database Action(%s), Possible Project coruption" %
+                    self.type, "[DataAction]", True, True)
         return False
 
     def apply_extra(self):
@@ -95,17 +99,23 @@ class DatabaseAction(ActionTemplate):
                         keys_applyed.append(key)
             return True
         except Exception:
-            Kernel.Log("Exception undoing Database Action(%s), will atempt to revert" %
-                       self.type, "[DatabaseAction]", True, True)
+            Kernel.Log(
+                "Exception undoing Database Action(%s), "
+                "will atempt to revert" %
+                self.type, "[DataAction]", True, True)
+
             try:
                 for key in keys_applyed:
                     self.old_data[key] = getattr(self.obj, key)
                     setattr(self.obj, key, self.data[key])
                 Kernel.Log("'Undo' Database Action(%s) sucessfuly reverted" %
-                           self.type, "[DatabaseAction]", True)
+                           self.type, "[DataAction]", True)
             except Exception:
-                Kernel.Log("Exception reverting failed 'Undo' Database Action(%s), Possible Project coruption" %
-                           self.type, "[DatabaseAction]", True, True)
+                Kernel.Log(
+                    "Exception reverting failed 'Undo' Database "
+                    "Action(%s), Possible Project coruption" %
+                    self.type, "[DataAction]", True, True)
+
         return False
 
     def undo_extra(self):
@@ -127,102 +137,116 @@ class TableEditAction(ActionTemplate):
         self.oldvalue = None
 
     def do_apply(self):
-        # data = { "dim": 1-3, "index": a tuple of list of len dim that looks like so (x, y, z), "value": the python list or preferably numpy array /value to set the table too
-        # for a slice ((x1,x2), (y1,y2), (z1,z2))) or for a slice with a step ((x1,x2,xstep), (y1,y2,ystep), (z1,z2,zstep))
-        # the values in a slice may be none just like in real slice notation ie.
-        # [::2, 0, 0] (every other value in the array) would look like ((None,None,2), 0, 0)
-        # remember Tables are basically a dimension limited numpy array of of dtype int16 use numpy. they indexing so look at the numpy documentation for more information
-        # note that unlike full numpy arrays you can't use less indexes than the dim of the table so you must explicitly slice the remaining dimensions
-        # ie a index of [0:2, 0:3] on a 3d numpy would implicitly slice the missing dim but in the table you must state it explicitly or you'll get dim errors
-        # so use this index instead [0:2, 0:3, :] in the tuple syntax for the data hash it would look like so ((0,2), (0,3), (None, None))
-        # if your doing a slice on a id table you need to put the slice tupel or list in a tuple or list like so ((0,2),)
-        # note the , after the inside tupel this is to force the creation of the outer tupel. you could also do a list for the outer tuple instead in which case you don;t need the ,
-        # [(0,2)] or [[0,2]]
-        if 'resize' in self.data:
-            if self.data['resize']:
-                return self.resize_apply()
-            else:
-                return self.normal_apply()
+        """
+        applies the action described by self.data
+
+        self.data should be a dict or other mapping object
+        the keys of the object should look like the following
+        {
+            # an int in the range of 1 to 3
+            # describes the dimensions of the data
+            "dim": int(1 - 3),
+
+            # a tuple of list of len dim that looks like so (x, y, z)
+            # indicating an index to change
+            # if editing a slice, index values are themselves tulples
+            # for a slice:
+            # ((x1,x2), (y1,y2), (z1,z2)))
+            # or for a slice with a step
+            # ((x1,x2,xstep), (y1,y2,ystep), (z1,z2,zstep))
+            # a slice index may by none just like in real slice notation ie.:
+            # [::2, 0, 0] (every other value in the array)
+            # would look like:
+            # ((None,None,2), 0, 0)
+            # remember Tables are basically a wrapper
+            # for a numpy n-dimensional arrays of of dtype int16
+            # but limited to useing at most 3 dimision.
+            # look at the numpy documentation for more information
+            # http://docs.scipy.org/doc/numpy/reference/
+            # note: unlike full numpy arrays you can't use
+            # less indexes than the dim of the table
+            # so you must explicitly slice the remaining dimensions
+            # aka: len(index) == dim
+            # if your doing a slice on a 1d table
+            # put the slice tupel or list in a tuple or list like so
+            # ((0,2),)
+            "index": (x [, y [, z]]),
+
+            # the python list (pref numpy array)
+            # or value to set the table too
+            "value": []
+            #-----------------------------
+            # if resizeing the table
+            "resize": True,
+            # NOTE CAN NOT CHANGE SHAPE DIMENSION JUST SIZE
+            # len(shape) == len(table.getShape())
+            "shape": (x [, y [, z]])
+        }
+        """
+
+        if 'resize' in self.data and self.data['resize']:
+            return self.resize_apply()
         else:
             return self.normal_apply()
 
     def resize_apply(self):
         shape = self.data['shape']
         if len(shape) != len(self.table.getShape()):
-            raise TypeError("new dimension and table old dimension must be the same (%d for %d)" % (
-                len(shape), len(self.table.getShape())))
+            raise TypeError(
+                "new dimension and table old dimension"
+                " must be the same (%d for %d)"
+                % (len(shape), len(self.table.getShape())))
+
         self.oldvalue = numpy.copy(self.table._data)
         self.table.resize(*shape)
 
-    def normal_apply(self):
-        dim = self.data['dim']
-        index = self.data['index']
-        value = self.data['value']
+    def ensure_shape(self, dim):
         if dim > 3:
             raise TypeError("dim can't be greater than 3")
         if dim < 0:
             raise TypeError("dim can't be less than 0")
+
+    def convert_index(self, index):
+        args = []
+        for index_part in index:
+            if isinstance(index_part, int):
+                args.append(index_part)
+            elif isinstance(index_part, (tuple, list)):
+                args.append(slice(*index_part))
+            else:
+                raise TypeError(
+                    "Error: %s is not an int, tuple or list" % index_part)
+        return args
+
+    def normal_apply(self):
+        # collect data
+        dim = self.data['dim']
+        index = self.data['index']
+        value = self.data['value']
+        # ensure the data is the right shape
+        self.ensure_shape(dim)
+
         if isinstance(index, int):
+            # a 1D index
             if dim > 1:
                 raise TypeError(
                     "wrong number of arguments (%d for %d)" % (1, dim))
             else:
+                # copy out old value
                 self.oldvalue = numpy.copy(self.table[index])
+                # store new value
                 self.table[index] = value
+                # we're done here
+                return True
         elif len(index) != dim:
             raise TypeError(
                 "wrong number of arguments (%d for %d)" % (len(index), dim))
-        if len(index) == 1:
-            # 1D slice
-            s = slice(*index[0])
-            self.oldvalue = numpy.copy(self.table[index])
-            self.table[s] = value
-        elif len(index) == 2:
-            # 2D index
-            if isinstance(index[0], int):
-                x = index[0]
-            elif isinstance(index[0], (tuple, list)):
-                x = slice(*index[0])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[0])
-            if isinstance(index[1], int):
-                y = index[1]
-            elif isinstance(index[1], (tuple, list)):
-                y = slice(*index[1])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[0])
-            self.oldvalue = numpy.copy(self.table[x, y])
-            self.table[x, y] = value
-        elif len(index) == 3:
-            # 2D index
-            if isinstance(index[0], int):
-                x = index[0]
-            elif isinstance(index[0], (tuple, list)):
-                x = slice(*index[0])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[0])
-            if isinstance(index[1], int):
-                y = index[1]
-            elif isinstance(index[1], (tuple, list)):
-                y = slice(*index[1])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[1])
-            if isinstance(index[2], int):
-                z = index[2]
-            elif isinstance(index[2], (tuple, list)):
-                z = slice(*index[2])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[2])
-            self.oldvalue = numpy.copy(self.table[x, y, z])
-            self.table[x, y, z] = value
-        else:
-            raise TypeError(
-                "wrong number of arguments (%d for %d)" % (len(index), dim))
+        # an ND index
+        # convert index
+        args = self.convert_index(index)
+
+        self.oldvalue = numpy.copy(self.table.__getitem__(args))
+        self.table.__setitem__(args, value)
         return True
 
     def do_undo(self):
@@ -237,82 +261,41 @@ class TableEditAction(ActionTemplate):
     def resize_undo(self):
         shape = self.data['shape']
         if len(shape) != len(self.table.getShape()):
-            raise TypeError("new dimension and table old dimension must be the same (%d for %d)" % (
-                len(shape), len(self.table.getShape())))
+            raise TypeError(
+                "new dimension and table old dimension"
+                " must be the same (%d for %d)"
+                % (len(shape), len(self.table.getShape())))
         self.table._data[:] = self.oldvalue[:]
 
     def normal_undo(self):
+        # collect data
         dim = self.data['dim']
         index = self.data['index']
-        if dim > 3:
-            raise TypeError("dim can't be less than 0")
-        if dim < 0:
-            raise TypeError("dim can't be greater than 3 or less than 0")
+        # ensure the data is the right shape
+        self.ensure_shape(dim)
+
         if isinstance(index, int):
+            # a 1D index
             if dim > 1:
                 raise TypeError(
                     "wrong number of arguments (%d for %d)" % (1, dim))
             else:
-                self.data['value'] = self.table[index]
+                # write back old value
                 self.table[index] = self.oldvalue
+                # we're done here
+                return True
         elif len(index) != dim:
             raise TypeError(
                 "wrong number of arguments (%d for %d)" % (len(index), dim))
-        if len(index) == 1:
-            # 1D slice
-            s = slice(*index[0])
-            self.data['value'] = self.table[index]
-            self.table[index] = self.oldvalue
-        elif len(index) == 2:
-            # 2D index
-            if isinstance(index[0], int):
-                x = index[0]
-            elif isinstance(index[0], (tuple, list)):
-                x = slice(*index[0])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[0])
-            if isinstance(index[1], int):
-                y = index[1]
-            elif isinstance(index[1], (tuple, list)):
-                y = slice(*index[1])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[0])
-            self.data['value'] = self.table[x, y]
-            self.table[x, y] = self.oldvalue
-        elif len(index) == 3:
-            # 2D index
-            if isinstance(index[0], int):
-                x = index[0]
-            elif isinstance(index[0], (tuple, list)):
-                x = slice(*index[0])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[0])
-            if isinstance(index[1], int):
-                y = index[1]
-            elif isinstance(index[1], (tuple, list)):
-                y = slice(*index[1])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[1])
-            if isinstance(index[2], int):
-                z = index[2]
-            elif isinstance(index[2], (tuple, list)):
-                z = slice(*index[2])
-            else:
-                raise TypeError(
-                    "Error: %s is not an int, tuple or list" % index[2])
-            self.data['value'] = self.table[x, y, z]
-            self.table[x, y, z] = self.oldvalue
-        else:
-            raise TypeError(
-                "wrong number of arguments (%d for %d)" % (len(index), dim))
+        # an ND index
+        # convert index
+        args = self.convert_index(index)
+        # write back old value
+        self.table.__setitem__(args, self.oldvalue)
         return True
 
 
-class ArmorEditAction(DatabaseAction):
+class ArmorEditAction(DataAction):
 
     ''' edits an Armor object '''
 
@@ -320,13 +303,14 @@ class ArmorEditAction(DatabaseAction):
         super(ArmorEditAction, self).__init__(data, sub_action)
         self.setObj(obj)
         self.setType("Armor")
-        self.addKeys("id", "name", "icon_name", "description", "kind",
-                     "auto_state_id", "price", "pdef", "mdef", "eva",
-                     "str_plus", "dex_plus", "agi_plus", "int_plus",
-                     "guard_element_set", "guard_state_set")
+        self.addKeys(
+            "id", "name", "icon_name", "description", "kind",
+            "auto_state_id", "price", "pdef", "mdef", "eva",
+            "str_plus", "dex_plus", "agi_plus", "int_plus",
+            "guard_element_set", "guard_state_set")
 
 
-class ActorEditAction(DatabaseAction):
+class ActorEditAction(DataAction):
 
     ''' edits an Actor object '''
 
@@ -335,9 +319,14 @@ class ActorEditAction(DatabaseAction):
         self.setType("Actor")
         self.parameters_action = None
         self.setObj(obj)
-        self.addKeys("id", "name", "initial_level", "final_level", "exp_basis", "exp_inflation", "character_name",
-                     "character_hue", "battler_name", "battler_hue", "weapon_id", "armor1_id", "armor2_id",
-                     "armor3_id", "armor4_id", "weapon_fix", "armor1_fix", "armor2_fix", "armor3_fix", "armor4_fix")
+        self.addKeys(
+            "id", "name", "initial_level", "final_level",
+            "exp_basis", "exp_inflation", "character_name",
+            "character_hue", "battler_name", "battler_hue",
+            "weapon_id", "armor1_id", "armor2_id",
+            "armor3_id", "armor4_id", "weapon_fix",
+            "armor1_fix", "armor2_fix", "armor3_fix",
+            "armor4_fix")
 
     def apply_extra(self):
         result = True
@@ -345,15 +334,19 @@ class ActorEditAction(DatabaseAction):
         try:
             if "parameters" in self.data:
                 self.parameters_action = TableEditAction(
-                    self.obj.parameters, self.data["parameters"], sub_action=True)
+                    self.obj.parameters,
+                    self.data["parameters"],
+                    sub_action=True)
                 result &= self.parameters_action.apply()
                 actions_now.append(self.parameters_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.parameters_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.parameters_action)
         except Exception:
             Kernel.Log(
-                "Exception applying Actor Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception applying Actor Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
@@ -361,10 +354,12 @@ class ActorEditAction(DatabaseAction):
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Apply' Actor Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Apply' Actor Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Apply' Actor Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Apply' Actor Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
             result = False
         return result
 
@@ -377,10 +372,12 @@ class ActorEditAction(DatabaseAction):
                 actions_now.append(self.parameters_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.parameters_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.parameters_action)
         except Exception:
             Kernel.Log(
-                "Exception undoing Actor Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception undoing Actor Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
@@ -388,14 +385,16 @@ class ActorEditAction(DatabaseAction):
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Undo' Actor Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Undo' Actor Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Undo' Actor Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Undo' Actor Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
         return result
 
 
-class ClassEditAction(DatabaseAction):
+class ClassEditAction(DataAction):
 
     ''' edits a Class object '''
 
@@ -414,23 +413,30 @@ class ClassEditAction(DatabaseAction):
         try:
             if "element_ranks" in self.data:
                 self.element_ranks_action = TableEditAction(
-                    self.obj.element_ranks, self.data["element_ranks"], sub_action=True)
+                    self.obj.element_ranks,
+                    self.data["element_ranks"],
+                    sub_action=True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
             if "state_ranks" in self.data:
                 self.state_ranks_action = TableEditAction(
-                    self.obj.state_ranks, self.data["state_ranks"], sub_action=True)
+                    self.obj.state_ranks,
+                    self.data["state_ranks"],
+                    sub_action=True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception applying Class Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception applying Class Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
@@ -438,10 +444,12 @@ class ClassEditAction(DatabaseAction):
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Apply' Class Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Apply' Class Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Apply' Class Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Apply' Class Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
             result = False
         return result
 
@@ -454,16 +462,19 @@ class ClassEditAction(DatabaseAction):
                 actions_now.append(self.state_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.state_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.state_ranks_action)
             if self.element_ranks_action is not None:
                 result &= self.element_ranks_action.undo()
                 actions_now.append(self.element_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.element_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.element_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception undoing Class Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception undoing Class Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
@@ -471,14 +482,17 @@ class ClassEditAction(DatabaseAction):
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Undo' Class Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Undo' Class Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Undo' Class Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Undo' Class Edit "
+                    "Action, Possible Project coruption", "[DataAction]",
+                    True, True)
         return result
 
 
-class LearningEditAction(DatabaseAction):
+class LearningEditAction(DataAction):
 
     ''' Edits a single Learning object'''
 
@@ -489,7 +503,7 @@ class LearningEditAction(DatabaseAction):
         self.addKeys("level", "skill_id")
 
 
-class TroopEditAction(DatabaseAction):
+class TroopEditAction(DataAction):
 
     ''' edits a Troop object '''
 
@@ -500,7 +514,7 @@ class TroopEditAction(DatabaseAction):
         self.addKeys("id", "name", "members", "pages", "note")
 
 
-class SkillEditAction(DatabaseAction):
+class SkillEditAction(DataAction):
 
     ''' edits a Skill object '''
 
@@ -508,13 +522,17 @@ class SkillEditAction(DatabaseAction):
         super(SkillEditAction, self).__init__(data, sub_action)
         self.setType("Skill")
         self.setObj(obj)
-        self.addKeys("id", "name", "icon_name", "description", "scope", "occasion", "animation1_id", "animation2_id",
-                     "menu_se", "common_event_id", "sp_cost", "power", "atk_f", "eva_f", "str_f", "dex_f", "agi_f",
-                     "int_f", "hit", "pdef_f", "mdef_f", "variance", "element_set", "plus_state_set", "minus_state_set",
-                     "note")
+        self.addKeys(
+            "id", "name", "icon_name", "description", "scope",
+            "occasion", "animation1_id", "animation2_id",
+            "menu_se", "common_event_id", "sp_cost", "power",
+            "atk_f", "eva_f", "str_f", "dex_f", "agi_f",
+            "int_f", "hit", "pdef_f", "mdef_f", "variance",
+            "element_set", "plus_state_set", "minus_state_set",
+            "note")
 
 
-class WeaponEditAction(DatabaseAction):
+class WeaponEditAction(DataAction):
 
     ''' edits a Weapon object'''
 
@@ -522,11 +540,14 @@ class WeaponEditAction(DatabaseAction):
         super(ClassEditAction, self).__init__(data, sub_action)
         self.setType("Weapon")
         self.setObj(obj)
-        self.addKeys("id", "name", "icon_name", "description", "animation1_id", "animation2_id", "price", "atk", "pdef",
-                     "mdef", "str_plus", "int_plus", "dex_plus", "agi_plus", "element_set", "plus_state_set", "minus_state_set")
+        self.addKeys(
+            "id", "name", "icon_name", "description", "animation1_id",
+            "animation2_id", "price", "atk", "pdef",
+            "mdef", "str_plus", "int_plus", "dex_plus", "agi_plus",
+            "element_set", "plus_state_set", "minus_state_set")
 
 
-class ItemEditActon(DatabaseAction):
+class ItemEditActon(DataAction):
 
     ''' edits a Item object'''
 
@@ -534,13 +555,18 @@ class ItemEditActon(DatabaseAction):
         super(ItemEditActon, self).__init__(data, sub_action)
         self.setType("Item")
         self.setObj(obj)
-        self.addKeys('id', 'name', 'icon_name', 'description', 'scope', 'occasion', 'animation1_id',
-                     'animation2_id', 'menu_se', 'common_event_id', 'price', 'consumable', 'parameter_type',
-                     'parameter_points', 'recover_hp_rate', 'recover_hp', 'recover_sp_rate', 'recover_sp',
-                     'hit', 'pdef_f', 'mdef_f', 'variance', 'element_set', 'plus_state_set', 'minus_state_set', 'note')
+        self.addKeys(
+            'id', 'name', 'icon_name', 'description',
+            'scope', 'occasion', 'animation1_id',
+            'animation2_id', 'menu_se', 'common_event_id',
+            'price', 'consumable', 'parameter_type',
+            'parameter_points', 'recover_hp_rate',
+            'recover_hp', 'recover_sp_rate', 'recover_sp',
+            'hit', 'pdef_f', 'mdef_f', 'variance', 'element_set',
+            'plus_state_set', 'minus_state_set', 'note')
 
 
-class AnimationFrameEditAction(DatabaseAction):
+class AnimationFrameEditAction(DataAction):
 
     ''' edits a Animation::Frame object '''
 
@@ -557,15 +583,19 @@ class AnimationFrameEditAction(DatabaseAction):
         try:
             if "cell_data" in self.data:
                 self.cell_data_action = TableEditAction(
-                    self.obj.cell_data, self.data["cell_data"], sub_action=True)
+                    self.obj.cell_data, self.data["cell_data"],
+                    sub_action=True)
                 result &= self.cell_data_action.apply()
                 actions_now.append(self.cell_data_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.cell_data_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.cell_data_action)
         except Exception:
             Kernel.Log(
-                "Exception applying Animation Frame Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception applying Animation Frame Edit Action, "
+                "will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
@@ -573,10 +603,13 @@ class AnimationFrameEditAction(DatabaseAction):
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Apply' Animation Frame Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Apply' Animation Frame Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Apply' Animation Frame Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Apply' Animation Frame Edit "
+                    "Action, Possible Project coruption", "[DataAction]",
+                    True, True)
             result = False
         return result
 
@@ -592,7 +625,8 @@ class AnimationFrameEditAction(DatabaseAction):
                         "'Undo' Sub action failed: %s" % self.cell_data_action)
         except Exception:
             Kernel.Log(
-                "Exception undoing Animation Frame Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception undoing Animation Frame Edit Action, will atempt "
+                "to revert", "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
@@ -600,14 +634,17 @@ class AnimationFrameEditAction(DatabaseAction):
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Undo' Animation Frame Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Undo' Animation Frame Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Undo' Animation Frame Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Undo' Animation Frame Edit "
+                    "Action, Possible Project coruption", "[DataAction]",
+                    True, True)
         return result
 
 
-class AnimationEditAction(DatabaseAction):
+class AnimationEditAction(DataAction):
 
     ''' edits an Animation object '''
 
@@ -619,7 +656,7 @@ class AnimationEditAction(DatabaseAction):
                      'position', 'frame_max', 'frames', 'timings')
 
 
-class AnimationTimingEditAction(DatabaseAction):
+class AnimationTimingEditAction(DataAction):
 
     ''' edits an Animation Timing object '''
 
@@ -628,10 +665,11 @@ class AnimationTimingEditAction(DatabaseAction):
         self.setType("AnimationTiming")
         self.setObj(obj)
         self.addKeys(
-            'frame', 'se', 'flash_scope', 'flash_color', 'flash_duration', 'condition')
+            'frame', 'se', 'flash_scope', 'flash_color',
+            'flash_duration', 'condition')
 
 
-class AudioFileEditAction(DatabaseAction):
+class AudioFileEditAction(DataAction):
 
     ''' edits a RPg Audiofile object '''
 
@@ -644,7 +682,7 @@ class AudioFileEditAction(DatabaseAction):
         self.state_ranks_action = None
 
 
-class EnemyEditAction(DatabaseAction):
+class EnemyEditAction(DataAction):
 
     ''' edits an Enemy object'''
 
@@ -652,9 +690,12 @@ class EnemyEditAction(DatabaseAction):
         super(EnemyEditAction, self).__init__(data, sub_action)
         self.setType("Enemy")
         self.setObj(obj)
-        self.addKeys('id', 'name', 'battler_name', 'battler_hue', 'maxhp', 'maxsp', 'str', 'dex', 'agi', 'int',
-                     'atk', 'pdef', 'mdef', 'eva', 'animation1_id', 'animation2_id', 'actions', 'exp', 'gold',
-                     'item_id', 'weapon_id', 'armor_id', 'treasure_prob', 'note')
+        self.addKeys(
+            'id', 'name', 'battler_name', 'battler_hue',
+            'maxhp', 'maxsp', 'str', 'dex', 'agi', 'int',
+            'atk', 'pdef', 'mdef', 'eva', 'animation1_id',
+            'animation2_id', 'actions', 'exp', 'gold',
+            'item_id', 'weapon_id', 'armor_id', 'treasure_prob', 'note')
         self.element_ranks_action = None
         self.state_ranks_action = None
 
@@ -664,23 +705,28 @@ class EnemyEditAction(DatabaseAction):
         try:
             if "element_ranks" in self.data:
                 self.element_ranks_action = TableEditAction(
-                    self.obj.element_ranks, self.data["element_ranks"], sub_action=True)
+                    self.obj.element_ranks, self.data["element_ranks"],
+                    sub_action=True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
             if "state_ranks" in self.data:
                 self.state_ranks_action = TableEditAction(
-                    self.obj.state_ranks, self.data["state_ranks"], sub_action=True)
+                    self.obj.state_ranks, self.data["state_ranks"],
+                    sub_action=True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception applying Enemy Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception applying Enemy Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
@@ -688,10 +734,12 @@ class EnemyEditAction(DatabaseAction):
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Apply' Enemy Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Apply' Enemy Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Apply' Enemy Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Apply' Enemy Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
             result = False
         return result
 
@@ -704,16 +752,19 @@ class EnemyEditAction(DatabaseAction):
                 actions_now.append(self.state_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.state_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.state_ranks_action)
             if self.element_ranks_action is not None:
                 result &= self.element_ranks_action.undo()
                 actions_now.append(self.element_ranks_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.element_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.element_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception undoing Enemy Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception undoing Enemy Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
@@ -721,14 +772,16 @@ class EnemyEditAction(DatabaseAction):
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Undo' Enemy Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Undo' Enemy Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Undo' Enemy Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Undo' Enemy Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
         return result
 
 
-class EnemyActionEditAction(DatabaseAction):
+class EnemyActionEditAction(DataAction):
 
     ''' edits a Enemy::Action object'''
 
@@ -736,11 +789,14 @@ class EnemyActionEditAction(DatabaseAction):
         super(EnemyActionEditAction, self).__init__(data, sub_action)
         self.setType("EnemyAction")
         self.setObj(obj)
-        self.addKeys('kind', 'basic', 'skill_id', 'condition_turn_a', 'condition_turn_b',
-                     'condition_hp', 'condition_level', 'condition_switch_id', 'rating')
+        self.addKeys(
+            'kind', 'basic', 'skill_id',
+            'condition_turn_a', 'condition_turn_b',
+            'condition_hp', 'condition_level',
+            'condition_switch_id', 'rating')
 
 
-class EventEditAction(DatabaseAction):
+class EventEditAction(DataAction):
 
     ''' edits an Event Object '''
 
@@ -751,7 +807,7 @@ class EventEditAction(DatabaseAction):
         self.addKeys('id', 'name', 'x', 'y', 'pages')
 
 
-class EventPageEditAction(DatabaseAction):
+class EventPageEditAction(DataAction):
 
     ''' edits a Event::Page object '''
 
@@ -759,12 +815,14 @@ class EventPageEditAction(DatabaseAction):
         super(EventPageEditAction, self).__init__(data, sub_action)
         self.setType("EventPage")
         self.setObj(obj)
-        self.addKeys('condition', 'graphic', 'move_type', 'move_speed', 'move_frequency',
-                     'move_route', 'walk_anime', 'step_anime',  'direction_fix', 'through',
-                     'always_on_top', 'trigger', 'list')
+        self.addKeys(
+            'condition', 'graphic', 'move_type', 'move_speed',
+            'move_frequency', 'move_route', 'walk_anime',
+            'step_anime',  'direction_fix', 'through',
+            'always_on_top', 'trigger', 'list')
 
 
-class EventConditionEditAction(DatabaseAction):
+class EventConditionEditAction(DataAction):
 
     ''' edits a Event::Page::Condition object'''
 
@@ -772,11 +830,13 @@ class EventConditionEditAction(DatabaseAction):
         super(EventConditionEditAction, self).__init__(data, sub_action)
         self.setType("EventCondition")
         self.setObj(obj)
-        self.addKeys('switch1_valid', 'switch2_valid', 'variable_valid', 'self_switch_valid', 'switch1_id',
-                     'switch2_id', 'variable_id', 'variable_value', 'self_switch_ch')
+        self.addKeys(
+            'switch1_valid', 'switch2_valid', 'variable_valid',
+            'self_switch_valid', 'switch1_id', 'switch2_id',
+            'variable_id', 'variable_value', 'self_switch_ch')
 
 
-class EventGraphicEditAction(DatabaseAction):
+class EventGraphicEditAction(DataAction):
 
     ''' edits a Event::Page::Graphic '''
 
@@ -784,11 +844,12 @@ class EventGraphicEditAction(DatabaseAction):
         super(EventGraphicEditAction, self).__init__(data, sub_action)
         self.setType("EventGraphic")
         self.setObj(obj)
-        self.addKeys('tile_id', 'character_name', 'character_hue',
-                     'direction', 'pattern', 'opacity', 'blend_type')
+        self.addKeys(
+            'tile_id', 'character_name', 'character_hue',
+            'direction', 'pattern', 'opacity', 'blend_type')
 
 
-class EventCommandEditAction(DatabaseAction):
+class EventCommandEditAction(DataAction):
 
     ''' edits a EventCommand object '''
 
@@ -799,7 +860,7 @@ class EventCommandEditAction(DatabaseAction):
         self.addKeys('code', 'indent', 'parameters')
 
 
-class CommonEventEditAction(DatabaseAction):
+class CommonEventEditAction(DataAction):
 
     ''' edits a CommonEvent object '''
 
@@ -810,7 +871,7 @@ class CommonEventEditAction(DatabaseAction):
         self.addKeys('id', 'name', 'trigger', 'switch_id', 'list')
 
 
-class MapEditAction(DatabaseAction):
+class MapEditAction(DataAction):
 
     ''' edits a Map object '''
 
@@ -833,10 +894,12 @@ class MapEditAction(DatabaseAction):
                 actions_now.append(self.data_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception applying Map Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception applying Map Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
@@ -844,10 +907,12 @@ class MapEditAction(DatabaseAction):
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Apply' Map Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Apply' Map Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Apply' Map Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Apply' Map Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
             result = False
         return result
 
@@ -860,10 +925,12 @@ class MapEditAction(DatabaseAction):
                 actions_now.append(self.data_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.state_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.state_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception undoing Map Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception undoing Map Edit Action, will atempt to revert",
+                "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
@@ -871,14 +938,16 @@ class MapEditAction(DatabaseAction):
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Undo' Map Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Undo' Map Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Undo' Map Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Undo' Map Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
         return result
 
 
-class MapInfoEditAction(DatabaseAction):
+class MapInfoEditAction(DataAction):
 
     ''' edits a Mapinfo object'''
 
@@ -890,7 +959,7 @@ class MapInfoEditAction(DatabaseAction):
             'name', 'parent_id', 'order', 'expanded', 'scroll_x', 'scroll_y')
 
 
-class MoveCommandEditAction(DatabaseAction):
+class MoveCommandEditAction(DataAction):
 
     ''' edits a MoveCommand object '''
 
@@ -901,7 +970,7 @@ class MoveCommandEditAction(DatabaseAction):
         self.addKeys('code', 'parameters')
 
 
-class MoveRouteEditAction(DatabaseAction):
+class MoveRouteEditAction(DataAction):
 
     ''' edits a MoveRoute object '''
 
@@ -912,7 +981,7 @@ class MoveRouteEditAction(DatabaseAction):
         self.addKeys('repeat', 'skippable', 'list')
 
 
-class StateEditAction(DatabaseAction):
+class StateEditAction(DataAction):
 
     ''' edits a State object '''
 
@@ -920,13 +989,18 @@ class StateEditAction(DatabaseAction):
         super(StateEditAction, self).__init__(data, sub_action)
         self.setType("State")
         self.setObj(obj)
-        self.addKeys('id', 'name', 'animation_id', 'restriction', 'nonresistance', 'zero_hp', 'cant_get_exp', 'cant_evade',
-                     'slip_damage', 'rating', 'hit_rate', 'maxhp_rate', 'maxsp_rate', 'str_rate', 'dex_rate', 'int_rate',
-                     'atk_rate', 'pdef_rate', 'mdef_rate', 'eva', 'battle_only', 'hold_turn', 'auto_release_prob',
-                     'shock_release_prob', 'guard_element_set', 'plus_state_set', 'minus_state_set', 'note')
+        self.addKeys(
+            'id', 'name', 'animation_id', 'restriction',
+            'nonresistance', 'zero_hp', 'cant_get_exp', 'cant_evade',
+            'slip_damage', 'rating', 'hit_rate', 'maxhp_rate',
+            'maxsp_rate', 'str_rate', 'dex_rate', 'int_rate',
+            'atk_rate', 'pdef_rate', 'mdef_rate', 'eva',
+            'battle_only', 'hold_turn', 'auto_release_prob',
+            'shock_release_prob', 'guard_element_set',
+            'plus_state_set', 'minus_state_set', 'note')
 
 
-class SystemEditAction(DatabaseAction):
+class SystemEditAction(DataAction):
 
     ''' edits a System object '''
 
@@ -934,14 +1008,20 @@ class SystemEditAction(DatabaseAction):
         super(SystemEditAction, self).__init__(data, sub_action)
         self.setType("System")
         self.setObj(obj)
-        self.addKeys('magic_number', 'party_members', 'elements', 'switches', 'variables', 'windowskin_name', 'title_name',
-                     'gameover_name',  'battle_transition', 'title_bgm', 'battle_bgm', 'battle_end_me', 'gameover_me',
-                     'cursor_se', 'decision_se', 'cancel_se', 'buzzer_se', 'equip_se', 'shop_se', 'save_se', 'load_se',
-                     'battle_start_se', 'escape_se', 'actor_collapse_se', 'words', 'test_battlers', 'test_troop_id',
-                     'start_map_id', 'start_x', 'start_y', 'battleback_name', 'battler_name', 'battler_hue', 'edit_map_id')
+        self.addKeys(
+            'magic_number', 'party_members', 'elements',
+            'switches', 'variables', 'windowskin_name', 'title_name',
+            'gameover_name',  'battle_transition', 'title_bgm',
+            'battle_bgm', 'battle_end_me', 'gameover_me',
+            'cursor_se', 'decision_se', 'cancel_se', 'buzzer_se',
+            'equip_se', 'shop_se', 'save_se', 'load_se',
+            'battle_start_se', 'escape_se', 'actor_collapse_se',
+            'words', 'test_battlers', 'test_troop_id',
+            'start_map_id', 'start_x', 'start_y', 'battleback_name',
+            'battler_name', 'battler_hue', 'edit_map_id')
 
 
-class TestBattlerEditAction(DatabaseAction):
+class TestBattlerEditAction(DataAction):
 
     ''' edits a TestBattler object '''
 
@@ -949,11 +1029,12 @@ class TestBattlerEditAction(DatabaseAction):
         super(TestBattlerEditAction, self).__init__(data, sub_action)
         self.setType("TestBattler")
         self.setObj(obj)
-        self.addKeys('actor_id', 'level', 'weapon_id',
-                     'armor1_id', 'armor2_id', 'armor3_id', 'armor4_id')
+        self.addKeys(
+            'actor_id', 'level', 'weapon_id',
+            'armor1_id', 'armor2_id', 'armor3_id', 'armor4_id')
 
 
-class WordsEditAction(DatabaseAction):
+class WordsEditAction(DataAction):
 
     ''' edits a System::Words object '''
 
@@ -961,11 +1042,14 @@ class WordsEditAction(DatabaseAction):
         super(WordsEditAction, self).__init__(data, sub_action)
         self.setType("Words")
         self.setObj(obj)
-        self.addKeys('gold', 'hp', 'sp', 'str', 'dex', 'agi', 'int', 'atk', 'pdef', 'mdef', 'weapon',
-                     'armor1', 'armor2', 'armor3', 'armor4', 'attack', 'skill', 'guard', 'item', 'equip')
+        self.addKeys(
+            'gold', 'hp', 'sp', 'str', 'dex', 'agi',
+            'int', 'atk', 'pdef', 'mdef', 'weapon',
+            'armor1', 'armor2', 'armor3', 'armor4',
+            'attack', 'skill', 'guard', 'item', 'equip')
 
 
-class TilesetEditAction(DatabaseAction):
+class TilesetEditAction(DataAction):
 
     ''' edits a Tileset object '''
 
@@ -973,9 +1057,11 @@ class TilesetEditAction(DatabaseAction):
         super(TilesetEditAction, self).__init__(data, sub_action)
         self.setType("Tileset")
         self.setObj(obj)
-        self.addKeys('id', 'name', 'tileset_name', 'autotile_names', 'panorama_name', 'panorama_hue',
-                     'fog_name', 'fog_hue', 'fog_opacity', 'fog_blend_type', 'fog_zoom', 'fog_sx',
-                     'fog_sy', 'battleback_name')
+        self.addKeys(
+            'id', 'name', 'tileset_name', 'autotile_names',
+            'panorama_name', 'panorama_hue', 'fog_name',
+            'fog_hue', 'fog_opacity', 'fog_blend_type',
+            'fog_zoom', 'fog_sx', 'fog_sy', 'battleback_name')
         self.passages_action = None
         self.priorities_action = None
         self.terrain_tags_action = None
@@ -986,31 +1072,38 @@ class TilesetEditAction(DatabaseAction):
         try:
             if "passages" in self.data:
                 self.passages_action = TableEditAction(
-                    self.obj.passages, self.data["passages"], sub_action=True)
+                    self.obj.passages, self.data["passages"],
+                    sub_action=True)
                 result &= self.passages_action.apply()
                 actions_now.append(self.passages_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
             if "priorities" in self.data:
                 self.priorities_action = TableEditAction(
-                    self.obj.priorities, self.data["priorities"], sub_action=True)
+                    self.obj.priorities, self.data["priorities"],
+                    sub_action=True)
                 result &= self.priorities_action.apply()
                 actions_now.append(self.priorities_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
             if "terrain_tags" in self.data:
                 self.terrain_tags_action = TableEditAction(
-                    self.obj.terrain_tags, self.data["terrain_tags"], sub_action=True)
+                    self.obj.terrain_tags, self.data["terrain_tags"],
+                    sub_action=True)
                 result &= self.terrain_tags_action.apply()
                 actions_now.append(self.terrain_tags_action)
                 if not result:
                     raise Exception(
-                        "'Apply' Sub action failed: %s" % self.element_ranks_action)
+                        "'Apply' Sub action failed: %s"
+                        % self.element_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception applying Tileset Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception applying Tileset Edit Action, "
+                "will atempt to revert", "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
@@ -1018,10 +1111,12 @@ class TilesetEditAction(DatabaseAction):
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Apply' Tileset Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Apply' Tileset Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Apply' Tileset Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Apply' Tileset Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
             result = False
         return result
 
@@ -1034,22 +1129,26 @@ class TilesetEditAction(DatabaseAction):
                 actions_now.append(self.passages_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.state_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.state_ranks_action)
             if self.priorities_action is not None:
                 result &= self.priorities_action.undo()
                 actions_now.append(self.priorities_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.element_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.element_ranks_action)
             if self.terrain_tags_action is not None:
                 result &= self.terrain_tags_action.undo()
                 actions_now.append(self.terrain_tags_action)
                 if not result:
                     raise Exception(
-                        "'Undo' Sub action failed: %s" % self.element_ranks_action)
+                        "'Undo' Sub action failed: %s"
+                        % self.element_ranks_action)
         except Exception:
             Kernel.Log(
-                "Exception undoing Tileset Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+                "Exception undoing Tileset Edit Action, "
+                "will atempt to revert", "[DataAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
@@ -1057,14 +1156,16 @@ class TilesetEditAction(DatabaseAction):
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log(
-                    "'Undo' Tileset Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+                    "'Undo' Tileset Edit Action sucessfuly reverted",
+                    "[DataAction]", True)
             except Exception:
                 Kernel.Log(
-                    "Exception reverting failed 'Undo' Tileset Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+                    "Exception reverting failed 'Undo' Tileset Edit Action, "
+                    "Possible Project coruption", "[DataAction]", True, True)
         return result
 
 
-class TroopPageEditAction(DatabaseAction):
+class TroopPageEditAction(DataAction):
 
     ''' edits a Troop::Page object '''
 
@@ -1075,7 +1176,7 @@ class TroopPageEditAction(DatabaseAction):
         self.addKeys('span', 'list')
 
 
-class TroopConditionEditAction(DatabaseAction):
+class TroopConditionEditAction(DataAction):
 
     ''' edits a Troop::Condition'''
 
@@ -1083,11 +1184,13 @@ class TroopConditionEditAction(DatabaseAction):
         super(TroopConditionEditAction, self).__init__(data, sub_action)
         self.setType("TroopCondition")
         self.setObj(obj)
-        self.addKeys('turn_valid', 'enemy_valid', 'actor_valid', 'switch_valid', 'turn_a',
-                     'turn_b', 'enemy_index', 'enemy_hp', 'actor_id', 'actor_hp', 'switch_id')
+        self.addKeys(
+            'turn_valid', 'enemy_valid', 'actor_valid',
+            'switch_valid', 'turn_a', 'turn_b', 'enemy_index',
+            'enemy_hp', 'actor_id', 'actor_hp', 'switch_id')
 
 
-class MemberEditAction(DatabaseAction):
+class MemberEditAction(DataAction):
 
     ''' edits a Troop::Member object '''
 
