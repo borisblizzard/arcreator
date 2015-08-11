@@ -7,6 +7,7 @@
 
     },
     "provides": {
+        "ActionStack": "",
         "ActionManager": "",
         "ActionTemplate": ""
     }

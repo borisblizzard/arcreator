@@ -1,5 +1,5 @@
 {
-    "name": "DatabaseActions",
+    "name": "DataActions",
     "author": "Ryex",
     "version": "1.0.0",
     "file" : "__init__.py.py",
@@ -8,7 +8,7 @@
         "ActionTemplate": ""
     },
     "provides": {
-        "DatabaseAction": "",
+        "DataAction": "",
         "TableEditAction": "",
         "ArmorEditAction": "",
         "ActorEditAction": "",
