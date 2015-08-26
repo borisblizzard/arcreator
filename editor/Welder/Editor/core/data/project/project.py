@@ -4,6 +4,7 @@ import configparser
 import zipfile
 import re
 import copy
+import threading
 
 import collections
 
@@ -19,6 +20,7 @@ class DeferredObject(object):
 class ProjectManager(object):
 
     _project = None
+    _delays = {}
 
     @classmethod
     def get_project(cls):
@@ -56,7 +58,11 @@ class ProjectManager(object):
         return False
 
     @classmethod
-    def apply_action(cls, key, action, delay=False, **kwargs):
+    def get_key_func(cls, key):
+        return lambda: cls._project.get_data(key)
+
+    @classmethod
+    def apply_action(cls, action, delay=False, **kwargs):
         """apply an action to key in project data
 
         if delay is true delays the action for a time under a key
@@ -66,14 +72,13 @@ class ProjectManager(object):
         insted of an action for every edit of a charater in some text.
 
         Args:
-            key (str): the key in the project to apply the action to
             action (DataAction): the action to apply
             delay (bool): should the apply be delayed?
             delay_key (str): (key word only) key to store the delay under
-            delay_time (int): (key word only) number of miliseconds to delay
+            delay_time (float): (key word only) number of seconds to delay
         """
         delay_key = ""
-        delay_time = 300
+        delay_time = 3
         for key in kwargs:
             if key == "delay_key":
                 delay_key = kwargs[key]
@@ -83,7 +88,21 @@ class ProjectManager(object):
                 raise TypeError(
                     "apply_action() got an unexpected keyword argument %s"
                     % (key,))
-        # TODO drop in a delay function
+
+        def apply_func():
+            action.apply()
+            if delay_key in cls._delays:
+                del cls._delays[delay_key]
+
+        if delay:
+            if delay_key in cls._delays:
+                cls._delays[delay_key].cancel()
+                del cls._delays[delay_key]
+            t = threading.Timer(delay_time, apply_func)
+            cls._delays[delay_key] = t
+            t.start()
+        else:
+            apply_func()
 
 
 class Project(object):
