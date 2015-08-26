@@ -26,6 +26,7 @@ class Project(object):
 
     def __init__(self, path):
         self.path = str(path)
+        self.cfg = {}
         self._data = {}
         self._info = {}
         self._del = {}
@@ -116,3 +117,9 @@ class Project(object):
     def getDataDeepcopy(self, key):
         data = self.getData(key)
         return copy.deepcopy(data)
+
+    def getConfig(self, key):
+        return self.cfg[key]
+
+    def setConfig(self, key, value):
+        return self.cfg[key] = value
