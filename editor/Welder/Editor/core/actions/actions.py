@@ -17,18 +17,18 @@ class ActionManager(object):
     _last_stack = None
 
     @staticmethod
-    def AddStack(name):
+    def add_stack(name):
         if name not in ActionManager._action_stacks:
             ActionManager._action_stacks[name] = ActionStack(name)
         return ActionManager._action_stacks[name]
 
     @staticmethod
-    def RemoveStack(name):
+    def remove_stack(name):
         if name in ActionManager._action_stacks:
             del ActionManager._action_stacks[name]
 
     @staticmethod
-    def Undo(stack=None):
+    def undo(stack=None):
         if stack not in ActionManager._action_stacks:
             raise RuntimeError("Action stack '%s' does not exist" % (stack,))
         ActionManager._last_stack = stack
@@ -41,7 +41,7 @@ class ActionManager(object):
                 stack=stack)
 
     @staticmethod
-    def Redo(stack=None):
+    def redo(stack=None):
         if stack not in ActionManager._action_stacks:
             raise RuntimeError("Action stack '%s' does not exist" % (stack,))
         ActionManager._last_stack = stack
@@ -54,7 +54,7 @@ class ActionManager(object):
                 stack=stack)
 
     @staticmethod
-    def _doActions(actions, undo):
+    def _do_actions(actions, undo):
         i = 0
         success = False
         for action in actions:
@@ -69,7 +69,7 @@ class ActionManager(object):
         return success, i
 
     @staticmethod
-    def BatchAction(start, end, undo, stack=None):
+    def batch_action(start, end, undo, stack=None):
         if stack not in ActionManager._action_stacks:
             raise RuntimeError("Action stack '%s' does not exist" % (stack,))
         ActionManager._last_stack = stack
@@ -102,7 +102,7 @@ class ActionManager(object):
                 "[Action Framwork]")
 
     @staticmethod
-    def AddActions(*actions, stack=None):
+    def add_actions(*actions, stack=None):
         if stack not in ActionManager._action_stacks:
             raise RuntimeError("Action stack '%s' does not exist" % (stack,))
         action_stack = ActionManager._action_stacks[stack]
@@ -110,7 +110,7 @@ class ActionManager(object):
         action_stack._stack.extend(actions)
 
     @staticmethod
-    def RemoveActions(*actions, stack=None):
+    def remove_actions(*actions, stack=None):
         if stack not in ActionManager._action_stacks:
             raise RuntimeError("Action stack '%s' does not exist" % (stack,))
         action_stack = ActionManager._action_stacks[stack]
@@ -129,16 +129,19 @@ class ActionTemplate(object):
     def __init__(self, sub_action=False, stack=None):
         self._applyed = False
         self.sub_action = sub_action
-        self.stack = _AM.AddStack(stack)
+        self.stack = _AM.add_stack(stack)
 
     def apply(self):
+        """apply the action"""
         if not self._applyed:
             updatecurrentactionflag = False
+            self.before_apply()
             success = self.do_apply()
+            self.after_apply(success)
             if success:
                 if not self.sub_action or not self.in_stack():
                     updatecurrentactionflag = True
-                    self._AM.AddActions(self, stack=self.stack.name)
+                    self._AM.add_actions(self, stack=self.stack.name)
 
                 self._applyed = True
                 if not self.sub_action and updatecurrentactionflag:
@@ -147,24 +150,47 @@ class ActionTemplate(object):
         else:
             return False
 
+    def before_apply(self):
+        """called before do_apply"""
+        pass
+
     def do_apply(self):
+        """actualy modify data in a reversable way, return success"""
         return False
 
+    def after_apply(self, success):
+        """called after do_apply with sucess of do_apply"""
+        pass
+
     def undo(self):
+        """undo an applyed action"""
         if self._applyed:
+            self.before_undo()
             success = self.do_undo()
+            self.after_undo(success)
             if success:
                 self._applyed = False
             return success
         else:
             return False
 
+    def before_undo(self):
+        """called before do_undo"""
+        pass
+
     def do_undo(self):
+        """reverse edits to data"""
         return False
 
+    def after_undo(self, success):
+        """called after do_undo with success of do_undo"""
+        pass
+
     def in_stack(self):
+        """is this action in a stack?"""
         return self in self.stack._stack
 
     def remove_from_stack(self):
+        """"remove the action from it's stack"""
         if self.in_stack():
-            self._AM.RemoveActions(self, stack=self.stack.name)
+            self._AM.remove_actions(self, stack=self.stack.name)

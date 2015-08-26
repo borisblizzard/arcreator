@@ -18,26 +18,36 @@ class DataAction(ActionTemplate):
         self.keys = []
         self.old_data = {}
         self.obj = None
+        self.obj_func = None
         self.type = None
 
-    def setType(self, type):
-        self.type = type
+    def set_type(self, typ):
+        self.type = typ
 
-    def setKeys(self, *args):
+    def set_keys(self, *args):
         self.keys = []
         val = args
         if len(args) == 1 and isinstance(args[0], (list, tuple)):
             val = args[0]
         self.keys.extend(val)
 
-    def addKeys(self, *args):
+    def add_keys(self, *args):
         val = args
         if len(args) == 1 and isinstance(args[0], (list, tuple)):
             val = args[0]
         self.keys.extend(val)
 
-    def setObj(self, obj):
+    def set_obj(self, obj):
         self.obj = obj
+
+    def set_obj_func(self, func):
+        if not callable(func):
+            raise TypeError("%r is not callable" % (func,))
+        self.obj_func = func
+
+    def before_apply(self):
+        if self.obj_func:
+            self.set_obj(self.obj_func())
 
     def do_apply(self):
         result = self.apply_keys()
@@ -47,6 +57,10 @@ class DataAction(ActionTemplate):
         if not result:
             self.undo_keys()
         return result
+
+    def before_undo(self):
+        if self.obj_func:
+            self.set_obj(self.obj_func())
 
     def do_undo(self):
         result = self.undo_keys()

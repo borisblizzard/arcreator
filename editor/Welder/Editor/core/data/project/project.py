@@ -47,8 +47,7 @@ class ProjectManager(object):
             bool: if the project was cleared
         """
         if cls._project:
-            if cls._project.needs_save() and
-             not force:
+            if cls._project.needs_save() and not force:
                 return False
             else:
                 del cls._project
@@ -85,9 +84,6 @@ class ProjectManager(object):
                     "apply_action() got an unexpected keyword argument %s"
                     % (key,))
         # TODO drop in a delay function
-
-
-
 
 
 class Project(object):
