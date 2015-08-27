@@ -11,7 +11,7 @@ def correct_name(name):
         c = char
         if char.isupper():
             c = c.lower()
-            if i > 0 and last != "_":
+            if i > 0 and last != "_" and not last.isupper():
                 c = "_" + c
         name_parts.append(c)
         i += 1
