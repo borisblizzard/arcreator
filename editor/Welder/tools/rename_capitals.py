@@ -6,14 +6,16 @@ from pathlib import Path
 def correct_name(name):
     i = 0
     name_parts = []
+    last = ""
     for char in name:
         c = char
         if char.isupper():
             c = c.lower()
-            if i > 0:
+            if i > 0 and last != "_":
                 c = "_" + c
         name_parts.append(c)
         i += 1
+        last = char
     return "".join(name_parts)
 
 
