@@ -1,3 +1,3 @@
-from .Actions import ActionManager
-from .Actions import ActionTemplate
-from .Actions import ActionStack
+from .actions import ActionManager
+from .actions import ActionTemplate
+from .actions import ActionStack

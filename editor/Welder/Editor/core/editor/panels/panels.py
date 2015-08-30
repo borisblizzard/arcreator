@@ -8,7 +8,7 @@ import wx
 
 import wx.lib.agw.aui as aui
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import IconManager
 
@@ -24,8 +24,8 @@ class PanelBase(object):
         self.Bind(wx.EVT_CHILD_FOCUS, self.OnFocus)
 
     def OnFocus(self, event):
-        if "PanelManager" in Kernel.GlobalObjects:
-            PM = Kernel.GlobalObjects["PanelManager"]
+        if "PanelManager" in kernel.GlobalObjects:
+            PM = kernel.GlobalObjects["PanelManager"]
             if PM is not None:
                 wid = PM.getPanelID(self)
                 info = PM.getPanelInfo(wid)
@@ -119,22 +119,22 @@ class MainToolbar(aui.AuiToolBar):
         self.Bind(wx.EVT_TOOL, self.OnPaste, id=self.pasteid)
 
     def OnNew(self, event):
-        newproject = Kernel.System.load("NewProjectHandler")
+        newproject = kernel.System.load("NewProjectHandler")
         newproject(self.parent)
-        Kernel.GlobalObjects["FileHistory"].Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
+        kernel.GlobalObjects["FileHistory"].Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
 
     def OnOpen(self, event):
-        openproject = Kernel.System.load("OpenProjectHandler")
-        openproject(self.parent, Kernel.GlobalObjects["FileHistory"])
-        Kernel.GlobalObjects["FileHistory"].Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
+        openproject = kernel.System.load("OpenProjectHandler")
+        openproject(self.parent, kernel.GlobalObjects["FileHistory"])
+        kernel.GlobalObjects["FileHistory"].Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
 
     def OnSave(self, event):
-        saveproject = Kernel.System.load("SaveProjectHandler")
+        saveproject = kernel.System.load("SaveProjectHandler")
         saveproject()
-        Kernel.GlobalObjects["FileHistory"].Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
+        kernel.GlobalObjects["FileHistory"].Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
 
     def OnUndo(self, event):
         pass
@@ -152,7 +152,7 @@ class MainToolbar(aui.AuiToolBar):
         pass
 
     def uiupdate(self, event):
-        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] is True):
+        if "ProjectOpen" in kernel.GlobalObjects and (kernel.GlobalObjects["ProjectOpen"] is True):
             event.Enable(True)
         else:
             event.Enable(False)
@@ -175,7 +175,7 @@ class EditorToolbar(aui.AuiToolBar):
 
         self.parent = parent
 
-        self.mgr = Kernel.GlobalObjects["PanelManager"]
+        self.mgr = kernel.GlobalObjects["PanelManager"]
 
         self.SetToolBitmapSize(wx.Size(16, 16))
 
@@ -357,8 +357,8 @@ class EditorToolbar(aui.AuiToolBar):
             self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=tool_id)
 
     def uiupdate(self, event):
-        if ("ProjectOpen" in Kernel.GlobalObjects
-                and (Kernel.GlobalObjects["ProjectOpen"] is True)):
+        if ("ProjectOpen" in kernel.GlobalObjects
+                and (kernel.GlobalObjects["ProjectOpen"] is True)):
             event.Enable(True)
         else:
             event.Enable(False)

@@ -5,7 +5,7 @@ Created on Jan 17, 2011
 
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 
 class MainStatusBar(wx.StatusBar):
@@ -41,13 +41,13 @@ class MainStatusBar(wx.StatusBar):
         self.Bind(wx.EVT_IDLE, self.OnIdle)
 
         # set self as the statusbar
-        Kernel.StatusBar.SetStatusBar(self)
+        kernel.StatusBar.SetStatusBar(self)
 
     def updateUIProgressBar(self, evt):
         self.updateProgressBarShow()
 
     def updateProgressBarShow(self):
-        if Kernel.StatusBar.TaskRunning:
+        if kernel.StatusBar.TaskRunning:
             self.progressBar.Show(True)
         else:
             self.progressBar.Show(False)

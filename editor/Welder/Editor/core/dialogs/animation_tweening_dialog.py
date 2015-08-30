@@ -1,6 +1,6 @@
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import AnimationTweening_Dialog_Template
 

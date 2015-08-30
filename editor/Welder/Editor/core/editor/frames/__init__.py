@@ -1,2 +1,1 @@
-from . import Frames
-from .Frames import EditorMainWindow
+from .frames import EditorMainWindow

@@ -1,5 +1,5 @@
 import wx
-import Kernel
+import welder_kernel as kernel
 
 
 class MapTreeCtrl(wx.TreeCtrl):
@@ -11,8 +11,8 @@ class MapTreeCtrl(wx.TreeCtrl):
             style |= wx.TR_EDIT_LABELS | wx.WANTS_CHARS
         wx.TreeCtrl.__init__(self, parent, id, pos, size, style)
         self.parent = parent
-        Kernel.System.bind_event('RefreshProject', self.Refresh_Map_List)
-        IconManager = Kernel.System.load("IconManager")
+        kernel.System.bind_event('RefreshProject', self.Refresh_Map_List)
+        IconManager = kernel.System.load("IconManager")
         imglist = wx.ImageList(16, 16, True, 2)
         imglist.Add(IconManager.getBitmap("projectopen"))
         imglist.Add(IconManager.getBitmap("map"))
@@ -31,7 +31,7 @@ class MapTreeCtrl(wx.TreeCtrl):
         self.Refresh_Map_List()
 
     def buildStruct(self):
-        project = Kernel.GlobalObjects["PROJECT"]
+        project = kernel.GlobalObjects["PROJECT"]
         mapinfos = project.getData("MapInfos")
         self.struct = {0: []}
         stack = []
@@ -50,7 +50,7 @@ class MapTreeCtrl(wx.TreeCtrl):
         self.sortStruct()
 
     def sortStruct(self):
-        project = Kernel.GlobalObjects["PROJECT"]
+        project = kernel.GlobalObjects["PROJECT"]
         mapinfos = project.getData("MapInfos")
 
         def chmp(key):
@@ -60,7 +60,7 @@ class MapTreeCtrl(wx.TreeCtrl):
 
     def Refresh_Map_List(self):
         # get the roject
-        project = Kernel.GlobalObjects["PROJECT"]
+        project = kernel.GlobalObjects["PROJECT"]
         # get the map infos
         mapinfos = project.getData("MapInfos")
         # clear the list
@@ -120,5 +120,5 @@ class MapTreeCtrl(wx.TreeCtrl):
         self.Expand(root)
 
     def onClose(self, event):
-        Kernel.System.unbind_event('RefreshProject', self.Refresh_Map_List)
+        kernel.System.unbind_event('RefreshProject', self.Refresh_Map_List)
         event.Skip()

@@ -1,4 +1,4 @@
-import Kernel
+import welder_kernel as kernel
 
 import wx
 
@@ -649,7 +649,7 @@ class EventListCtrl(wx.HtmlListBox):
                 self.list.remove(command)
 
     def OnGetItem(self, n):
-        EventCommandFormater = Kernel.System.load("EventCommandFormater")
+        EventCommandFormater = kernel.System.load("EventCommandFormater")
         html = EventCommandFormater.format(self.list[n])
         return html
 

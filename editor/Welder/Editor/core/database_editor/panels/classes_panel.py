@@ -1,11 +1,11 @@
 import wx
 import numpy as np
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import PanelBase, Classes_Panel_Template
 from PyitectConsumes import DatabaseManager as DM
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 
 from PyitectConsumes import ChangeMaximum_Dialog
 from PyitectConsumes import Skill_Dialog
@@ -44,7 +44,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         
         global DataClasses, DataWeapons, DataArmors, DataStates, DataElements, DataSkills
         try:
-            proj = Kernel.GlobalObjects['PROJECT']
+            proj = kernel.GlobalObjects['PROJECT']
             DataClasses = proj.getData('Classes')
             DataWeapons = proj.getData('Weapons')
             DataArmors = proj.getData('Armors')
@@ -52,14 +52,14 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
             DataElements = proj.getData('System').elements
             DataSkills = proj.getData('Skills')
         except NameError:
-            Kernel.Log(
+            kernel.Log(
                 'Database opened before Project has been initialized', '[Database:CLASSES]', True)
             self.Destroy()
 
         try:
-            positions = list(Kernel.Config.getUnified()['GameSetup']['Positions'])
+            positions = list(kernel.Config.getUnified()['GameSetup']['Positions'])
         except Exception as e:
-            Kernel.Log("Bad Config VAlue", error=True)
+            kernel.Log("Bad Config VAlue", error=True)
             positions = [
               "Front",
               "Middle",
@@ -67,15 +67,15 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
             ]
 
         try:
-            max_per = int(Kernel.Config.getUnified()['DatabaseLimits']['ParameterPercent'])
+            max_per = int(kernel.Config.getUnified()['DatabaseLimits']['ParameterPercent'])
         except Exception as e:
-            Kernel.Log("Bad Confi Value", error=True)
+            kernel.Log("Bad Confi Value", error=True)
             max_per = 100
 
         try:
-            note_font = str(Kernel.Config.getUnified()['Misc']['NoteFont'])
+            note_font = str(kernel.Config.getUnified()['Misc']['NoteFont'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             note_font = "Arial"
 
         self.listCtrlSkills.InsertColumn(0, "Level", width=64)
@@ -113,9 +113,9 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
     def refreshClassList(self):
         """Refreshes the values in the class wxListBox control"""
         try:
-            digits = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
+            digits = int(kernel.Config.getUnified()['GameObjects']['Classes'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             digits = 999
         
         DM.FillControl(self.listBoxClasses, DataClasses, digits, [])
@@ -139,9 +139,9 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
     def refreshSkills(self):
         """Clears and refreshes the list of skills in the list control"""
         try:
-            digits = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+            digits = int(kernel.Config.getUnified()['GameObjects']['Skills'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             digits = 9999
 
         self.listCtrlSkills.DeleteAllItems()
@@ -198,9 +198,9 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
         try:
-            max_classes = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
+            max_classes = int(kernel.Config.getUnified()['GameObjects']['Classes'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             max_classes = 999
 
         DM.ChangeDataCapacity(self, self.listBoxClasses, DataClasses, max_classes)
@@ -208,9 +208,9 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
     def textCtrlName_TextChanged(self, event):
         """updates the selected actor's name"""
         try:
-            max_classes = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
+            max_classes = int(kernel.Config.getUnified()['GameObjects']['Classes'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             max_classes = 999
 
         DM.updateObjectName(self.SelectedClass, event.GetString(),
@@ -286,9 +286,9 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
     def StartSkillDialog(self, index=-1):
         """Opens the skill selection dialog"""
         try:
-            maxlvl = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
+            maxlvl = int(kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             maxlvl = 999
 
         edit = (index != -1 and index < len(self.SelectedClass.learnings))

@@ -4,7 +4,7 @@ import wx
 import PIL
 
 
-import Kernel
+import welder_kernel as kernel
 
 
 from PyitectConsumes import RTPFunctions
@@ -19,7 +19,7 @@ class ChooseGraphic_Dialog(ChooseGraphic_Dialog_Template):
     def __init__(self, parent, folder, current, hue):
         ChooseGraphic_Dialog_Template.__init__(self, parent)
         self.glCanvasGraphic.canvas.Bind(wx.EVT_LEFT_DOWN,
-                                         Kernel.Protect(self.glCanvas_LeftMouse))
+                                         kernel.Protect(self.glCanvas_LeftMouse))
         #self.Centre( wx.BOTH )
         self.glCanvasGraphic.SetDrawMode(5)
         self.ImageList = ['(None)']

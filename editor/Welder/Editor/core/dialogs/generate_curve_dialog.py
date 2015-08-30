@@ -3,7 +3,7 @@ import wx.lib.agw.floatspin as floatspin
 import numpy as np
 
 
-import Kernel
+import welder_kernel as kernel
 
 
 from PyitectConsumes import DatabaseManager as DM
@@ -26,7 +26,7 @@ class GenerateCurve_Dialog(GenerateCurve_Dialog_Template):
         self.spinCtrlFinal.SetValue(vRange[1])
         self.LevelRange = lRange
         self.spinCtrlSpeed.Bind(floatspin.EVT_FLOATSPIN,
-                                Kernel.Protect(self.spinCtrlSpeed_ValueChanged))
+                                kernel.Protect(self.spinCtrlSpeed_ValueChanged))
 
     def GenerateCurve(self):
         """Generates the curve using the chosen values and returns it"""

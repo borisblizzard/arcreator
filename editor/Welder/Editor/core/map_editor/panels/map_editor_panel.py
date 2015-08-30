@@ -3,7 +3,7 @@ import wx
 import numpy
 
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import PanelBase, MapEditorToolbar, TilemapPanel
 

@@ -3,7 +3,7 @@ from copy import deepcopy
 import wx
 
 
-import Kernel
+import welder_kernel as kernel
 
 
 #-------------------------------------------------------------------------
@@ -19,7 +19,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
         """Basic constructor for the ScriptSettings_Dialog"""
         ScriptSettings_Dialog_Template.__init__(self, parent)
         global Config
-        Config = Kernel.Config.getUnified()['ScriptEditor']
+        Config = kernel.Config.getUnified()['ScriptEditor']
         self.ScriptControl = scriptcontrol
         self.InstalledFonts = sorted(wx.FontEnumerator.GetFacenames())
         self.comboBoxFont.AppendItems(self.InstalledFonts)
@@ -30,12 +30,12 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def GetStyle(self, index):
         """Returns the associated style at the passed index"""
-        SM = Kernel.System.load("ScriptEditorManager")
+        SM = kernel.System.load("ScriptEditorManager")
         return SM.GetStyles()[index]
 
     def ParseFormatString(self, index):
         """Parses the user defined format string for the style, and returns it"""
-        SM = Kernel.System.load("ScriptEditorManager")
+        SM = kernel.System.load("ScriptEditorManager")
         key = self.GetStyle(index)[1]
         fstring = SM(key)
         style = ScintillaStyle()
@@ -83,7 +83,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
             index = self.InstalledFonts.index(style.face)
         except:
             index = self.InstalledFonts.index(style.GetSystemFont())
-            Kernel.Log(str.format('Font \"{}\" not found on system.', style.face),
+            kernel.Log(str.format('Font \"{}\" not found on system.', style.face),
                        '[Script Editor]', True, False)
         self.comboBoxFont.SetSelection(index)
         self.textCtrlForeColor.ChangeValue(style.GetForeColorAsString())
@@ -99,7 +99,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def RefreshEditorPage(self):
         """Refreshes the controls to reflect the selected style"""
-        SM = Kernel.System.load("ScriptEditorManager")
+        SM = kernel.System.load("ScriptEditorManager")
         self.spinCtrlTabWidth.SetValue(int(Config['tab_width']))
         self.spinCtrlEdgeColumn.SetValue(int(Config['edge_column']))
         self.checkBoxCaret.SetValue(Config['show_caret'])
@@ -119,7 +119,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def updateConfig(self, style, index):
         """updates the copy of the Configuration section with the new style"""
-        SM = Kernel.System.load("ScriptEditorManager")
+        SM = kernel.System.load("ScriptEditorManager")
         keys = SM.GetStyles()
         Config.set(keys[index][1], style.GetFormatString())
 
@@ -244,7 +244,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def buttonDefault_Clicked(self, event):
         """Sets all the styles to the internal default settings"""
-        SM = Kernel.System.load("ScriptEditorManager")
+        SM = kernel.System.load("ScriptEditorManager")
         msg = 'This action is irreversible.\nAre you sure you want to reapply all default styles?'
         if wx.MessageBox(msg, 'Confirm', wx.YES | wx.NO | wx.CENTRE, self) == wx.YES:
 

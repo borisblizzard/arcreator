@@ -3,7 +3,7 @@
 import wx
 
 
-import Kernel
+import welder_kernel as kernel
 
 
 # Implementing SetEventLocation_Dialog

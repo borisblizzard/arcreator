@@ -1,1 +1,1 @@
-from .Menus import MainMenuBar
+from .menus import MainMenuBar

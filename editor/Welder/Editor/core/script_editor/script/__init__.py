@@ -1,1 +1,1 @@
-from .Script import Script
+from .script import Script

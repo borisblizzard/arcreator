@@ -1,3 +1,3 @@
-from .RPGutil import Table
-from .RPGutil import Color
-from .RPGutil import Tone
+from .rpgutil import Table
+from .rpgutil import Color
+from .rpgutil import Tone

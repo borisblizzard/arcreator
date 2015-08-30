@@ -10,6 +10,6 @@
         "Tone": ""
     },
     "provides": {
-        "RGSS1_RPG": ""
+        "RPG_RGSS1": ""
     }
 }

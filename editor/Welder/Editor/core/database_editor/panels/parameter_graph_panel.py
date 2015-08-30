@@ -5,7 +5,7 @@ import numpy as np
 
 from .GraphColors import GRAPH_COLORS
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import DatabaseManager as DM
 
@@ -35,13 +35,13 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
         self.MouseDown = False
         self.interactiveGraph.SetFontSizeAxis(8)
         self.interactiveGraph.canvas.Bind(wx.EVT_LEFT_DOWN,
-                                          Kernel.Protect(self.LeftMouseDown))
+                                          kernel.Protect(self.LeftMouseDown))
         self.interactiveGraph.canvas.Bind(wx.EVT_LEFT_UP,
-                                          Kernel.Protect(self.LeftMouseUp))
+                                          kernel.Protect(self.LeftMouseUp))
         self.interactiveGraph.canvas.Bind(wx.EVT_MOTION,
-                                          Kernel.Protect(self.MouseHover))
+                                          kernel.Protect(self.MouseHover))
         self.interactiveGraph.canvas.Bind(wx.EVT_LEAVE_WINDOW,
-                                          Kernel.Protect(self.LeftMouseUp))
+                                          kernel.Protect(self.LeftMouseUp))
         self.interactiveGraph.SetCursor(wx.StockCursor(wx.CURSOR_CROSS))
         for tab in tabs:
             panel = wx.Panel(self.noteBookParameters)
@@ -76,11 +76,11 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
     def GetValueMax(self, param_index):
         """Returns the max value for the parameter type"""
         if param_index == 0:
-            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorHP'])
+            return int(kernel.Config.getUnified()['DatabaseLimits']['ActorHP'])
         elif param_index == 1:
-            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
+            return int(kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
         else:
-            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
+            return int(kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
 
     def GetData(self):
         """Returns the parameter data in a format fit to graph"""

@@ -1,1 +1,1 @@
-from .Controls import MapTreeCtrl
+from .controls import MapTreeCtrl

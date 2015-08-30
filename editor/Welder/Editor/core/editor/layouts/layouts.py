@@ -2,7 +2,7 @@
 Created on Jan 14, 2011
 
 '''
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import PanelManager
 
@@ -14,10 +14,10 @@ class MainWindowLayout(object):
         self.parent = parent
         self.aui_mgr = aui_mgr
         self.mgr = PanelManager(self.parent, self.aui_mgr)
-        if "PanelManager" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["PanelManager"] = self.mgr
+        if "PanelManager" in kernel.GlobalObjects:
+            kernel.GlobalObjects["PanelManager"] = self.mgr
         else:
-            Kernel.GlobalObjects.newKey("PanelManager", "CORE", self.mgr)
+            kernel.GlobalObjects.newKey("PanelManager", "CORE", self.mgr)
 
         self.CreateToolbars()
         self.CreateStartPanel()
@@ -49,17 +49,17 @@ class ARCModeLayout(object):
 
     def __init__(self):
 
-        if "PanelManager" in Kernel.GlobalObjects:
-            self.mgr = Kernel.GlobalObjects["PanelManager"]
+        if "PanelManager" in kernel.GlobalObjects:
+            self.mgr = kernel.GlobalObjects["PanelManager"]
         else:
             raise RuntimeError("The Panel Manager hasn't been created yet")
         self.windows = []
         self.BuildPanes()
 
     def BuildPanes(self):
-        if ("ProjectOpen" in Kernel.GlobalObjects and
-                Kernel.GlobalObjects["ProjectOpen"] is True and
-                "PROJECT" in Kernel.GlobalObjects):
+        if ("ProjectOpen" in kernel.GlobalObjects and
+                kernel.GlobalObjects["ProjectOpen"] is True and
+                "PROJECT" in kernel.GlobalObjects):
             self.CreateTilesetView()
             self.CreateTreeCtrl()
             #self.regesterParts()

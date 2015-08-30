@@ -1,9 +1,9 @@
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import DatabaseManager as DM
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 
 from PyitectConsumes import ChooseGraphic_Dialog
 
@@ -40,19 +40,19 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         global DataItems, DataStates, DataElements, DataCommonEvents, DataAnimations
         
         try:
-            proj = Kernel.GlobalObjects['PROJECT']
+            proj = kernel.GlobalObjects['PROJECT']
             DataItems = proj.getData('Items')
             DataStates = proj.getData('States')
             DataElements = proj.getData('System').elements
             DataAnimations = proj.getData('Animations')
             DataCommonEvents = proj.getData('CommonEvents')
         except NameError:
-            Kernel.Log(
+            kernel.Log(
                 'Database opened before Project has been initialized', '[Database:ITEMS]', True)
             self.Destroy()
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        font.SetFaceName(kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
         DM.DrawButtonIcon(self.bitmapButtonAudioTest, 'play_button', True)
         self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
@@ -69,7 +69,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
 
     def refreshItems(self):
         """Refreshes the values in the item wxListBox control"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Items'])
+        digits = len(kernel.Config.getUnified()['GameObjects']['Items'])
         DM.FillControl(self.listBoxItems, DataItems, digits, [])
 
     def refreshElements(self):
@@ -89,14 +89,14 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         self.comboBoxParameter.Clear()
         params = ['(None)', 'MaxHP', 'MaxSP']
         if DM.ARC_FORMAT:
-            params.extend(list(Kernel.Config.getUnified()['GameSetup']['Parameters']))
+            params.extend(list(kernel.Config.getUnified()['GameSetup']['Parameters']))
         else:
             params.extend(['STR', 'DEX', 'AGI', 'INT'])
         self.comboBoxParameter.AppendItems(params)
 
     def refreshAnimations(self):
         """Refreshes the choices in the user and target animation controls"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Animations'])
+        digits = len(kernel.Config.getUnified()['GameObjects']['Animations'])
         DM.FillControl(
             self.comboBoxTargetAnimation, DataAnimations, digits, ['(None)'])
         DM.FillControl(
@@ -104,7 +104,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
 
     def refreshCommonEvents(self):
         """Refreshes the common events in the combo box"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['CommonEvents'])
+        digits = len(kernel.Config.getUnified()['GameObjects']['CommonEvents'])
         DM.FillControl(
             self.comboBoxCommonEvent, DataCommonEvents, digits, ['(None)'])
 
@@ -178,13 +178,13 @@ class Items_Panel(Items_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = int(Kernel.Config.getUnified()['GameObjects']['Items'])
+        max = int(kernel.Config.getUnified()['GameObjects']['Items'])
         DM.ChangeDataCapacity(self, self.listBoxItems, DataItems, max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected items's name"""
         DM.updateObjectName(self.SelectedItem, event.GetString(),
-                            self.listBoxItems, len(Kernel.Config.getUnified()['GameObjects']['Items']))
+                            self.listBoxItems, len(kernel.Config.getUnified()['GameObjects']['Items']))
 
     def bitmapButtonIcon_Clicked(self, event):
         """Opens dialog to select an icon for the selected skill"""

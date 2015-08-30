@@ -1,7 +1,7 @@
 from copy import copy
 import numpy
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import Table, ActionTemplate
 
@@ -68,7 +68,7 @@ class DataAction(ActionTemplate):
                         keys_applyed.append(key)
             return True
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception applying Database Action(%s), "
                 "will atempt to revert" % self.type,
                 "[DataAction]", True, True)
@@ -76,10 +76,10 @@ class DataAction(ActionTemplate):
                 for key in keys_applyed:
                     self.data[key] = getattr(self.obj, key)
                     setattr(self.obj, key, self.old_data[key])
-                Kernel.Log("'Apply' Database Action(%s) sucessfuly reverted" %
+                kernel.Log("'Apply' Database Action(%s) sucessfuly reverted" %
                            self.type, "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Apply' "
                     "Database Action(%s), Possible Project coruption" %
                     self.type, "[DataAction]", True, True)
@@ -99,7 +99,7 @@ class DataAction(ActionTemplate):
                         keys_applyed.append(key)
             return True
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception undoing Database Action(%s), "
                 "will atempt to revert" %
                 self.type, "[DataAction]", True, True)
@@ -108,10 +108,10 @@ class DataAction(ActionTemplate):
                 for key in keys_applyed:
                     self.old_data[key] = getattr(self.obj, key)
                     setattr(self.obj, key, self.data[key])
-                Kernel.Log("'Undo' Database Action(%s) sucessfuly reverted" %
+                kernel.Log("'Undo' Database Action(%s) sucessfuly reverted" %
                            self.type, "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Undo' Database "
                     "Action(%s), Possible Project coruption" %
                     self.type, "[DataAction]", True, True)
@@ -344,7 +344,7 @@ class ActorEditAction(DataAction):
                         "'Apply' Sub action failed: %s"
                         % self.parameters_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception applying Actor Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -353,11 +353,11 @@ class ActorEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Apply' Actor Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Apply' Actor Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
             result = False
@@ -375,7 +375,7 @@ class ActorEditAction(DataAction):
                         "'Undo' Sub action failed: %s"
                         % self.parameters_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception undoing Actor Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -384,11 +384,11 @@ class ActorEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Undo' Actor Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Undo' Actor Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
         return result
@@ -434,7 +434,7 @@ class ClassEditAction(DataAction):
                         "'Apply' Sub action failed: %s"
                         % self.element_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception applying Class Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -443,11 +443,11 @@ class ClassEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Apply' Class Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Apply' Class Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
             result = False
@@ -472,7 +472,7 @@ class ClassEditAction(DataAction):
                         "'Undo' Sub action failed: %s"
                         % self.element_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception undoing Class Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -481,11 +481,11 @@ class ClassEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Undo' Class Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Undo' Class Edit "
                     "Action, Possible Project coruption", "[DataAction]",
                     True, True)
@@ -592,7 +592,7 @@ class AnimationFrameEditAction(DataAction):
                         "'Apply' Sub action failed: %s"
                         % self.cell_data_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception applying Animation Frame Edit Action, "
                 "will atempt to revert",
                 "[DataAction]", True, True)
@@ -602,11 +602,11 @@ class AnimationFrameEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Apply' Animation Frame Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Apply' Animation Frame Edit "
                     "Action, Possible Project coruption", "[DataAction]",
                     True, True)
@@ -624,7 +624,7 @@ class AnimationFrameEditAction(DataAction):
                     raise Exception(
                         "'Undo' Sub action failed: %s" % self.cell_data_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception undoing Animation Frame Edit Action, will atempt "
                 "to revert", "[DataAction]", True, True)
             try:
@@ -633,11 +633,11 @@ class AnimationFrameEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Undo' Animation Frame Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Undo' Animation Frame Edit "
                     "Action, Possible Project coruption", "[DataAction]",
                     True, True)
@@ -724,7 +724,7 @@ class EnemyEditAction(DataAction):
                         "'Apply' Sub action failed: %s"
                         % self.element_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception applying Enemy Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -733,11 +733,11 @@ class EnemyEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Apply' Enemy Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Apply' Enemy Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
             result = False
@@ -762,7 +762,7 @@ class EnemyEditAction(DataAction):
                         "'Undo' Sub action failed: %s"
                         % self.element_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception undoing Enemy Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -771,11 +771,11 @@ class EnemyEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Undo' Enemy Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Undo' Enemy Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
         return result
@@ -897,7 +897,7 @@ class MapEditAction(DataAction):
                         "'Apply' Sub action failed: %s"
                         % self.element_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception applying Map Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -906,11 +906,11 @@ class MapEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Apply' Map Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Apply' Map Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
             result = False
@@ -928,7 +928,7 @@ class MapEditAction(DataAction):
                         "'Undo' Sub action failed: %s"
                         % self.state_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception undoing Map Edit Action, will atempt to revert",
                 "[DataAction]", True, True)
             try:
@@ -937,11 +937,11 @@ class MapEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Undo' Map Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Undo' Map Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
         return result
@@ -1101,7 +1101,7 @@ class TilesetEditAction(DataAction):
                         "'Apply' Sub action failed: %s"
                         % self.element_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception applying Tileset Edit Action, "
                 "will atempt to revert", "[DataAction]", True, True)
             try:
@@ -1110,11 +1110,11 @@ class TilesetEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Apply' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Apply' Tileset Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Apply' Tileset Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
             result = False
@@ -1146,7 +1146,7 @@ class TilesetEditAction(DataAction):
                         "'Undo' Sub action failed: %s"
                         % self.element_ranks_action)
         except Exception:
-            Kernel.Log(
+            kernel.Log(
                 "Exception undoing Tileset Edit Action, "
                 "will atempt to revert", "[DataAction]", True, True)
             try:
@@ -1155,11 +1155,11 @@ class TilesetEditAction(DataAction):
                     if not test:
                         raise Exception(
                             "'Undo' Sub action revert failed: %s" % action)
-                Kernel.Log(
+                kernel.Log(
                     "'Undo' Tileset Edit Action sucessfuly reverted",
                     "[DataAction]", True)
             except Exception:
-                Kernel.Log(
+                kernel.Log(
                     "Exception reverting failed 'Undo' Tileset Edit Action, "
                     "Possible Project coruption", "[DataAction]", True, True)
         return result

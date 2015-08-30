@@ -13,7 +13,7 @@ import copy
 
 import collections
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import ARCDataDumpFunction, ARCDataLoadFunction
 

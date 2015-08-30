@@ -6,7 +6,7 @@
     "consumes": {
         "ScriptEditorManager": "",
         "PanelBase": "",
-        "RGSS1_RPG": "",
+        "RPG_RGSS1": "",
         "RTPFunctions": ""
     },
     "provides": {

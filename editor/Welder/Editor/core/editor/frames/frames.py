@@ -13,7 +13,7 @@ import wx
 import wx.lib.agw.aui as aui
 
 
-import Kernel
+import welder_kernel as kernel
 from PyitectConsumes import IconManager
 from PyitectConsumes import MainWindowLayout
 from PyitectConsumes import MainStatusBar
@@ -86,7 +86,7 @@ class EditorMainWindow(wx.Frame):
 
         self.SetMinSize(MinEditorSize)
 
-        # Kernel.System.bind_event('RefreshProject', )
+        # kernel.System.bind_event('RefreshProject', )
 
         self.Bind(wx.EVT_UPDATE_UI, self.updateUI)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
@@ -101,14 +101,14 @@ class EditorMainWindow(wx.Frame):
         # start The autosave Time
         self.AutoSaveTimer = wx.Timer(self)
         # TODO: fix autosave
-        #save_intervel = Kernel.Config.getint("Main", "Autosave")
+        #save_intervel = kernel.Config.getint("Main", "Autosave")
         #self.Bind(wx.EVT_TIMER, self.ProcessAutoSave, self.AutoSaveTimer)
         #self.AutoSaveTimer.Start(save_intervel * 60000, False)
 
         # show the window
         wx.GetApp().SetTopWindow(self)
         self.Show(True)
-        Kernel.System.fire_event("EditorReady")
+        kernel.System.fire_event("EditorReady")
 
     def CallLayout(self):
         if self.layout_mgr is not None:
@@ -120,18 +120,18 @@ class EditorMainWindow(wx.Frame):
     def CreateMenuBar(self):
         self.menubar = MainMenuBar(self)
         self.SetMenuBar(self.menubar)  # Adding the MenuBar to the Frame.
-        if "MainMenuBar" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["MainMenuBar"] = self.menubar
+        if "MainMenuBar" in kernel.GlobalObjects:
+            kernel.GlobalObjects["MainMenuBar"] = self.menubar
         else:
-            Kernel.GlobalObjects.newKey("MainMenuBar", "CORE", self.menubar)
+            kernel.GlobalObjects.newKey("MainMenuBar", "CORE", self.menubar)
 
     def CreateStatusBar(self):
         self.statusbar = MainStatusBar(self)
         self.SetStatusBar(self.statusbar)
-        if "MainStatusBar" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["MainStatusBar"] = self.menubar
+        if "MainStatusBar" in kernel.GlobalObjects:
+            kernel.GlobalObjects["MainStatusBar"] = self.menubar
         else:
-            Kernel.GlobalObjects.newKey("MainStatusBar", "CORE", self.statusbar)
+            kernel.GlobalObjects.newKey("MainStatusBar", "CORE", self.statusbar)
 
     def ClearLayout(self):
         if self.layout_mgr is not None:
@@ -139,10 +139,10 @@ class EditorMainWindow(wx.Frame):
         self._mgr.Update()
 
     def updateUI(self, event):
-        if "Title" in Kernel.GlobalObjects:
-            if Kernel.GlobalObjects["Title"] != "":
+        if "Title" in kernel.GlobalObjects:
+            if kernel.GlobalObjects["Title"] != "":
                 title = self.main_title + " - " + \
-                    Kernel.GlobalObjects["Title"]
+                    kernel.GlobalObjects["Title"]
                 if self.GetTitle() != title:
                     self.SetTitle(title)
             else:
@@ -157,11 +157,11 @@ class EditorMainWindow(wx.Frame):
 
     def ProcessClose(self):
         # handle an open project
-        Kernel.System.fire_event("CoreExitMainWindow")
-        if ("ProjectOpen" in Kernel.GlobalObjects and
-                Kernel.GlobalObjects["ProjectOpen"] and
-                "PROJECT" in Kernel.GlobalObjects):
-            current_project = Kernel.GlobalObjects["PROJECT"]
+        kernel.System.fire_event("CoreExitMainWindow")
+        if ("ProjectOpen" in kernel.GlobalObjects and
+                kernel.GlobalObjects["ProjectOpen"] and
+                "PROJECT" in kernel.GlobalObjects):
+            current_project = kernel.GlobalObjects["PROJECT"]
             if (current_project.hasDataChanged() or
                     current_project.hasInfoChanged()):
                 message = ("There are unsaved changes in the currently "
@@ -172,17 +172,17 @@ class EditorMainWindow(wx.Frame):
                 result = dlg.ShowModal()
                 dlg.Destroy()
                 if result == wx.YES:
-                    Kernel.System.load("SaveProjectHandler")()
+                    kernel.System.load("SaveProjectHandler")()
 
     def ProcessAutoSave(self, event):
-        Kernel.System.fire_event("AutoSave")
+        kernel.System.fire_event("AutoSave")
 
     def OnPaneFloating(self, event):
         pass
 
     def OnPaneFloated(self, event):
-        # if "PanelManager" in Kernel.GlobalObjects:
-        #     PM = Kernel.GlobalObjects["PanelManager"]
+        # if "PanelManager" in kernel.GlobalObjects:
+        #     PM = kernel.GlobalObjects["PanelManager"]
         #     if PM.getDockedCenterPanels() <= 1:
         #         wx.CallAfter(PM.dispatchPanel, "ShadowPanel", "ShadowPanel")
         wx.CallAfter(self._mgr.Update)
@@ -191,8 +191,8 @@ class EditorMainWindow(wx.Frame):
         pass
 
     def OnPaneDocked(self, event):
-        # if "PanelManager" in Kernel.GlobalObjects:
-        #     PM = Kernel.GlobalObjects["PanelManager"]
+        # if "PanelManager" in kernel.GlobalObjects:
+        #     PM = kernel.GlobalObjects["PanelManager"]
         #     if PM.getDockedCenterPanels() >= 0:
         #         wx.CallAfter(PM.removePanel, "ShadowPanel")
         wx.CallAfter(self._mgr.Update)
@@ -202,8 +202,8 @@ class EditorMainWindow(wx.Frame):
 
 
     def OnFocus(self, event):
-        if "PanelManager" in Kernel.GlobalObjects:
-            PM = Kernel.GlobalObjects["PanelManager"]
+        if "PanelManager" in kernel.GlobalObjects:
+            PM = kernel.GlobalObjects["PanelManager"]
             wid = PM.getPanelID(self)
             info = PM.getPanelInfo(wid)
             if info is not None:

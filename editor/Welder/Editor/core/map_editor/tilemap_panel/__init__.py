@@ -1,1 +1,1 @@
-from .TilemapPanel import TilemapPanel
+from .tilemap_panel import TilemapPanel

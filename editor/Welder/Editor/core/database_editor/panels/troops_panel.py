@@ -1,6 +1,6 @@
 import wx
 
-import Kernel
+import welder_kernel as kernel
 from PyitectConsumes import PanelBase, Troops_Panel_Template
 from PyitectConsumes import DatabaseManager as DM
 

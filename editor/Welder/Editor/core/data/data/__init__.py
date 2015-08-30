@@ -1,4 +1,4 @@
-from .Data import NewProject as NewProjectHandler
-from .Data import OpenProject as OpenProjectHandler
-from .Data import SaveProject as SaveProjectHandler
-from .Data import SaveProjectAS as SaveProjectASHandler
+from .data import NewProject as NewProjectHandler
+from .data import OpenProject as OpenProjectHandler
+from .data import SaveProject as SaveProjectHandler
+from .data import SaveProjectAS as SaveProjectASHandler

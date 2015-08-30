@@ -10,7 +10,7 @@ import re
 
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import RTPFunctions
 

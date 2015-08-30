@@ -1,1 +1,1 @@
-from .Controls import MainStatusBar
+from .controls import MainStatusBar

@@ -6,7 +6,7 @@ import pyglet
 pyglet.options['shadow_window'] = False
 from pyglet import gl
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import PygletGLPanel
 from PyitectConsumes import TilemapMouseManager
@@ -70,7 +70,7 @@ class TilemapPanel(PygletGLPanel):
 
     def OnLeftButtonDEvent(self, event):
         if self.onEventLayer():
-            mgr = Kernel.GlobalObjects["PanelManager"]
+            mgr = kernel.GlobalObjects["PanelManager"]
             x, y = self.ConvertEventCoords(event)
             event = self.FindEvent(x, y)
             if event:
@@ -91,7 +91,7 @@ class TilemapPanel(PygletGLPanel):
                 self.SetTopLeftXY(event)
             self.SetBottomRightXY(event)
         if event.LeftDown():
-            Kernel.System.fire_event("MapEditorMouseLeftDown", event)
+            kernel.System.fire_event("MapEditorMouseLeftDown", event)
             self.SetFocus()
             self.canvas.CaptureMouse()
             if self.onEventLayer():
@@ -159,7 +159,7 @@ class TilemapPanel(PygletGLPanel):
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
         table = self.map.data
-        self.cache = Kernel.System.load("RTPPygletCache")()
+        self.cache = kernel.System.load("RTPPygletCache")()
         tileset = self.tilesets[self.map.tileset_id]
         self.tilemap = Tilemap(
             self.cache, table, tileset.tileset_name, tileset.autotile_names)

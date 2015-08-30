@@ -1,9 +1,9 @@
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import DatabaseManager as DM
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 
 from PyitectConsumes import ChooseGraphic_Dialog
 
@@ -39,21 +39,21 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         global DataStates, DataCommonEvents
         
         try:
-            proj = Kernel.GlobalObjects['PROJECT']
+            proj = kernel.GlobalObjects['PROJECT']
             DataSkills = proj.getData('Skills')
             DataAnimations = proj.getData('Animations')
             DataStates = proj.getData('States')
             DataElements = proj.getData('System').elements
             DataCommonEvents = proj.getData('CommonEvents')
         except NameError:
-            Kernel.Log(
+            kernel.Log(
                 'Database opened before Project has been initialized', '[Database:SKILLS]', True)
             self.Destroy()
 
         try:
-            note_font = str(Kernel.Config.getUnified()['Misc']['NoteFont'])
+            note_font = str(kernel.Config.getUnified()['Misc']['NoteFont'])
         except KeyError as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             note_font = "Arial"
 
         font = wx.Font(
@@ -81,9 +81,9 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
     def refreshSkillList(self):
         """Refreshes the values in the skill wxListBox control"""
         try:
-            digits = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+            digits = int(kernel.Config.getUnified()['GameObjects']['Skills'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             digits = 9999
 
         DM.FillControl(self.listBoxSkills, DataSkills, digits, [])
@@ -91,9 +91,9 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
     def refreshAnimations(self):
         """Refreshes the choices in the user and target animation controls"""
         try:
-            digits = int(Kernel.Config.getUnified()['GameObjects']['Animations'])
+            digits = int(kernel.Config.getUnified()['GameObjects']['Animations'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             digits = 9999
 
         
@@ -117,9 +117,9 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
     def refreshCommonEvents(self):
         """Refreshes the common events in the combo box"""
         try:
-            digits = int(Kernel.Config.getUnified()['GameObjects']['CommonEvents'])
+            digits = int(kernel.Config.getUnified()['GameObjects']['CommonEvents'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             digits = 999
 
         
@@ -196,15 +196,15 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def setRanges(self):
         try:
-            actor_sp_max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
+            actor_sp_max = int(kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             actor_sp_max = 999
 
         try:
-            actor_peram_max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
+            actor_peram_max = int(kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             actor_peram_max = 9999
 
         self.ParameterControls[0].SetRange(0, actor_sp_max)
@@ -225,9 +225,9 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
         try:
-            skills_max = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+            skills_max = int(kernel.Config.getUnified()['GameObjects']['Skills'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             skills_max = 9999   
         
         DM.ChangeDataCapacity(self, self.listBoxSkills, DataSkills, skills_max)
@@ -235,9 +235,9 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
     def textCtrlName_TextChanged(self, event):
         """updates the selected skill's name"""
         try:
-            skills_max = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
+            skills_max = int(kernel.Config.getUnified()['GameObjects']['Skills'])
         except Exception as e:
-            Kernel.Log("Bad Config Value", error=True)
+            kernel.Log("Bad Config Value", error=True)
             skills_max = 9999   
         
         DM.updateObjectName(self.SelectedSkill, event.GetString(),

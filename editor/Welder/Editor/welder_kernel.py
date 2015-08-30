@@ -10,7 +10,7 @@ Function - holds a registered extension (methods and functions)
 Event - container for organizing events and calling attached functions
 Type - container for organizing extensions that do the same thing
 Package - container for organizing and registering groups of extensions
-Manager - the main processor of the Kernel
+Manager - the main processor of the kernel
 '''
 import os
 import sys
@@ -301,7 +301,7 @@ class StatusBar(object):
 
 
 # =========================================================================
-# Kernel classes
+# kernel classes
 # =========================================================================
 
 
@@ -334,7 +334,7 @@ class Protect(object):
 
 
 # =========================================================================
-# * Kernel Functions
+# * kernel Functions
 # =========================================================================
 
 
@@ -386,7 +386,7 @@ def DeleteLog():
             os.remove(logpath)
     except Exception:
         # an error clearing out the log? interesting but not all that important
-        print("[Kernel] There has been an error")
+        print("[kernel] There has been an error")
         print(traceback.format_exc())
 
 
@@ -421,7 +421,7 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
         # if this failed then we have no choice but to print the exception and
         # hope for the best. perhaps wx will cache it and print to it's stdout
         # window
-        print("[Kernel] There has been an error")
+        print("[kernel] There has been an error")
         print(traceback.format_exc())
 
 
@@ -531,7 +531,7 @@ def Inform(title, message, error=False):
     except Exception:
         # if this fails lets log it with out an inform
         Log("Inform failed: [Message] %s  [Error?] %s" %
-            (message, error), "[Kernel Inform]", error=True)
+            (message, error), "[kernel Inform]", error=True)
 
 
 def parseInt(string):

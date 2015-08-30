@@ -1,1 +1,1 @@
-from .PanelManager import PanelManager
+from .panel_manager import PanelManager

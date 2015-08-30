@@ -1,7 +1,7 @@
 import wx
 
 
-import Kernel
+import welder_kernel as kernel
 
 
 from PyitectConsumes import ChangeMaximum_Dialog_Template

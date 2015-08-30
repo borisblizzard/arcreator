@@ -1,1 +1,1 @@
-from .Icons import IconManager
+from .icons import IconManager

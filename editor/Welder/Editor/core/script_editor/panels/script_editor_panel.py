@@ -4,7 +4,7 @@ import os
 
 import re
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import ScriptEditorManager as SM
 from PyitectConsumes import PanelBase, ScriptEditor_Panel_Template, ScriptSettings_Dialog
@@ -42,24 +42,24 @@ class ScriptEditor_Panel(ScriptEditor_Panel_Template, PanelBase):
         self.CreateToolBar()
         # self.statusBar = parent.CreateStatusBar()
         # TODO: give teh script editor it's own status bar
-        # self.statusBar = Kernel.GlobalObjects["MainStatusBar"]
+        # self.statusBar = kernel.GlobalObjects["MainStatusBar"]
         self.statusBar.SetFieldsCount(3)
         self.statusBar.SetStatusWidths([-4, -4, -2])
         # TODO: Get path by using project path + Data/Scripts/
         # path = r"C:\Users\Eric\Desktop\ARC\editor\Welder\src\RTP\Templates\Chonicles of Sir Lag-A-Lot\Data\Scripts"
-        path = os.path.join(Kernel.GlobalObjects["CurrentProjectDir"], 'Data', 'Scripts')
+        path = os.path.join(kernel.GlobalObjects["CurrentProjectDir"], 'Data', 'Scripts')
         try:
             SM.LoadScripts()
         except:
-            Kernel.Log(
+            kernel.Log(
                 'Failed to successfully load all scripts.', '[ScriptEditor]', True, True)
         global Scripts
-        Scripts = Kernel.GlobalObjects['Scripts']
+        Scripts = kernel.GlobalObjects['Scripts']
         self.ScriptIndex = -1
         if index >= 0:
             self.OpenScript(index=index)
         self.scriptCtrl.Bind(
-            wx.EVT_KEY_DOWN, Kernel.Protect(self.RefreshStatus))
+            wx.EVT_KEY_DOWN, kernel.Protect(self.RefreshStatus))
         self.scriptCtrl.Bind(stc.EVT_STC_UPDATEUI, self.RefreshStatus)
         self.comboBoxScripts.AppendItems(
             [script.GetName() for script in Scripts])
@@ -131,12 +131,12 @@ class ScriptEditor_Panel(ScriptEditor_Panel_Template, PanelBase):
         self.Bind(wx.EVT_TOOL, self.OnRedo, id=4)
         self.Bind(wx.EVT_TOOL, self.OnFind, id=5)
         self.Bind(wx.EVT_TOOL, self.OnReplace, id=6)
-        self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnSettings), id=7)
-        self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnNormalize), id=8)
-        self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnHelp), id=9)
-        self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindPrevious), id=10)
-        self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindNext), id=11)
-        self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnSave), id=12)
+        self.Bind(wx.EVT_TOOL, kernel.Protect(self.OnSettings), id=7)
+        self.Bind(wx.EVT_TOOL, kernel.Protect(self.OnNormalize), id=8)
+        self.Bind(wx.EVT_TOOL, kernel.Protect(self.OnHelp), id=9)
+        self.Bind(wx.EVT_TOOL, kernel.Protect(self.FindPrevious), id=10)
+        self.Bind(wx.EVT_TOOL, kernel.Protect(self.FindNext), id=11)
+        self.Bind(wx.EVT_TOOL, kernel.Protect(self.OnSave), id=12)
 
     def RefreshScript(self):
         """Refreshes the displayed text"""
@@ -197,7 +197,7 @@ class ScriptEditor_Panel(ScriptEditor_Panel_Template, PanelBase):
 
         dlg = ScriptSettings_Dialog(self, self.scriptCtrl)
         if dlg.ShowModal() == wx.ID_OK:
-            config = Kernel.GlobalObjects.get_value(
+            config = kernel.GlobalObjects.get_value(
                 'Welder_config').get_section('ScriptEditor')
             new_config = dlg.GetConfiguration()
             for key, value in new_config.items():

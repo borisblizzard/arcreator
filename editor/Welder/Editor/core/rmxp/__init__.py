@@ -1,12 +1,12 @@
-from .RGSS1_RPG import extend_namespace
-from .RGSS1_RPG import RPG as RGSS1_RPG
+from .rpg_rgss1 import extend_namespace
+from .rpg_rgss1 import RPG as RPG_RGSS1
 
 
 def bind_on_enable():
-    import Kernel
+    import welder_kernel as kernel
 
-    Kernel.System.bind_event("ARCExtendNamespaceOnLoad", extend_namespace)
-    Kernel.Log(
-        "RMXP: bound RGSS1_RPG.extend_namespace to 'ARCExtendNamespaceOnLoad'",
+    kernel.System.bind_event("ARCExtendNamespaceOnLoad", extend_namespace)
+    kernel.Log(
+        "RMXP: bound RPG_RGSS1.extend_namespace to 'ARCExtendNamespaceOnLoad'",
         "[PLUGIN]"
     )

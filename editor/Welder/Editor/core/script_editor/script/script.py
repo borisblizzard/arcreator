@@ -1,7 +1,7 @@
 import os
 from codecs import open as utf8_open
 
-import Kernel
+import welder_kernel as kernel
 
 # -------------------------------------------------------------------------
 # Script
@@ -14,7 +14,7 @@ class Script(object):
         """Basic constructor for a Script object"""
         self._readonly = readonly
         self.Id = id
-        Kernel.Protect(self.LoadScript)(path)
+        kernel.Protect(self.LoadScript)(path)
         self.CursorPosition = 0
         self._modified_text = None
         self._modified_name = None

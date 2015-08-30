@@ -1,1 +1,1 @@
-from .EventPanel import EventPanel
+from .event_panel import EventPanel

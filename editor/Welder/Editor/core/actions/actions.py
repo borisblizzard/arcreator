@@ -2,7 +2,7 @@
 Created on Oct 10, 2011
 
 '''
-import Kernel
+import welder_kernel as kernel
 
 
 class ActionStack(object):
@@ -97,7 +97,7 @@ class ActionManager(object):
         if action_stack._current_action >= len(action_stack._stack):
             action_stack._current_action = len(action_stack._stack) - 1
         if not success:
-            Kernel.Log(
+            kernel.Log(
                 "Warning: Action(s) not completed successfully",
                 "[Action Framwork]")
 

@@ -1,8 +1,8 @@
 import wx
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import DatabaseManager as DM
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 
 from PyitectConsumes import ChooseGraphic_Dialog
 from PyitectConsumes import EnemyAction_Dialog
@@ -41,18 +41,18 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         global Config, DataEnemies, DataStates, DataAnimations, DataElements
         
         try:
-            proj = Kernel.GlobalObjects['PROJECT']
+            proj = kernel.GlobalObjects['PROJECT']
             DataEnemies = proj.getData('Enemies')
             DataAnimations = proj.getData('Animations')
             DataStates = proj.getData('States')
             DataElements = proj.getData('System').elements
         except NameError:
-            Kernel.Log(
+            kernel.Log(
                 'Database opened before Project has been initialized', '[Database:ENEMIES]', True)
             self.Destroy()
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        font.SetFaceName(kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
         default = ['MaxHP:', 'MaxSP:', 'EVA:', 'ATK:', 'PDEF:', 'MDEF:']
         self.ParameterControls = DM.CreateParameterControls(self.panelParameters,
@@ -69,12 +69,12 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
     def setRanges(self):
         """Sets the ranges of allowed values for the controls"""
         self.ParameterControls[0].SetRange(
-            1, int(Kernel.Config.getUnified()['DatabaseLimits']['EnemyHP']))
+            1, int(kernel.Config.getUnified()['DatabaseLimits']['EnemyHP']))
         self.ParameterControls[1].SetRange(
-            1, int(Kernel.Config.getUnified()['DatabaseLimits']['EnemySP']))
+            1, int(kernel.Config.getUnified()['DatabaseLimits']['EnemySP']))
         for i in range(2, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(0,
-                                               int(Kernel.Config.getUnified()['DatabaseLimits']['EnemyParameter']))
+                                               int(kernel.Config.getUnified()['DatabaseLimits']['EnemyParameter']))
 
     def refreshAll(self):
         """Refreshes all the controls on the panel"""
@@ -87,7 +87,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
 
     def refreshEnemyList(self):
         """Refreshes the list of enemies"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Enemies'])
+        digits = len(kernel.Config.getUnified()['GameObjects']['Enemies'])
         DM.FillControl(self.listBoxEnemies, DataEnemies, digits, [])
 
     def refreshGraphic(self):
@@ -97,7 +97,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
 
     def refreshAnimations(self):
         """Refreshes the choices in the user and target animation controls"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Animations'])
+        digits = len(kernel.Config.getUnified()['GameObjects']['Animations'])
         DM.FillControl(
             self.comboBoxTargetAnimation, DataAnimations, digits, ['(None)'])
         DM.FillControl(
@@ -136,7 +136,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
             self.comboBoxExp.SetValue(str(enemy.exp))
             self.comboBoxGold.SetValue(str(enemy.gold))
             trsr = None
-            proj = Kernel.GlobalObjects['PROJECT']
+            proj = kernel.GlobalObjects['PROJECT']
             if enemy.item_id != 0:
                 trsr = (proj.getData('Items'), enemy.item_id)
             elif enemy.weapon_id != 0:
@@ -175,7 +175,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = int(Kernel.Config.getUnified()['GameObjects']['Enemies'])
+        max = int(kernel.Config.getUnified()['GameObjects']['Enemies'])
         DM.ChangeDataCapacity(self, self.listBoxEnemies, DataEnemies, max)
 
     def textCtrlName_ValueChanged(self, event):
@@ -237,7 +237,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         else:
             variance = None
         dialog = EnemyExpGold_Dialog(self, 'Experience:',
-                                     int(Kernel.Config.getUnified()['DatabaseLimits']['EnemyExperience']), self.SelectedEnemy.exp, variance)
+                                     int(kernel.Config.getUnified()['DatabaseLimits']['EnemyExperience']), self.SelectedEnemy.exp, variance)
         dialog.SetLabel('Enemy Experience')
         if dialog.ShowModal() == wx.ID_OK:
             data = dialog.GetValues()
@@ -256,7 +256,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         else:
             variance = None
         dialog = EnemyExpGold_Dialog(self, 'Gold:',
-                                     int(Kernel.Config.getUnified()['DatabaseLimits']['Gold']), self.SelectedEnemy.gold, variance)
+                                     int(kernel.Config.getUnified()['DatabaseLimits']['Gold']), self.SelectedEnemy.gold, variance)
         dialog.SetLabel('Enemy Gold')
         if dialog.ShowModal() == wx.ID_OK:
             data = dialog.GetValues()

@@ -3,10 +3,10 @@ import wx.lib.agw.floatspin as floatspin
 import numpy as np
 
 
-import Kernel
+import welder_kernel as kernel
 
 
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 from PyitectConsumes import DatabaseManager as DM
 
 from PyitectConsumes import PanelBase
@@ -31,7 +31,7 @@ class ExpGrid_Dialog(ExpGrid_Dialog_Template):
         self.spinCtrlSpeed.SetIncrement(0.25)
         self.spinCtrlSpeed.SetDigits(2)
         self.spinCtrlSpeed.Bind(floatspin.EVT_FLOATSPIN,
-                                Kernel.Protect(self.spinCtrlSpeed_ValueChanged))
+                                kernel.Protect(self.spinCtrlSpeed_ValueChanged))
         # Apply settings for the controls
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)

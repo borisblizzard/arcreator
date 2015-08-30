@@ -1,8 +1,8 @@
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import PanelBase, BattleTestActor_Panel_Template
 from PyitectConsumes import DatabaseManager as DM
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 # -------------------------------------------------------------------------
 # BattleTestActor_Panel
 # -------------------------------------------------------------------------

@@ -5,7 +5,7 @@
     "file" : "__init__.py",
     "consumes": {
         "PanelBase": "",
-        "RGSS1_RPG": "",
+        "RPG_RGSS1": "",
         "RTPFunctions": "",
         "Table": "",
         "DatabaseManager": "",

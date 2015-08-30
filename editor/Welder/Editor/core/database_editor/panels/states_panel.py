@@ -1,4 +1,4 @@
-import Kernel
+import welder_kernel as kernel
 from PyitectConsumes import PanelBase, States_Panel_Template
 from PyitectConsumes import DatabaseManager as DM
 

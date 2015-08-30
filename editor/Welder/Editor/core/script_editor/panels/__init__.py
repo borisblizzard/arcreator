@@ -1,1 +1,1 @@
-from .ScriptEditor_Panel import ScriptEditor_Panel
+from .script_editor_panel import ScriptEditor_Panel

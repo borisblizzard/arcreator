@@ -40,7 +40,7 @@
             # get plugin components
             self.RPG = KM.get_component("RPG", "RMXP").object
             self.Table = KM.get_component("Table", "RMXP").object
-            self.Project = Kernel.Global.Project
+            self.Project = kernel.Global.Project
             self.Cache = KM.get_component("WxCache", "RMXP").object
             # init data
             self.map_id = 0

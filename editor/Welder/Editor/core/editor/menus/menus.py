@@ -4,7 +4,7 @@ Created on Dec 21, 2010
 '''
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 class MainMenuBar(wx.MenuBar):
     """the main menu bar for the application"""
@@ -24,22 +24,22 @@ class FileMenu(wx.Menu):
 
     def __init__(self, mainwindow):
         wx.Menu.__init__(self)
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         filehistory = None
         if "filehistory" in config:
             if isinstance(config["filehistory"], int):
                 filehistory = config["filehistory"]
             else:
-                Kernel.Log("Invalid setting for FileHistory in configuration", "[FileHistory]", error=True)
+                kernel.Log("Invalid setting for FileHistory in configuration", "[FileHistory]", error=True)
         if filehistory is None:
             filehistory = 5
         self.filehistory = wx.FileHistory(filehistory)
-        self.filehistory.Load(Kernel.GlobalObjects["WX_config"])
+        self.filehistory.Load(kernel.GlobalObjects["WX_config"])
 
-        if "FileHistory" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["FileHistory"] =  self.filehistory
+        if "FileHistory" in kernel.GlobalObjects:
+            kernel.GlobalObjects["FileHistory"] =  self.filehistory
         else:
-            Kernel.GlobalObjects.newKey("FileHistory", "CORE", self.filehistory)
+            kernel.GlobalObjects.newKey("FileHistory", "CORE", self.filehistory)
 
         self.mainwindow = mainwindow
 
@@ -72,40 +72,40 @@ class FileMenu(wx.Menu):
         self.mainwindow.Bind(wx.EVT_UPDATE_UI, self.update, self.saveas)
 
     def NewProject(self, event):
-        newproject = Kernel.System.load("NewProjectHandler")
+        newproject = kernel.System.load("NewProjectHandler")
         newproject(self.mainwindow)
-        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
+        self.filehistory.Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
 
     def OpenProject(self, event):
-        openproject = Kernel.System.load("OpenProjectHandler")
+        openproject = kernel.System.load("OpenProjectHandler")
         openproject(self.mainwindow, self.filehistory)
-        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
+        self.filehistory.Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
 
     def SaveProject(self, event):
-        saveproject = Kernel.System.load("SaveProjectHandler")
+        saveproject = kernel.System.load("SaveProjectHandler")
         saveproject(self.mainwindow)
-        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
+        self.filehistory.Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
 
     def SaveProjectAs(self, event):
-        saveprojectas = Kernel.System.load("SaveAsProjectHandler")
+        saveprojectas = kernel.System.load("SaveAsProjectHandler")
         saveprojectas(self.mainwindow, self.filehistory)
-        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
+        self.filehistory.Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
 
     def onFileHistory(self, event):
         fileNum = event.GetId() - wx.ID_FILE1
         path = self.filehistory.GetHistoryFile(fileNum)
         self.filehistory.AddFileToHistory(path)
-        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
-        Kernel.GlobalObjects["WX_config"].Flush()
-        openproject = Kernel.System.load("OpenProjectHandler")
+        self.filehistory.Save(kernel.GlobalObjects["WX_config"])
+        kernel.GlobalObjects["WX_config"].Flush()
+        openproject = kernel.System.load("OpenProjectHandler")
         openproject(self.mainwindow, self.filehistory, path)
 
     def update(self, event):
-        if "ProjectOpen" in Kernel.GlobalObjects and Kernel.GlobalObjects["ProjectOpen"]:
+        if "ProjectOpen" in kernel.GlobalObjects and kernel.GlobalObjects["ProjectOpen"]:
             event.Enable(True)
         else:
             event.Enable(False)

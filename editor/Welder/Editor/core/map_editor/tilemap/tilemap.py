@@ -2,7 +2,7 @@ import rabbyt
 import numpy
 import pyglet
 
-import Kernel
+import welder_kernel as kernel
 
 
 class TilemapEventStruct(object):

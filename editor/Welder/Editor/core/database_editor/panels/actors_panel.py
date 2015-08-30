@@ -1,7 +1,7 @@
 import wx
 import numpy as np
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import PanelBase
 from PyitectConsumes import Actors_Panel_Template
@@ -9,7 +9,7 @@ from PyitectConsumes import ExpGrid_Dialog
 from PyitectConsumes import GenerateCurve_Dialog
 from PyitectConsumes import AddParameter_Dialog
 from PyitectConsumes import DatabaseManager as DM
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 
 from .GraphColors import GRAPH_COLORS
 
@@ -43,7 +43,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         """Basic constructor for the Actors panel"""
         Actors_Panel_Template.__init__(self, parent)
 
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
 
         # Set font for the note control
         font = wx.Font(8, wx.FONTFAMILY_TELETYPE,
@@ -66,18 +66,18 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
         self.glCanvasCharacter.canvas.Bind(
             wx.EVT_LEFT_DCLICK,
-            Kernel.Protect(self.glCanvasCharacter_DoubleClick)
+            kernel.Protect(self.glCanvasCharacter_DoubleClick)
         )
         self.glCanvasBattler.canvas.Bind(
             wx.EVT_LEFT_DCLICK,
-            Kernel.Protect(self.glCanvasBattler_DoubleClick)
+            kernel.Protect(self.glCanvasBattler_DoubleClick)
         )
         self.parameterGraph.canvas.Bind(
             wx.EVT_LEFT_DCLICK,
-            Kernel.Protect(self.parameterGraph_DoubleClicked)
+            kernel.Protect(self.parameterGraph_DoubleClicked)
         )
 
-        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        actors = kernel.GlobalObjects['PROJECT'].getData('Actors')
         # Initialize the selected actor attribute
         if actorIndex >= len(actors):
             actorIndex = 0
@@ -109,9 +109,9 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.noteBookActorParameters.AddPage(page, title)
         index = self.noteBookActorParameters.GetPageCount() - 1
         maxlevel = int(
-            Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']
+            kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']
         )
-        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        actors = kernel.GlobalObjects['PROJECT'].getData('Actors')
         for actor in actors:
             if actor is None:
                 actor = RPG.Actor()
@@ -128,10 +128,10 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         """
         if DM.ARC_FORMAT:
             equipment = list(
-                Kernel.Config.getUnified()['GameSetup']['WeaponSlots']
+                kernel.Config.getUnified()['GameSetup']['WeaponSlots']
             )
             equipment.extend(list(
-                Kernel.Config.getUnified()['GameSetup']['ArmorSlots']
+                kernel.Config.getUnified()['GameSetup']['ArmorSlots']
             ))
         else:
             equipment = [
@@ -156,7 +156,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             comboBox.SetDoubleBuffered(True)
             comboBox.Bind(
                 wx.EVT_CHOICE,
-                Kernel.Protect(self.comboBoxEquipment_SelectionChanged)
+                kernel.Protect(self.comboBoxEquipment_SelectionChanged)
             )
             comboBox.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
             self.EquipmentBoxes.append(comboBox)
@@ -171,7 +171,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             )
             checkBox.Bind(
                 wx.EVT_CHECKBOX,
-                Kernel.Protect(self.checkBoxFixedEquipment_CheckChanged)
+                kernel.Protect(self.checkBoxFixedEquipment_CheckChanged)
             )
             checkBox.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
             self.FixedCheckBoxes.append(checkBox)
@@ -184,20 +184,20 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def refreshActorList(self):
         """Refreshes the values in the actor wxListBox control"""
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         digits = 4
         if "GameObjects" in config and "Actors" in config["GameObjects"]:
             digits = len(str(int(config['GameObjects']['Actors'])))
-        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        actors = kernel.GlobalObjects['PROJECT'].getData('Actors')
         DM.FillControl(self.listBoxActors, actors, digits, [])
 
     def refreshClasses(self):
         """Refreshes the values in the class wxChoice control"""
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         digits = 4
         if "GameObjects" in config and "Classes" in config["GameObjects"]:
             digits = len(str(int(config['GameObjects']['Classes'])))
-        classes = Kernel.GlobalObjects['PROJECT'].getData('Classes')
+        classes = kernel.GlobalObjects['PROJECT'].getData('Classes')
         DM.FillControl(self.comboBoxClass, classes, digits, [])
 
     def refreshWeapons(self):
@@ -205,13 +205,13 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         digits = 4
         weaponSlots = 1
 
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         if "GameSetup" in config and 'WeaponSlots' in config["GameSetup"]:
             weaponSlots = len(list(config['GameSetup']['WeaponSlots']))
         if "GameObjects" in config and "Weapons" in config["GameObjects"]:
             digits = len(str(int(config['GameObjects']['Weapons'])))
 
-        weapons = Kernel.GlobalObjects['PROJECT'].getDataCopy('Weapons')
+        weapons = kernel.GlobalObjects['PROJECT'].getDataCopy('Weapons')
 
         for i in range(weaponSlots):
             items = ['(None)']
@@ -243,7 +243,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         cypher = [0, 1, 2, 3, 3, 3]
         kinds = {}
 
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         if "GameSetup" in config and "WeaponSlots" in config["GameSetup"]:
             weaponSlots = len(list(config['GameSetup']['WeaponSlots']))
         if "GameObjects" in config and "Armors" in config["GameObjects"]:
@@ -253,7 +253,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
                 config['GameSetup']['ArmorSlotKinds']
             )]
 
-        armors = Kernel.GlobalObjects['PROJECT'].getDataCopy('Armors')
+        armors = kernel.GlobalObjects['PROJECT'].getDataCopy('Armors')
 
         for k in list(config['GameSetup']['ArmorSlotKinds']):
             key = int(k)
@@ -380,7 +380,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         the values of the selected actor
         """
         index = DM.FixedIndex(event.GetSelection())
-        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+        actors = kernel.GlobalObjects['PROJECT'].getData('Actors')
         if actors[index] is None:
             actors[index] = RPG.Actor()
         self.SelectedActor = actors[index]
@@ -402,11 +402,11 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         if (self.SelectedActor.parameters.xsize <= index
                 or self.SelectedActor.parameters.ysize < level):
             maxlevel = 999
-            config = Kernel.Config.getUnified()
+            config = kernel.Config.getUnified()
             if ("DatabaseLimits" in config
                     and "ActorLevel" in config["DatabaseLimits"]):
                 maxlevel = int(config['DatabaseLimits']['ActorLevel'])
-            actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+            actors = kernel.GlobalObjects['PROJECT'].getData('Actors')
             for actor in actors:
                 if actor is None:
                     actor = RPG.Actor()
@@ -417,11 +417,11 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         ma = 9999
         if "GameObjects" in config and "Actors" in config["GameObjects"]:
-            ma = int(Kernel.Config.getUnified()['GameObjects']['Actors'])
-        actors = Kernel.GlobalObjects['PROJECT'].getData('Actors')
+            ma = int(kernel.Config.getUnified()['GameObjects']['Actors'])
+        actors = kernel.GlobalObjects['PROJECT'].getData('Actors')
         DM.ChangeDataCapacity(self, self.listBoxActors, actors, ma)
 
     def textBoxName_TextChanged(self, event):
@@ -430,7 +430,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             self.SelectedActor,
             event.GetString(),
             self.listBoxActors,
-            len(Kernel.Config.getUnified()['GameObjects']['Actors'])
+            len(kernel.Config.getUnified()['GameObjects']['Actors'])
         )
 
     def comboBoxClass_SelectionChanged(self, event):
@@ -507,7 +507,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def comboBoxEquipment_SelectionChanged(self, event):
         """updates the weapon/armor id for the selected type for the actor"""
         ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         if DM.ARC_FORMAT:
             weaponSlots = len(list(
                 config['GameSetup']['WeaponSlots']
@@ -549,7 +549,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         if DM.ARC_FORMAT:
             # TODO: Implement
             weaponSlots = len(
-                list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots'])
+                list(kernel.Config.getUnified()['GameSetup']['WeaponSlots'])
             )
             if ctrlIndex < weaponSlots:
                 pass
@@ -568,7 +568,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def GetValueMax(self, param_index):
         """Returns the max value for the parameter type"""
-        config = Kernel.Config.getUnified()
+        config = kernel.Config.getUnified()
         if param_index == 0:
             return int(config['DatabaseLimits']['ActorHP'])
         elif param_index == 1:
@@ -706,7 +706,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         params.resize(
             params.xsize - 1,
             int(
-                Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']
+                kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']
             ) + 1
         )
         try:
@@ -730,13 +730,13 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         """
         Returns the ID of the weapon found at index in the actor's weapon set
         """
-        classes = Kernel.GlobalObjects['PROJECT'].getData('Classes')
+        classes = kernel.GlobalObjects['PROJECT'].getData('Classes')
         return classes[self.SelectedActor.class_id].weapon_set
 
     def GetArmorIDs(self, kind):
         """Returns all actor armor IDs that are of type 'kind'"""
-        classes = Kernel.GlobalObjects['PROJECT'].getData('Classes')
-        armors = Kernel.GlobalObjects['PROJECT'].getData('Armors')
+        classes = kernel.GlobalObjects['PROJECT'].getData('Classes')
+        armors = kernel.GlobalObjects['PROJECT'].getData('Armors')
         ids = classes[self.SelectedActor.class_id].armor_set
         filtered = []
         for id in ids:

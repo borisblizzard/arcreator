@@ -1,6 +1,6 @@
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import PanelBase
 
@@ -32,7 +32,7 @@ class MapManagerPanel(wx.Panel, PanelBase):
         # set up Sizer
         box = wx.BoxSizer(wx.VERTICAL)
         # set up tree
-        mapTreeCtrl = Kernel.System.load("MapTreeCtrl")
+        mapTreeCtrl = kernel.System.load("MapTreeCtrl")
         self.treectrl = mapTreeCtrl(
             self, -1, wx.Point(0, 0), wx.Size(160, 250), True)
         # add ctrls to sizer
@@ -54,11 +54,11 @@ class MapManagerPanel(wx.Panel, PanelBase):
         event.Skip()
 
     def dispatchMapPanel(self, map_id, name):
-        project = Kernel.GlobalObjects["PROJECT"]
+        project = kernel.GlobalObjects["PROJECT"]
         map_data = project.getMapData(map_id)
         tilesets = project.getData("Tilesets")
-        if "PanelManager" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects["PanelManager"].dispatchPanel(
+        if "PanelManager" in kernel.GlobalObjects:
+            kernel.GlobalObjects["PanelManager"].dispatchPanel(
                 "MapEditorPanel",
                 "MapEditorPanel" + str(map_id),
                 arguments=[map_data, tilesets],

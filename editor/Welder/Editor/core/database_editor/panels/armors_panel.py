@@ -1,9 +1,9 @@
 import wx
 
-import Kernel
+import welder_kernel as kernel
 from PyitectConsumes import PanelBase, Armors_Panel_Template
 from PyitectConsumes import DatabaseManager as DM
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 
 # --------------------------------------------------------------------------------------
 # Armors_Panel
@@ -37,12 +37,12 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         global Config, DataArmors, DataStates, DataElements
         
         try:
-            proj = Kernel.GlobalObjects['PROJECT']
+            proj = kernel.GlobalObjects['PROJECT']
             DataArmors = proj.getData('Armors')
             DataStates = proj.getData('States')
             DataElements = proj.getData('System').elements
         except NameError:
-            Kernel.Log(
+            kernel.Log(
                 'Database opened before Project has been initialized', '[Database:ARMORS]', True)
             self.Destroy()
         if DM.ARC_FORMAT:
@@ -52,7 +52,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
                 [False, True], DM.GetNormalCheckImageList())
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
+        font.SetFaceName(kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
 
         default = ['Price:', 'PDEF:', 'MDEF:', 'EVA:']
@@ -69,8 +69,8 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def setRanges(self):
         """Applies the range of values allowed fir the controls on the panel"""
-        self.ParameterControls[0].SetRange(0, int(Kernel.Config.getUnified()['DatabaseLimits']['Gold']))
-        max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
+        self.ParameterControls[0].SetRange(0, int(kernel.Config.getUnified()['DatabaseLimits']['Gold']))
+        max = int(kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
         for i in range(1, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(-max, max)
 
@@ -84,7 +84,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def refreshArmorList(self):
         """Refreshes the list of armors"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['Armors'])
+        digits = len(kernel.Config.getUnified()['GameObjects']['Armors'])
         DM.FillControl(self.listBoxArmors, DataArmors, digits, [])
 
     def refreshElements(self):
@@ -94,14 +94,14 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def refreshStates(self):
         """Refreshes the list of states in the wxCheckListBox"""
-        digits = len(Kernel.Config.getUnified()['GameObjects']['States'])
+        digits = len(kernel.Config.getUnified()['GameObjects']['States'])
         DM.FillWithoutNumber(self.checkListStates, DataStates, [])
         DM.FillControl(self.comboBoxAutoState, DataStates, digits, ['(None)'])
 
     def refreshKinds(self):
         """updates the armor kinds"""
         if DM.ARC_FORMAT:
-            kinds = list(Kernel.Config.getUnified()['GameSetup']['ArmorSlots'])
+            kinds = list(kernel.Config.getUnified()['GameSetup']['ArmorSlots'])
         else:
             kinds = ['Shield', 'Helmet', 'Body Armor', 'Accessory']
         DM.FillWithoutNumber(self.comboBoxKind, [], kinds)
@@ -173,13 +173,13 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = int(Kernel.Config.getUnified()['GameObjects']['Armors'])
+        max = int(kernel.Config.getUnified()['GameObjects']['Armors'])
         DM.ChangeDataCapacity(self, self.listBoxArmors, DataArmors, max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected armor's name"""
         DM.updateObjectName(self.SelectedArmor, event.GetString(),
-                            self.listBoxArmors, len(Kernel.Config.getUnified()['GameObjects']['Armors']))
+                            self.listBoxArmors, len(kernel.Config.getUnified()['GameObjects']['Armors']))
 
     def bitmapButtonIcon_Clicked(self, event):
         """Opens dialog to select an icon for the selected skill"""

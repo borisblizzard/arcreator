@@ -10,7 +10,7 @@ from datetime import timedelta
 PITCH_ENABLED = sys.platform == 'win32'
 
 from PyitectConsumes import PanelBase, AudioPlayer_Panel_Template, RTPFunctions
-from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import RPG_RGSS1 as RPG
 from PyitectConsumes import DatabaseManager as DM
 
 if DM.ARC_FORMAT:

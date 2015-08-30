@@ -1,2 +1,2 @@
-from .Layouts import MainWindowLayout
-from .Layouts import ARCModeLayout
+from .layouts import MainWindowLayout
+from .layouts import ARCModeLayout

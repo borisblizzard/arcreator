@@ -1,7 +1,7 @@
 import os
 import wx
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import Script
 
@@ -15,10 +15,10 @@ class ScriptEditorManager(object):
     @staticmethod
     def EnsureScriptDirectory():
         """Ensures the project's script directory exists"""
-        projDir = Kernel.GlobalObjects["CurrentProjectDir"]
+        projDir = kernel.GlobalObjects["CurrentProjectDir"]
         dir = os.path.join(projDir, 'Data', 'Scripts')
         if not os.path.exists(dir) or not os.path.isdir(dir):
-            Kernel.Protect(os.makedirs, True)(dir)
+            kernel.Protect(os.makedirs, True)(dir)
 
     # ----------------------------------------------------------------------------------
     @staticmethod
@@ -35,7 +35,7 @@ class ScriptEditorManager(object):
         from fnmatch import fnmatch
 
         ScriptEditorManager.EnsureScriptDirectory()
-        projDir = Kernel.GlobalObjects["CurrentProjectDir"]
+        projDir = kernel.GlobalObjects["CurrentProjectDir"]
         dir = os.path.join(projDir, 'Data', 'Scripts')
         # TODO: Include internal scripts as read-only entries?
         paths = []
@@ -43,10 +43,10 @@ class ScriptEditorManager(object):
             if fnmatch(file, '*.rb'):
                 paths.append(os.path.join(dir, file))
         scripts = [Script(i, path, False) for i, path in enumerate(sorted(paths))]
-        if 'Scripts' in Kernel.GlobalObjects:
-            Kernel.GlobalObjects['Scripts'] =  scripts
+        if 'Scripts' in kernel.GlobalObjects:
+            kernel.GlobalObjects['Scripts'] =  scripts
         else:
-            Kernel.GlobalObjects.newKey('Scripts', 'CORE', scripts)
+            kernel.GlobalObjects.newKey('Scripts', 'CORE', scripts)
 
     # ----------------------------------------------------------------------------------
     @staticmethod
@@ -60,15 +60,15 @@ class ScriptEditorManager(object):
         Bool value if all scripts were saved successfully
 
         """
-        if 'Scripts' not in Kernel.GlobalObjects:
+        if 'Scripts' not in kernel.GlobalObjects:
             return False
         result = True
-        scripts = Kernel.GlobalObjects['Scripts']
+        scripts = kernel.GlobalObjects['Scripts']
         ScriptEditorManager.EnsureScriptDirectory()
         for i, script in enumerate(scripts):
             if not script.SaveScript(i):
                 result = False
-                Kernel.Log('Failed to save script \"%s\".' % script.GetName(), '[Script Editor]', True, False)
+                kernel.Log('Failed to save script \"%s\".' % script.GetName(), '[Script Editor]', True, False)
         return result
 
     # ----------------------------------------------------------------------------------
@@ -84,10 +84,10 @@ class ScriptEditorManager(object):
             (Number of Scripts, Total Lines, Total Words, Total Characters)
 
         """
-        if 'Scripts' not in Kernel.GlobalObjects:
+        if 'Scripts' not in kernel.GlobalObjects:
             return (0, 0, 0, 0)
         else:
-            scripts = Kernel.GlobalObjects['Scripts']
+            scripts = kernel.GlobalObjects['Scripts']
             count = total_lines = total_words = total_characters = 0
             for script in scripts:
                 count += 1
@@ -117,7 +117,7 @@ class ScriptEditorManager(object):
         A list of format strings for the respective styles
         """
         styles = ScriptEditorManager.GetStyles()
-        cfg = Kernel.Config.getUnified()['ScriptEditor']
+        cfg = kernel.Config.getUnified()['ScriptEditor']
         settings = [cfg[styles[1]] for style in styles]
         return settings
 
@@ -224,7 +224,7 @@ class ScriptEditorManager(object):
         """
         default = ScriptEditorManager.GetDefaultSettings()
         styles = ScriptEditorManager.GetStyles()
-        cfg = Kernel.Config.getUnified()['ScriptEditor']
+        cfg = kernel.Config.getUnified()['ScriptEditor']
         for i in range(len(styles)):
             style = styles[i]
             try:
@@ -232,7 +232,7 @@ class ScriptEditorManager(object):
                 scriptcontrol.StyleSetSpec(style[0], setting)
             except:
                 scriptcontrol.StyleSetSpec(style[0], default[i])
-                Kernel.Log(str.format('Style setting \"{}\" is malformed/missing and the default value will be used', styles[i][1]), '[Script Editor]', True, False)
+                kernel.Log(str.format('Style setting \"{}\" is malformed/missing and the default value will be used', styles[i][1]), '[Script Editor]', True, False)
         scriptcontrol.SetTabWidth(int(cfg['tab_width']))
         scriptcontrol.SetEdgeColumn(int(cfg['edge_column']))
         scriptcontrol.SetCaretLineVisible(cfg['show_caret'])
@@ -266,7 +266,7 @@ class ScriptEditorManager(object):
         CARET_ALPHA = 255
         default = ScriptEditorManager.GetDefaultSettings()
         styles = ScriptEditorManager.GetStyles()
-        cfg = Kernel.Config.getUnified()['ScriptEditor']
+        cfg = kernel.Config.getUnified()['ScriptEditor']
         for i in range(len(default)):
             scriptcontrol.StyleSetSpec(styles[i][0], default[i])
             cfg.set(styles[i][1], default[i])

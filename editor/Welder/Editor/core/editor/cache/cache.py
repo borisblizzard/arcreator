@@ -7,7 +7,7 @@ import pyglet
 import numpy
 from PIL import Image
 
-import Kernel
+import welder_kernel as kernel
 
 
 class ImageFunctions(object):
@@ -153,11 +153,11 @@ class RTPFunctions(object):
             return ""
         flag = False
         flag, testpath = RTPFunctions.TestImageFiles(
-            Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
+            kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
         if flag:
             return testpath
         else:
-            rtps = Kernel.Config.getUnified()["RTPs"]
+            rtps = kernel.Config.getUnified()["RTPs"]
             for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestImageFiles(
                     path, folder_name, name)
@@ -185,8 +185,8 @@ class RTPFunctions(object):
             extensions = RTPFunctions._audio_ext
         else:
             return files
-        directories = [Kernel.GlobalObjects['CurrentProjectDir']]
-        rtps = Kernel.Config.getUnified()["RTPs"]
+        directories = [kernel.GlobalObjects['CurrentProjectDir']]
+        rtps = kernel.Config.getUnified()["RTPs"]
         directories.extend([os.path.expandvars(path[1])
                             for path in rtps.items()])
         for dir in directories:
@@ -207,7 +207,7 @@ class RTPFunctions(object):
         extensions = [".arcproj"]
         directories = []
         directories.extend(extra_paths)
-        rtps = Kernel.Config.getUnified()["RTPs"]
+        rtps = kernel.Config.getUnified()["RTPs"]
         directories.extend([os.path.expandvars(path[1])
                             for path in rtps.items()])
         for dir in directories:
@@ -230,11 +230,11 @@ class RTPFunctions(object):
             return ""
         flag = False
         flag, testpath = RTPFunctions.TestAudioFiles(
-            Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
+            kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
         if flag:
             return testpath
         else:
-            rtps = Kernel.Config.getUnified()["RTPs"]
+            rtps = kernel.Config.getUnified()["RTPs"]
             for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestAudioFiles(
                     path, folder_name, name)
@@ -265,7 +265,7 @@ class PILCache(object):
     _hue_limit = 5
     _autotile_limit = 250
 
-    config = Kernel.Config.getUnified()
+    config = kernel.Config.getUnified()
     if "Cache" in config:
         section = config["Cache"]
         if "normal_limit" in section:
@@ -488,13 +488,13 @@ class PygletCache(object):
         self._Cache = collections.OrderedDict()
         self.limit = 200
         try:
-            config = Kernel.Config.getUnified()
+            config = kernel.Config.getUnified()
             if "Cache" in config:
                 section = config["Cache"]
                 if "pyglet_limit" in section:
                     self.limit = config["Cache"]["pyglet_limit"]
         except:
-            Kernel.Log(
+            kernel.Log(
                 "Error setting pyglet Cache Config", "[Cache]", error=True)
 
     def CacheLimit(self):

@@ -3,7 +3,7 @@ from threading import Timer
 from math import ceil
 import os
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import RTPCache, IconManager, PyXAL, RTPFunctions
 
@@ -42,7 +42,7 @@ class DatabaseManager(object):
         except:
             img = None
             message = str.format('Image \"{}\" cannot be found', filename)
-            Kernel.Log(message, '[Cache]', True, False)
+            kernel.Log(message, '[Cache]', True, False)
         glCanvas.ChangeImage(img)
 
     #--------------------------------------------------------------------------
@@ -265,7 +265,7 @@ class DatabaseManager(object):
 
         """
 
-        dlg = Kernel.System.load("ChooseGraphic_Dialog")(
+        dlg = kernel.System.load("ChooseGraphic_Dialog")(
             parent, folder, current, hue)
         if dlg.ShowModal() == wx.ID_OK:
             if hue is not None:
@@ -318,7 +318,7 @@ class DatabaseManager(object):
             Timer(sound.getDuration(), DatabaseManager._DestroyQuickPlay,
                   [PyXAL, player, sound]).start()
         except:
-            Kernel.Log(
+            kernel.Log(
                 'QuickPlay failed to play sound file.', '[PyXAL]', False, True)
 
     @staticmethod
@@ -429,7 +429,7 @@ class DatabaseManager(object):
         count = 0
         parameters = defaults
         if DatabaseManager.ARC_FORMAT:
-            config = Kernel.Config
+            config = kernel.Config
             parameters.extend(config.getlist('GameSetup', 'Parameters'))
         else:
             parameters.extend(['STR', 'DEX', 'AGI', 'INT'])
@@ -458,7 +458,7 @@ class DatabaseManager(object):
                     labelsizer.Add(label, percent, wx.ALL, 5)
                     spinctrl = wx.SpinCtrl(
                         parent, -1, '', style=wx.SP_ARROW_KEYS | wx.SP_WRAP)
-                    spinctrl.Bind(wx.EVT_SPINCTRL, Kernel.Protect(event))
+                    spinctrl.Bind(wx.EVT_SPINCTRL, kernel.Protect(event))
                     objectList.append(spinctrl)
                     spinsizer.Add(
                         spinctrl,

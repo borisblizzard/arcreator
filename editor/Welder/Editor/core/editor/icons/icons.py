@@ -1,8 +1,8 @@
 import wx
 #from wx.lib.embeddedimage import PyEmbeddedImage
-import Kernel
+import welder_kernel as kernel
 
-from GenImages import catalog
+from generated_images import catalog
 
 
 class IconManager(object):
@@ -16,7 +16,7 @@ class IconManager(object):
             return IconManager._catalog[name].GetIcon()
             wx.Log.EnableLogging(True)
         else:
-            Kernel.Log(
+            kernel.Log(
                 "Warning: Icon '%s' requested but not found, "
                 "Loading empty bitmap insted" % name,
                 "[IconManger]"
@@ -31,7 +31,7 @@ class IconManager(object):
             return IconManager._catalog[name].GetBitmap()
             wx.Log.EnableLogging(True)
         else:
-            Kernel.Log(
+            kernel.Log(
                 "Warning: Bitmap '%s' requested but not found, "
                 "Loading empty bitmap insted" % name,
                 "[IconManger]"
@@ -45,7 +45,7 @@ class IconManager(object):
             return IconManager._catalog[name].GetImage()
             wx.Log.EnableLogging(True)
         else:
-            Kernel.Log(
+            kernel.Log(
                 "Warning: Image '%s' requested but not found, "
                 "Loading empty bitmap insted" % name,
                 "[IconManger]"
@@ -616,7 +616,7 @@ class IconManager(object):
 #     "wWBNaPIwAwACCG7AbDS8HsnQ9VjkYQYABBBGLLwscIBH2b9+CIbxYXLIsQAQQBixgBxd2Njo"
 #     "sQAQQBgGHHJwQIku5OgFyaEbABBAeNMBzEZ86QAggHC6ABvG5gKAACIpE2HLVAABRFFWBmGA"
 #     "AAMAbGIf2XutwP8AAAAASUVORK5CYII=")
-# IconManager._catalog['project_icon'] = project_icon 
+# IconManager._catalog['project_icon'] = project_icon
 
 # #----------------------------------------------------------------------
 # script_icon = PyEmbeddedImage(

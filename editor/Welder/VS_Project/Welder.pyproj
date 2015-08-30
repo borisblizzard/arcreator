@@ -185,7 +185,7 @@
     <Compile Include="Core\MapEditor\__init__.py" />
     <Compile Include="Core\PyXAL\__init__.py" />
     <Compile Include="Core\PyXAL\src\setup.py" />
-    <Compile Include="Core\RMXP\RGSS1_RPG.py" />
+    <Compile Include="Core\RMXP\RPG_RGSS1.py" />
     <Compile Include="Core\RMXP\__init__.py" />
     <Content Include="Core\PyXAL\PyXAL_Help.txt" />
     <Content Include="Core\PyXAL\src\hltypes.pxd" />

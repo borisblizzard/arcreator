@@ -1,1 +1,1 @@
-from .Manager import ScriptEditorManager
+from .manager import ScriptEditorManager

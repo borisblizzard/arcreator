@@ -9,7 +9,7 @@ TODO: create show and hide methods
 
 import wx.lib.agw.aui as aui
 
-import Kernel
+import welder_kernel as kernel
 
 from PyitectConsumes import IconManager
 
@@ -121,7 +121,7 @@ class PanelManager(object):
         '''
         gets the default component panel class form the plugin framework
         '''
-        return Kernel.System.load(component_name)
+        return kernel.System.load(component_name)
 
     def dispatchPanel(self, type, wid, arguments=[], info={}, overwrite=False):
         '''

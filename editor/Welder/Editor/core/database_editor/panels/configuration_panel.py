@@ -1,6 +1,6 @@
 import wx
 
-import Kernel
+import welder_kernel as kernel
 from PyitectConsumes import PanelBase
 # --------------------------------------------------------------------------------------
 # Configuration_Panel
@@ -54,7 +54,7 @@ class Configuration_Panel (wx.Panel, PanelBase):
                 optionlabel.Wrap(-1)
                 optionSizer.Add(optionlabel, 0, wx.ALL, 5)
                 # Create text control
-                value = Kernel.Config.getUnified()[section[0]][option[0]]
+                value = kernel.Config.getUnified()[section[0]][option[0]]
                 textCtrl = wx.TextCtrl(self.scrolledWindowEquipment, wx.ID_ANY,
                                        value, wx.DefaultPosition, wx.DefaultSize, 0)
                 textCtrl.SetFont(optionFont)

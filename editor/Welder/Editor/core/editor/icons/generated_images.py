@@ -1022,4 +1022,3 @@ welder = PyEmbeddedImage(
     b'AAAAAElFTkSuQmCC')
 index.append('welder')
 catalog['welder'] = welder
-
