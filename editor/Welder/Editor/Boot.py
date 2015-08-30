@@ -276,10 +276,10 @@ class ARCSplashScreen(wx.Frame):
         self.gaugectl.Pulse()
         wx.SafeYield()
 
-    def BindPyXAL(self):
-        PyXAL = kernel.System.load("PyXAL")
-        if PyXAL is not None:
-            PyXAL.Init(self.frame.GetHandle(), True)
+    def Bindpyxal(self):
+        pyxal = kernel.System.load("pyxal")
+        if pyxal is not None:
+            pyxal.Init(self.frame.GetHandle(), True)
 
         # wx.lib.inspection.InspectionTool().Show()
 
@@ -320,14 +320,14 @@ def Run(programDir, argv):
     app.MainLoop()
 
     kernel.GlobalObjects["WX_config"].Flush()
-    # we want to clean up PyXAL as much as we can
+    # we want to clean up pyxal as much as we can
     # it's dead now anyway as the window it was bound to is gone
     # try:
-    #     PyXAL = kernel.System.load("PyXAL")
-    #     if PyXAL is not None:
-    #         PyXAL.Destroy()
+    #     pyxal = kernel.System.load("pyxal")
+    #     if pyxal is not None:
+    #         pyxal.Destroy()
     # except:
-    #     kernel.Log("Error destroying PyXAL Binding", "[Main]", error=True)
+    #     kernel.Log("Error destroying pyxal Binding", "[Main]", error=True)
     # lets try to save the user's current config before we leave
     # try:
     #     ConfigManager.SaveConfig()

@@ -15,7 +15,7 @@
 		CE84443E16A591A10062C33A /* Kernel.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = Kernel.py; path = src/Kernel.py; sourceTree = "<group>"; };
 		CE84444016A591C60062C33A /* Logo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = Logo.py; path = src/Logo.py; sourceTree = "<group>"; };
 		CE84444116A591C60062C33A /* Map_Test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = Map_Test.py; path = src/Map_Test.py; sourceTree = "<group>"; };
-		CE84444216A591D70062C33A /* PyXAL_Test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = PyXAL_Test.py; path = src/PyXAL_Test.py; sourceTree = "<group>"; };
+		CE84444216A591D70062C33A /* pyxal_Test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = pyxal_Test.py; path = src/pyxal_Test.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -23,7 +23,7 @@
 			isa = PBXGroup;
 			children = (
 				CE84443C16A591A10062C33A /* Core */,
-				CE84444216A591D70062C33A /* PyXAL_Test.py */,
+				CE84444216A591D70062C33A /* pyxal_Test.py */,
 				CE84444016A591C60062C33A /* Logo.py */,
 				CE84444116A591C60062C33A /* Map_Test.py */,
 				CE84443916A591A10062C33A /* __main__.py */,

@@ -125,21 +125,21 @@
 # /editor/Welder/src/Core/MapEditor/
 /editor/Welder/src/Core/MapEditor/*.cpp
 
-# /editor/Welder/src/Core/PyXAL/
-/editor/Welder/src/Core/PyXAL/build
+# /editor/Welder/src/Core/pyxal/
+/editor/Welder/src/Core/pyxal/build
 
-# /editor/Welder/src/Core/PyXAL/src/
-/editor/Welder/src/Core/PyXAL/src/build
-/editor/Welder/src/Core/PyXAL/src/Release
-/editor/Welder/src/Core/PyXAL/src/_PyXAL.pyd
-/editor/Welder/src/Core/PyXAL/src/*.ncb
-/editor/Welder/src/Core/PyXAL/src/*.suo
-/editor/Welder/src/Core/PyXAL/src/*.user
+# /editor/Welder/src/Core/pyxal/src/
+/editor/Welder/src/Core/pyxal/src/build
+/editor/Welder/src/Core/pyxal/src/Release
+/editor/Welder/src/Core/pyxal/src/_pyxal.pyd
+/editor/Welder/src/Core/pyxal/src/*.ncb
+/editor/Welder/src/Core/pyxal/src/*.suo
+/editor/Welder/src/Core/pyxal/src/*.user
 
-# /editor/Welder/src/Core/PyXAL/src/bin/
-/editor/Welder/src/Core/PyXAL/src/bin/PyXAL.exp
-/editor/Welder/src/Core/PyXAL/src/bin/PyXAL.lib
-/editor/Welder/src/Core/PyXAL/src/bin/*.pdb
+# /editor/Welder/src/Core/pyxal/src/bin/
+/editor/Welder/src/Core/pyxal/src/bin/pyxal.exp
+/editor/Welder/src/Core/pyxal/src/bin/pyxal.lib
+/editor/Welder/src/Core/pyxal/src/bin/*.pdb
 
 # /editor/Welder/src/Core/RMXP/
 /editor/Welder/src/Core/RMXP/*.cpp

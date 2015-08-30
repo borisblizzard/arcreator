@@ -12,9 +12,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E40E6D51-5318-49A6-A013-B0C309962BB9}</ProjectGuid>
-    <RootNamespace>PyXAL</RootNamespace>
+    <RootNamespace>pyxal</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>_PyXAL</ProjectName>
+    <ProjectName>_pyxal</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -96,7 +96,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="_PyXAL.cpp" />
+    <ClCompile Include="_pyxal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xal\AudioManager.h" />
@@ -123,7 +123,7 @@
     <ClInclude Include="include\hltypes\util.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="_PyXAL.pyx" />
+    <None Include="_pyxal.pyx" />
     <None Include="hltypes.pxd" />
     <None Include="XAL.pxd" />
   </ItemGroup>

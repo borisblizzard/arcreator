@@ -1,5 +1,5 @@
 {
-    "name": "PyXAL",
+    "name": "pyxal",
     "author": "Ryex",
     "version": "1.0.0",
     "file" : "__init__.py",
@@ -7,6 +7,6 @@
 
     },
     "provides": {
-        "PyXAL": ""
+        "pyxal": ""
     }
 }

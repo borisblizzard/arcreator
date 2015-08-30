@@ -34,7 +34,7 @@
     <Compile Include="Kernel.py" />
     <Compile Include="Logo.py" />
     <Compile Include="Map_Test.py" />
-    <Compile Include="PyXAL_Test.py" />
+    <Compile Include="pyxal_Test.py" />
     <Compile Include="Welder.py" />
     <Compile Include="__main__.py" />
     <Compile Include="Core\Actions.py" />
@@ -183,15 +183,15 @@
     <Compile Include="Core\MapEditor\MapEditorPanel.py" />
     <Compile Include="Core\MapEditor\Tilemap.py" />
     <Compile Include="Core\MapEditor\__init__.py" />
-    <Compile Include="Core\PyXAL\__init__.py" />
-    <Compile Include="Core\PyXAL\src\setup.py" />
+    <Compile Include="Core\pyxal\__init__.py" />
+    <Compile Include="Core\pyxal\src\setup.py" />
     <Compile Include="Core\RMXP\RPG_RGSS1.py" />
     <Compile Include="Core\RMXP\__init__.py" />
-    <Content Include="Core\PyXAL\PyXAL_Help.txt" />
-    <Content Include="Core\PyXAL\src\hltypes.pxd" />
-    <Content Include="Core\PyXAL\src\Release\BuildLog.htm" />
-    <Content Include="Core\PyXAL\src\XAL.pxd" />
-    <Content Include="Core\PyXAL\src\_PyXAL.pyx" />
+    <Content Include="Core\pyxal\pyxal_Help.txt" />
+    <Content Include="Core\pyxal\src\hltypes.pxd" />
+    <Content Include="Core\pyxal\src\Release\BuildLog.htm" />
+    <Content Include="Core\pyxal\src\XAL.pxd" />
+    <Content Include="Core\pyxal\src\_pyxal.pyx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />
@@ -201,9 +201,9 @@
     <Folder Include="Core\Database\ScriptEditor" />
     <Folder Include="Core\EventEditor" />
     <Folder Include="Core\MapEditor" />
-    <Folder Include="Core\PyXAL" />
-    <Folder Include="Core\PyXAL\src" />
-    <Folder Include="Core\PyXAL\src\Release" />
+    <Folder Include="Core\pyxal" />
+    <Folder Include="Core\pyxal\src" />
+    <Folder Include="Core\pyxal\src\Release" />
     <Folder Include="Core\RMXP" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

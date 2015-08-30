@@ -47,7 +47,7 @@ cdef extern from *:
     # '''
     # Sets the path where XAL should create a log file. 
     # the path should not include the file
-    # PyXAL will try to create a folder at the path if the path doesn't exist and will save it's log in that folder as a file named XAL.log
+    # pyxal will try to create a folder at the path if the path doesn't exist and will save it's log in that folder as a file named XAL.log
     
     # @param path: string path to the folder where the log should be made
     # @return: returns True or False if the path was set
@@ -66,13 +66,13 @@ cdef extern from *:
        
 # cpdef EnableLogging(bool state = True, str path = ""):
     # '''
-    # sets the logging state of PyXAL by default it is off
+    # sets the logging state of pyxal by default it is off
     
     # @param state: bool True or False if XAL should be logging data default is True so calling
-        # PyXAL.EnableLogging will turn logging on (by default PyXAL does not log)
-    # @param path: string path to the folder where PyXAL should create the log 
+        # pyxal.EnableLogging will turn logging on (by default pyxal does not log)
+    # @param path: string path to the folder where pyxal should create the log 
         # it is an empty string by default so that should mean the log will be made in the 
-        # current working directory. calling PyXAL.EnableLogging will set the path to an empty string if the paramater is not included
+        # current working directory. calling pyxal.EnableLogging will set the path to an empty string if the paramater is not included
     # @return: returns True or False if the path was set
     # '''
     # global LOG_ENABLED
@@ -126,7 +126,7 @@ cdef class PyAudioManager:
     
     def __init__(self):
         '''
-        this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+        this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
         as such calling the __init__ method will raise a Runtime Error
         '''
         raise RuntimeError("PyAudioManager Can not be initialized from python")
@@ -142,7 +142,7 @@ cdef class SoundWrapper:
     
     def __init__(self):
         '''
-        this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+        this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
         as such calling the __init__ method will raise a Runtime Error
         '''
         raise RuntimeError("PySound Can not be initialized from python")
@@ -272,7 +272,7 @@ cdef class SoundWrapper:
     def isStreamed(self):
         '''
         @return: bool is the sound being streamed from it's file to the player? or is it comleatly loaded into memory. 
-            should always return false in PyXAL as PyXAL uses full decoding mode
+            should always return false in pyxal as pyxal uses full decoding mode
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
@@ -315,7 +315,7 @@ cdef class PlayerWrapper:
     
     def __init__(self):
         '''
-        this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+        this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
         as such calling the __init__ method will raise a Runtime Error
         '''
         raise RuntimeError("PyPlayer Can not be initialized from python")
@@ -702,7 +702,7 @@ class PySound(object):
     def isStreamed(self):
         '''
         @return: bool is the sound being streamed from it's file to the player? or is it comleatly loaded into memory. 
-            should always return false in PyXAL as PyXAL uses full decoding mode
+            should always return false in pyxal as pyxal uses full decoding mode
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
@@ -997,7 +997,7 @@ class PyPlayer(object):
 cdef class XALManagerWrapper(object):
     '''
     a wrapper for the xal::mgr object which is a xal::AudioManager. in other words this is the main interface to XAL you SHOLD NOT create an instance of the class yourself.
-    call PyXAL.Init to set up XAL. an instance of this class will be made avalable at PyXAL.Mgr
+    call pyxal.Init to set up XAL. an instance of this class will be made avalable at pyxal.Mgr
     '''
 
     cdef bint destroyed, inited
@@ -1006,8 +1006,8 @@ cdef class XALManagerWrapper(object):
 
     def __init__(self, XAL.AudioSystemType type, int backendId, bint threaded = False, float updateTime = 0.01, char* deviceName = ""):
         '''
-        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
-        if PyXAL.Mgr is None call PyXAL.Destroy and then PyXAL.Init to set up the interface again
+        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
+        if pyxal.Mgr is None call pyxal.Destroy and then pyxal.Init to set up the interface again
         
         @param systemname: string name of the back end system to use
         @param backendId: int window handle of the calling aplication
@@ -1017,7 +1017,7 @@ cdef class XALManagerWrapper(object):
         '''
         global Mgr
         if Mgr is not None:
-            raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+            raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
         self.CATEGORY_STR = "default"
         cdef hstr dname = hstr(deviceName)
         self._destroyXAL()
@@ -1059,7 +1059,7 @@ cdef class XALManagerWrapper(object):
 class XALManager(object):
     '''
     a wrapper for the xal::mgr object which is a xal::AudioManager. in other words this is the main interface to XAL you SHOLD NOT create an instance of the class yourself.
-    call PyXAL.Init to set up XAL. an instance of this class will be made avalable at PyXAL.Mgr
+    call pyxal.Init to set up XAL. an instance of this class will be made avalable at pyxal.Mgr
     '''
 
     destroyed = False
@@ -1072,15 +1072,15 @@ class XALManager(object):
 
     def __init__(self, int backendId, bint threaded = False):
         '''
-        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
-        if PyXAL.Mgr is None call PyXAL.Destroy and then PyXAL.Init to set up the interface again
+        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
+        if pyxal.Mgr is None call pyxal.Destroy and then pyxal.Init to set up the interface again
         
         @param backendId: int window handle of the calling aplication
         @param threaded: bool should the system use a threaded interface? (False by defaut)
         '''
         global Mgr
         if Mgr is not None:
-            raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+            raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)
         self._wrapper = wrapper
         self._players = {}
@@ -1302,7 +1302,7 @@ class XALManager(object):
         
 def Init(int backendId, bint threaded = True):
     '''
-    Setup XAL and create an XALManager interface at PyXAL.Mgr
+    Setup XAL and create an XALManager interface at pyxal.Mgr
     
     @param backendId: int window handel in the calling aplication
     @param threaded: bool should XAL use a threaded interface? (True by default)
@@ -1317,7 +1317,7 @@ def Init(int backendId, bint threaded = True):
         
 def Destroy():
     '''
-    Destroy XAL and remove the interface at PyXAL setting it to None
+    Destroy XAL and remove the interface at pyxal setting it to None
     '''
     global Mgr
     if XAL.mgr is not NULL:

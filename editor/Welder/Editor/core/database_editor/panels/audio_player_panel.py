@@ -27,7 +27,7 @@ class AudioPlayer_Panel(AudioPlayer_Panel_Template, PanelBase):
     def __init__(self, parent, rpgfile=None, directory=None):
         """Basic constructor for the AudioPlayer"""
 
-        # obtain a PyXAL interface
+        # obtain a pyxal interface
         AudioPlayer_Panel_Template.__init__(self, parent)
         # Set up the panel
         self.AudioIndex = 0
@@ -229,8 +229,8 @@ class AudioChannel(object):
 
     def __init__(self):
         """Basic constructor for an AudioChannel object"""
-        # obtain a PyXAL interface
-        self.PyXAL = DM.getPyXAL()
+        # obtain a pyxal interface
+        self.pyxal = DM.getpyxal()
         self.player = None
         self.sound = None
         self.rpgaudio = RPG.AudioFile()
@@ -245,16 +245,16 @@ class AudioChannel(object):
         if not (self.file == filepath):
             self.file = filepath
             if self.sound is not None:
-                self.PyXAL.Mgr.destroySound(self.sound)
+                self.pyxal.Mgr.destroySound(self.sound)
                 del (self.sound)
             if self.player is not None:
-                self.PyXAL.Mgr.destroyPlayer(self.player)
+                self.pyxal.Mgr.destroyPlayer(self.player)
                 del(self.player)
             if filepath == '' or rpgfile.name == '':
                 self.sound = self.player = self.RightChannel = self.LeftChannel = None
                 return
-            self.sound = self.PyXAL.Mgr.createSound(self.file)
-            self.player = self.PyXAL.Mgr.createPlayer(self.sound)
+            self.sound = self.pyxal.Mgr.createSound(self.file)
+            self.player = self.pyxal.Mgr.createPlayer(self.sound)
             array = self._getsoundarray(self.sound)
             self.RightChannel = self._shorten_array(array[:, 0])
             self.LeftChannel = self._shorten_array(array[:, 1])

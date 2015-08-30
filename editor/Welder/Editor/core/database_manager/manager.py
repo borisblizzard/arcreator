@@ -5,7 +5,7 @@ import os
 
 import welder_kernel as kernel
 
-from PyitectConsumes import RTPCache, IconManager, PyXAL, RTPFunctions
+from PyitectConsumes import RTPCache, IconManager, pyxal, RTPFunctions
 
 
 class DatabaseManager(object):
@@ -297,8 +297,8 @@ class DatabaseManager(object):
 
     #--------------------------------------------------------------------------
     @staticmethod
-    def getPyXAL():
-        return PyXAL
+    def getpyxal():
+        return pyxal
 
     #--------------------------------------------------------------------------
     @staticmethod
@@ -309,21 +309,21 @@ class DatabaseManager(object):
                 os.path.join('Audio', folder), rpgaudio.name)
             if path == '':
                 return
-            PyXAL = DatabaseManager.getPyXAL()
-            sound = PyXAL.Mgr.createSound(path)
-            player = PyXAL.Mgr.createPlayer(sound)
+            pyxal = DatabaseManager.getpyxal()
+            sound = pyxal.Mgr.createSound(path)
+            player = pyxal.Mgr.createPlayer(sound)
             player.play()
             player.setPitch(rpgaudio.pitch / 100.0)
             player.setGain(rpgaudio.volume / 100.0)
             Timer(sound.getDuration(), DatabaseManager._DestroyQuickPlay,
-                  [PyXAL, player, sound]).start()
+                  [pyxal, player, sound]).start()
         except:
             kernel.Log(
-                'QuickPlay failed to play sound file.', '[PyXAL]', False, True)
+                'QuickPlay failed to play sound file.', '[pyxal]', False, True)
 
     @staticmethod
     def _DestroyQuickPlay(pyxal, player, sound):
-        """Destroys the player and sound objects, and frees the PyXAL instance"""
+        """Destroys the player and sound objects, and frees the pyxal instance"""
         pyxal.Mgr.destroySound(sound)
         pyxal.Mgr.destroyPlayer(player)
         del (sound)

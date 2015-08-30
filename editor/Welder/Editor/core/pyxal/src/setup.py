@@ -3,8 +3,8 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
 XAL_ext = Extension(
-      "_PyXAL",                           # name of extension
-      ["_PyXAL.pyx"],                     # our Cython source "PyXAL.pyx"
+      "_pyxal",                           # name of extension
+      ["_pyxal.pyx"],                     # our Cython source "pyxal.pyx"
       language="c++",                    # causes Cython to create C++ source
       include_dirs=[r".\include"],                   # list of paths to search for header files
       library_dirs=[r".\bin", r".\lib"],                   # list of paths to search for libraries at link time
@@ -15,7 +15,7 @@ XAL_ext = Extension(
 
 
 setup(
-      name="_PyXAL",
+      name="_pyxal",
       ext_modules=[XAL_ext],                
       cmdclass={'build_ext': build_ext},
 )

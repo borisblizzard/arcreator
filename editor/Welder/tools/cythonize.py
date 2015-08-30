@@ -143,7 +143,7 @@ def ensure_path(path):
 # "Cache.py", "Controls.py"
 ingoreNames = ["__init__.py", "setup.py", "__main__.py",
                "_ext.py", "Logo.py", "Boot.py", "build", "Welder.py"]
-testFiles = ["Map_Test.py", "PyXAL_Test.py", "Database_Test.py"]
+testFiles = ["Map_Test.py", "pyxal_Test.py", "Database_Test.py"]
 
 
 class Package:
@@ -311,15 +311,15 @@ def lib_name(libname):
 
 def build(path):
 
-    plugins = Packager(os.path.join(path, "Core"), ["PyXAL", "Templates"])
+    plugins = Packager(os.path.join(path, "Core"), ["pyxal", "Templates"])
 
     extra_plugins = [
         Package(
-            os.path.join(path, "Core", "PyXAL"),
-            "PyXAL",
+            os.path.join(path, "Core", "pyxal"),
+            "pyxal",
             Extension(
-                "_PyXAL",
-                ["_PyXAL.pyx"],
+                "_pyxal",
+                ["_pyxal.pyx"],
                 language="c++",
                 include_dirs=["include"],
                 library_dirs=["lib"],

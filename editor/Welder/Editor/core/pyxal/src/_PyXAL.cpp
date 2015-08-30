@@ -344,8 +344,8 @@ void __Pyx_call_destructor(T* x) {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE___PyXAL
-#define __PYX_HAVE_API___PyXAL
+#define __PYX_HAVE___pyxal
+#define __PYX_HAVE_API___pyxal
 #include "string.h"
 #include "stdlib.h"
 #include <hltypes/hstring.h>
@@ -542,65 +542,65 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "_PyXAL.pyx",
+  "_pyxal.pyx",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6_PyXAL_PyAudioManager;
-struct __pyx_obj_6_PyXAL_SoundWrapper;
-struct __pyx_obj_6_PyXAL_PlayerWrapper;
-struct __pyx_obj_6_PyXAL_XALManagerWrapper;
+struct __pyx_obj_6_pyxal_PyAudioManager;
+struct __pyx_obj_6_pyxal_SoundWrapper;
+struct __pyx_obj_6_pyxal_PlayerWrapper;
+struct __pyx_obj_6_pyxal_XALManagerWrapper;
 
-/* "_PyXAL.pyx":119
+/* "_pyxal.pyx":119
  * 
  * 
  * cdef class PyAudioManager:             # <<<<<<<<<<<<<<
  *     '''
  *     A wrapper for the C++ xal::AudioManager class. it is currently not used
  */
-struct __pyx_obj_6_PyXAL_PyAudioManager {
+struct __pyx_obj_6_pyxal_PyAudioManager {
   PyObject_HEAD
   xal::AudioManager *_pointer;
   bool destroyed;
 };
 
 
-/* "_PyXAL.pyx":135
+/* "_pyxal.pyx":135
  * 
  * 
  * cdef class SoundWrapper:             # <<<<<<<<<<<<<<
  *     '''
  *     A wrapper class for the C++ xal::Sound class. it is returned by the XALManager.createSound and PyPlayer.getSound methods
  */
-struct __pyx_obj_6_PyXAL_SoundWrapper {
+struct __pyx_obj_6_pyxal_SoundWrapper {
   PyObject_HEAD
   xal::Sound *_pointer;
   bool destroyed;
 };
 
 
-/* "_PyXAL.pyx":308
+/* "_pyxal.pyx":308
  * 
  * 
  * cdef class PlayerWrapper:             # <<<<<<<<<<<<<<
  *     '''
  *     a wraper for the C++ class xal::Player. it is retuned by the XALManager.createPlayer method
  */
-struct __pyx_obj_6_PyXAL_PlayerWrapper {
+struct __pyx_obj_6_pyxal_PlayerWrapper {
   PyObject_HEAD
   xal::Player *_pointer;
   bool destroyed;
 };
 
 
-/* "_PyXAL.pyx":997
+/* "_pyxal.pyx":997
  * 
  * 
  * cdef class XALManagerWrapper(object):             # <<<<<<<<<<<<<<
  *     '''
  *     a wrapper for the xal::mgr object which is a xal::AudioManager. in other words this is the main interface to XAL you SHOLD NOT create an instance of the class yourself.
  */
-struct __pyx_obj_6_PyXAL_XALManagerWrapper {
+struct __pyx_obj_6_pyxal_XALManagerWrapper {
   PyObject_HEAD
   int destroyed;
   int inited;
@@ -958,152 +958,152 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t); /*proto*/
 
 /* Module declarations from 'XAL' */
 
-/* Module declarations from '_PyXAL' */
-static PyTypeObject *__pyx_ptype_6_PyXAL_PyAudioManager = 0;
-static PyTypeObject *__pyx_ptype_6_PyXAL_SoundWrapper = 0;
-static PyTypeObject *__pyx_ptype_6_PyXAL_PlayerWrapper = 0;
-static PyTypeObject *__pyx_ptype_6_PyXAL_XALManagerWrapper = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_DEFAULT = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_DISABLED = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_DIRECTSOUND = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_OPENAL = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_OPENSLES = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_SDL = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_XAUDIO2 = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_AVFOUNDATION = 0;
-static PyObject *__pyx_v_6_PyXAL_XAL_AS_COREAUDIO = 0;
-static enum xal::BufferMode __pyx_v_6_PyXAL_FULL;
-static enum xal::BufferMode __pyx_v_6_PyXAL_LAZY;
-static enum xal::BufferMode __pyx_v_6_PyXAL_MANAGED;
-static enum xal::BufferMode __pyx_v_6_PyXAL_ON_DEMAND;
-static enum xal::BufferMode __pyx_v_6_PyXAL_STREAMED;
-static enum xal::SourceMode __pyx_v_6_PyXAL_DISK;
-static enum xal::SourceMode __pyx_v_6_PyXAL_RAM;
-static enum xal::Format __pyx_v_6_PyXAL_FLAC;
-static enum xal::Format __pyx_v_6_PyXAL_M4A;
-static enum xal::Format __pyx_v_6_PyXAL_OGG;
-static enum xal::Format __pyx_v_6_PyXAL_SPX;
-static enum xal::Format __pyx_v_6_PyXAL_WAV;
-static enum xal::Format __pyx_v_6_PyXAL_UNKNOWN;
-static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *); /*proto*/
-static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr); /*proto*/
-#define __Pyx_MODULE_NAME "_PyXAL"
-int __pyx_module_is_main__PyXAL = 0;
+/* Module declarations from '_pyxal' */
+static PyTypeObject *__pyx_ptype_6_pyxal_PyAudioManager = 0;
+static PyTypeObject *__pyx_ptype_6_pyxal_SoundWrapper = 0;
+static PyTypeObject *__pyx_ptype_6_pyxal_PlayerWrapper = 0;
+static PyTypeObject *__pyx_ptype_6_pyxal_XALManagerWrapper = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_DEFAULT = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_DISABLED = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_DIRECTSOUND = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_OPENAL = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_OPENSLES = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_SDL = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_XAUDIO2 = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_AVFOUNDATION = 0;
+static PyObject *__pyx_v_6_pyxal_XAL_AS_COREAUDIO = 0;
+static enum xal::BufferMode __pyx_v_6_pyxal_FULL;
+static enum xal::BufferMode __pyx_v_6_pyxal_LAZY;
+static enum xal::BufferMode __pyx_v_6_pyxal_MANAGED;
+static enum xal::BufferMode __pyx_v_6_pyxal_ON_DEMAND;
+static enum xal::BufferMode __pyx_v_6_pyxal_STREAMED;
+static enum xal::SourceMode __pyx_v_6_pyxal_DISK;
+static enum xal::SourceMode __pyx_v_6_pyxal_RAM;
+static enum xal::Format __pyx_v_6_pyxal_FLAC;
+static enum xal::Format __pyx_v_6_pyxal_M4A;
+static enum xal::Format __pyx_v_6_pyxal_OGG;
+static enum xal::Format __pyx_v_6_pyxal_SPX;
+static enum xal::Format __pyx_v_6_pyxal_WAV;
+static enum xal::Format __pyx_v_6_pyxal_UNKNOWN;
+static hstr __pyx_f_6_pyxal_Py_to_Hstr(PyObject *); /*proto*/
+static PyObject *__pyx_f_6_pyxal_Hstr_to_Py(hstr); /*proto*/
+#define __Pyx_MODULE_NAME "_pyxal"
+int __pyx_module_is_main__pyxal = 0;
 
-/* Implementation of '_PyXAL' */
+/* Implementation of '_pyxal' */
 static PyObject *__pyx_builtin_object;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_TypeError;
-static int __pyx_pf_6_PyXAL_14PyAudioManager___init__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_PyAudioManager *__pyx_v_self); /* proto */
-static int __pyx_pf_6_PyXAL_12SoundWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self); /* proto */
-static int __pyx_pf_6_PyXAL_13PlayerWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_value); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_value); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
-static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self, enum xal::AudioSystemType __pyx_v_type, int __pyx_v_backendId, int __pyx_v_threaded, float __pyx_v_updateTime, char *__pyx_v_deviceName); /* proto */
-static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_backendId, int __pyx_v_threaded); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_player); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime, bool __pyx_v_looping, float __pyx_v_gain); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_backendId, int __pyx_v_threaded); /* proto */
-static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_tp_new_6_PyXAL_PyAudioManager(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6_PyXAL_SoundWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6_PyXAL_PlayerWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6_PyXAL_XALManagerWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_6_pyxal_14PyAudioManager___init__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_PyAudioManager *__pyx_v_self); /* proto */
+static int __pyx_pf_6_pyxal_12SoundWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_2_destroy(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static void __pyx_pf_6_pyxal_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_8getName(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_10getFilename(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_12getRealFilename(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_14getSize(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_16getChannels(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_18getSamplingRate(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_20getBitsPerSample(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_22getDuration(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_24getFormat(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_26isStreamed(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_28readPcmData(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self); /* proto */
+static int __pyx_pf_6_pyxal_13PlayerWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_2_destroy(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static void __pyx_pf_6_pyxal_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_8getGain(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_10setGain(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_value); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_12getPitch(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_14setPitch(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_value); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_16getName(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_18getFilename(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_20getRealFilename(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_22getDuration(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_24getSize(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_26getTimePosition(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_28getSamplePosition(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_30isPlaying(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_32isPaused(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_34isFading(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_36isFadingIn(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_38isFadingOut(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_40isLooping(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_42play(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_44stop(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_46pause(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_8getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_10getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_12getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_14getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_16getChannels(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_18getSamplingRate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_20getBitsPerSample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_22getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_24getFormat(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_26isStreamed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_7PySound_28readPcmData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_30getSamplePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
+static int __pyx_pf_6_pyxal_17XALManagerWrapper___init__(struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self, enum xal::AudioSystemType __pyx_v_type, int __pyx_v_backendId, int __pyx_v_threaded, float __pyx_v_updateTime, char *__pyx_v_deviceName); /* proto */
+static void __pyx_pf_6_pyxal_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_17XALManagerWrapper_4isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_17XALManagerWrapper_6SetupXAL(struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_backendId, int __pyx_v_threaded); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_2isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_6clear(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_8createSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_10createPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_12destroyPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_player); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_14destroySound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_16findPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_18play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime, bool __pyx_v_looping, float __pyx_v_gain); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_20stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_22stopFirst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_24stopAll(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_28isAnyFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_32isAnyFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_34suspendAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_10XALManager_36resumeAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6_pyxal_Init(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_backendId, int __pyx_v_threaded); /* proto */
+static PyObject *__pyx_pf_6_pyxal_2Destroy(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_tp_new_6_pyxal_PyAudioManager(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6_pyxal_SoundWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6_pyxal_PlayerWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6_pyxal_XALManagerWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_os[] = "os";
 static char __pyx_k_Mgr[] = "Mgr";
 static char __pyx_k__26[] = "";
@@ -1121,7 +1121,7 @@ static char __pyx_k_self[] = "self";
 static char __pyx_k_stop[] = "stop";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_type[] = "type";
-static char __pyx_k_PyXAL[] = "_PyXAL";
+static char __pyx_k_pyxal[] = "_pyxal";
 static char __pyx_k_UTF_8[] = "UTF-8";
 static char __pyx_k_clear[] = "clear";
 static char __pyx_k_pause[] = "pause";
@@ -1274,11 +1274,11 @@ static char __pyx_k_XALManager_isXALInitialized[] = "XALManager.isXALInitialized
 static char __pyx_k_a_interface_for_the_C_wrapper[] = "\n    a interface for the C++ wrapper\n    ";
 static char __pyx_k_a_interface_for_the_wrapper_of[] = "\n    a interface for the wrapper of the xal::Sound class\n    ";
 static char __pyx_k_PyPlayer_Can_not_be_initialized[] = "PyPlayer Can not be initialized from python";
-static char __pyx_k_a_wrapper_for_the_xal_mgr_objec[] = "\n    a wrapper for the xal::mgr object which is a xal::AudioManager. in other words this is the main interface to XAL you SHOLD NOT create an instance of the class yourself.\n    call PyXAL.Init to set up XAL. an instance of this class will be made avalable at PyXAL.Mgr\n    ";
+static char __pyx_k_a_wrapper_for_the_xal_mgr_objec[] = "\n    a wrapper for the xal::mgr object which is a xal::AudioManager. in other words this is the main interface to XAL you SHOLD NOT create an instance of the class yourself.\n    call pyxal.Init to set up XAL. an instance of this class will be made avalable at pyxal.Mgr\n    ";
 static char __pyx_k_the_C_interface_for_this_object[] = "the C++ interface for this object has been destroyed";
-static char __pyx_k_E_Projects_ARC_editor_Welder_src[] = "E:\\Projects\\ARC\\editor\\Welder\\src\\Core\\PyXAL\\src\\_PyXAL.pyx";
+static char __pyx_k_E_Projects_ARC_editor_Welder_src[] = "E:\\Projects\\ARC\\editor\\Welder\\src\\Core\\pyxal\\src\\_pyxal.pyx";
 static char __pyx_k_Expected_argument_1_to_be_of_typ[] = "Expected argument 1 to be of type PySound got %s";
-static char __pyx_k_Only_one_XALManager_interface_al[] = "Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr";
+static char __pyx_k_Only_one_XALManager_interface_al[] = "Only one XALManager interface allowed at a time, use the one at pyxal.Mgr";
 static char __pyx_k_PyAudioManager_Can_not_be_initia[] = "PyAudioManager Can not be initialized from python";
 static char __pyx_k_PySound_Can_not_be_initialized_f[] = "PySound Can not be initialized from python";
 static char __pyx_k_XAL_Failed_to_create_a_player_fo[] = "XAL Failed to create a player for %s";
@@ -1336,7 +1336,7 @@ static PyObject *__pyx_n_s_PySound_getSize;
 static PyObject *__pyx_n_s_PySound_isStreamed;
 static PyObject *__pyx_n_s_PySound_isXALInitialized;
 static PyObject *__pyx_n_s_PySound_readPcmData;
-static PyObject *__pyx_n_s_PyXAL;
+static PyObject *__pyx_n_s_pyxal;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_SetupXAL;
 static PyObject *__pyx_n_s_TypeError;
@@ -1733,7 +1733,7 @@ static PyObject *__pyx_codeobj__267;
 static PyObject *__pyx_codeobj__269;
 static PyObject *__pyx_codeobj__271;
 
-/* "_PyXAL.pyx":106
+/* "_pyxal.pyx":106
  * Mgr = None
  * 
  * cdef hstr Py_to_Hstr (string):             # <<<<<<<<<<<<<<
@@ -1741,7 +1741,7 @@ static PyObject *__pyx_codeobj__271;
  *     cdef char* c_str = py_byte_string
  */
 
-static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
+static hstr __pyx_f_6_pyxal_Py_to_Hstr(PyObject *__pyx_v_string) {
   PyObject *__pyx_v_py_byte_string = NULL;
   char *__pyx_v_c_str;
   hstr __pyx_v_hstring;
@@ -1755,7 +1755,7 @@ static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("Py_to_Hstr", 0);
 
-  /* "_PyXAL.pyx":107
+  /* "_pyxal.pyx":107
  * 
  * cdef hstr Py_to_Hstr (string):
  *     py_byte_string = string.encode('UTF-8')             # <<<<<<<<<<<<<<
@@ -1770,7 +1770,7 @@ static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
   __pyx_v_py_byte_string = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":108
+  /* "_pyxal.pyx":108
  * cdef hstr Py_to_Hstr (string):
  *     py_byte_string = string.encode('UTF-8')
  *     cdef char* c_str = py_byte_string             # <<<<<<<<<<<<<<
@@ -1780,7 +1780,7 @@ static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
   __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_v_py_byte_string); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_c_str = __pyx_t_3;
 
-  /* "_PyXAL.pyx":109
+  /* "_pyxal.pyx":109
  *     py_byte_string = string.encode('UTF-8')
  *     cdef char* c_str = py_byte_string
  *     cdef hstr hstring = hstr(c_str)             # <<<<<<<<<<<<<<
@@ -1789,7 +1789,7 @@ static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
  */
   __pyx_v_hstring = hstr(__pyx_v_c_str);
 
-  /* "_PyXAL.pyx":110
+  /* "_pyxal.pyx":110
  *     cdef char* c_str = py_byte_string
  *     cdef hstr hstring = hstr(c_str)
  *     return hstring             # <<<<<<<<<<<<<<
@@ -1799,7 +1799,7 @@ static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
   __pyx_r = __pyx_v_hstring;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":106
+  /* "_pyxal.pyx":106
  * Mgr = None
  * 
  * cdef hstr Py_to_Hstr (string):             # <<<<<<<<<<<<<<
@@ -1811,14 +1811,14 @@ static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_WriteUnraisable("_PyXAL.Py_to_Hstr", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("_pyxal.Py_to_Hstr", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_py_byte_string);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":112
+/* "_pyxal.pyx":112
  *     return hstring
  * 
  * cdef Hstr_to_Py (hstr string):             # <<<<<<<<<<<<<<
@@ -1826,7 +1826,7 @@ static hstr __pyx_f_6_PyXAL_Py_to_Hstr(PyObject *__pyx_v_string) {
  *     py_byte_string = c_str
  */
 
-static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
+static PyObject *__pyx_f_6_pyxal_Hstr_to_Py(hstr __pyx_v_string) {
   const char* __pyx_v_c_str;
   const char* __pyx_v_py_byte_string;
   PyObject *__pyx_v_pystring = NULL;
@@ -1838,7 +1838,7 @@ static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("Hstr_to_Py", 0);
 
-  /* "_PyXAL.pyx":113
+  /* "_pyxal.pyx":113
  * 
  * cdef Hstr_to_Py (hstr string):
  *     cdef const_char_ptr c_str = string.c_str()             # <<<<<<<<<<<<<<
@@ -1847,7 +1847,7 @@ static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
  */
   __pyx_v_c_str = __pyx_v_string.c_str();
 
-  /* "_PyXAL.pyx":114
+  /* "_pyxal.pyx":114
  * cdef Hstr_to_Py (hstr string):
  *     cdef const_char_ptr c_str = string.c_str()
  *     py_byte_string = c_str             # <<<<<<<<<<<<<<
@@ -1856,7 +1856,7 @@ static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
  */
   __pyx_v_py_byte_string = __pyx_v_c_str;
 
-  /* "_PyXAL.pyx":115
+  /* "_pyxal.pyx":115
  *     cdef const_char_ptr c_str = string.c_str()
  *     py_byte_string = c_str
  *     pystring = py_byte_string.decode('UTF-8')             # <<<<<<<<<<<<<<
@@ -1868,7 +1868,7 @@ static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
   __pyx_v_pystring = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":116
+  /* "_pyxal.pyx":116
  *     py_byte_string = c_str
  *     pystring = py_byte_string.decode('UTF-8')
  *     return pystring             # <<<<<<<<<<<<<<
@@ -1880,7 +1880,7 @@ static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
   __pyx_r = __pyx_v_pystring;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":112
+  /* "_pyxal.pyx":112
  *     return hstring
  * 
  * cdef Hstr_to_Py (hstr string):             # <<<<<<<<<<<<<<
@@ -1891,7 +1891,7 @@ static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("_PyXAL.Hstr_to_Py", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.Hstr_to_Py", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_pystring);
@@ -1900,35 +1900,35 @@ static PyObject *__pyx_f_6_PyXAL_Hstr_to_Py(hstr __pyx_v_string) {
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":127
+/* "_pyxal.pyx":127
  *     cdef bool destroyed
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         '''
- *         this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+ *         this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
  */
 
 /* Python wrapper */
-static int __pyx_pw_6_PyXAL_14PyAudioManager_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_14PyAudioManager___init__[] = "\n        this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.\n        as such calling the __init__ method will raise a Runtime Error\n        ";
+static int __pyx_pw_6_pyxal_14PyAudioManager_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_14PyAudioManager___init__[] = "\n        this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.\n        as such calling the __init__ method will raise a Runtime Error\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_6_PyXAL_14PyAudioManager___init__;
+struct wrapperbase __pyx_wrapperbase_6_pyxal_14PyAudioManager___init__;
 #endif
-static int __pyx_pw_6_PyXAL_14PyAudioManager_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6_pyxal_14PyAudioManager_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__init__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__init__", 0))) return -1;
-  __pyx_r = __pyx_pf_6_PyXAL_14PyAudioManager___init__(((struct __pyx_obj_6_PyXAL_PyAudioManager *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_14PyAudioManager___init__(((struct __pyx_obj_6_pyxal_PyAudioManager *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6_PyXAL_14PyAudioManager___init__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_PyAudioManager *__pyx_v_self) {
+static int __pyx_pf_6_pyxal_14PyAudioManager___init__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_PyAudioManager *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1937,7 +1937,7 @@ static int __pyx_pf_6_PyXAL_14PyAudioManager___init__(CYTHON_UNUSED struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_PyXAL.pyx":132
+  /* "_pyxal.pyx":132
  *         as such calling the __init__ method will raise a Runtime Error
  *         '''
  *         raise RuntimeError("PyAudioManager Can not be initialized from python")             # <<<<<<<<<<<<<<
@@ -1950,52 +1950,52 @@ static int __pyx_pf_6_PyXAL_14PyAudioManager___init__(CYTHON_UNUSED struct __pyx
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":127
+  /* "_pyxal.pyx":127
  *     cdef bool destroyed
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         '''
- *         this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+ *         this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("_PyXAL.PyAudioManager.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyAudioManager.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":143
+/* "_pyxal.pyx":143
  *     cdef bool destroyed
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         '''
- *         this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+ *         this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
  */
 
 /* Python wrapper */
-static int __pyx_pw_6_PyXAL_12SoundWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper___init__[] = "\n        this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.\n        as such calling the __init__ method will raise a Runtime Error\n        ";
+static int __pyx_pw_6_pyxal_12SoundWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper___init__[] = "\n        this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.\n        as such calling the __init__ method will raise a Runtime Error\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_6_PyXAL_12SoundWrapper___init__;
+struct wrapperbase __pyx_wrapperbase_6_pyxal_12SoundWrapper___init__;
 #endif
-static int __pyx_pw_6_PyXAL_12SoundWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6_pyxal_12SoundWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__init__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__init__", 0))) return -1;
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper___init__(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper___init__(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6_PyXAL_12SoundWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static int __pyx_pf_6_pyxal_12SoundWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2004,7 +2004,7 @@ static int __pyx_pf_6_PyXAL_12SoundWrapper___init__(CYTHON_UNUSED struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_PyXAL.pyx":148
+  /* "_pyxal.pyx":148
  *         as such calling the __init__ method will raise a Runtime Error
  *         '''
  *         raise RuntimeError("PySound Can not be initialized from python")             # <<<<<<<<<<<<<<
@@ -2017,24 +2017,24 @@ static int __pyx_pf_6_PyXAL_12SoundWrapper___init__(CYTHON_UNUSED struct __pyx_o
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   {__pyx_filename = __pyx_f[0]; __pyx_lineno = 148; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":143
+  /* "_pyxal.pyx":143
  *     cdef bool destroyed
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         '''
- *         this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+ *         this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":150
+/* "_pyxal.pyx":150
  *         raise RuntimeError("PySound Can not be initialized from python")
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -2043,19 +2043,19 @@ static int __pyx_pf_6_PyXAL_12SoundWrapper___init__(CYTHON_UNUSED struct __pyx_o
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_destroy (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_2_destroy(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_2_destroy(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2068,7 +2068,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_destroy", 0);
 
-  /* "_PyXAL.pyx":151
+  /* "_pyxal.pyx":151
  * 
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed :             # <<<<<<<<<<<<<<
@@ -2090,7 +2090,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_Py
   }
   if (__pyx_t_5) {
 
-    /* "_PyXAL.pyx":152
+    /* "_pyxal.pyx":152
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed :
  *             XAL.mgr.destroySound(self._pointer)             # <<<<<<<<<<<<<<
@@ -2104,7 +2104,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_Py
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":153
+    /* "_pyxal.pyx":153
  *         if self.isXALInitialized() and not self.destroyed :
  *             XAL.mgr.destroySound(self._pointer)
  *             self.destroyed = True             # <<<<<<<<<<<<<<
@@ -2116,7 +2116,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_Py
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":150
+  /* "_pyxal.pyx":150
  *         raise RuntimeError("PySound Can not be initialized from python")
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -2130,7 +2130,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_Py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2138,7 +2138,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_Py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":155
+/* "_pyxal.pyx":155
  *             self.destroyed = True
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2147,17 +2147,17 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_2_destroy(struct __pyx_obj_6_Py
  */
 
 /* Python wrapper */
-static void __pyx_pw_6_PyXAL_12SoundWrapper_5__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6_PyXAL_12SoundWrapper_5__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6_pyxal_12SoundWrapper_5__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6_pyxal_12SoundWrapper_5__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_pf_6_pyxal_12SoundWrapper_4__dealloc__(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static void __pyx_pf_6_pyxal_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
@@ -2167,7 +2167,7 @@ static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXA
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "_PyXAL.pyx":156
+  /* "_pyxal.pyx":156
  * 
  *     def __dealloc__(self):
  *         if (XAL.mgr != NULL) and (not self.destroyed):             # <<<<<<<<<<<<<<
@@ -2183,7 +2183,7 @@ static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXA
   }
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":157
+    /* "_pyxal.pyx":157
  *     def __dealloc__(self):
  *         if (XAL.mgr != NULL) and (not self.destroyed):
  *             XAL.mgr.destroySound(self._pointer)             # <<<<<<<<<<<<<<
@@ -2197,7 +2197,7 @@ static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXA
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":158
+    /* "_pyxal.pyx":158
  *         if (XAL.mgr != NULL) and (not self.destroyed):
  *             XAL.mgr.destroySound(self._pointer)
  *             self.destroyed = True             # <<<<<<<<<<<<<<
@@ -2209,7 +2209,7 @@ static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXA
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":155
+  /* "_pyxal.pyx":155
  *             self.destroyed = True
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2220,12 +2220,12 @@ static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXA
   /* function exit code */
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_WriteUnraisable("_PyXAL.SoundWrapper.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("_pyxal.SoundWrapper.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "_PyXAL.pyx":160
+/* "_pyxal.pyx":160
  *             self.destroyed = True
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -2234,26 +2234,26 @@ static void __pyx_pf_6_PyXAL_12SoundWrapper_4__dealloc__(struct __pyx_obj_6_PyXA
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isXALInitialized (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_6isXALInitialized(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("isXALInitialized", 0);
 
-  /* "_PyXAL.pyx":164
+  /* "_pyxal.pyx":164
  *         returns true if the C++ side of the interface to XAL exists
  *         '''
  *         if XAL.mgr != NULL:             # <<<<<<<<<<<<<<
@@ -2263,7 +2263,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":165
+    /* "_pyxal.pyx":165
  *         '''
  *         if XAL.mgr != NULL:
  *             return True             # <<<<<<<<<<<<<<
@@ -2277,7 +2277,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED
   }
   /*else*/ {
 
-    /* "_PyXAL.pyx":167
+    /* "_pyxal.pyx":167
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -2290,7 +2290,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED
     goto __pyx_L0;
   }
 
-  /* "_PyXAL.pyx":160
+  /* "_pyxal.pyx":160
  *             self.destroyed = True
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -2305,7 +2305,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":169
+/* "_pyxal.pyx":169
  *             return False
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -2314,20 +2314,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_6isXALInitialized(CYTHON_UNUSED
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_9getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_8getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_9getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_9getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_8getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_9getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getName (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_8getName(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_8getName(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_8getName(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_v_name = NULL;
   PyObject *__pyx_r = NULL;
@@ -2342,7 +2342,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getName", 0);
 
-  /* "_PyXAL.pyx":173
+  /* "_pyxal.pyx":173
  *         @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -2359,7 +2359,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":174
+    /* "_pyxal.pyx":174
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -2373,7 +2373,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":175
+  /* "_pyxal.pyx":175
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -2383,7 +2383,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":176
+    /* "_pyxal.pyx":176
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -2397,7 +2397,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":177
+  /* "_pyxal.pyx":177
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getName()             # <<<<<<<<<<<<<<
@@ -2412,19 +2412,19 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
   }
   __pyx_v_hl_name = __pyx_t_5;
 
-  /* "_PyXAL.pyx":178
+  /* "_pyxal.pyx":178
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getName()
  *         name = Hstr_to_Py(hl_name)             # <<<<<<<<<<<<<<
  *         return name
  * 
  */
-  __pyx_t_2 = __pyx_f_6_PyXAL_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_6_pyxal_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_name = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":179
+  /* "_pyxal.pyx":179
  *         cdef hstr hl_name = self._pointer.getName()
  *         name = Hstr_to_Py(hl_name)
  *         return name             # <<<<<<<<<<<<<<
@@ -2436,7 +2436,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
   __pyx_r = __pyx_v_name;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":169
+  /* "_pyxal.pyx":169
  *             return False
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -2448,7 +2448,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_name);
@@ -2457,7 +2457,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":181
+/* "_pyxal.pyx":181
  *         return name
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -2466,20 +2466,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_8getName(struct __pyx_obj_6_PyX
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_11getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_10getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_11getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_11getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_10getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_11getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_10getFilename(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_10getFilename(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_v_name = NULL;
   PyObject *__pyx_r = NULL;
@@ -2494,7 +2494,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getFilename", 0);
 
-  /* "_PyXAL.pyx":185
+  /* "_pyxal.pyx":185
  *         @return: returns a string containing the file name the sound was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -2511,7 +2511,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":186
+    /* "_pyxal.pyx":186
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -2525,7 +2525,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":187
+  /* "_pyxal.pyx":187
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -2535,7 +2535,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":188
+    /* "_pyxal.pyx":188
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -2549,7 +2549,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":189
+  /* "_pyxal.pyx":189
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getFilename()             # <<<<<<<<<<<<<<
@@ -2564,19 +2564,19 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
   }
   __pyx_v_hl_name = __pyx_t_5;
 
-  /* "_PyXAL.pyx":190
+  /* "_pyxal.pyx":190
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getFilename()
  *         name = Hstr_to_Py(hl_name)             # <<<<<<<<<<<<<<
  *         return name
  * 
  */
-  __pyx_t_2 = __pyx_f_6_PyXAL_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_6_pyxal_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_name = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":191
+  /* "_pyxal.pyx":191
  *         cdef hstr hl_name = self._pointer.getFilename()
  *         name = Hstr_to_Py(hl_name)
  *         return name             # <<<<<<<<<<<<<<
@@ -2588,7 +2588,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
   __pyx_r = __pyx_v_name;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":181
+  /* "_pyxal.pyx":181
  *         return name
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -2600,7 +2600,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_name);
@@ -2609,7 +2609,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":193
+/* "_pyxal.pyx":193
  *         return name
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -2618,20 +2618,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_10getFilename(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_13getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_12getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_13getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_13getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_12getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_13getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getRealFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_12getRealFilename(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_12getRealFilename(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_v_name = NULL;
   PyObject *__pyx_r = NULL;
@@ -2646,7 +2646,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getRealFilename", 0);
 
-  /* "_PyXAL.pyx":197
+  /* "_pyxal.pyx":197
  *         @return: returns a string with the full path to the file the string was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -2663,7 +2663,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":198
+    /* "_pyxal.pyx":198
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -2677,7 +2677,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":199
+  /* "_pyxal.pyx":199
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -2687,7 +2687,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":200
+    /* "_pyxal.pyx":200
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -2701,7 +2701,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":201
+  /* "_pyxal.pyx":201
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getRealFilename()             # <<<<<<<<<<<<<<
@@ -2716,19 +2716,19 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
   }
   __pyx_v_hl_name = __pyx_t_5;
 
-  /* "_PyXAL.pyx":202
+  /* "_pyxal.pyx":202
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getRealFilename()
  *         name = Hstr_to_Py(hl_name)             # <<<<<<<<<<<<<<
  *         return name
  * 
  */
-  __pyx_t_2 = __pyx_f_6_PyXAL_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_6_pyxal_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_name = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":203
+  /* "_pyxal.pyx":203
  *         cdef hstr hl_name = self._pointer.getRealFilename()
  *         name = Hstr_to_Py(hl_name)
  *         return name             # <<<<<<<<<<<<<<
@@ -2740,7 +2740,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
   __pyx_r = __pyx_v_name;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":193
+  /* "_pyxal.pyx":193
  *         return name
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -2752,7 +2752,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_name);
@@ -2761,7 +2761,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":205
+/* "_pyxal.pyx":205
  *         return name
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -2770,20 +2770,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_12getRealFilename(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_15getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_14getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_15getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_15getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_14getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_15getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSize (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_14getSize(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_14getSize(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_14getSize(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   int __pyx_v_size;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2797,7 +2797,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSize", 0);
 
-  /* "_PyXAL.pyx":209
+  /* "_pyxal.pyx":209
  *         @return: int the size of the sound data in bits not bytes
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -2814,7 +2814,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":210
+    /* "_pyxal.pyx":210
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -2828,7 +2828,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":211
+  /* "_pyxal.pyx":211
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -2838,7 +2838,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":212
+    /* "_pyxal.pyx":212
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -2852,7 +2852,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":213
+  /* "_pyxal.pyx":213
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int size = self._pointer.getSize()             # <<<<<<<<<<<<<<
@@ -2867,7 +2867,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
   }
   __pyx_v_size = __pyx_t_5;
 
-  /* "_PyXAL.pyx":214
+  /* "_pyxal.pyx":214
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int size = self._pointer.getSize()
  *         return size             # <<<<<<<<<<<<<<
@@ -2881,7 +2881,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":205
+  /* "_pyxal.pyx":205
  *         return name
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -2893,7 +2893,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2901,7 +2901,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":216
+/* "_pyxal.pyx":216
  *         return size
  * 
  *     def getChannels(self):             # <<<<<<<<<<<<<<
@@ -2910,20 +2910,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_14getSize(struct __pyx_obj_6_Py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_17getChannels(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_16getChannels[] = "\n        @return: int number of channels the sound has. 1 for mono or 2 for stereo \n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_17getChannels(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_17getChannels(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_16getChannels[] = "\n        @return: int number of channels the sound has. 1 for mono or 2 for stereo \n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_17getChannels(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getChannels (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_16getChannels(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_16getChannels(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   int __pyx_v_channels;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2937,7 +2937,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getChannels", 0);
 
-  /* "_PyXAL.pyx":220
+  /* "_pyxal.pyx":220
  *         @return: int number of channels the sound has. 1 for mono or 2 for stereo
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -2954,7 +2954,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":221
+    /* "_pyxal.pyx":221
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -2968,7 +2968,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":222
+  /* "_pyxal.pyx":222
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -2978,7 +2978,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":223
+    /* "_pyxal.pyx":223
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -2992,7 +2992,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 223; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":224
+  /* "_pyxal.pyx":224
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int channels = self._pointer.getChannels()             # <<<<<<<<<<<<<<
@@ -3007,7 +3007,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
   }
   __pyx_v_channels = __pyx_t_5;
 
-  /* "_PyXAL.pyx":225
+  /* "_pyxal.pyx":225
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int channels = self._pointer.getChannels()
  *         return channels             # <<<<<<<<<<<<<<
@@ -3021,7 +3021,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":216
+  /* "_pyxal.pyx":216
  *         return size
  * 
  *     def getChannels(self):             # <<<<<<<<<<<<<<
@@ -3033,7 +3033,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getChannels", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getChannels", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3041,7 +3041,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":227
+/* "_pyxal.pyx":227
  *         return channels
  * 
  *     def getSamplingRate(self):             # <<<<<<<<<<<<<<
@@ -3050,20 +3050,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_16getChannels(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_19getSamplingRate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_18getSamplingRate[] = "\n        @return: int the sampeling rate for the sound in samples per second\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_19getSamplingRate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_19getSamplingRate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_18getSamplingRate[] = "\n        @return: int the sampeling rate for the sound in samples per second\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_19getSamplingRate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSamplingRate (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_18getSamplingRate(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_18getSamplingRate(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   int __pyx_v_rate;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3077,7 +3077,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSamplingRate", 0);
 
-  /* "_PyXAL.pyx":231
+  /* "_pyxal.pyx":231
  *         @return: int the sampeling rate for the sound in samples per second
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -3094,7 +3094,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":232
+    /* "_pyxal.pyx":232
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -3108,7 +3108,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":233
+  /* "_pyxal.pyx":233
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -3118,7 +3118,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":234
+    /* "_pyxal.pyx":234
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -3132,7 +3132,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 234; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":235
+  /* "_pyxal.pyx":235
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int rate = self._pointer.getSamplingRate()             # <<<<<<<<<<<<<<
@@ -3147,7 +3147,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
   }
   __pyx_v_rate = __pyx_t_5;
 
-  /* "_PyXAL.pyx":236
+  /* "_pyxal.pyx":236
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int rate = self._pointer.getSamplingRate()
  *         return rate             # <<<<<<<<<<<<<<
@@ -3161,7 +3161,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":227
+  /* "_pyxal.pyx":227
  *         return channels
  * 
  *     def getSamplingRate(self):             # <<<<<<<<<<<<<<
@@ -3173,7 +3173,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getSamplingRate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getSamplingRate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3181,7 +3181,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":238
+/* "_pyxal.pyx":238
  *         return rate
  * 
  *     def getBitsPerSample(self):             # <<<<<<<<<<<<<<
@@ -3190,20 +3190,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_18getSamplingRate(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_21getBitsPerSample(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_20getBitsPerSample[] = "\n        @return: int the bits per sample of data in the sound. usualy 8, 16, or 24, possibly 32 not sure\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_21getBitsPerSample(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_21getBitsPerSample(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_20getBitsPerSample[] = "\n        @return: int the bits per sample of data in the sound. usualy 8, 16, or 24, possibly 32 not sure\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_21getBitsPerSample(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getBitsPerSample (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_20getBitsPerSample(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_20getBitsPerSample(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   int __pyx_v_rate;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3217,7 +3217,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getBitsPerSample", 0);
 
-  /* "_PyXAL.pyx":242
+  /* "_pyxal.pyx":242
  *         @return: int the bits per sample of data in the sound. usualy 8, 16, or 24, possibly 32 not sure
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -3234,7 +3234,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":243
+    /* "_pyxal.pyx":243
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -3248,7 +3248,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":244
+  /* "_pyxal.pyx":244
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -3258,7 +3258,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":245
+    /* "_pyxal.pyx":245
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -3272,7 +3272,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":246
+  /* "_pyxal.pyx":246
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int rate = self._pointer.getBitsPerSample()             # <<<<<<<<<<<<<<
@@ -3287,7 +3287,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
   }
   __pyx_v_rate = __pyx_t_5;
 
-  /* "_PyXAL.pyx":247
+  /* "_pyxal.pyx":247
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int rate = self._pointer.getBitsPerSample()
  *         return rate             # <<<<<<<<<<<<<<
@@ -3301,7 +3301,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":238
+  /* "_pyxal.pyx":238
  *         return rate
  * 
  *     def getBitsPerSample(self):             # <<<<<<<<<<<<<<
@@ -3313,7 +3313,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getBitsPerSample", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getBitsPerSample", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3321,7 +3321,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":249
+/* "_pyxal.pyx":249
  *         return rate
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -3330,20 +3330,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_20getBitsPerSample(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_22getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_22getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getDuration (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_22getDuration(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_22getDuration(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   float __pyx_v_duration;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3357,7 +3357,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getDuration", 0);
 
-  /* "_PyXAL.pyx":253
+  /* "_pyxal.pyx":253
  *         @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -3374,7 +3374,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":254
+    /* "_pyxal.pyx":254
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -3388,7 +3388,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":255
+  /* "_pyxal.pyx":255
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -3398,7 +3398,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":256
+    /* "_pyxal.pyx":256
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -3412,7 +3412,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":257
+  /* "_pyxal.pyx":257
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float duration = self._pointer.getDuration()             # <<<<<<<<<<<<<<
@@ -3427,7 +3427,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
   }
   __pyx_v_duration = __pyx_t_5;
 
-  /* "_PyXAL.pyx":258
+  /* "_pyxal.pyx":258
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float duration = self._pointer.getDuration()
  *         return duration             # <<<<<<<<<<<<<<
@@ -3441,7 +3441,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":249
+  /* "_pyxal.pyx":249
  *         return rate
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -3453,7 +3453,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3461,7 +3461,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":260
+/* "_pyxal.pyx":260
  *         return duration
  * 
  *     def getFormat(self):             # <<<<<<<<<<<<<<
@@ -3470,20 +3470,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_22getDuration(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_25getFormat(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_24getFormat[] = "\n        @return: int the intrnal designation of the sound format. coresponds to a file type but as of now there is no way to tell for certin which is which \n            as the nubers will change depending on what formats are currently suported by XAL\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_25getFormat(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_25getFormat(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_24getFormat[] = "\n        @return: int the intrnal designation of the sound format. coresponds to a file type but as of now there is no way to tell for certin which is which \n            as the nubers will change depending on what formats are currently suported by XAL\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_25getFormat(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getFormat (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_24getFormat(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_24getFormat(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   int __pyx_v_format;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3497,7 +3497,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getFormat", 0);
 
-  /* "_PyXAL.pyx":265
+  /* "_pyxal.pyx":265
  *             as the nubers will change depending on what formats are currently suported by XAL
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -3514,7 +3514,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":266
+    /* "_pyxal.pyx":266
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -3528,7 +3528,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":267
+  /* "_pyxal.pyx":267
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -3538,7 +3538,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":268
+    /* "_pyxal.pyx":268
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -3552,7 +3552,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 268; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":269
+  /* "_pyxal.pyx":269
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int format = <int>self._pointer.getFormat()             # <<<<<<<<<<<<<<
@@ -3567,7 +3567,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
   }
   __pyx_v_format = ((int)__pyx_t_5);
 
-  /* "_PyXAL.pyx":270
+  /* "_pyxal.pyx":270
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int format = <int>self._pointer.getFormat()
  *         return format             # <<<<<<<<<<<<<<
@@ -3581,7 +3581,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":260
+  /* "_pyxal.pyx":260
  *         return duration
  * 
  *     def getFormat(self):             # <<<<<<<<<<<<<<
@@ -3593,7 +3593,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.getFormat", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.getFormat", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3601,7 +3601,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":272
+/* "_pyxal.pyx":272
  *         return format
  * 
  *     def isStreamed(self):             # <<<<<<<<<<<<<<
@@ -3610,20 +3610,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_24getFormat(struct __pyx_obj_6_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_27isStreamed(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_26isStreamed[] = "\n        @return: bool is the sound being streamed from it's file to the player? or is it comleatly loaded into memory. \n            should always return false in PyXAL as PyXAL uses full decoding mode\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_27isStreamed(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_27isStreamed(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_26isStreamed[] = "\n        @return: bool is the sound being streamed from it's file to the player? or is it comleatly loaded into memory. \n            should always return false in pyxal as pyxal uses full decoding mode\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_27isStreamed(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isStreamed (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_26isStreamed(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_26isStreamed(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   int __pyx_v_streamed;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3637,8 +3637,8 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isStreamed", 0);
 
-  /* "_PyXAL.pyx":277
- *             should always return false in PyXAL as PyXAL uses full decoding mode
+  /* "_pyxal.pyx":277
+ *             should always return false in pyxal as pyxal uses full decoding mode
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
  *             raise RuntimeError("XAL is not Initialized")
@@ -3654,7 +3654,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":278
+    /* "_pyxal.pyx":278
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -3668,7 +3668,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":279
+  /* "_pyxal.pyx":279
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -3678,7 +3678,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":280
+    /* "_pyxal.pyx":280
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -3692,7 +3692,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":281
+  /* "_pyxal.pyx":281
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef bint streamed = self._pointer.isStreamed()             # <<<<<<<<<<<<<<
@@ -3707,7 +3707,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
   }
   __pyx_v_streamed = __pyx_t_5;
 
-  /* "_PyXAL.pyx":282
+  /* "_pyxal.pyx":282
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef bint streamed = self._pointer.isStreamed()
  *         return streamed             # <<<<<<<<<<<<<<
@@ -3721,7 +3721,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":272
+  /* "_pyxal.pyx":272
  *         return format
  * 
  *     def isStreamed(self):             # <<<<<<<<<<<<<<
@@ -3733,7 +3733,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.isStreamed", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.isStreamed", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3741,7 +3741,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":284
+/* "_pyxal.pyx":284
  *         return streamed
  * 
  *     def readPcmData(self):             # <<<<<<<<<<<<<<
@@ -3750,20 +3750,20 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_26isStreamed(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_29readPcmData(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_12SoundWrapper_28readPcmData[] = "\n        read the pcm data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound\n        @return: a 2 tuple of (number of bits read, string of bytes read)\n        ";
-static PyObject *__pyx_pw_6_PyXAL_12SoundWrapper_29readPcmData(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_29readPcmData(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_12SoundWrapper_28readPcmData[] = "\n        read the pcm data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound\n        @return: a 2 tuple of (number of bits read, string of bytes read)\n        ";
+static PyObject *__pyx_pw_6_pyxal_12SoundWrapper_29readPcmData(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("readPcmData (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_12SoundWrapper_28readPcmData(((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_12SoundWrapper_28readPcmData(struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_self) {
   unsigned char *__pyx_v_pcm_data;
   int __pyx_v_pcm_size;
   char *__pyx_v_c_data;
@@ -3788,7 +3788,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("readPcmData", 0);
 
-  /* "_PyXAL.pyx":289
+  /* "_pyxal.pyx":289
  *         @return: a 2 tuple of (number of bits read, string of bytes read)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -3805,7 +3805,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":290
+    /* "_pyxal.pyx":290
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -3819,7 +3819,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 290; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":291
+  /* "_pyxal.pyx":291
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -3829,7 +3829,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":292
+    /* "_pyxal.pyx":292
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -3843,7 +3843,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":296
+  /* "_pyxal.pyx":296
  *         cdef int pcm_size
  *         cdef char* c_data
  *         data = ""             # <<<<<<<<<<<<<<
@@ -3853,7 +3853,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
   __Pyx_INCREF(__pyx_kp_s__26);
   __pyx_v_data = __pyx_kp_s__26;
 
-  /* "_PyXAL.pyx":297
+  /* "_pyxal.pyx":297
  *         cdef char* c_data
  *         data = ""
  *         try:             # <<<<<<<<<<<<<<
@@ -3862,7 +3862,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
  */
   /*try:*/ {
 
-    /* "_PyXAL.pyx":298
+    /* "_pyxal.pyx":298
  *         data = ""
  *         try:
  *             pcm_size = self._pointer.readPcmData(&pcm_data)             # <<<<<<<<<<<<<<
@@ -3877,7 +3877,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
     }
     __pyx_v_pcm_size = __pyx_t_5;
 
-    /* "_PyXAL.pyx":299
+    /* "_pyxal.pyx":299
  *         try:
  *             pcm_size = self._pointer.readPcmData(&pcm_data)
  *             if pcm_size > 0:             # <<<<<<<<<<<<<<
@@ -3887,7 +3887,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
     __pyx_t_4 = ((__pyx_v_pcm_size > 0) != 0);
     if (__pyx_t_4) {
 
-      /* "_PyXAL.pyx":300
+      /* "_pyxal.pyx":300
  *             pcm_size = self._pointer.readPcmData(&pcm_data)
  *             if pcm_size > 0:
  *                 c_data = <char*>pcm_data             # <<<<<<<<<<<<<<
@@ -3896,7 +3896,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
  */
       __pyx_v_c_data = ((char *)__pyx_v_pcm_data);
 
-      /* "_PyXAL.pyx":301
+      /* "_pyxal.pyx":301
  *             if pcm_size > 0:
  *                 c_data = <char*>pcm_data
  *                 data = c_data[:pcm_size]             # <<<<<<<<<<<<<<
@@ -3912,7 +3912,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
     __pyx_L8:;
   }
 
-  /* "_PyXAL.pyx":303
+  /* "_pyxal.pyx":303
  *                 data = c_data[:pcm_size]
  *         finally:
  *             free(pcm_data)             # <<<<<<<<<<<<<<
@@ -3923,7 +3923,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
     /*normal exit:*/{
       free(__pyx_v_pcm_data);
 
-      /* "_PyXAL.pyx":304
+      /* "_pyxal.pyx":304
  *         finally:
  *             free(pcm_data)
  *             pcm_data = NULL             # <<<<<<<<<<<<<<
@@ -3949,7 +3949,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
       __pyx_t_5 = __pyx_lineno; __pyx_t_6 = __pyx_clineno; __pyx_t_7 = __pyx_filename;
       {
 
-        /* "_PyXAL.pyx":303
+        /* "_pyxal.pyx":303
  *                 data = c_data[:pcm_size]
  *         finally:
  *             free(pcm_data)             # <<<<<<<<<<<<<<
@@ -3958,7 +3958,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
  */
         free(__pyx_v_pcm_data);
 
-        /* "_PyXAL.pyx":304
+        /* "_pyxal.pyx":304
  *         finally:
  *             free(pcm_data)
  *             pcm_data = NULL             # <<<<<<<<<<<<<<
@@ -3984,7 +3984,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
     __pyx_L7:;
   }
 
-  /* "_PyXAL.pyx":305
+  /* "_pyxal.pyx":305
  *             free(pcm_data)
  *             pcm_data = NULL
  *         return (pcm_size, data)             # <<<<<<<<<<<<<<
@@ -4006,7 +4006,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":284
+  /* "_pyxal.pyx":284
  *         return streamed
  * 
  *     def readPcmData(self):             # <<<<<<<<<<<<<<
@@ -4018,7 +4018,7 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.SoundWrapper.readPcmData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.SoundWrapper.readPcmData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_data);
@@ -4027,35 +4027,35 @@ static PyObject *__pyx_pf_6_PyXAL_12SoundWrapper_28readPcmData(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":316
+/* "_pyxal.pyx":316
  *     cdef bool destroyed
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         '''
- *         this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+ *         this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
  */
 
 /* Python wrapper */
-static int __pyx_pw_6_PyXAL_13PlayerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper___init__[] = "\n        this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.\n        as such calling the __init__ method will raise a Runtime Error\n        ";
+static int __pyx_pw_6_pyxal_13PlayerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper___init__[] = "\n        this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.\n        as such calling the __init__ method will raise a Runtime Error\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_6_PyXAL_13PlayerWrapper___init__;
+struct wrapperbase __pyx_wrapperbase_6_pyxal_13PlayerWrapper___init__;
 #endif
-static int __pyx_pw_6_PyXAL_13PlayerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6_pyxal_13PlayerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__init__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__init__", 0))) return -1;
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper___init__(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper___init__(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6_PyXAL_13PlayerWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static int __pyx_pf_6_pyxal_13PlayerWrapper___init__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4064,7 +4064,7 @@ static int __pyx_pf_6_PyXAL_13PlayerWrapper___init__(CYTHON_UNUSED struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_PyXAL.pyx":321
+  /* "_pyxal.pyx":321
  *         as such calling the __init__ method will raise a Runtime Error
  *         '''
  *         raise RuntimeError("PyPlayer Can not be initialized from python")             # <<<<<<<<<<<<<<
@@ -4077,24 +4077,24 @@ static int __pyx_pf_6_PyXAL_13PlayerWrapper___init__(CYTHON_UNUSED struct __pyx_
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   {__pyx_filename = __pyx_f[0]; __pyx_lineno = 321; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":316
+  /* "_pyxal.pyx":316
  *     cdef bool destroyed
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         '''
- *         this is a wapper class for a C++ class . it should not be initialied outside of the PyXAL module as proper set up would be impossible.
+ *         this is a wapper class for a C++ class . it should not be initialied outside of the pyxal module as proper set up would be impossible.
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":323
+/* "_pyxal.pyx":323
  *         raise RuntimeError("PyPlayer Can not be initialized from python")
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -4103,19 +4103,19 @@ static int __pyx_pf_6_PyXAL_13PlayerWrapper___init__(CYTHON_UNUSED struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_3_destroy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_destroy (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_2_destroy(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_2_destroy(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4128,7 +4128,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_destroy", 0);
 
-  /* "_PyXAL.pyx":324
+  /* "_pyxal.pyx":324
  * 
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed:             # <<<<<<<<<<<<<<
@@ -4150,7 +4150,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_P
   }
   if (__pyx_t_5) {
 
-    /* "_PyXAL.pyx":325
+    /* "_pyxal.pyx":325
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed:
  *             XAL.mgr.destroyPlayer(self._pointer)             # <<<<<<<<<<<<<<
@@ -4164,7 +4164,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_P
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":326
+    /* "_pyxal.pyx":326
  *         if self.isXALInitialized() and not self.destroyed:
  *             XAL.mgr.destroyPlayer(self._pointer)
  *             self.destroyed = True             # <<<<<<<<<<<<<<
@@ -4176,7 +4176,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_P
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":323
+  /* "_pyxal.pyx":323
  *         raise RuntimeError("PyPlayer Can not be initialized from python")
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -4190,7 +4190,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_P
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4198,7 +4198,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_P
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":328
+/* "_pyxal.pyx":328
  *             self.destroyed = True
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -4207,17 +4207,17 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_2_destroy(struct __pyx_obj_6_P
  */
 
 /* Python wrapper */
-static void __pyx_pw_6_PyXAL_13PlayerWrapper_5__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6_PyXAL_13PlayerWrapper_5__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6_pyxal_13PlayerWrapper_5__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6_pyxal_13PlayerWrapper_5__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_pf_6_pyxal_13PlayerWrapper_4__dealloc__(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static void __pyx_pf_6_pyxal_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
@@ -4227,7 +4227,7 @@ static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyX
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "_PyXAL.pyx":329
+  /* "_pyxal.pyx":329
  * 
  *     def __dealloc__(self):
  *         if (XAL.mgr != NULL) and (not self.destroyed):             # <<<<<<<<<<<<<<
@@ -4243,7 +4243,7 @@ static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyX
   }
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":330
+    /* "_pyxal.pyx":330
  *     def __dealloc__(self):
  *         if (XAL.mgr != NULL) and (not self.destroyed):
  *             XAL.mgr.destroyPlayer(self._pointer)             # <<<<<<<<<<<<<<
@@ -4257,7 +4257,7 @@ static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyX
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 330; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":331
+    /* "_pyxal.pyx":331
  *         if (XAL.mgr != NULL) and (not self.destroyed):
  *             XAL.mgr.destroyPlayer(self._pointer)
  *             self.destroyed = True             # <<<<<<<<<<<<<<
@@ -4269,7 +4269,7 @@ static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyX
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":328
+  /* "_pyxal.pyx":328
  *             self.destroyed = True
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -4280,12 +4280,12 @@ static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyX
   /* function exit code */
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_WriteUnraisable("_PyXAL.PlayerWrapper.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("_pyxal.PlayerWrapper.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "_PyXAL.pyx":333
+/* "_pyxal.pyx":333
  *             self.destroyed = True
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -4294,26 +4294,26 @@ static void __pyx_pf_6_PyXAL_13PlayerWrapper_4__dealloc__(struct __pyx_obj_6_PyX
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_7isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isXALInitialized (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_6isXALInitialized(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("isXALInitialized", 0);
 
-  /* "_PyXAL.pyx":337
+  /* "_pyxal.pyx":337
  *         returns true if the C++ side of the interface to XAL exists
  *         '''
  *         if XAL.mgr != NULL:             # <<<<<<<<<<<<<<
@@ -4323,7 +4323,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSE
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":338
+    /* "_pyxal.pyx":338
  *         '''
  *         if XAL.mgr != NULL:
  *             return True             # <<<<<<<<<<<<<<
@@ -4337,7 +4337,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSE
   }
   /*else*/ {
 
-    /* "_PyXAL.pyx":340
+    /* "_pyxal.pyx":340
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -4350,7 +4350,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSE
     goto __pyx_L0;
   }
 
-  /* "_PyXAL.pyx":333
+  /* "_pyxal.pyx":333
  *             self.destroyed = True
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -4365,7 +4365,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":342
+/* "_pyxal.pyx":342
  *             return False
  * 
  *     def getGain(self):             # <<<<<<<<<<<<<<
@@ -4374,20 +4374,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_6isXALInitialized(CYTHON_UNUSE
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_9getGain(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_8getGain[] = "\n        @return: float the current gain of the player (also knows as volume)\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_9getGain(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_9getGain(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_8getGain[] = "\n        @return: float the current gain of the player (also knows as volume)\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_9getGain(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getGain (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_8getGain(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_8getGain(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   float __pyx_v_gain;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4401,7 +4401,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getGain", 0);
 
-  /* "_PyXAL.pyx":346
+  /* "_pyxal.pyx":346
  *         @return: float the current gain of the player (also knows as volume)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -4418,7 +4418,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":347
+    /* "_pyxal.pyx":347
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -4432,7 +4432,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":348
+  /* "_pyxal.pyx":348
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -4442,7 +4442,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":349
+    /* "_pyxal.pyx":349
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -4456,7 +4456,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 349; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":350
+  /* "_pyxal.pyx":350
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float gain = self._pointer.getGain()             # <<<<<<<<<<<<<<
@@ -4471,7 +4471,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
   }
   __pyx_v_gain = __pyx_t_5;
 
-  /* "_PyXAL.pyx":351
+  /* "_pyxal.pyx":351
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float gain = self._pointer.getGain()
  *         return gain             # <<<<<<<<<<<<<<
@@ -4485,7 +4485,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":342
+  /* "_pyxal.pyx":342
  *             return False
  * 
  *     def getGain(self):             # <<<<<<<<<<<<<<
@@ -4497,7 +4497,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4505,7 +4505,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":353
+/* "_pyxal.pyx":353
  *         return gain
  * 
  *     def setGain(self, float value):             # <<<<<<<<<<<<<<
@@ -4514,9 +4514,9 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_8getGain(struct __pyx_obj_6_Py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_11setGain(PyObject *__pyx_v_self, PyObject *__pyx_arg_value); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_10setGain[] = "\n        set the gain of the player (also knows as volume)\n        @param value: float the value of the volume to set 1.0 is normal 2.0 is twice as loud 0.5 is half volume ect.\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_11setGain(PyObject *__pyx_v_self, PyObject *__pyx_arg_value) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_11setGain(PyObject *__pyx_v_self, PyObject *__pyx_arg_value); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_10setGain[] = "\n        set the gain of the player (also knows as volume)\n        @param value: float the value of the volume to set 1.0 is normal 2.0 is twice as loud 0.5 is half volume ect.\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_11setGain(PyObject *__pyx_v_self, PyObject *__pyx_arg_value) {
   float __pyx_v_value;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -4529,18 +4529,18 @@ static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_11setGain(PyObject *__pyx_v_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self), ((float)__pyx_v_value));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_10setGain(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self), ((float)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_value) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_10setGain(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4552,7 +4552,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setGain", 0);
 
-  /* "_PyXAL.pyx":358
+  /* "_pyxal.pyx":358
  *         @param value: float the value of the volume to set 1.0 is normal 2.0 is twice as loud 0.5 is half volume ect.
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -4569,7 +4569,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":359
+    /* "_pyxal.pyx":359
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -4583,7 +4583,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 359; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":360
+  /* "_pyxal.pyx":360
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -4593,7 +4593,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":361
+    /* "_pyxal.pyx":361
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -4607,7 +4607,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 361; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":362
+  /* "_pyxal.pyx":362
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._pointer.setGain(value)             # <<<<<<<<<<<<<<
@@ -4621,7 +4621,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 362; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":353
+  /* "_pyxal.pyx":353
  *         return gain
  * 
  *     def setGain(self, float value):             # <<<<<<<<<<<<<<
@@ -4635,7 +4635,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4643,7 +4643,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":364
+/* "_pyxal.pyx":364
  *         self._pointer.setGain(value)
  * 
  *     def getPitch(self):             # <<<<<<<<<<<<<<
@@ -4652,20 +4652,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_10setGain(struct __pyx_obj_6_P
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_13getPitch(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_12getPitch[] = "\n        @return: float the current pitch of the player\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_13getPitch(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_13getPitch(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_12getPitch[] = "\n        @return: float the current pitch of the player\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_13getPitch(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getPitch (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_12getPitch(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_12getPitch(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   float __pyx_v_offset;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4679,7 +4679,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getPitch", 0);
 
-  /* "_PyXAL.pyx":368
+  /* "_pyxal.pyx":368
  *         @return: float the current pitch of the player
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -4696,7 +4696,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":369
+    /* "_pyxal.pyx":369
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -4710,7 +4710,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 369; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":370
+  /* "_pyxal.pyx":370
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -4720,7 +4720,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":371
+    /* "_pyxal.pyx":371
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -4734,7 +4734,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 371; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":372
+  /* "_pyxal.pyx":372
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float offset = self._pointer.getPitch()             # <<<<<<<<<<<<<<
@@ -4749,7 +4749,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
   }
   __pyx_v_offset = __pyx_t_5;
 
-  /* "_PyXAL.pyx":373
+  /* "_pyxal.pyx":373
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float offset = self._pointer.getPitch()
  *         return offset             # <<<<<<<<<<<<<<
@@ -4763,7 +4763,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":364
+  /* "_pyxal.pyx":364
  *         self._pointer.setGain(value)
  * 
  *     def getPitch(self):             # <<<<<<<<<<<<<<
@@ -4775,7 +4775,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4783,7 +4783,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":375
+/* "_pyxal.pyx":375
  *         return offset
  * 
  *     def setPitch(self, float value):             # <<<<<<<<<<<<<<
@@ -4792,9 +4792,9 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_12getPitch(struct __pyx_obj_6_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_15setPitch(PyObject *__pyx_v_self, PyObject *__pyx_arg_value); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_14setPitch[] = "\n        set the current pitch of the player\n        @param value: float the value of the pitch to set to set 1.0 is normal 2.0 is a 200% shift 0.5 is a 50% shift\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_15setPitch(PyObject *__pyx_v_self, PyObject *__pyx_arg_value) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_15setPitch(PyObject *__pyx_v_self, PyObject *__pyx_arg_value); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_14setPitch[] = "\n        set the current pitch of the player\n        @param value: float the value of the pitch to set to set 1.0 is normal 2.0 is a 200% shift 0.5 is a 50% shift\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_15setPitch(PyObject *__pyx_v_self, PyObject *__pyx_arg_value) {
   float __pyx_v_value;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -4807,18 +4807,18 @@ static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_15setPitch(PyObject *__pyx_v_s
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self), ((float)__pyx_v_value));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_14setPitch(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self), ((float)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_value) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_14setPitch(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4830,7 +4830,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setPitch", 0);
 
-  /* "_PyXAL.pyx":380
+  /* "_pyxal.pyx":380
  *         @param value: float the value of the pitch to set to set 1.0 is normal 2.0 is a 200% shift 0.5 is a 50% shift
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -4847,7 +4847,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":381
+    /* "_pyxal.pyx":381
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -4861,7 +4861,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 381; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":382
+  /* "_pyxal.pyx":382
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -4871,7 +4871,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":383
+    /* "_pyxal.pyx":383
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -4885,7 +4885,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 383; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":384
+  /* "_pyxal.pyx":384
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._pointer.setPitch(value)             # <<<<<<<<<<<<<<
@@ -4899,7 +4899,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 384; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":375
+  /* "_pyxal.pyx":375
  *         return offset
  * 
  *     def setPitch(self, float value):             # <<<<<<<<<<<<<<
@@ -4913,7 +4913,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4921,7 +4921,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":386
+/* "_pyxal.pyx":386
  *         self._pointer.setPitch(value)
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -4930,20 +4930,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_14setPitch(struct __pyx_obj_6_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_17getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_16getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_17getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_17getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_16getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_17getName(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getName (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_16getName(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_16getName(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_16getName(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_v_name = NULL;
   PyObject *__pyx_r = NULL;
@@ -4958,7 +4958,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getName", 0);
 
-  /* "_PyXAL.pyx":390
+  /* "_pyxal.pyx":390
  *         @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -4975,7 +4975,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":391
+    /* "_pyxal.pyx":391
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -4989,7 +4989,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 391; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":392
+  /* "_pyxal.pyx":392
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -4999,7 +4999,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":393
+    /* "_pyxal.pyx":393
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -5013,7 +5013,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":394
+  /* "_pyxal.pyx":394
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getName()             # <<<<<<<<<<<<<<
@@ -5028,19 +5028,19 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
   }
   __pyx_v_hl_name = __pyx_t_5;
 
-  /* "_PyXAL.pyx":395
+  /* "_pyxal.pyx":395
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getName()
  *         name = Hstr_to_Py(hl_name)             # <<<<<<<<<<<<<<
  *         return name
  * 
  */
-  __pyx_t_2 = __pyx_f_6_PyXAL_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 395; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_6_pyxal_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 395; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_name = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":396
+  /* "_pyxal.pyx":396
  *         cdef hstr hl_name = self._pointer.getName()
  *         name = Hstr_to_Py(hl_name)
  *         return name             # <<<<<<<<<<<<<<
@@ -5052,7 +5052,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
   __pyx_r = __pyx_v_name;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":386
+  /* "_pyxal.pyx":386
  *         self._pointer.setPitch(value)
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -5064,7 +5064,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_name);
@@ -5073,7 +5073,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":398
+/* "_pyxal.pyx":398
  *         return name
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -5082,20 +5082,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_16getName(struct __pyx_obj_6_P
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_19getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_18getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_19getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_19getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_18getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_19getFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_18getFilename(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_18getFilename(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_v_name = NULL;
   PyObject *__pyx_r = NULL;
@@ -5110,7 +5110,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getFilename", 0);
 
-  /* "_PyXAL.pyx":402
+  /* "_pyxal.pyx":402
  *         @return: returns a string containing the file name the sound was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -5127,7 +5127,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":403
+    /* "_pyxal.pyx":403
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -5141,7 +5141,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":404
+  /* "_pyxal.pyx":404
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -5151,7 +5151,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":405
+    /* "_pyxal.pyx":405
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -5165,7 +5165,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":406
+  /* "_pyxal.pyx":406
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getFilename()             # <<<<<<<<<<<<<<
@@ -5180,19 +5180,19 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
   }
   __pyx_v_hl_name = __pyx_t_5;
 
-  /* "_PyXAL.pyx":407
+  /* "_pyxal.pyx":407
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getFilename()
  *         name = Hstr_to_Py(hl_name)             # <<<<<<<<<<<<<<
  *         return name
  * 
  */
-  __pyx_t_2 = __pyx_f_6_PyXAL_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 407; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_6_pyxal_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 407; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_name = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":408
+  /* "_pyxal.pyx":408
  *         cdef hstr hl_name = self._pointer.getFilename()
  *         name = Hstr_to_Py(hl_name)
  *         return name             # <<<<<<<<<<<<<<
@@ -5204,7 +5204,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
   __pyx_r = __pyx_v_name;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":398
+  /* "_pyxal.pyx":398
  *         return name
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -5216,7 +5216,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_name);
@@ -5225,7 +5225,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":410
+/* "_pyxal.pyx":410
  *         return name
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -5234,20 +5234,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_18getFilename(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_21getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_20getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_21getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_21getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_20getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_21getRealFilename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getRealFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_20getRealFilename(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_20getRealFilename(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_v_name = NULL;
   PyObject *__pyx_r = NULL;
@@ -5262,7 +5262,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getRealFilename", 0);
 
-  /* "_PyXAL.pyx":414
+  /* "_pyxal.pyx":414
  *         @return: returns a string with the full path to the file the string was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -5279,7 +5279,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":415
+    /* "_pyxal.pyx":415
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -5293,7 +5293,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 415; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":416
+  /* "_pyxal.pyx":416
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -5303,7 +5303,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":417
+    /* "_pyxal.pyx":417
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -5317,7 +5317,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 417; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":418
+  /* "_pyxal.pyx":418
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getRealFilename()             # <<<<<<<<<<<<<<
@@ -5332,19 +5332,19 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
   }
   __pyx_v_hl_name = __pyx_t_5;
 
-  /* "_PyXAL.pyx":419
+  /* "_pyxal.pyx":419
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef hstr hl_name = self._pointer.getRealFilename()
  *         name = Hstr_to_Py(hl_name)             # <<<<<<<<<<<<<<
  *         return name
  * 
  */
-  __pyx_t_2 = __pyx_f_6_PyXAL_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 419; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_6_pyxal_Hstr_to_Py(__pyx_v_hl_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 419; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_name = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":420
+  /* "_pyxal.pyx":420
  *         cdef hstr hl_name = self._pointer.getRealFilename()
  *         name = Hstr_to_Py(hl_name)
  *         return name             # <<<<<<<<<<<<<<
@@ -5356,7 +5356,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
   __pyx_r = __pyx_v_name;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":410
+  /* "_pyxal.pyx":410
  *         return name
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -5368,7 +5368,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_name);
@@ -5377,7 +5377,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":422
+/* "_pyxal.pyx":422
  *         return name
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -5386,20 +5386,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_20getRealFilename(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_22getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_22getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_23getDuration(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getDuration (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_22getDuration(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_22getDuration(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   float __pyx_v_duration;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -5413,7 +5413,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getDuration", 0);
 
-  /* "_PyXAL.pyx":426
+  /* "_pyxal.pyx":426
  *         @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -5430,7 +5430,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":427
+    /* "_pyxal.pyx":427
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -5444,7 +5444,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 427; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":428
+  /* "_pyxal.pyx":428
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -5454,7 +5454,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":429
+    /* "_pyxal.pyx":429
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -5468,7 +5468,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 429; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":430
+  /* "_pyxal.pyx":430
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float duration = self._pointer.getDuration()             # <<<<<<<<<<<<<<
@@ -5483,7 +5483,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
   }
   __pyx_v_duration = __pyx_t_5;
 
-  /* "_PyXAL.pyx":431
+  /* "_pyxal.pyx":431
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float duration = self._pointer.getDuration()
  *         return duration             # <<<<<<<<<<<<<<
@@ -5497,7 +5497,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":422
+  /* "_pyxal.pyx":422
  *         return name
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -5509,7 +5509,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5517,7 +5517,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":433
+/* "_pyxal.pyx":433
  *         return duration
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -5526,20 +5526,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_22getDuration(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_25getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_24getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_25getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_25getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_24getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_25getSize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSize (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_24getSize(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_24getSize(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   int __pyx_v_size;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -5553,7 +5553,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSize", 0);
 
-  /* "_PyXAL.pyx":437
+  /* "_pyxal.pyx":437
  *         @return: int the size of the sound data in bits not bytes
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -5570,7 +5570,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":438
+    /* "_pyxal.pyx":438
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -5584,7 +5584,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 438; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":439
+  /* "_pyxal.pyx":439
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -5594,7 +5594,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":440
+    /* "_pyxal.pyx":440
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -5608,7 +5608,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 440; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":441
+  /* "_pyxal.pyx":441
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int size = self._pointer.getSize()             # <<<<<<<<<<<<<<
@@ -5623,7 +5623,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
   }
   __pyx_v_size = __pyx_t_5;
 
-  /* "_PyXAL.pyx":442
+  /* "_pyxal.pyx":442
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef int size = self._pointer.getSize()
  *         return size             # <<<<<<<<<<<<<<
@@ -5637,7 +5637,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":433
+  /* "_pyxal.pyx":433
  *         return duration
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -5649,7 +5649,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5657,7 +5657,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":444
+/* "_pyxal.pyx":444
  *         return size
  * 
  *     def getTimePosition(self):             # <<<<<<<<<<<<<<
@@ -5666,20 +5666,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_24getSize(struct __pyx_obj_6_P
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_27getTimePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_26getTimePosition[] = "\n        @return: float the time position in seconds\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_27getTimePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_27getTimePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_26getTimePosition[] = "\n        @return: float the time position in seconds\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_27getTimePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getTimePosition (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_26getTimePosition(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_26getTimePosition(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   float __pyx_v_size;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -5693,7 +5693,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getTimePosition", 0);
 
-  /* "_PyXAL.pyx":448
+  /* "_pyxal.pyx":448
  *         @return: float the time position in seconds
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -5710,7 +5710,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":449
+    /* "_pyxal.pyx":449
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -5724,7 +5724,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 449; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":450
+  /* "_pyxal.pyx":450
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -5734,7 +5734,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":451
+    /* "_pyxal.pyx":451
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -5748,7 +5748,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 451; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":452
+  /* "_pyxal.pyx":452
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float size = self._pointer.getTimePosition()             # <<<<<<<<<<<<<<
@@ -5763,7 +5763,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
   }
   __pyx_v_size = __pyx_t_5;
 
-  /* "_PyXAL.pyx":453
+  /* "_pyxal.pyx":453
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef float size = self._pointer.getTimePosition()
  *         return size             # <<<<<<<<<<<<<<
@@ -5777,7 +5777,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":444
+  /* "_pyxal.pyx":444
  *         return size
  * 
  *     def getTimePosition(self):             # <<<<<<<<<<<<<<
@@ -5789,7 +5789,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getTimePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getTimePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5797,7 +5797,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":455
+/* "_pyxal.pyx":455
  *         return size
  * 
  *     def getSamplePosition(self):             # <<<<<<<<<<<<<<
@@ -5806,20 +5806,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_26getTimePosition(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_29getSamplePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_28getSamplePosition[] = "\n        @return: unsigned int the position in the buffer\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_29getSamplePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_29getSamplePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_28getSamplePosition[] = "\n        @return: unsigned int the position in the buffer\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_29getSamplePosition(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSamplePosition (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_28getSamplePosition(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_28getSamplePosition(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   unsigned int __pyx_v_size;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -5833,7 +5833,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSamplePosition", 0);
 
-  /* "_PyXAL.pyx":459
+  /* "_pyxal.pyx":459
  *         @return: unsigned int the position in the buffer
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -5850,7 +5850,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":460
+    /* "_pyxal.pyx":460
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -5864,7 +5864,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 460; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":461
+  /* "_pyxal.pyx":461
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -5874,7 +5874,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":462
+    /* "_pyxal.pyx":462
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -5888,7 +5888,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 462; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":463
+  /* "_pyxal.pyx":463
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef unsigned int size = self._pointer.getSamplePosition()             # <<<<<<<<<<<<<<
@@ -5903,7 +5903,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
   }
   __pyx_v_size = __pyx_t_5;
 
-  /* "_PyXAL.pyx":464
+  /* "_pyxal.pyx":464
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         cdef unsigned int size = self._pointer.getSamplePosition()
  *         return size             # <<<<<<<<<<<<<<
@@ -5917,7 +5917,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":455
+  /* "_pyxal.pyx":455
  *         return size
  * 
  *     def getSamplePosition(self):             # <<<<<<<<<<<<<<
@@ -5929,7 +5929,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.getSamplePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.getSamplePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5937,7 +5937,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":466
+/* "_pyxal.pyx":466
  *         return size
  * 
  *     def isPlaying(self):             # <<<<<<<<<<<<<<
@@ -5946,20 +5946,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_28getSamplePosition(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_31isPlaying(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_30isPlaying[] = "\n        @return: bool True of the sound is playing\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_31isPlaying(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_31isPlaying(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_30isPlaying[] = "\n        @return: bool True of the sound is playing\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_31isPlaying(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isPlaying (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_30isPlaying(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_30isPlaying(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5972,7 +5972,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isPlaying", 0);
 
-  /* "_PyXAL.pyx":470
+  /* "_pyxal.pyx":470
  *         @return: bool True of the sound is playing
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -5989,7 +5989,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":471
+    /* "_pyxal.pyx":471
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -6003,7 +6003,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 471; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":472
+  /* "_pyxal.pyx":472
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -6013,7 +6013,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":473
+    /* "_pyxal.pyx":473
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -6027,7 +6027,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 473; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":474
+  /* "_pyxal.pyx":474
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._pointer.isPlaying()             # <<<<<<<<<<<<<<
@@ -6047,7 +6047,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":466
+  /* "_pyxal.pyx":466
  *         return size
  * 
  *     def isPlaying(self):             # <<<<<<<<<<<<<<
@@ -6059,7 +6059,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.isPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.isPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6067,7 +6067,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":476
+/* "_pyxal.pyx":476
  *         return self._pointer.isPlaying()
  * 
  *     def isPaused(self):             # <<<<<<<<<<<<<<
@@ -6076,20 +6076,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_30isPlaying(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_33isPaused(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_32isPaused[] = "\n        @return: bool True if the sound is paused\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_33isPaused(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_33isPaused(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_32isPaused[] = "\n        @return: bool True if the sound is paused\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_33isPaused(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isPaused (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_32isPaused(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_32isPaused(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6102,7 +6102,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isPaused", 0);
 
-  /* "_PyXAL.pyx":480
+  /* "_pyxal.pyx":480
  *         @return: bool True if the sound is paused
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -6119,7 +6119,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":481
+    /* "_pyxal.pyx":481
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -6133,7 +6133,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 481; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":482
+  /* "_pyxal.pyx":482
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -6143,7 +6143,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":483
+    /* "_pyxal.pyx":483
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -6157,7 +6157,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 483; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":484
+  /* "_pyxal.pyx":484
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._pointer.isPaused()             # <<<<<<<<<<<<<<
@@ -6177,7 +6177,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":476
+  /* "_pyxal.pyx":476
  *         return self._pointer.isPlaying()
  * 
  *     def isPaused(self):             # <<<<<<<<<<<<<<
@@ -6189,7 +6189,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.isPaused", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.isPaused", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6197,7 +6197,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":486
+/* "_pyxal.pyx":486
  *         return self._pointer.isPaused()
  * 
  *     def isFading(self):             # <<<<<<<<<<<<<<
@@ -6206,20 +6206,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_32isPaused(struct __pyx_obj_6_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_35isFading(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_34isFading[] = "\n        @return: bool True if the sound is fading in or out\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_35isFading(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_35isFading(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_34isFading[] = "\n        @return: bool True if the sound is fading in or out\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_35isFading(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isFading (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_34isFading(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_34isFading(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6232,7 +6232,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isFading", 0);
 
-  /* "_PyXAL.pyx":490
+  /* "_pyxal.pyx":490
  *         @return: bool True if the sound is fading in or out
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -6249,7 +6249,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":491
+    /* "_pyxal.pyx":491
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -6263,7 +6263,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 491; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":492
+  /* "_pyxal.pyx":492
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -6273,7 +6273,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":493
+    /* "_pyxal.pyx":493
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -6287,7 +6287,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 493; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":494
+  /* "_pyxal.pyx":494
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._pointer.isFading()             # <<<<<<<<<<<<<<
@@ -6307,7 +6307,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":486
+  /* "_pyxal.pyx":486
  *         return self._pointer.isPaused()
  * 
  *     def isFading(self):             # <<<<<<<<<<<<<<
@@ -6319,7 +6319,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.isFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.isFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6327,7 +6327,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":496
+/* "_pyxal.pyx":496
  *         return self._pointer.isFading()
  * 
  *     def isFadingIn(self):             # <<<<<<<<<<<<<<
@@ -6336,20 +6336,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_34isFading(struct __pyx_obj_6_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_37isFadingIn(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_36isFadingIn[] = "\n        @return: bool True if the sound is fading in\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_37isFadingIn(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_37isFadingIn(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_36isFadingIn[] = "\n        @return: bool True if the sound is fading in\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_37isFadingIn(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isFadingIn (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_36isFadingIn(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_36isFadingIn(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6362,7 +6362,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isFadingIn", 0);
 
-  /* "_PyXAL.pyx":500
+  /* "_pyxal.pyx":500
  *         @return: bool True if the sound is fading in
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -6379,7 +6379,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":501
+    /* "_pyxal.pyx":501
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -6393,7 +6393,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 501; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":502
+  /* "_pyxal.pyx":502
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -6403,7 +6403,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":503
+    /* "_pyxal.pyx":503
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -6417,7 +6417,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 503; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":504
+  /* "_pyxal.pyx":504
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._pointer.isFadingIn()             # <<<<<<<<<<<<<<
@@ -6437,7 +6437,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":496
+  /* "_pyxal.pyx":496
  *         return self._pointer.isFading()
  * 
  *     def isFadingIn(self):             # <<<<<<<<<<<<<<
@@ -6449,7 +6449,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.isFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.isFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6457,7 +6457,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":506
+/* "_pyxal.pyx":506
  *         return self._pointer.isFadingIn()
  * 
  *     def isFadingOut(self):             # <<<<<<<<<<<<<<
@@ -6466,20 +6466,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_36isFadingIn(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_39isFadingOut(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_38isFadingOut[] = "\n        @return: bool True if teh sound is fading out\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_39isFadingOut(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_39isFadingOut(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_38isFadingOut[] = "\n        @return: bool True if teh sound is fading out\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_39isFadingOut(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isFadingOut (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_38isFadingOut(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_38isFadingOut(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6492,7 +6492,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isFadingOut", 0);
 
-  /* "_PyXAL.pyx":510
+  /* "_pyxal.pyx":510
  *         @return: bool True if teh sound is fading out
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -6509,7 +6509,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":511
+    /* "_pyxal.pyx":511
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -6523,7 +6523,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 511; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":512
+  /* "_pyxal.pyx":512
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -6533,7 +6533,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":513
+    /* "_pyxal.pyx":513
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -6547,7 +6547,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 513; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":514
+  /* "_pyxal.pyx":514
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._pointer.isFadingOut()             # <<<<<<<<<<<<<<
@@ -6567,7 +6567,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":506
+  /* "_pyxal.pyx":506
  *         return self._pointer.isFadingIn()
  * 
  *     def isFadingOut(self):             # <<<<<<<<<<<<<<
@@ -6579,7 +6579,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.isFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.isFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6587,7 +6587,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":516
+/* "_pyxal.pyx":516
  *         return self._pointer.isFadingOut()
  * 
  *     def isLooping(self):             # <<<<<<<<<<<<<<
@@ -6596,20 +6596,20 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_38isFadingOut(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_41isLooping(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_40isLooping[] = "\n        @return: bool True of the sound is looping\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_41isLooping(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_41isLooping(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_40isLooping[] = "\n        @return: bool True of the sound is looping\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_41isLooping(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isLooping (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_40isLooping(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_40isLooping(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6622,7 +6622,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isLooping", 0);
 
-  /* "_PyXAL.pyx":520
+  /* "_pyxal.pyx":520
  *         @return: bool True of the sound is looping
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -6639,7 +6639,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":521
+    /* "_pyxal.pyx":521
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -6653,7 +6653,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 521; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":522
+  /* "_pyxal.pyx":522
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -6663,7 +6663,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":523
+    /* "_pyxal.pyx":523
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -6677,7 +6677,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 523; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":524
+  /* "_pyxal.pyx":524
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._pointer.isLooping()             # <<<<<<<<<<<<<<
@@ -6697,7 +6697,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":516
+  /* "_pyxal.pyx":516
  *         return self._pointer.isFadingOut()
  * 
  *     def isLooping(self):             # <<<<<<<<<<<<<<
@@ -6709,7 +6709,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.isLooping", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.isLooping", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6717,7 +6717,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":526
+/* "_pyxal.pyx":526
  *         return self._pointer.isLooping()
  * 
  *     def play(self, float fadeTime = 0.0, bool looping = False):             # <<<<<<<<<<<<<<
@@ -6726,9 +6726,9 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_40isLooping(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_43play(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_42play[] = "\n        start the sound playing at it's current offset, the offset starts at 0.0 when teh sound is first loaded\n        \n        @param fadeTime: float the time in seconds for the sound to fade in (0.0 by default)\n        @param looping: bool should the sound loop (False by default)\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_43play(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_43play(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_42play[] = "\n        start the sound playing at it's current offset, the offset starts at 0.0 when teh sound is first loaded\n        \n        @param fadeTime: float the time in seconds for the sound to fade in (0.0 by default)\n        @param looping: bool should the sound loop (False by default)\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_43play(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   float __pyx_v_fadeTime;
   bool __pyx_v_looping;
   int __pyx_lineno = 0;
@@ -6788,18 +6788,18 @@ static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_43play(PyObject *__pyx_v_self,
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("play", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 526; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_42play(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self), __pyx_v_fadeTime, __pyx_v_looping);
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_42play(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self), __pyx_v_fadeTime, __pyx_v_looping);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_42play(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6811,7 +6811,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("play", 0);
 
-  /* "_PyXAL.pyx":533
+  /* "_pyxal.pyx":533
  *         @param looping: bool should the sound loop (False by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -6828,7 +6828,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":534
+    /* "_pyxal.pyx":534
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -6842,7 +6842,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 534; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":535
+  /* "_pyxal.pyx":535
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -6852,7 +6852,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":536
+    /* "_pyxal.pyx":536
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -6866,7 +6866,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 536; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":537
+  /* "_pyxal.pyx":537
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._pointer.play(fadeTime, looping)             # <<<<<<<<<<<<<<
@@ -6880,7 +6880,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 537; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":526
+  /* "_pyxal.pyx":526
  *         return self._pointer.isLooping()
  * 
  *     def play(self, float fadeTime = 0.0, bool looping = False):             # <<<<<<<<<<<<<<
@@ -6894,7 +6894,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6902,7 +6902,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":539
+/* "_pyxal.pyx":539
  *         self._pointer.play(fadeTime, looping)
  * 
  *     def stop(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -6911,9 +6911,9 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_42play(struct __pyx_obj_6_PyXA
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_45stop(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_44stop[] = "\n        stop the sound playing and rest set it's offset to 0.0\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_45stop(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_45stop(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_44stop[] = "\n        stop the sound playing and rest set it's offset to 0.0\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_45stop(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   float __pyx_v_fadeTime;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -6960,18 +6960,18 @@ static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_45stop(PyObject *__pyx_v_self,
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("stop", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 539; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_44stop(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self), __pyx_v_fadeTime);
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_44stop(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self), __pyx_v_fadeTime);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_44stop(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6983,7 +6983,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("stop", 0);
 
-  /* "_PyXAL.pyx":545
+  /* "_pyxal.pyx":545
  *         @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -7000,7 +7000,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":546
+    /* "_pyxal.pyx":546
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -7014,7 +7014,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 546; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":547
+  /* "_pyxal.pyx":547
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -7024,7 +7024,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":548
+    /* "_pyxal.pyx":548
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -7038,7 +7038,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 548; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":549
+  /* "_pyxal.pyx":549
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._pointer.stop(fadeTime)             # <<<<<<<<<<<<<<
@@ -7052,7 +7052,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 549; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":539
+  /* "_pyxal.pyx":539
  *         self._pointer.play(fadeTime, looping)
  * 
  *     def stop(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -7066,7 +7066,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7074,7 +7074,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":551
+/* "_pyxal.pyx":551
  *         self._pointer.stop(fadeTime)
  * 
  *     def pause(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -7083,9 +7083,9 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_44stop(struct __pyx_obj_6_PyXA
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_47pause(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_13PlayerWrapper_46pause[] = "\n        stop the sound playing keeping the current offset of the sound\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
-static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_47pause(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_47pause(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_13PlayerWrapper_46pause[] = "\n        stop the sound playing keeping the current offset of the sound\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
+static PyObject *__pyx_pw_6_pyxal_13PlayerWrapper_47pause(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   float __pyx_v_fadeTime;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -7132,18 +7132,18 @@ static PyObject *__pyx_pw_6_PyXAL_13PlayerWrapper_47pause(PyObject *__pyx_v_self
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("pause", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 551; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_13PlayerWrapper_46pause(((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_v_self), __pyx_v_fadeTime);
+  __pyx_r = __pyx_pf_6_pyxal_13PlayerWrapper_46pause(((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_v_self), __pyx_v_fadeTime);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime) {
+static PyObject *__pyx_pf_6_pyxal_13PlayerWrapper_46pause(struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_self, float __pyx_v_fadeTime) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7155,7 +7155,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("pause", 0);
 
-  /* "_PyXAL.pyx":557
+  /* "_pyxal.pyx":557
  *         @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -7172,7 +7172,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":558
+    /* "_pyxal.pyx":558
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -7186,7 +7186,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":559
+  /* "_pyxal.pyx":559
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -7196,7 +7196,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
   __pyx_t_4 = (__pyx_v_self->destroyed != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":560
+    /* "_pyxal.pyx":560
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -7210,7 +7210,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 560; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":561
+  /* "_pyxal.pyx":561
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._pointer.pause(fadeTime)             # <<<<<<<<<<<<<<
@@ -7224,7 +7224,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":551
+  /* "_pyxal.pyx":551
  *         self._pointer.stop(fadeTime)
  * 
  *     def pause(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -7238,7 +7238,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PlayerWrapper.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PlayerWrapper.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7246,7 +7246,7 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":573
+/* "_pyxal.pyx":573
  *     destroyed = False
  * 
  *     def __init__(self, filename):             # <<<<<<<<<<<<<<
@@ -7255,10 +7255,10 @@ static PyObject *__pyx_pf_6_PyXAL_13PlayerWrapper_46pause(struct __pyx_obj_6_PyX
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound___init__[] = "\n        this creates a sound object from a file name\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_1__init__ = {__Pyx_NAMESTR("__init__"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_1__init__, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound___init__)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound___init__[] = "\n        this creates a sound object from a file name\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_1__init__ = {__Pyx_NAMESTR("__init__"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_1__init__, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound___init__)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_filename = 0;
   int __pyx_lineno = 0;
@@ -7306,24 +7306,24 @@ static PyObject *__pyx_pw_6_PyXAL_7PySound_1__init__(PyObject *__pyx_self, PyObj
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 573; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PySound.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound___init__(__pyx_self, __pyx_v_self, __pyx_v_filename);
+  __pyx_r = __pyx_pf_6_pyxal_7PySound___init__(__pyx_self, __pyx_v_self, __pyx_v_filename);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
+static PyObject *__pyx_pf_6_pyxal_7PySound___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
   PyObject *__pyx_v_path = NULL;
   hstr __pyx_v_file_str;
   hstr __pyx_v_path_str;
   hstr __pyx_v_category;
   xal::Sound *__pyx_v_sound;
-  struct __pyx_obj_6_PyXAL_SoundWrapper *__pyx_v_wrapper = 0;
+  struct __pyx_obj_6_pyxal_SoundWrapper *__pyx_v_wrapper = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7337,7 +7337,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_PyXAL.pyx":577
+  /* "_pyxal.pyx":577
  *         this creates a sound object from a file name
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -7354,7 +7354,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":578
+    /* "_pyxal.pyx":578
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -7368,7 +7368,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":579
+  /* "_pyxal.pyx":579
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         path = os.path.split(filename)[0]             # <<<<<<<<<<<<<<
@@ -7398,25 +7398,25 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
   __pyx_v_path = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":580
+  /* "_pyxal.pyx":580
  *             raise RuntimeError("XAL is not Initialized")
  *         path = os.path.split(filename)[0]
  *         cdef hstr file_str = Py_to_Hstr(filename)             # <<<<<<<<<<<<<<
  *         cdef hstr path_str = Py_to_Hstr(path)
  *         cdef hstr category = Py_to_Hstr(self.CATEGORY_STR)
  */
-  __pyx_v_file_str = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_filename);
+  __pyx_v_file_str = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_filename);
 
-  /* "_PyXAL.pyx":581
+  /* "_pyxal.pyx":581
  *         path = os.path.split(filename)[0]
  *         cdef hstr file_str = Py_to_Hstr(filename)
  *         cdef hstr path_str = Py_to_Hstr(path)             # <<<<<<<<<<<<<<
  *         cdef hstr category = Py_to_Hstr(self.CATEGORY_STR)
  *         cdef XAL.Sound* sound
  */
-  __pyx_v_path_str = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_path);
+  __pyx_v_path_str = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_path);
 
-  /* "_PyXAL.pyx":582
+  /* "_pyxal.pyx":582
  *         cdef hstr file_str = Py_to_Hstr(filename)
  *         cdef hstr path_str = Py_to_Hstr(path)
  *         cdef hstr category = Py_to_Hstr(self.CATEGORY_STR)             # <<<<<<<<<<<<<<
@@ -7425,10 +7425,10 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_CATEGORY_STR); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 582; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_category = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_t_1);
+  __pyx_v_category = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":584
+  /* "_pyxal.pyx":584
  *         cdef hstr category = Py_to_Hstr(self.CATEGORY_STR)
  *         cdef XAL.Sound* sound
  *         sound = XAL.mgr.createSound(file_str, category, path_str)             # <<<<<<<<<<<<<<
@@ -7443,7 +7443,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
   }
   __pyx_v_sound = __pyx_t_6;
 
-  /* "_PyXAL.pyx":585
+  /* "_pyxal.pyx":585
  *         cdef XAL.Sound* sound
  *         sound = XAL.mgr.createSound(file_str, category, path_str)
  *         if sound == NULL:             # <<<<<<<<<<<<<<
@@ -7453,7 +7453,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
   __pyx_t_4 = ((__pyx_v_sound == NULL) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":586
+    /* "_pyxal.pyx":586
  *         sound = XAL.mgr.createSound(file_str, category, path_str)
  *         if sound == NULL:
  *             raise RuntimeError("XAL Failed to load file %s" % filename)             # <<<<<<<<<<<<<<
@@ -7475,20 +7475,20 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":587
+  /* "_pyxal.pyx":587
  *         if sound == NULL:
  *             raise RuntimeError("XAL Failed to load file %s" % filename)
  *         cdef SoundWrapper wrapper = SoundWrapper.__new__(SoundWrapper)             # <<<<<<<<<<<<<<
  *         wrapper._pointer = sound
  *         wrapper.destroyed = False
  */
-  __pyx_t_1 = __pyx_tp_new_6_PyXAL_SoundWrapper(((PyTypeObject *)((PyObject*)__pyx_ptype_6_PyXAL_SoundWrapper)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 587; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_tp_new_6_pyxal_SoundWrapper(((PyTypeObject *)((PyObject*)__pyx_ptype_6_pyxal_SoundWrapper)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 587; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6_PyXAL_SoundWrapper)))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 587; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_wrapper = ((struct __pyx_obj_6_PyXAL_SoundWrapper *)__pyx_t_1);
+  if (!(likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6_pyxal_SoundWrapper)))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 587; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_wrapper = ((struct __pyx_obj_6_pyxal_SoundWrapper *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":588
+  /* "_pyxal.pyx":588
  *             raise RuntimeError("XAL Failed to load file %s" % filename)
  *         cdef SoundWrapper wrapper = SoundWrapper.__new__(SoundWrapper)
  *         wrapper._pointer = sound             # <<<<<<<<<<<<<<
@@ -7497,7 +7497,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_wrapper->_pointer = __pyx_v_sound;
 
-  /* "_PyXAL.pyx":589
+  /* "_pyxal.pyx":589
  *         cdef SoundWrapper wrapper = SoundWrapper.__new__(SoundWrapper)
  *         wrapper._pointer = sound
  *         wrapper.destroyed = False             # <<<<<<<<<<<<<<
@@ -7506,7 +7506,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_wrapper->destroyed = 0;
 
-  /* "_PyXAL.pyx":590
+  /* "_pyxal.pyx":590
  *         wrapper._pointer = sound
  *         wrapper.destroyed = False
  *         self._wrapper = wrapper             # <<<<<<<<<<<<<<
@@ -7515,7 +7515,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_wrapper, ((PyObject *)__pyx_v_wrapper)) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 590; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":573
+  /* "_pyxal.pyx":573
  *     destroyed = False
  * 
  *     def __init__(self, filename):             # <<<<<<<<<<<<<<
@@ -7530,7 +7530,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.PySound.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_path);
@@ -7540,7 +7540,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":592
+/* "_pyxal.pyx":592
  *         self._wrapper = wrapper
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -7549,20 +7549,20 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound___init__(CYTHON_UNUSED PyObject *__py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_3_destroy = {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_3_destroy, METH_O, __Pyx_DOCSTR(0)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_3_destroy = {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_3_destroy, METH_O, __Pyx_DOCSTR(0)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_destroy (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_2_destroy(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_2_destroy(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7575,7 +7575,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_destroy", 0);
 
-  /* "_PyXAL.pyx":593
+  /* "_pyxal.pyx":593
  * 
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed:             # <<<<<<<<<<<<<<
@@ -7601,7 +7601,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__p
   }
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":594
+    /* "_pyxal.pyx":594
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed:
  *             self._wrapper._destroy()             # <<<<<<<<<<<<<<
@@ -7618,7 +7618,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__p
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "_PyXAL.pyx":595
+    /* "_pyxal.pyx":595
  *         if self.isXALInitialized() and not self.destroyed:
  *             self._wrapper._destroy()
  *             self.destroyed = True             # <<<<<<<<<<<<<<
@@ -7630,7 +7630,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__p
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":592
+  /* "_pyxal.pyx":592
  *         self._wrapper = wrapper
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -7644,7 +7644,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__p
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7652,7 +7652,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__p
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":597
+/* "_pyxal.pyx":597
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -7661,20 +7661,20 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_2_destroy(CYTHON_UNUSED PyObject *__p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_5__del__ = {__Pyx_NAMESTR("__del__"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_5__del__, METH_O, __Pyx_DOCSTR(0)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_5__del__ = {__Pyx_NAMESTR("__del__"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_5__del__, METH_O, __Pyx_DOCSTR(0)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_4__del__(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_4__del__(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7685,7 +7685,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__del__", 0);
 
-  /* "_PyXAL.pyx":598
+  /* "_pyxal.pyx":598
  * 
  *     def __del__(self):
  *         if self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -7701,7 +7701,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__py
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":599
+    /* "_pyxal.pyx":599
  *     def __del__(self):
  *         if self.isXALInitialized():
  *             self._destroy()             # <<<<<<<<<<<<<<
@@ -7718,7 +7718,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__py
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":600
+  /* "_pyxal.pyx":600
  *         if self.isXALInitialized():
  *             self._destroy()
  *         del self._wrapper             # <<<<<<<<<<<<<<
@@ -7727,7 +7727,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__py
  */
   if (__Pyx_PyObject_DelAttrStr(__pyx_v_self, __pyx_n_s_wrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 600; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":597
+  /* "_pyxal.pyx":597
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -7741,7 +7741,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.__del__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.__del__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7749,7 +7749,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":602
+/* "_pyxal.pyx":602
  *         del self._wrapper
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -7758,27 +7758,27 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_4__del__(CYTHON_UNUSED PyObject *__py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_7isXALInitialized = {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_7isXALInitialized, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_6isXALInitialized)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_7isXALInitialized = {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_7isXALInitialized, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_6isXALInitialized)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isXALInitialized (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_6isXALInitialized(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_6isXALInitialized(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("isXALInitialized", 0);
 
-  /* "_PyXAL.pyx":606
+  /* "_pyxal.pyx":606
  *         returns true if the C++ side of the interface to XAL exists
  *         '''
  *         if XAL.mgr != NULL:             # <<<<<<<<<<<<<<
@@ -7788,7 +7788,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_6isXALInitialized(CYTHON_UNUSED PyObj
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":607
+    /* "_pyxal.pyx":607
  *         '''
  *         if XAL.mgr != NULL:
  *             return True             # <<<<<<<<<<<<<<
@@ -7802,7 +7802,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_6isXALInitialized(CYTHON_UNUSED PyObj
   }
   /*else*/ {
 
-    /* "_PyXAL.pyx":609
+    /* "_pyxal.pyx":609
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -7815,7 +7815,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_6isXALInitialized(CYTHON_UNUSED PyObj
     goto __pyx_L0;
   }
 
-  /* "_PyXAL.pyx":602
+  /* "_pyxal.pyx":602
  *         del self._wrapper
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -7830,7 +7830,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_6isXALInitialized(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":611
+/* "_pyxal.pyx":611
  *             return False
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -7839,21 +7839,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_6isXALInitialized(CYTHON_UNUSED PyObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_9getName(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_8getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_9getName = {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_9getName, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_8getName)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_9getName(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_9getName(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_8getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_9getName = {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_9getName, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_8getName)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_9getName(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getName (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_8getName(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_8getName(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_8getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7865,7 +7865,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getName", 0);
 
-  /* "_PyXAL.pyx":615
+  /* "_pyxal.pyx":615
  *         @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -7882,7 +7882,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":616
+    /* "_pyxal.pyx":616
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -7896,7 +7896,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 616; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":617
+  /* "_pyxal.pyx":617
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -7909,7 +7909,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":618
+    /* "_pyxal.pyx":618
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -7923,7 +7923,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 618; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":619
+  /* "_pyxal.pyx":619
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getName()             # <<<<<<<<<<<<<<
@@ -7943,7 +7943,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":611
+  /* "_pyxal.pyx":611
  *             return False
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -7955,7 +7955,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7963,7 +7963,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":621
+/* "_pyxal.pyx":621
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -7972,21 +7972,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_8getName(CYTHON_UNUSED PyObject *__py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_11getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_10getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_11getFilename = {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_11getFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_10getFilename)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_11getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_11getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_10getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_11getFilename = {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_11getFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_10getFilename)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_11getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_10getFilename(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_10getFilename(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_10getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7998,7 +7998,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getFilename", 0);
 
-  /* "_PyXAL.pyx":625
+  /* "_pyxal.pyx":625
  *         @return: returns a string containing the file name the sound was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8015,7 +8015,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":626
+    /* "_pyxal.pyx":626
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8029,7 +8029,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 626; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":627
+  /* "_pyxal.pyx":627
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8042,7 +8042,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":628
+    /* "_pyxal.pyx":628
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8056,7 +8056,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":629
+  /* "_pyxal.pyx":629
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getFilename()             # <<<<<<<<<<<<<<
@@ -8076,7 +8076,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":621
+  /* "_pyxal.pyx":621
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -8088,7 +8088,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8096,7 +8096,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":631
+/* "_pyxal.pyx":631
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -8105,21 +8105,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_10getFilename(CYTHON_UNUSED PyObject 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_13getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_12getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_13getRealFilename = {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_13getRealFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_12getRealFilename)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_13getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_13getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_12getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_13getRealFilename = {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_13getRealFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_12getRealFilename)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_13getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getRealFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_12getRealFilename(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_12getRealFilename(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_12getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8131,7 +8131,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getRealFilename", 0);
 
-  /* "_PyXAL.pyx":635
+  /* "_pyxal.pyx":635
  *         @return: returns a string with the full path to the file the string was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8148,7 +8148,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":636
+    /* "_pyxal.pyx":636
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8162,7 +8162,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 636; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":637
+  /* "_pyxal.pyx":637
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8175,7 +8175,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":638
+    /* "_pyxal.pyx":638
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8189,7 +8189,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 638; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":639
+  /* "_pyxal.pyx":639
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getRealFilename()             # <<<<<<<<<<<<<<
@@ -8209,7 +8209,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":631
+  /* "_pyxal.pyx":631
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -8221,7 +8221,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8229,7 +8229,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":641
+/* "_pyxal.pyx":641
  *         return self._wrapper.getRealFilename()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -8238,21 +8238,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_12getRealFilename(CYTHON_UNUSED PyObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_15getSize(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_14getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_15getSize = {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_15getSize, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_14getSize)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_15getSize(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_15getSize(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_14getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_15getSize = {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_15getSize, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_14getSize)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_15getSize(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSize (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_14getSize(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_14getSize(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_14getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8264,7 +8264,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSize", 0);
 
-  /* "_PyXAL.pyx":645
+  /* "_pyxal.pyx":645
  *         @return: int the size of the sound data in bits not bytes
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8281,7 +8281,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":646
+    /* "_pyxal.pyx":646
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8295,7 +8295,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":647
+  /* "_pyxal.pyx":647
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8308,7 +8308,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":648
+    /* "_pyxal.pyx":648
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8322,7 +8322,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 648; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":649
+  /* "_pyxal.pyx":649
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getSize()             # <<<<<<<<<<<<<<
@@ -8342,7 +8342,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":641
+  /* "_pyxal.pyx":641
  *         return self._wrapper.getRealFilename()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -8354,7 +8354,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8362,7 +8362,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":651
+/* "_pyxal.pyx":651
  *         return self._wrapper.getSize()
  * 
  *     def getChannels(self):             # <<<<<<<<<<<<<<
@@ -8371,21 +8371,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_14getSize(CYTHON_UNUSED PyObject *__p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_17getChannels(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_16getChannels[] = "\n        @return: int number of channels the sound has. 1 for mono or 2 for stereo \n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_17getChannels = {__Pyx_NAMESTR("getChannels"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_17getChannels, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_16getChannels)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_17getChannels(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_17getChannels(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_16getChannels[] = "\n        @return: int number of channels the sound has. 1 for mono or 2 for stereo \n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_17getChannels = {__Pyx_NAMESTR("getChannels"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_17getChannels, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_16getChannels)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_17getChannels(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getChannels (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_16getChannels(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_16getChannels(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_16getChannels(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8397,7 +8397,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getChannels", 0);
 
-  /* "_PyXAL.pyx":655
+  /* "_pyxal.pyx":655
  *         @return: int number of channels the sound has. 1 for mono or 2 for stereo
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8414,7 +8414,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":656
+    /* "_pyxal.pyx":656
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8428,7 +8428,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 656; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":657
+  /* "_pyxal.pyx":657
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8441,7 +8441,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":658
+    /* "_pyxal.pyx":658
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8455,7 +8455,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 658; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":659
+  /* "_pyxal.pyx":659
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getChannels()             # <<<<<<<<<<<<<<
@@ -8475,7 +8475,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":651
+  /* "_pyxal.pyx":651
  *         return self._wrapper.getSize()
  * 
  *     def getChannels(self):             # <<<<<<<<<<<<<<
@@ -8487,7 +8487,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getChannels", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getChannels", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8495,7 +8495,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":661
+/* "_pyxal.pyx":661
  *         return self._wrapper.getChannels()
  * 
  *     def getSamplingRate(self):             # <<<<<<<<<<<<<<
@@ -8504,21 +8504,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_16getChannels(CYTHON_UNUSED PyObject 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_19getSamplingRate(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_18getSamplingRate[] = "\n        @return: int the sampeling rate for the sound in samples per second\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_19getSamplingRate = {__Pyx_NAMESTR("getSamplingRate"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_19getSamplingRate, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_18getSamplingRate)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_19getSamplingRate(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_19getSamplingRate(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_18getSamplingRate[] = "\n        @return: int the sampeling rate for the sound in samples per second\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_19getSamplingRate = {__Pyx_NAMESTR("getSamplingRate"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_19getSamplingRate, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_18getSamplingRate)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_19getSamplingRate(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSamplingRate (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_18getSamplingRate(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_18getSamplingRate(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_18getSamplingRate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8530,7 +8530,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSamplingRate", 0);
 
-  /* "_PyXAL.pyx":665
+  /* "_pyxal.pyx":665
  *         @return: int the sampeling rate for the sound in samples per second
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8547,7 +8547,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":666
+    /* "_pyxal.pyx":666
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8561,7 +8561,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 666; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":667
+  /* "_pyxal.pyx":667
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8574,7 +8574,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":668
+    /* "_pyxal.pyx":668
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8588,7 +8588,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":669
+  /* "_pyxal.pyx":669
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getSamplingRate()             # <<<<<<<<<<<<<<
@@ -8608,7 +8608,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":661
+  /* "_pyxal.pyx":661
  *         return self._wrapper.getChannels()
  * 
  *     def getSamplingRate(self):             # <<<<<<<<<<<<<<
@@ -8620,7 +8620,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getSamplingRate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getSamplingRate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8628,7 +8628,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":671
+/* "_pyxal.pyx":671
  *         return self._wrapper.getSamplingRate()
  * 
  *     def getBitsPerSample(self):             # <<<<<<<<<<<<<<
@@ -8637,21 +8637,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_18getSamplingRate(CYTHON_UNUSED PyObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_21getBitsPerSample(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_20getBitsPerSample[] = "\n        @return: int the bits per sample of data in the sound. usualy 8, 16, or 24, possibly 32 not sure\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_21getBitsPerSample = {__Pyx_NAMESTR("getBitsPerSample"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_21getBitsPerSample, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_20getBitsPerSample)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_21getBitsPerSample(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_21getBitsPerSample(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_20getBitsPerSample[] = "\n        @return: int the bits per sample of data in the sound. usualy 8, 16, or 24, possibly 32 not sure\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_21getBitsPerSample = {__Pyx_NAMESTR("getBitsPerSample"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_21getBitsPerSample, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_20getBitsPerSample)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_21getBitsPerSample(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getBitsPerSample (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_20getBitsPerSample(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_20getBitsPerSample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8663,7 +8663,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getBitsPerSample", 0);
 
-  /* "_PyXAL.pyx":675
+  /* "_pyxal.pyx":675
  *         @return: int the bits per sample of data in the sound. usualy 8, 16, or 24, possibly 32 not sure
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8680,7 +8680,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":676
+    /* "_pyxal.pyx":676
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8694,7 +8694,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 676; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":677
+  /* "_pyxal.pyx":677
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8707,7 +8707,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":678
+    /* "_pyxal.pyx":678
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8721,7 +8721,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 678; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":679
+  /* "_pyxal.pyx":679
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getBitsPerSample()             # <<<<<<<<<<<<<<
@@ -8741,7 +8741,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":671
+  /* "_pyxal.pyx":671
  *         return self._wrapper.getSamplingRate()
  * 
  *     def getBitsPerSample(self):             # <<<<<<<<<<<<<<
@@ -8753,7 +8753,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getBitsPerSample", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getBitsPerSample", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8761,7 +8761,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":681
+/* "_pyxal.pyx":681
  *         return self._wrapper.getBitsPerSample()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -8770,21 +8770,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_20getBitsPerSample(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_23getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_22getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_23getDuration = {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_23getDuration, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_22getDuration)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_23getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_23getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_22getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_23getDuration = {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_23getDuration, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_22getDuration)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_23getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getDuration (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_22getDuration(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_22getDuration(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_22getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8796,7 +8796,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getDuration", 0);
 
-  /* "_PyXAL.pyx":685
+  /* "_pyxal.pyx":685
  *         @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8813,7 +8813,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":686
+    /* "_pyxal.pyx":686
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8827,7 +8827,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 686; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":687
+  /* "_pyxal.pyx":687
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8840,7 +8840,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":688
+    /* "_pyxal.pyx":688
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8854,7 +8854,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 688; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":689
+  /* "_pyxal.pyx":689
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getDuration()             # <<<<<<<<<<<<<<
@@ -8874,7 +8874,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":681
+  /* "_pyxal.pyx":681
  *         return self._wrapper.getBitsPerSample()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -8886,7 +8886,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8894,7 +8894,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":691
+/* "_pyxal.pyx":691
  *         return self._wrapper.getDuration()
  * 
  *     def getFormat(self):             # <<<<<<<<<<<<<<
@@ -8903,21 +8903,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_22getDuration(CYTHON_UNUSED PyObject 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_25getFormat(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_24getFormat[] = "\n        @return: int the intrnal designation of the sound format. coresponds to a file type but as of now there is no way to tell for certin which is which \n            as the nubers will change depending on what formats are currently suported by XAL\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_25getFormat = {__Pyx_NAMESTR("getFormat"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_25getFormat, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_24getFormat)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_25getFormat(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_25getFormat(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_24getFormat[] = "\n        @return: int the intrnal designation of the sound format. coresponds to a file type but as of now there is no way to tell for certin which is which \n            as the nubers will change depending on what formats are currently suported by XAL\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_25getFormat = {__Pyx_NAMESTR("getFormat"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_25getFormat, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_24getFormat)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_25getFormat(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getFormat (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_24getFormat(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_24getFormat(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_24getFormat(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8929,7 +8929,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getFormat", 0);
 
-  /* "_PyXAL.pyx":696
+  /* "_pyxal.pyx":696
  *             as the nubers will change depending on what formats are currently suported by XAL
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -8946,7 +8946,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":697
+    /* "_pyxal.pyx":697
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -8960,7 +8960,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 697; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":698
+  /* "_pyxal.pyx":698
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -8973,7 +8973,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":699
+    /* "_pyxal.pyx":699
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -8987,7 +8987,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 699; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":700
+  /* "_pyxal.pyx":700
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getFormat()             # <<<<<<<<<<<<<<
@@ -9007,7 +9007,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":691
+  /* "_pyxal.pyx":691
  *         return self._wrapper.getDuration()
  * 
  *     def getFormat(self):             # <<<<<<<<<<<<<<
@@ -9019,7 +9019,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.getFormat", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.getFormat", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -9027,7 +9027,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":702
+/* "_pyxal.pyx":702
  *         return self._wrapper.getFormat()
  * 
  *     def isStreamed(self):             # <<<<<<<<<<<<<<
@@ -9036,21 +9036,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_24getFormat(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_27isStreamed(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_26isStreamed[] = "\n        @return: bool is the sound being streamed from it's file to the player? or is it comleatly loaded into memory. \n            should always return false in PyXAL as PyXAL uses full decoding mode\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_27isStreamed = {__Pyx_NAMESTR("isStreamed"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_27isStreamed, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_26isStreamed)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_27isStreamed(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_27isStreamed(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_26isStreamed[] = "\n        @return: bool is the sound being streamed from it's file to the player? or is it comleatly loaded into memory. \n            should always return false in pyxal as pyxal uses full decoding mode\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_27isStreamed = {__Pyx_NAMESTR("isStreamed"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_27isStreamed, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_26isStreamed)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_27isStreamed(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isStreamed (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_26isStreamed(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_26isStreamed(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_26isStreamed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -9062,8 +9062,8 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isStreamed", 0);
 
-  /* "_PyXAL.pyx":707
- *             should always return false in PyXAL as PyXAL uses full decoding mode
+  /* "_pyxal.pyx":707
+ *             should always return false in pyxal as pyxal uses full decoding mode
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
  *             raise RuntimeError("XAL is not Initialized")
@@ -9079,7 +9079,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":708
+    /* "_pyxal.pyx":708
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -9093,7 +9093,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 708; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":709
+  /* "_pyxal.pyx":709
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -9106,7 +9106,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":710
+    /* "_pyxal.pyx":710
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -9120,7 +9120,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 710; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":711
+  /* "_pyxal.pyx":711
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.isStreamed()             # <<<<<<<<<<<<<<
@@ -9140,7 +9140,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":702
+  /* "_pyxal.pyx":702
  *         return self._wrapper.getFormat()
  * 
  *     def isStreamed(self):             # <<<<<<<<<<<<<<
@@ -9152,7 +9152,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.isStreamed", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.isStreamed", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -9160,7 +9160,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":713
+/* "_pyxal.pyx":713
  *         return self._wrapper.isStreamed()
  * 
  *     def readPcmData(self):             # <<<<<<<<<<<<<<
@@ -9169,21 +9169,21 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_26isStreamed(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_7PySound_29readPcmData(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_7PySound_28readPcmData[] = "\n        read the raw data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound\n        @return: a 2 tuple of (number of bits read, string of bytes read)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_7PySound_29readPcmData = {__Pyx_NAMESTR("readPcmData"), (PyCFunction)__pyx_pw_6_PyXAL_7PySound_29readPcmData, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_7PySound_28readPcmData)};
-static PyObject *__pyx_pw_6_PyXAL_7PySound_29readPcmData(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_7PySound_29readPcmData(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_7PySound_28readPcmData[] = "\n        read the raw data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound\n        @return: a 2 tuple of (number of bits read, string of bytes read)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_7PySound_29readPcmData = {__Pyx_NAMESTR("readPcmData"), (PyCFunction)__pyx_pw_6_pyxal_7PySound_29readPcmData, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_7PySound_28readPcmData)};
+static PyObject *__pyx_pw_6_pyxal_7PySound_29readPcmData(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("readPcmData (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_7PySound_28readPcmData(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_7PySound_28readPcmData(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_7PySound_28readPcmData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -9195,7 +9195,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("readPcmData", 0);
 
-  /* "_PyXAL.pyx":718
+  /* "_pyxal.pyx":718
  *         @return: a 2 tuple of (number of bits read, string of bytes read)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -9212,7 +9212,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":719
+    /* "_pyxal.pyx":719
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -9226,7 +9226,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 719; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":720
+  /* "_pyxal.pyx":720
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -9239,7 +9239,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":721
+    /* "_pyxal.pyx":721
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -9253,7 +9253,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 721; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":722
+  /* "_pyxal.pyx":722
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.readPcmData()             # <<<<<<<<<<<<<<
@@ -9273,7 +9273,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":713
+  /* "_pyxal.pyx":713
  *         return self._wrapper.isStreamed()
  * 
  *     def readPcmData(self):             # <<<<<<<<<<<<<<
@@ -9285,7 +9285,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PySound.readPcmData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PySound.readPcmData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -9293,7 +9293,7 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":733
+/* "_pyxal.pyx":733
  *     destroyed = False
  * 
  *     def __init__(self, sound):             # <<<<<<<<<<<<<<
@@ -9302,10 +9302,10 @@ static PyObject *__pyx_pf_6_PyXAL_7PySound_28readPcmData(CYTHON_UNUSED PyObject 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer___init__[] = "\n        a PyPlayer object created by bassing a PySound to the __init__ method\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_1__init__ = {__Pyx_NAMESTR("__init__"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_1__init__, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer___init__)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer___init__[] = "\n        a PyPlayer object created by bassing a PySound to the __init__ method\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_1__init__ = {__Pyx_NAMESTR("__init__"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_1__init__, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer___init__)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_sound = 0;
   int __pyx_lineno = 0;
@@ -9353,22 +9353,22 @@ static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_1__init__(PyObject *__pyx_self, PyOb
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer___init__(__pyx_self, __pyx_v_self, __pyx_v_sound);
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer___init__(__pyx_self, __pyx_v_self, __pyx_v_sound);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound) {
   PyObject *__pyx_v_sound_name = NULL;
   hstr __pyx_v_hl_name;
   xal::Player *__pyx_v_player;
-  struct __pyx_obj_6_PyXAL_PlayerWrapper *__pyx_v_wrapper = 0;
+  struct __pyx_obj_6_pyxal_PlayerWrapper *__pyx_v_wrapper = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -9381,7 +9381,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_PyXAL.pyx":737
+  /* "_pyxal.pyx":737
  *         a PyPlayer object created by bassing a PySound to the __init__ method
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -9398,7 +9398,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":738
+    /* "_pyxal.pyx":738
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -9412,7 +9412,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 738; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":739
+  /* "_pyxal.pyx":739
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(sound, PySound):             # <<<<<<<<<<<<<<
@@ -9426,7 +9426,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   __pyx_t_3 = ((!(__pyx_t_4 != 0)) != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":740
+    /* "_pyxal.pyx":740
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(sound, PySound):
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))             # <<<<<<<<<<<<<<
@@ -9448,7 +9448,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 740; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":741
+  /* "_pyxal.pyx":741
  *         if not isinstance(sound, PySound):
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
  *         sound_name = sound.getName()             # <<<<<<<<<<<<<<
@@ -9463,16 +9463,16 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   __pyx_v_sound_name = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":742
+  /* "_pyxal.pyx":742
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
  *         sound_name = sound.getName()
  *         cdef hstr hl_name = Py_to_Hstr(sound_name)             # <<<<<<<<<<<<<<
  *         cdef XAL.Player* player
  *         player = XAL.mgr.createPlayer(hl_name)
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_sound_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_sound_name);
 
-  /* "_PyXAL.pyx":744
+  /* "_pyxal.pyx":744
  *         cdef hstr hl_name = Py_to_Hstr(sound_name)
  *         cdef XAL.Player* player
  *         player = XAL.mgr.createPlayer(hl_name)             # <<<<<<<<<<<<<<
@@ -9487,7 +9487,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   }
   __pyx_v_player = __pyx_t_5;
 
-  /* "_PyXAL.pyx":745
+  /* "_pyxal.pyx":745
  *         cdef XAL.Player* player
  *         player = XAL.mgr.createPlayer(hl_name)
  *         if player == NULL:             # <<<<<<<<<<<<<<
@@ -9497,7 +9497,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   __pyx_t_3 = ((__pyx_v_player == NULL) != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":746
+    /* "_pyxal.pyx":746
  *         player = XAL.mgr.createPlayer(hl_name)
  *         if player == NULL:
  *             raise RuntimeError("XAL Failed to create a player for %s" % sound_name)             # <<<<<<<<<<<<<<
@@ -9519,20 +9519,20 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 746; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":747
+  /* "_pyxal.pyx":747
  *         if player == NULL:
  *             raise RuntimeError("XAL Failed to create a player for %s" % sound_name)
  *         cdef PlayerWrapper wrapper = PlayerWrapper.__new__(PlayerWrapper)             # <<<<<<<<<<<<<<
  *         wrapper._pointer = player
  *         wrapper.destroyed = False
  */
-  __pyx_t_1 = __pyx_tp_new_6_PyXAL_PlayerWrapper(((PyTypeObject *)((PyObject*)__pyx_ptype_6_PyXAL_PlayerWrapper)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 747; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_tp_new_6_pyxal_PlayerWrapper(((PyTypeObject *)((PyObject*)__pyx_ptype_6_pyxal_PlayerWrapper)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 747; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6_PyXAL_PlayerWrapper)))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 747; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_wrapper = ((struct __pyx_obj_6_PyXAL_PlayerWrapper *)__pyx_t_1);
+  if (!(likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6_pyxal_PlayerWrapper)))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 747; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_wrapper = ((struct __pyx_obj_6_pyxal_PlayerWrapper *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":748
+  /* "_pyxal.pyx":748
  *             raise RuntimeError("XAL Failed to create a player for %s" % sound_name)
  *         cdef PlayerWrapper wrapper = PlayerWrapper.__new__(PlayerWrapper)
  *         wrapper._pointer = player             # <<<<<<<<<<<<<<
@@ -9541,7 +9541,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
  */
   __pyx_v_wrapper->_pointer = __pyx_v_player;
 
-  /* "_PyXAL.pyx":749
+  /* "_pyxal.pyx":749
  *         cdef PlayerWrapper wrapper = PlayerWrapper.__new__(PlayerWrapper)
  *         wrapper._pointer = player
  *         wrapper.destroyed = False             # <<<<<<<<<<<<<<
@@ -9550,7 +9550,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
  */
   __pyx_v_wrapper->destroyed = 0;
 
-  /* "_PyXAL.pyx":750
+  /* "_pyxal.pyx":750
  *         wrapper._pointer = player
  *         wrapper.destroyed = False
  *         self._wrapper = wrapper             # <<<<<<<<<<<<<<
@@ -9559,7 +9559,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_wrapper, ((PyObject *)__pyx_v_wrapper)) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 750; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":751
+  /* "_pyxal.pyx":751
  *         wrapper.destroyed = False
  *         self._wrapper = wrapper
  *         self._sound = sound             # <<<<<<<<<<<<<<
@@ -9568,7 +9568,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sound_2, __pyx_v_sound) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":733
+  /* "_pyxal.pyx":733
  *     destroyed = False
  * 
  *     def __init__(self, sound):             # <<<<<<<<<<<<<<
@@ -9582,7 +9582,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_sound_name);
@@ -9592,7 +9592,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":753
+/* "_pyxal.pyx":753
  *         self._sound = sound
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -9601,20 +9601,20 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer___init__(CYTHON_UNUSED PyObject *__p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_3_destroy = {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_3_destroy, METH_O, __Pyx_DOCSTR(0)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_3_destroy = {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_3_destroy, METH_O, __Pyx_DOCSTR(0)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_3_destroy(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_destroy (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_2_destroy(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_2_destroy(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -9627,7 +9627,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_destroy", 0);
 
-  /* "_PyXAL.pyx":754
+  /* "_pyxal.pyx":754
  * 
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed:             # <<<<<<<<<<<<<<
@@ -9653,7 +9653,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__
   }
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":755
+    /* "_pyxal.pyx":755
  *     def _destroy(self):
  *         if self.isXALInitialized() and not self.destroyed:
  *             self._wrapper._destroy()             # <<<<<<<<<<<<<<
@@ -9670,7 +9670,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "_PyXAL.pyx":756
+    /* "_pyxal.pyx":756
  *         if self.isXALInitialized() and not self.destroyed:
  *             self._wrapper._destroy()
  *             self.destroyed = True             # <<<<<<<<<<<<<<
@@ -9682,7 +9682,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":753
+  /* "_pyxal.pyx":753
  *         self._sound = sound
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -9696,7 +9696,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer._destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -9704,7 +9704,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":758
+/* "_pyxal.pyx":758
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -9713,20 +9713,20 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_2_destroy(CYTHON_UNUSED PyObject *__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_5__del__ = {__Pyx_NAMESTR("__del__"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_5__del__, METH_O, __Pyx_DOCSTR(0)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_5__del__ = {__Pyx_NAMESTR("__del__"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_5__del__, METH_O, __Pyx_DOCSTR(0)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_4__del__(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_4__del__(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -9739,7 +9739,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__del__", 0);
 
-  /* "_PyXAL.pyx":760
+  /* "_pyxal.pyx":760
  *     def __del__(self):
  *         global Mgr
  *         if not self.destroyed:             # <<<<<<<<<<<<<<
@@ -9753,7 +9753,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
   __pyx_t_3 = ((!__pyx_t_2) != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":761
+    /* "_pyxal.pyx":761
  *         global Mgr
  *         if not self.destroyed:
  *             if Mgr is not None:             # <<<<<<<<<<<<<<
@@ -9767,7 +9767,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "_PyXAL.pyx":762
+      /* "_pyxal.pyx":762
  *         if not self.destroyed:
  *             if Mgr is not None:
  *                 if hasattr(Mgr, "_players"):             # <<<<<<<<<<<<<<
@@ -9781,7 +9781,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
       __pyx_t_3 = (__pyx_t_2 != 0);
       if (__pyx_t_3) {
 
-        /* "_PyXAL.pyx":763
+        /* "_pyxal.pyx":763
  *             if Mgr is not None:
  *                 if hasattr(Mgr, "_players"):
  *                     if self.getName() in Mgr._players:             # <<<<<<<<<<<<<<
@@ -9804,7 +9804,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
         __pyx_t_2 = (__pyx_t_3 != 0);
         if (__pyx_t_2) {
 
-          /* "_PyXAL.pyx":764
+          /* "_pyxal.pyx":764
  *                 if hasattr(Mgr, "_players"):
  *                     if self.getName() in Mgr._players:
  *                         if self in Mgr._player[self.getName()]:             # <<<<<<<<<<<<<<
@@ -9830,7 +9830,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
           __pyx_t_3 = (__pyx_t_2 != 0);
           if (__pyx_t_3) {
 
-            /* "_PyXAL.pyx":765
+            /* "_pyxal.pyx":765
  *                     if self.getName() in Mgr._players:
  *                         if self in Mgr._player[self.getName()]:
  *                             Mgr.players[self.getName()].remove(self)             # <<<<<<<<<<<<<<
@@ -9877,7 +9877,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
     }
     __pyx_L4:;
 
-    /* "_PyXAL.pyx":766
+    /* "_pyxal.pyx":766
  *                         if self in Mgr._player[self.getName()]:
  *                             Mgr.players[self.getName()].remove(self)
  *             if self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -9893,7 +9893,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_3) {
 
-      /* "_PyXAL.pyx":767
+      /* "_pyxal.pyx":767
  *                             Mgr.players[self.getName()].remove(self)
  *             if self.isXALInitialized():
  *                 self._destroy()             # <<<<<<<<<<<<<<
@@ -9913,7 +9913,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":768
+  /* "_pyxal.pyx":768
  *             if self.isXALInitialized():
  *                 self._destroy()
  *         del self._wrapper             # <<<<<<<<<<<<<<
@@ -9922,7 +9922,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
  */
   if (__Pyx_PyObject_DelAttrStr(__pyx_v_self, __pyx_n_s_wrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 768; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":769
+  /* "_pyxal.pyx":769
  *                 self._destroy()
  *         del self._wrapper
  *         del self._sound             # <<<<<<<<<<<<<<
@@ -9931,7 +9931,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
  */
   if (__Pyx_PyObject_DelAttrStr(__pyx_v_self, __pyx_n_s_sound_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 769; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":758
+  /* "_pyxal.pyx":758
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -9946,7 +9946,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.__del__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.__del__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -9954,7 +9954,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":772
+/* "_pyxal.pyx":772
  * 
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -9963,27 +9963,27 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_4__del__(CYTHON_UNUSED PyObject *__p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_7isXALInitialized = {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_7isXALInitialized, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_6isXALInitialized)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_6isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_7isXALInitialized = {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_7isXALInitialized, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_6isXALInitialized)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_7isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isXALInitialized (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_6isXALInitialized(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("isXALInitialized", 0);
 
-  /* "_PyXAL.pyx":776
+  /* "_pyxal.pyx":776
  *         returns true if the C++ side of the interface to XAL exists
  *         '''
  *         if XAL.mgr != NULL:             # <<<<<<<<<<<<<<
@@ -9993,7 +9993,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyOb
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":777
+    /* "_pyxal.pyx":777
  *         '''
  *         if XAL.mgr != NULL:
  *             return True             # <<<<<<<<<<<<<<
@@ -10007,7 +10007,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyOb
   }
   /*else*/ {
 
-    /* "_PyXAL.pyx":779
+    /* "_pyxal.pyx":779
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -10020,7 +10020,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyOb
     goto __pyx_L0;
   }
 
-  /* "_PyXAL.pyx":772
+  /* "_pyxal.pyx":772
  * 
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -10035,7 +10035,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":781
+/* "_pyxal.pyx":781
  *             return False
  * 
  *     def getGain(self):             # <<<<<<<<<<<<<<
@@ -10044,21 +10044,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_6isXALInitialized(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_9getGain(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_8getGain[] = "\n        @return: float the current gain of the player (also knows as volume)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_9getGain = {__Pyx_NAMESTR("getGain"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_9getGain, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_8getGain)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_9getGain(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_9getGain(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_8getGain[] = "\n        @return: float the current gain of the player (also knows as volume)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_9getGain = {__Pyx_NAMESTR("getGain"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_9getGain, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_8getGain)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_9getGain(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getGain (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_8getGain(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_8getGain(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10070,7 +10070,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getGain", 0);
 
-  /* "_PyXAL.pyx":785
+  /* "_pyxal.pyx":785
  *         @return: float the current gain of the player (also knows as volume)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -10087,7 +10087,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":786
+    /* "_pyxal.pyx":786
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -10101,7 +10101,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 786; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":787
+  /* "_pyxal.pyx":787
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -10114,7 +10114,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":788
+    /* "_pyxal.pyx":788
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -10128,7 +10128,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 788; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":789
+  /* "_pyxal.pyx":789
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getGain()             # <<<<<<<<<<<<<<
@@ -10148,7 +10148,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":781
+  /* "_pyxal.pyx":781
  *             return False
  * 
  *     def getGain(self):             # <<<<<<<<<<<<<<
@@ -10160,7 +10160,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -10168,7 +10168,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":791
+/* "_pyxal.pyx":791
  *         return self._wrapper.getGain()
  * 
  *     def setGain(self, float value):             # <<<<<<<<<<<<<<
@@ -10177,10 +10177,10 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_8getGain(CYTHON_UNUSED PyObject *__p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_11setGain(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_10setGain[] = "\n        set the gain of the player (also knows as volume)\n        @param value: float the value of the volume to set 1.0 is normal 2.0 is twice as loud 0.5 is half volume ect.\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_11setGain = {__Pyx_NAMESTR("setGain"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_11setGain, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_10setGain)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_11setGain(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_11setGain(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_10setGain[] = "\n        set the gain of the player (also knows as volume)\n        @param value: float the value of the volume to set 1.0 is normal 2.0 is twice as loud 0.5 is half volume ect.\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_11setGain = {__Pyx_NAMESTR("setGain"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_11setGain, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_10setGain)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_11setGain(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   float __pyx_v_value;
   int __pyx_lineno = 0;
@@ -10228,18 +10228,18 @@ static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_11setGain(PyObject *__pyx_self, PyOb
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("setGain", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 791; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_10setGain(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_10setGain(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10252,7 +10252,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setGain", 0);
 
-  /* "_PyXAL.pyx":796
+  /* "_pyxal.pyx":796
  *         @param value: float the value of the volume to set 1.0 is normal 2.0 is twice as loud 0.5 is half volume ect.
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -10269,7 +10269,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":797
+    /* "_pyxal.pyx":797
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -10283,7 +10283,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 797; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":798
+  /* "_pyxal.pyx":798
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -10296,7 +10296,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":799
+    /* "_pyxal.pyx":799
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -10310,7 +10310,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":800
+  /* "_pyxal.pyx":800
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._wrapper.setGain(value)             # <<<<<<<<<<<<<<
@@ -10335,7 +10335,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":791
+  /* "_pyxal.pyx":791
  *         return self._wrapper.getGain()
  * 
  *     def setGain(self, float value):             # <<<<<<<<<<<<<<
@@ -10350,7 +10350,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.setGain", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -10358,7 +10358,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":802
+/* "_pyxal.pyx":802
  *         self._wrapper.setGain(value)
  * 
  *     def getPitch(self):             # <<<<<<<<<<<<<<
@@ -10367,21 +10367,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_10setGain(CYTHON_UNUSED PyObject *__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_13getPitch(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_12getPitch[] = "\n        @return: float the current pitch of the player\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_13getPitch = {__Pyx_NAMESTR("getPitch"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_13getPitch, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_12getPitch)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_13getPitch(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_13getPitch(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_12getPitch[] = "\n        @return: float the current pitch of the player\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_13getPitch = {__Pyx_NAMESTR("getPitch"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_13getPitch, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_12getPitch)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_13getPitch(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getPitch (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_12getPitch(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_12getPitch(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10393,7 +10393,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getPitch", 0);
 
-  /* "_PyXAL.pyx":806
+  /* "_pyxal.pyx":806
  *         @return: float the current pitch of the player
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -10410,7 +10410,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":807
+    /* "_pyxal.pyx":807
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -10424,7 +10424,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 807; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":808
+  /* "_pyxal.pyx":808
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -10437,7 +10437,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":809
+    /* "_pyxal.pyx":809
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -10451,7 +10451,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 809; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":810
+  /* "_pyxal.pyx":810
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getPitch()             # <<<<<<<<<<<<<<
@@ -10471,7 +10471,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":802
+  /* "_pyxal.pyx":802
  *         self._wrapper.setGain(value)
  * 
  *     def getPitch(self):             # <<<<<<<<<<<<<<
@@ -10483,7 +10483,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -10491,7 +10491,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":812
+/* "_pyxal.pyx":812
  *         return self._wrapper.getPitch()
  * 
  *     def setPitch(self, float value):             # <<<<<<<<<<<<<<
@@ -10500,10 +10500,10 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_12getPitch(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_15setPitch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_14setPitch[] = "\n        set the current pitch of the player\n        @param value: float the value of the pitch to set to set 1.0 is normal 2.0 is a 200% shift 0.5 is a 50% shift\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_15setPitch = {__Pyx_NAMESTR("setPitch"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_15setPitch, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_14setPitch)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_15setPitch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_15setPitch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_14setPitch[] = "\n        set the current pitch of the player\n        @param value: float the value of the pitch to set to set 1.0 is normal 2.0 is a 200% shift 0.5 is a 50% shift\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_15setPitch = {__Pyx_NAMESTR("setPitch"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_15setPitch, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_14setPitch)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_15setPitch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   float __pyx_v_value;
   int __pyx_lineno = 0;
@@ -10551,18 +10551,18 @@ static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_15setPitch(PyObject *__pyx_self, PyO
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("setPitch", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_14setPitch(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_14setPitch(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10575,7 +10575,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setPitch", 0);
 
-  /* "_PyXAL.pyx":817
+  /* "_pyxal.pyx":817
  *         @param value: float the value of the pitch to set to set 1.0 is normal 2.0 is a 200% shift 0.5 is a 50% shift
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -10592,7 +10592,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":818
+    /* "_pyxal.pyx":818
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -10606,7 +10606,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":819
+  /* "_pyxal.pyx":819
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -10619,7 +10619,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":820
+    /* "_pyxal.pyx":820
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -10633,7 +10633,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 820; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":821
+  /* "_pyxal.pyx":821
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._wrapper.setPitch(value)             # <<<<<<<<<<<<<<
@@ -10658,7 +10658,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":812
+  /* "_pyxal.pyx":812
  *         return self._wrapper.getPitch()
  * 
  *     def setPitch(self, float value):             # <<<<<<<<<<<<<<
@@ -10673,7 +10673,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.setPitch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -10681,7 +10681,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":823
+/* "_pyxal.pyx":823
  *         self._wrapper.setPitch(value)
  * 
  *     def getSound(self):             # <<<<<<<<<<<<<<
@@ -10690,21 +10690,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_14setPitch(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_17getSound(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_16getSound[] = "\n        return a PySound class wrapper for the sound object of the player\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_17getSound = {__Pyx_NAMESTR("getSound"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_17getSound, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_16getSound)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_17getSound(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_17getSound(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_16getSound[] = "\n        return a PySound class wrapper for the sound object of the player\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_17getSound = {__Pyx_NAMESTR("getSound"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_17getSound, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_16getSound)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_17getSound(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSound (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_16getSound(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_16getSound(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10713,7 +10713,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSound", 0);
 
-  /* "_PyXAL.pyx":827
+  /* "_pyxal.pyx":827
  *         return a PySound class wrapper for the sound object of the player
  *         '''
  *         return self._sound             # <<<<<<<<<<<<<<
@@ -10727,7 +10727,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":823
+  /* "_pyxal.pyx":823
  *         self._wrapper.setPitch(value)
  * 
  *     def getSound(self):             # <<<<<<<<<<<<<<
@@ -10738,7 +10738,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getSound", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getSound", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -10746,7 +10746,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":829
+/* "_pyxal.pyx":829
  *         return self._sound
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -10755,21 +10755,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_16getSound(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_19getName(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_18getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_19getName = {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_19getName, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_18getName)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_19getName(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_19getName(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_18getName[] = "\n        @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_19getName = {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_19getName, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_18getName)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_19getName(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getName (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_18getName(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_18getName(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10781,7 +10781,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getName", 0);
 
-  /* "_PyXAL.pyx":833
+  /* "_pyxal.pyx":833
  *         @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -10798,7 +10798,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":834
+    /* "_pyxal.pyx":834
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -10812,7 +10812,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 834; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":835
+  /* "_pyxal.pyx":835
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -10825,7 +10825,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":836
+    /* "_pyxal.pyx":836
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -10839,7 +10839,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":837
+  /* "_pyxal.pyx":837
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getName()             # <<<<<<<<<<<<<<
@@ -10859,7 +10859,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":829
+  /* "_pyxal.pyx":829
  *         return self._sound
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -10871,7 +10871,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getName", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -10879,7 +10879,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":839
+/* "_pyxal.pyx":839
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -10888,21 +10888,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_18getName(CYTHON_UNUSED PyObject *__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_21getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_20getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_21getFilename = {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_21getFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_20getFilename)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_21getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_21getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_20getFilename[] = "\n        @return: returns a string containing the file name the sound was loaded from\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_21getFilename = {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_21getFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_20getFilename)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_21getFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_20getFilename(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_20getFilename(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10914,7 +10914,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getFilename", 0);
 
-  /* "_PyXAL.pyx":843
+  /* "_pyxal.pyx":843
  *         @return: returns a string containing the file name the sound was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -10931,7 +10931,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":844
+    /* "_pyxal.pyx":844
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -10945,7 +10945,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 844; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":845
+  /* "_pyxal.pyx":845
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -10958,7 +10958,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":846
+    /* "_pyxal.pyx":846
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -10972,7 +10972,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":847
+  /* "_pyxal.pyx":847
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getFilename()             # <<<<<<<<<<<<<<
@@ -10992,7 +10992,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":839
+  /* "_pyxal.pyx":839
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -11004,7 +11004,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11012,7 +11012,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":849
+/* "_pyxal.pyx":849
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -11021,21 +11021,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_20getFilename(CYTHON_UNUSED PyObject
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_23getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_22getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_23getRealFilename = {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_23getRealFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_22getRealFilename)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_23getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_23getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_22getRealFilename[] = "\n        @return: returns a string with the full path to the file the string was loaded from\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_23getRealFilename = {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_23getRealFilename, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_22getRealFilename)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_23getRealFilename(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getRealFilename (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_22getRealFilename(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11047,7 +11047,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getRealFilename", 0);
 
-  /* "_PyXAL.pyx":853
+  /* "_pyxal.pyx":853
  *         @return: returns a string with the full path to the file the string was loaded from
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11064,7 +11064,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":854
+    /* "_pyxal.pyx":854
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -11078,7 +11078,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 854; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":855
+  /* "_pyxal.pyx":855
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -11091,7 +11091,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":856
+    /* "_pyxal.pyx":856
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -11105,7 +11105,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":857
+  /* "_pyxal.pyx":857
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getRealFilename()             # <<<<<<<<<<<<<<
@@ -11125,7 +11125,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":849
+  /* "_pyxal.pyx":849
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -11137,7 +11137,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getRealFilename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11145,7 +11145,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":859
+/* "_pyxal.pyx":859
  *         return self._wrapper.getRealFilename()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -11154,21 +11154,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_22getRealFilename(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_25getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_24getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_25getDuration = {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_25getDuration, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_24getDuration)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_25getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_25getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_24getDuration[] = "\n        @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_25getDuration = {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_25getDuration, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_24getDuration)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_25getDuration(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getDuration (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_24getDuration(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_24getDuration(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11180,7 +11180,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getDuration", 0);
 
-  /* "_PyXAL.pyx":863
+  /* "_pyxal.pyx":863
  *         @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11197,7 +11197,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":864
+    /* "_pyxal.pyx":864
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -11211,7 +11211,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 864; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":865
+  /* "_pyxal.pyx":865
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -11224,7 +11224,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":866
+    /* "_pyxal.pyx":866
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -11238,7 +11238,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 866; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":867
+  /* "_pyxal.pyx":867
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getDuration()             # <<<<<<<<<<<<<<
@@ -11258,7 +11258,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":859
+  /* "_pyxal.pyx":859
  *         return self._wrapper.getRealFilename()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -11270,7 +11270,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getDuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11278,7 +11278,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":869
+/* "_pyxal.pyx":869
  *         return self._wrapper.getDuration()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -11287,21 +11287,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_24getDuration(CYTHON_UNUSED PyObject
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_27getSize(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_26getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_27getSize = {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_27getSize, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_26getSize)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_27getSize(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_27getSize(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_26getSize[] = "\n        @return: int the size of the sound data in bits not bytes\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_27getSize = {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_27getSize, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_26getSize)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_27getSize(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSize (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_26getSize(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_26getSize(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11313,7 +11313,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSize", 0);
 
-  /* "_PyXAL.pyx":873
+  /* "_pyxal.pyx":873
  *         @return: int the size of the sound data in bits not bytes
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11330,7 +11330,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":874
+    /* "_pyxal.pyx":874
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -11344,7 +11344,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 874; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":875
+  /* "_pyxal.pyx":875
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -11357,7 +11357,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":876
+    /* "_pyxal.pyx":876
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -11371,7 +11371,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 876; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":877
+  /* "_pyxal.pyx":877
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getSize()             # <<<<<<<<<<<<<<
@@ -11391,7 +11391,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":869
+  /* "_pyxal.pyx":869
  *         return self._wrapper.getDuration()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -11403,7 +11403,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11411,7 +11411,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":879
+/* "_pyxal.pyx":879
  *         return self._wrapper.getSize()
  * 
  *     def getTimePosition(self):             # <<<<<<<<<<<<<<
@@ -11420,21 +11420,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_26getSize(CYTHON_UNUSED PyObject *__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_29getTimePosition(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_28getTimePosition[] = "\n        @return: float the time position in seconds\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_29getTimePosition = {__Pyx_NAMESTR("getTimePosition"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_29getTimePosition, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_28getTimePosition)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_29getTimePosition(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_29getTimePosition(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_28getTimePosition[] = "\n        @return: float the time position in seconds\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_29getTimePosition = {__Pyx_NAMESTR("getTimePosition"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_29getTimePosition, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_28getTimePosition)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_29getTimePosition(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getTimePosition (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_28getTimePosition(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11446,7 +11446,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getTimePosition", 0);
 
-  /* "_PyXAL.pyx":883
+  /* "_pyxal.pyx":883
  *         @return: float the time position in seconds
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11463,7 +11463,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":884
+    /* "_pyxal.pyx":884
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -11477,7 +11477,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 884; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":885
+  /* "_pyxal.pyx":885
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -11490,7 +11490,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":886
+    /* "_pyxal.pyx":886
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -11504,7 +11504,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 886; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":887
+  /* "_pyxal.pyx":887
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getTimePosition()             # <<<<<<<<<<<<<<
@@ -11524,7 +11524,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":879
+  /* "_pyxal.pyx":879
  *         return self._wrapper.getSize()
  * 
  *     def getTimePosition(self):             # <<<<<<<<<<<<<<
@@ -11536,7 +11536,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getTimePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getTimePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11544,7 +11544,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":889
+/* "_pyxal.pyx":889
  *         return self._wrapper.getTimePosition()
  * 
  *     def getSamplePosition(self):             # <<<<<<<<<<<<<<
@@ -11553,21 +11553,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_28getTimePosition(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_31getSamplePosition(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_30getSamplePosition[] = "\n        @return: unsigned int the position in the buffer\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_31getSamplePosition = {__Pyx_NAMESTR("getSamplePosition"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_31getSamplePosition, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_30getSamplePosition)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_31getSamplePosition(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_31getSamplePosition(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_30getSamplePosition[] = "\n        @return: unsigned int the position in the buffer\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_31getSamplePosition = {__Pyx_NAMESTR("getSamplePosition"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_31getSamplePosition, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_30getSamplePosition)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_31getSamplePosition(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getSamplePosition (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_30getSamplePosition(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_30getSamplePosition(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11579,7 +11579,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getSamplePosition", 0);
 
-  /* "_PyXAL.pyx":893
+  /* "_pyxal.pyx":893
  *         @return: unsigned int the position in the buffer
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11596,7 +11596,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":894
+    /* "_pyxal.pyx":894
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -11610,7 +11610,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 894; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":895
+  /* "_pyxal.pyx":895
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -11623,7 +11623,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":896
+    /* "_pyxal.pyx":896
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -11637,7 +11637,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 896; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":897
+  /* "_pyxal.pyx":897
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.getSamplePosition()             # <<<<<<<<<<<<<<
@@ -11657,7 +11657,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":889
+  /* "_pyxal.pyx":889
  *         return self._wrapper.getTimePosition()
  * 
  *     def getSamplePosition(self):             # <<<<<<<<<<<<<<
@@ -11669,7 +11669,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.getSamplePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.getSamplePosition", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11677,7 +11677,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":899
+/* "_pyxal.pyx":899
  *         return self._wrapper.getSamplePosition()
  * 
  *     def isPlaying(self):             # <<<<<<<<<<<<<<
@@ -11686,21 +11686,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_30getSamplePosition(CYTHON_UNUSED Py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_33isPlaying(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_32isPlaying[] = "\n        @return: bool True of the sound is playing\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_33isPlaying = {__Pyx_NAMESTR("isPlaying"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_33isPlaying, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_32isPlaying)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_33isPlaying(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_33isPlaying(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_32isPlaying[] = "\n        @return: bool True of the sound is playing\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_33isPlaying = {__Pyx_NAMESTR("isPlaying"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_33isPlaying, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_32isPlaying)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_33isPlaying(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isPlaying (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_32isPlaying(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11712,7 +11712,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isPlaying", 0);
 
-  /* "_PyXAL.pyx":903
+  /* "_pyxal.pyx":903
  *         @return: bool True of the sound is playing
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11729,7 +11729,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":904
+    /* "_pyxal.pyx":904
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -11743,7 +11743,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 904; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":905
+  /* "_pyxal.pyx":905
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -11756,7 +11756,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":906
+    /* "_pyxal.pyx":906
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -11770,7 +11770,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 906; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":907
+  /* "_pyxal.pyx":907
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.isPlaying()             # <<<<<<<<<<<<<<
@@ -11790,7 +11790,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":899
+  /* "_pyxal.pyx":899
  *         return self._wrapper.getSamplePosition()
  * 
  *     def isPlaying(self):             # <<<<<<<<<<<<<<
@@ -11802,7 +11802,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.isPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.isPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11810,7 +11810,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":909
+/* "_pyxal.pyx":909
  *         return self._wrapper.isPlaying()
  * 
  *     def isPaused(self):             # <<<<<<<<<<<<<<
@@ -11819,21 +11819,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_32isPlaying(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_35isPaused(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_34isPaused[] = "\n        @return: bool True if the sound is paused\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_35isPaused = {__Pyx_NAMESTR("isPaused"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_35isPaused, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_34isPaused)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_35isPaused(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_35isPaused(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_34isPaused[] = "\n        @return: bool True if the sound is paused\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_35isPaused = {__Pyx_NAMESTR("isPaused"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_35isPaused, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_34isPaused)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_35isPaused(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isPaused (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_34isPaused(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_34isPaused(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11845,7 +11845,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isPaused", 0);
 
-  /* "_PyXAL.pyx":913
+  /* "_pyxal.pyx":913
  *         @return: bool True if the sound is paused
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11862,7 +11862,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":914
+    /* "_pyxal.pyx":914
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -11876,7 +11876,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 914; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":915
+  /* "_pyxal.pyx":915
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -11889,7 +11889,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":916
+    /* "_pyxal.pyx":916
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -11903,7 +11903,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 916; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":917
+  /* "_pyxal.pyx":917
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.isPaused()             # <<<<<<<<<<<<<<
@@ -11923,7 +11923,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":909
+  /* "_pyxal.pyx":909
  *         return self._wrapper.isPlaying()
  * 
  *     def isPaused(self):             # <<<<<<<<<<<<<<
@@ -11935,7 +11935,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.isPaused", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.isPaused", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11943,7 +11943,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":919
+/* "_pyxal.pyx":919
  *         return self._wrapper.isPaused()
  * 
  *     def isFading(self):             # <<<<<<<<<<<<<<
@@ -11952,21 +11952,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_34isPaused(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_37isFading(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_36isFading[] = "\n        @return: bool True if the sound is fading in or out\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_37isFading = {__Pyx_NAMESTR("isFading"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_37isFading, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_36isFading)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_37isFading(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_37isFading(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_36isFading[] = "\n        @return: bool True if the sound is fading in or out\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_37isFading = {__Pyx_NAMESTR("isFading"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_37isFading, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_36isFading)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_37isFading(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isFading (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_36isFading(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_36isFading(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11978,7 +11978,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isFading", 0);
 
-  /* "_PyXAL.pyx":923
+  /* "_pyxal.pyx":923
  *         @return: bool True if the sound is fading in or out
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -11995,7 +11995,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":924
+    /* "_pyxal.pyx":924
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -12009,7 +12009,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 924; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":925
+  /* "_pyxal.pyx":925
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -12022,7 +12022,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":926
+    /* "_pyxal.pyx":926
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -12036,7 +12036,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 926; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":927
+  /* "_pyxal.pyx":927
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.isFading()             # <<<<<<<<<<<<<<
@@ -12056,7 +12056,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":919
+  /* "_pyxal.pyx":919
  *         return self._wrapper.isPaused()
  * 
  *     def isFading(self):             # <<<<<<<<<<<<<<
@@ -12068,7 +12068,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.isFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.isFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12076,7 +12076,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":929
+/* "_pyxal.pyx":929
  *         return self._wrapper.isFading()
  * 
  *     def isFadingIn(self):             # <<<<<<<<<<<<<<
@@ -12085,21 +12085,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_36isFading(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_39isFadingIn(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_38isFadingIn[] = "\n        @return: bool True if the sound is fading in\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_39isFadingIn = {__Pyx_NAMESTR("isFadingIn"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_39isFadingIn, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_38isFadingIn)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_39isFadingIn(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_39isFadingIn(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_38isFadingIn[] = "\n        @return: bool True if the sound is fading in\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_39isFadingIn = {__Pyx_NAMESTR("isFadingIn"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_39isFadingIn, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_38isFadingIn)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_39isFadingIn(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isFadingIn (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_38isFadingIn(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12111,7 +12111,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isFadingIn", 0);
 
-  /* "_PyXAL.pyx":933
+  /* "_pyxal.pyx":933
  *         @return: bool True if the sound is fading in
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -12128,7 +12128,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":934
+    /* "_pyxal.pyx":934
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -12142,7 +12142,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 934; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":935
+  /* "_pyxal.pyx":935
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -12155,7 +12155,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":936
+    /* "_pyxal.pyx":936
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -12169,7 +12169,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 936; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":937
+  /* "_pyxal.pyx":937
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.isFadingIn()             # <<<<<<<<<<<<<<
@@ -12189,7 +12189,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":929
+  /* "_pyxal.pyx":929
  *         return self._wrapper.isFading()
  * 
  *     def isFadingIn(self):             # <<<<<<<<<<<<<<
@@ -12201,7 +12201,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.isFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.isFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12209,7 +12209,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":939
+/* "_pyxal.pyx":939
  *         return self._wrapper.isFadingIn()
  * 
  *     def isFadingOut(self):             # <<<<<<<<<<<<<<
@@ -12218,21 +12218,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_38isFadingIn(CYTHON_UNUSED PyObject 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_41isFadingOut(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_40isFadingOut[] = "\n        @return: bool True if teh sound is fading out\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_41isFadingOut = {__Pyx_NAMESTR("isFadingOut"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_41isFadingOut, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_40isFadingOut)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_41isFadingOut(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_41isFadingOut(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_40isFadingOut[] = "\n        @return: bool True if teh sound is fading out\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_41isFadingOut = {__Pyx_NAMESTR("isFadingOut"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_41isFadingOut, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_40isFadingOut)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_41isFadingOut(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isFadingOut (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_40isFadingOut(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12244,7 +12244,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isFadingOut", 0);
 
-  /* "_PyXAL.pyx":943
+  /* "_pyxal.pyx":943
  *         @return: bool True if teh sound is fading out
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -12261,7 +12261,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":944
+    /* "_pyxal.pyx":944
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -12275,7 +12275,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 944; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":945
+  /* "_pyxal.pyx":945
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -12288,7 +12288,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":946
+    /* "_pyxal.pyx":946
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -12302,7 +12302,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 946; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":947
+  /* "_pyxal.pyx":947
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.isFadingOut()             # <<<<<<<<<<<<<<
@@ -12322,7 +12322,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":939
+  /* "_pyxal.pyx":939
  *         return self._wrapper.isFadingIn()
  * 
  *     def isFadingOut(self):             # <<<<<<<<<<<<<<
@@ -12334,7 +12334,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.isFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.isFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12342,7 +12342,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":949
+/* "_pyxal.pyx":949
  *         return self._wrapper.isFadingOut()
  * 
  *     def isLooping(self):             # <<<<<<<<<<<<<<
@@ -12351,21 +12351,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_40isFadingOut(CYTHON_UNUSED PyObject
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_43isLooping(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_42isLooping[] = "\n        @return: bool True of the sound is looping\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_43isLooping = {__Pyx_NAMESTR("isLooping"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_43isLooping, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_42isLooping)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_43isLooping(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_43isLooping(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_42isLooping[] = "\n        @return: bool True of the sound is looping\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_43isLooping = {__Pyx_NAMESTR("isLooping"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_43isLooping, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_42isLooping)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_43isLooping(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isLooping (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_42isLooping(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_42isLooping(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12377,7 +12377,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isLooping", 0);
 
-  /* "_PyXAL.pyx":953
+  /* "_pyxal.pyx":953
  *         @return: bool True of the sound is looping
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -12394,7 +12394,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":954
+    /* "_pyxal.pyx":954
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -12408,7 +12408,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 954; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":955
+  /* "_pyxal.pyx":955
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -12421,7 +12421,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":956
+    /* "_pyxal.pyx":956
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -12435,7 +12435,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 956; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":957
+  /* "_pyxal.pyx":957
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         return self._wrapper.isLooping()             # <<<<<<<<<<<<<<
@@ -12455,7 +12455,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":949
+  /* "_pyxal.pyx":949
  *         return self._wrapper.isFadingOut()
  * 
  *     def isLooping(self):             # <<<<<<<<<<<<<<
@@ -12467,7 +12467,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.isLooping", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.isLooping", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12475,7 +12475,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":959
+/* "_pyxal.pyx":959
  *         return self._wrapper.isLooping()
  * 
  *     def play(self, float fadeTime = 0.0, bool looping = False):             # <<<<<<<<<<<<<<
@@ -12484,10 +12484,10 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_42isLooping(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_45play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_44play[] = "\n        start the sound playing at it's current offset, the offset starts at 0.0 when teh sound is first loaded\n        \n        @param fadeTime: float the time in seconds for the sound to fade in (0.0 by default)\n        @param looping: bool should the sound loop (False by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_45play = {__Pyx_NAMESTR("play"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_45play, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_44play)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_45play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_45play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_44play[] = "\n        start the sound playing at it's current offset, the offset starts at 0.0 when teh sound is first loaded\n        \n        @param fadeTime: float the time in seconds for the sound to fade in (0.0 by default)\n        @param looping: bool should the sound loop (False by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_45play = {__Pyx_NAMESTR("play"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_45play, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_44play)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_45play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   float __pyx_v_fadeTime;
   bool __pyx_v_looping;
@@ -12554,18 +12554,18 @@ static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_45play(PyObject *__pyx_self, PyObjec
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("play", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 959; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_44play(__pyx_self, __pyx_v_self, __pyx_v_fadeTime, __pyx_v_looping);
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_44play(__pyx_self, __pyx_v_self, __pyx_v_fadeTime, __pyx_v_looping);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime, bool __pyx_v_looping) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12579,7 +12579,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("play", 0);
 
-  /* "_PyXAL.pyx":966
+  /* "_pyxal.pyx":966
  *         @param looping: bool should the sound loop (False by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -12596,7 +12596,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":967
+    /* "_pyxal.pyx":967
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -12610,7 +12610,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 967; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":968
+  /* "_pyxal.pyx":968
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -12623,7 +12623,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":969
+    /* "_pyxal.pyx":969
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -12637,7 +12637,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 969; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":970
+  /* "_pyxal.pyx":970
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._wrapper.play(fadeTime, looping)             # <<<<<<<<<<<<<<
@@ -12667,7 +12667,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":959
+  /* "_pyxal.pyx":959
  *         return self._wrapper.isLooping()
  * 
  *     def play(self, float fadeTime = 0.0, bool looping = False):             # <<<<<<<<<<<<<<
@@ -12683,7 +12683,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12691,7 +12691,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":972
+/* "_pyxal.pyx":972
  *         self._wrapper.play(fadeTime, looping)
  * 
  *     def stop(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -12700,10 +12700,10 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_44play(CYTHON_UNUSED PyObject *__pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_47stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_46stop[] = "\n        stop the sound playing and rest set it's offset to 0.0\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_47stop = {__Pyx_NAMESTR("stop"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_47stop, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_46stop)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_47stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_47stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_46stop[] = "\n        stop the sound playing and rest set it's offset to 0.0\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_47stop = {__Pyx_NAMESTR("stop"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_47stop, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_46stop)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_47stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   float __pyx_v_fadeTime;
   int __pyx_lineno = 0;
@@ -12757,18 +12757,18 @@ static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_47stop(PyObject *__pyx_self, PyObjec
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("stop", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 972; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_46stop(__pyx_self, __pyx_v_self, __pyx_v_fadeTime);
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_46stop(__pyx_self, __pyx_v_self, __pyx_v_fadeTime);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12781,7 +12781,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("stop", 0);
 
-  /* "_PyXAL.pyx":978
+  /* "_pyxal.pyx":978
  *         @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -12798,7 +12798,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":979
+    /* "_pyxal.pyx":979
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -12812,7 +12812,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 979; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":980
+  /* "_pyxal.pyx":980
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -12825,7 +12825,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":981
+    /* "_pyxal.pyx":981
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -12839,7 +12839,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":982
+  /* "_pyxal.pyx":982
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._wrapper.stop(fadeTime)             # <<<<<<<<<<<<<<
@@ -12864,7 +12864,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":972
+  /* "_pyxal.pyx":972
  *         self._wrapper.play(fadeTime, looping)
  * 
  *     def stop(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -12879,7 +12879,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12887,7 +12887,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":984
+/* "_pyxal.pyx":984
  *         self._wrapper.stop(fadeTime)
  * 
  *     def pause(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -12896,10 +12896,10 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_46stop(CYTHON_UNUSED PyObject *__pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_49pause(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_8PyPlayer_48pause[] = "\n        stop the sound playing keeping the current offset of the sound\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_8PyPlayer_49pause = {__Pyx_NAMESTR("pause"), (PyCFunction)__pyx_pw_6_PyXAL_8PyPlayer_49pause, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_8PyPlayer_48pause)};
-static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_49pause(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_49pause(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_8PyPlayer_48pause[] = "\n        stop the sound playing keeping the current offset of the sound\n        \n        @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_8PyPlayer_49pause = {__Pyx_NAMESTR("pause"), (PyCFunction)__pyx_pw_6_pyxal_8PyPlayer_49pause, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_8PyPlayer_48pause)};
+static PyObject *__pyx_pw_6_pyxal_8PyPlayer_49pause(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   float __pyx_v_fadeTime;
   int __pyx_lineno = 0;
@@ -12953,18 +12953,18 @@ static PyObject *__pyx_pw_6_PyXAL_8PyPlayer_49pause(PyObject *__pyx_self, PyObje
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("pause", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_8PyPlayer_48pause(__pyx_self, __pyx_v_self, __pyx_v_fadeTime);
+  __pyx_r = __pyx_pf_6_pyxal_8PyPlayer_48pause(__pyx_self, __pyx_v_self, __pyx_v_fadeTime);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime) {
+static PyObject *__pyx_pf_6_pyxal_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12977,7 +12977,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("pause", 0);
 
-  /* "_PyXAL.pyx":990
+  /* "_pyxal.pyx":990
  *         @param fadeTime: float the time in seconds for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -12994,7 +12994,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":991
+    /* "_pyxal.pyx":991
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -13008,7 +13008,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 991; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":992
+  /* "_pyxal.pyx":992
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:             # <<<<<<<<<<<<<<
@@ -13021,7 +13021,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":993
+    /* "_pyxal.pyx":993
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -13035,7 +13035,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 993; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":994
+  /* "_pyxal.pyx":994
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")
  *         self._wrapper.pause(fadeTime)             # <<<<<<<<<<<<<<
@@ -13060,7 +13060,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":984
+  /* "_pyxal.pyx":984
  *         self._wrapper.stop(fadeTime)
  * 
  *     def pause(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -13075,7 +13075,7 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.PyPlayer.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.PyPlayer.pause", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13083,21 +13083,21 @@ static PyObject *__pyx_pf_6_PyXAL_8PyPlayer_48pause(CYTHON_UNUSED PyObject *__py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1007
+/* "_pyxal.pyx":1007
  *     cdef char* CATEGORY_STR
  * 
  *     def __init__(self, XAL.AudioSystemType type, int backendId, bint threaded = False, float updateTime = 0.01, char* deviceName = ""):             # <<<<<<<<<<<<<<
  *         '''
- *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
+ *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
  */
 
 /* Python wrapper */
-static int __pyx_pw_6_PyXAL_17XALManagerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_17XALManagerWrapper___init__[] = "\n        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr\n        if PyXAL.Mgr is None call PyXAL.Destroy and then PyXAL.Init to set up the interface again\n        \n        @param systemname: string name of the back end system to use\n        @param backendId: int window handle of the calling aplication\n        @param threaded: bool should the system use a threaded interface? (False by defaut)\n        @param updateTime: float how offten should XAL update (0.01 by default)\n        @param deviceName: string arbatrary device name (\"\" by default)\n        ";
+static int __pyx_pw_6_pyxal_17XALManagerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_17XALManagerWrapper___init__[] = "\n        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr\n        if pyxal.Mgr is None call pyxal.Destroy and then pyxal.Init to set up the interface again\n        \n        @param systemname: string name of the back end system to use\n        @param backendId: int window handle of the calling aplication\n        @param threaded: bool should the system use a threaded interface? (False by defaut)\n        @param updateTime: float how offten should XAL update (0.01 by default)\n        @param deviceName: string arbatrary device name (\"\" by default)\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_6_PyXAL_17XALManagerWrapper___init__;
+struct wrapperbase __pyx_wrapperbase_6_pyxal_17XALManagerWrapper___init__;
 #endif
-static int __pyx_pw_6_PyXAL_17XALManagerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6_pyxal_17XALManagerWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   enum xal::AudioSystemType __pyx_v_type;
   int __pyx_v_backendId;
   int __pyx_v_threaded;
@@ -13186,18 +13186,18 @@ static int __pyx_pw_6_PyXAL_17XALManagerWrapper_1__init__(PyObject *__pyx_v_self
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1007; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManagerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManagerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(((struct __pyx_obj_6_PyXAL_XALManagerWrapper *)__pyx_v_self), __pyx_v_type, __pyx_v_backendId, __pyx_v_threaded, __pyx_v_updateTime, __pyx_v_deviceName);
+  __pyx_r = __pyx_pf_6_pyxal_17XALManagerWrapper___init__(((struct __pyx_obj_6_pyxal_XALManagerWrapper *)__pyx_v_self), __pyx_v_type, __pyx_v_backendId, __pyx_v_threaded, __pyx_v_updateTime, __pyx_v_deviceName);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self, enum xal::AudioSystemType __pyx_v_type, int __pyx_v_backendId, int __pyx_v_threaded, float __pyx_v_updateTime, char *__pyx_v_deviceName) {
+static int __pyx_pf_6_pyxal_17XALManagerWrapper___init__(struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self, enum xal::AudioSystemType __pyx_v_type, int __pyx_v_backendId, int __pyx_v_threaded, float __pyx_v_updateTime, char *__pyx_v_deviceName) {
   hstr __pyx_v_dname;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -13210,11 +13210,11 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_PyXAL.pyx":1019
+  /* "_pyxal.pyx":1019
  *         '''
  *         global Mgr
  *         if Mgr is not None:             # <<<<<<<<<<<<<<
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
  *         self.CATEGORY_STR = "default"
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Mgr); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13224,10 +13224,10 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1020
+    /* "_pyxal.pyx":1020
  *         global Mgr
  *         if Mgr is not None:
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")             # <<<<<<<<<<<<<<
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")             # <<<<<<<<<<<<<<
  *         self.CATEGORY_STR = "default"
  *         cdef hstr dname = hstr(deviceName)
  */
@@ -13238,17 +13238,17 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1020; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1021
+  /* "_pyxal.pyx":1021
  *         if Mgr is not None:
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
  *         self.CATEGORY_STR = "default"             # <<<<<<<<<<<<<<
  *         cdef hstr dname = hstr(deviceName)
  *         self._destroyXAL()
  */
   __pyx_v_self->CATEGORY_STR = __pyx_k_default;
 
-  /* "_PyXAL.pyx":1022
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+  /* "_pyxal.pyx":1022
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
  *         self.CATEGORY_STR = "default"
  *         cdef hstr dname = hstr(deviceName)             # <<<<<<<<<<<<<<
  *         self._destroyXAL()
@@ -13256,7 +13256,7 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
  */
   __pyx_v_dname = hstr(__pyx_v_deviceName);
 
-  /* "_PyXAL.pyx":1023
+  /* "_pyxal.pyx":1023
  *         self.CATEGORY_STR = "default"
  *         cdef hstr dname = hstr(deviceName)
  *         self._destroyXAL()             # <<<<<<<<<<<<<<
@@ -13270,7 +13270,7 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1024
+  /* "_pyxal.pyx":1024
  *         cdef hstr dname = hstr(deviceName)
  *         self._destroyXAL()
  *         XAL.init(type, <void*>backendId, threaded, updateTime, dname)             # <<<<<<<<<<<<<<
@@ -13284,7 +13284,7 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1024; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1025
+  /* "_pyxal.pyx":1025
  *         self._destroyXAL()
  *         XAL.init(type, <void*>backendId, threaded, updateTime, dname)
  *         self.inited = True             # <<<<<<<<<<<<<<
@@ -13293,7 +13293,7 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
  */
   __pyx_v_self->inited = 1;
 
-  /* "_PyXAL.pyx":1026
+  /* "_pyxal.pyx":1026
  *         XAL.init(type, <void*>backendId, threaded, updateTime, dname)
  *         self.inited = True
  *         self.destroyed = False             # <<<<<<<<<<<<<<
@@ -13302,7 +13302,7 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
  */
   __pyx_v_self->destroyed = 0;
 
-  /* "_PyXAL.pyx":1027
+  /* "_pyxal.pyx":1027
  *         self.inited = True
  *         self.destroyed = False
  *         self.SetupXAL()             # <<<<<<<<<<<<<<
@@ -13316,12 +13316,12 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1007
+  /* "_pyxal.pyx":1007
  *     cdef char* CATEGORY_STR
  * 
  *     def __init__(self, XAL.AudioSystemType type, int backendId, bint threaded = False, float updateTime = 0.01, char* deviceName = ""):             # <<<<<<<<<<<<<<
  *         '''
- *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
+ *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
  */
 
   /* function exit code */
@@ -13330,14 +13330,14 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("_PyXAL.XALManagerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManagerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1029
+/* "_pyxal.pyx":1029
  *         self.SetupXAL()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -13346,17 +13346,17 @@ static int __pyx_pf_6_PyXAL_17XALManagerWrapper___init__(struct __pyx_obj_6_PyXA
  */
 
 /* Python wrapper */
-static void __pyx_pw_6_PyXAL_17XALManagerWrapper_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6_PyXAL_17XALManagerWrapper_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6_pyxal_17XALManagerWrapper_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6_pyxal_17XALManagerWrapper_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(((struct __pyx_obj_6_PyXAL_XALManagerWrapper *)__pyx_v_self));
+  __pyx_pf_6_pyxal_17XALManagerWrapper_2__dealloc__(((struct __pyx_obj_6_pyxal_XALManagerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self) {
+static void __pyx_pf_6_pyxal_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self) {
   double __pyx_v_fade;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -13365,7 +13365,7 @@ static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "_PyXAL.pyx":1030
+  /* "_pyxal.pyx":1030
  * 
  *     def __dealloc__(self):
  *         if XAL.mgr != NULL:             # <<<<<<<<<<<<<<
@@ -13375,7 +13375,7 @@ static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED stru
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":1031
+    /* "_pyxal.pyx":1031
  *     def __dealloc__(self):
  *         if XAL.mgr != NULL:
  *             fade = 0.0             # <<<<<<<<<<<<<<
@@ -13384,7 +13384,7 @@ static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED stru
  */
     __pyx_v_fade = 0.0;
 
-    /* "_PyXAL.pyx":1032
+    /* "_pyxal.pyx":1032
  *         if XAL.mgr != NULL:
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)             # <<<<<<<<<<<<<<
@@ -13398,7 +13398,7 @@ static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED stru
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1032; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":1033
+    /* "_pyxal.pyx":1033
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)
  *             XAL.destroy()             # <<<<<<<<<<<<<<
@@ -13415,7 +13415,7 @@ static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED stru
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":1029
+  /* "_pyxal.pyx":1029
  *         self.SetupXAL()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -13426,12 +13426,12 @@ static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED stru
   /* function exit code */
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_WriteUnraisable("_PyXAL.XALManagerWrapper.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("_pyxal.XALManagerWrapper.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "_PyXAL.pyx":1035
+/* "_pyxal.pyx":1035
  *             XAL.destroy()
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -13440,26 +13440,26 @@ static void __pyx_pf_6_PyXAL_17XALManagerWrapper_2__dealloc__(CYTHON_UNUSED stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_17XALManagerWrapper_5isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_17XALManagerWrapper_4isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
-static PyObject *__pyx_pw_6_PyXAL_17XALManagerWrapper_5isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_17XALManagerWrapper_5isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_17XALManagerWrapper_4isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
+static PyObject *__pyx_pw_6_pyxal_17XALManagerWrapper_5isXALInitialized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isXALInitialized (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(((struct __pyx_obj_6_PyXAL_XALManagerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_17XALManagerWrapper_4isXALInitialized(((struct __pyx_obj_6_pyxal_XALManagerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_17XALManagerWrapper_4isXALInitialized(CYTHON_UNUSED struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("isXALInitialized", 0);
 
-  /* "_PyXAL.pyx":1039
+  /* "_pyxal.pyx":1039
  *         returns true if the C++ side of the interface to XAL exists
  *         '''
  *         if XAL.mgr != NULL:             # <<<<<<<<<<<<<<
@@ -13469,7 +13469,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(CYTHON_U
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":1040
+    /* "_pyxal.pyx":1040
  *         '''
  *         if XAL.mgr != NULL:
  *             return True             # <<<<<<<<<<<<<<
@@ -13483,7 +13483,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(CYTHON_U
   }
   /*else*/ {
 
-    /* "_PyXAL.pyx":1042
+    /* "_pyxal.pyx":1042
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -13496,7 +13496,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(CYTHON_U
     goto __pyx_L0;
   }
 
-  /* "_PyXAL.pyx":1035
+  /* "_pyxal.pyx":1035
  *             XAL.destroy()
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -13511,7 +13511,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(CYTHON_U
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1044
+/* "_pyxal.pyx":1044
  *             return False
  * 
  *     def SetupXAL(self):             # <<<<<<<<<<<<<<
@@ -13520,20 +13520,20 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_4isXALInitialized(CYTHON_U
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_17XALManagerWrapper_7SetupXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_17XALManagerWrapper_6SetupXAL[] = "\n        set up XAL and create the default sound catagory\n        ";
-static PyObject *__pyx_pw_6_PyXAL_17XALManagerWrapper_7SetupXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_17XALManagerWrapper_7SetupXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_17XALManagerWrapper_6SetupXAL[] = "\n        set up XAL and create the default sound catagory\n        ";
+static PyObject *__pyx_pw_6_pyxal_17XALManagerWrapper_7SetupXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("SetupXAL (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(((struct __pyx_obj_6_PyXAL_XALManagerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_17XALManagerWrapper_6SetupXAL(((struct __pyx_obj_6_pyxal_XALManagerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_17XALManagerWrapper_6SetupXAL(struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self) {
   hstr __pyx_v_category;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -13547,7 +13547,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("SetupXAL", 0);
 
-  /* "_PyXAL.pyx":1048
+  /* "_pyxal.pyx":1048
  *         set up XAL and create the default sound catagory
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -13564,7 +13564,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1049
+    /* "_pyxal.pyx":1049
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -13578,7 +13578,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1050
+  /* "_pyxal.pyx":1050
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr category = hstr(self.CATEGORY_STR)             # <<<<<<<<<<<<<<
@@ -13587,7 +13587,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
  */
   __pyx_v_category = hstr(__pyx_v_self->CATEGORY_STR);
 
-  /* "_PyXAL.pyx":1051
+  /* "_pyxal.pyx":1051
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr category = hstr(self.CATEGORY_STR)
  *         self._category = XAL.mgr.createCategory(category, FULL, DISK)             # <<<<<<<<<<<<<<
@@ -13595,14 +13595,14 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
  *     def _destroyXAL(self):
  */
   try {
-    __pyx_t_5 = xal::mgr->createCategory(__pyx_v_category, __pyx_v_6_PyXAL_FULL, __pyx_v_6_PyXAL_DISK);
+    __pyx_t_5 = xal::mgr->createCategory(__pyx_v_category, __pyx_v_6_pyxal_FULL, __pyx_v_6_pyxal_DISK);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1051; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_v_self->_category = __pyx_t_5;
 
-  /* "_PyXAL.pyx":1044
+  /* "_pyxal.pyx":1044
  *             return False
  * 
  *     def SetupXAL(self):             # <<<<<<<<<<<<<<
@@ -13616,7 +13616,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManagerWrapper.SetupXAL", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManagerWrapper.SetupXAL", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13624,7 +13624,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1053
+/* "_pyxal.pyx":1053
  *         self._category = XAL.mgr.createCategory(category, FULL, DISK)
  * 
  *     def _destroyXAL(self):             # <<<<<<<<<<<<<<
@@ -13633,19 +13633,19 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_6SetupXAL(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_17XALManagerWrapper_9_destroyXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_6_PyXAL_17XALManagerWrapper_9_destroyXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_17XALManagerWrapper_9_destroyXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_6_pyxal_17XALManagerWrapper_9_destroyXAL(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_destroyXAL (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(((struct __pyx_obj_6_PyXAL_XALManagerWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_17XALManagerWrapper_8_destroyXAL(((struct __pyx_obj_6_pyxal_XALManagerWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_self) {
   double __pyx_v_fade;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -13655,7 +13655,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_destroyXAL", 0);
 
-  /* "_PyXAL.pyx":1054
+  /* "_pyxal.pyx":1054
  * 
  *     def _destroyXAL(self):
  *         if XAL.mgr != NULL:             # <<<<<<<<<<<<<<
@@ -13665,7 +13665,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":1055
+    /* "_pyxal.pyx":1055
  *     def _destroyXAL(self):
  *         if XAL.mgr != NULL:
  *             fade = 0.0             # <<<<<<<<<<<<<<
@@ -13674,7 +13674,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED
  */
     __pyx_v_fade = 0.0;
 
-    /* "_PyXAL.pyx":1056
+    /* "_pyxal.pyx":1056
  *         if XAL.mgr != NULL:
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)             # <<<<<<<<<<<<<<
@@ -13688,7 +13688,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1056; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":1057
+    /* "_pyxal.pyx":1057
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)
  *             XAL.destroy()             # <<<<<<<<<<<<<<
@@ -13705,7 +13705,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":1053
+  /* "_pyxal.pyx":1053
  *         self._category = XAL.mgr.createCategory(category, FULL, DISK)
  * 
  *     def _destroyXAL(self):             # <<<<<<<<<<<<<<
@@ -13717,7 +13717,7 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManagerWrapper._destroyXAL", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManagerWrapper._destroyXAL", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13725,19 +13725,19 @@ static PyObject *__pyx_pf_6_PyXAL_17XALManagerWrapper_8_destroyXAL(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1073
+/* "_pyxal.pyx":1073
  *     _wrapper = None
  * 
  *     def __init__(self, int backendId, bint threaded = False):             # <<<<<<<<<<<<<<
  *         '''
- *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
+ *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager___init__[] = "\n        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr\n        if PyXAL.Mgr is None call PyXAL.Destroy and then PyXAL.Init to set up the interface again\n        \n        @param backendId: int window handle of the calling aplication\n        @param threaded: bool should the system use a threaded interface? (False by defaut)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_1__init__ = {__Pyx_NAMESTR("__init__"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_1__init__, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager___init__)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager___init__[] = "\n        sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr\n        if pyxal.Mgr is None call pyxal.Destroy and then pyxal.Init to set up the interface again\n        \n        @param backendId: int window handle of the calling aplication\n        @param threaded: bool should the system use a threaded interface? (False by defaut)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_1__init__ = {__Pyx_NAMESTR("__init__"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_1__init__, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager___init__)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   int __pyx_v_backendId;
   int __pyx_v_threaded;
@@ -13800,19 +13800,19 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_1__init__(PyObject *__pyx_self, P
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager___init__(__pyx_self, __pyx_v_self, __pyx_v_backendId, __pyx_v_threaded);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager___init__(__pyx_self, __pyx_v_self, __pyx_v_backendId, __pyx_v_threaded);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_backendId, int __pyx_v_threaded) {
-  struct __pyx_obj_6_PyXAL_XALManagerWrapper *__pyx_v_wrapper = 0;
+static PyObject *__pyx_pf_6_pyxal_10XALManager___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_backendId, int __pyx_v_threaded) {
+  struct __pyx_obj_6_pyxal_XALManagerWrapper *__pyx_v_wrapper = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -13825,11 +13825,11 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_PyXAL.pyx":1082
+  /* "_pyxal.pyx":1082
  *         '''
  *         global Mgr
  *         if Mgr is not None:             # <<<<<<<<<<<<<<
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
  *         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Mgr); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1082; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13839,10 +13839,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1083
+    /* "_pyxal.pyx":1083
  *         global Mgr
  *         if Mgr is not None:
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")             # <<<<<<<<<<<<<<
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")             # <<<<<<<<<<<<<<
  *         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)
  *         self._wrapper = wrapper
  */
@@ -13853,9 +13853,9 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1083; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1084
+  /* "_pyxal.pyx":1084
  *         if Mgr is not None:
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
  *         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)             # <<<<<<<<<<<<<<
  *         self._wrapper = wrapper
  *         self._players = {}
@@ -13866,23 +13866,23 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_INCREF(__pyx_v_6_PyXAL_XAL_AS_DEFAULT);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_6_PyXAL_XAL_AS_DEFAULT);
-  __Pyx_GIVEREF(__pyx_v_6_PyXAL_XAL_AS_DEFAULT);
+  __Pyx_INCREF(__pyx_v_6_pyxal_XAL_AS_DEFAULT);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_6_pyxal_XAL_AS_DEFAULT);
+  __Pyx_GIVEREF(__pyx_v_6_pyxal_XAL_AS_DEFAULT);
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_1 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6_PyXAL_XALManagerWrapper)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6_pyxal_XALManagerWrapper)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_wrapper = ((struct __pyx_obj_6_PyXAL_XALManagerWrapper *)__pyx_t_4);
+  __pyx_v_wrapper = ((struct __pyx_obj_6_pyxal_XALManagerWrapper *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1085
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
+  /* "_pyxal.pyx":1085
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")
  *         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)
  *         self._wrapper = wrapper             # <<<<<<<<<<<<<<
  *         self._players = {}
@@ -13890,7 +13890,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_wrapper, ((PyObject *)__pyx_v_wrapper)) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1085; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1086
+  /* "_pyxal.pyx":1086
  *         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)
  *         self._wrapper = wrapper
  *         self._players = {}             # <<<<<<<<<<<<<<
@@ -13902,12 +13902,12 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_players, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1086; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1073
+  /* "_pyxal.pyx":1073
  *     _wrapper = None
  * 
  *     def __init__(self, int backendId, bint threaded = False):             # <<<<<<<<<<<<<<
  *         '''
- *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
+ *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
  */
 
   /* function exit code */
@@ -13917,7 +13917,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.XALManager.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_wrapper);
@@ -13926,7 +13926,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1088
+/* "_pyxal.pyx":1088
  *         self._players = {}
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -13935,27 +13935,27 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager___init__(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_3isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_2isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_3isXALInitialized = {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_3isXALInitialized, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_2isXALInitialized)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_3isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_3isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_2isXALInitialized[] = "\n        returns true if the C++ side of the interface to XAL exists\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_3isXALInitialized = {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_3isXALInitialized, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_2isXALInitialized)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_3isXALInitialized(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isXALInitialized (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_2isXALInitialized(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_2isXALInitialized(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("isXALInitialized", 0);
 
-  /* "_PyXAL.pyx":1092
+  /* "_pyxal.pyx":1092
  *         returns true if the C++ side of the interface to XAL exists
  *         '''
  *         if XAL.mgr is not NULL:             # <<<<<<<<<<<<<<
@@ -13965,7 +13965,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(CYTHON_UNUSED P
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":1093
+    /* "_pyxal.pyx":1093
  *         '''
  *         if XAL.mgr is not NULL:
  *             return True             # <<<<<<<<<<<<<<
@@ -13979,7 +13979,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(CYTHON_UNUSED P
   }
   /*else*/ {
 
-    /* "_PyXAL.pyx":1095
+    /* "_pyxal.pyx":1095
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -13992,7 +13992,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(CYTHON_UNUSED P
     goto __pyx_L0;
   }
 
-  /* "_PyXAL.pyx":1088
+  /* "_pyxal.pyx":1088
  *         self._players = {}
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -14007,7 +14007,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1097
+/* "_pyxal.pyx":1097
  *             return False
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -14016,21 +14016,21 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_2isXALInitialized(CYTHON_UNUSED P
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_4__del__[] = "\n        make sure XAL is destroyed if the interface is destroyed\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_5__del__ = {__Pyx_NAMESTR("__del__"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_5__del__, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_4__del__)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_4__del__[] = "\n        make sure XAL is destroyed if the interface is destroyed\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_5__del__ = {__Pyx_NAMESTR("__del__"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_5__del__, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_4__del__)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_5__del__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_4__del__(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_4__del__(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_4__del__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
@@ -14038,7 +14038,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__del__", 0);
 
-  /* "_PyXAL.pyx":1101
+  /* "_pyxal.pyx":1101
  *         make sure XAL is destroyed if the interface is destroyed
  *         '''
  *         del self._players             # <<<<<<<<<<<<<<
@@ -14047,7 +14047,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *
  */
   if (__Pyx_PyObject_DelAttrStr(__pyx_v_self, __pyx_n_s_players) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1102
+  /* "_pyxal.pyx":1102
  *         '''
  *         del self._players
  *         del self._wrapper             # <<<<<<<<<<<<<<
@@ -14056,7 +14056,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *
  */
   if (__Pyx_PyObject_DelAttrStr(__pyx_v_self, __pyx_n_s_wrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1097
+  /* "_pyxal.pyx":1097
  *             return False
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -14068,7 +14068,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.__del__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.__del__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -14076,7 +14076,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1104
+/* "_pyxal.pyx":1104
  *         del self._wrapper
  * 
  *     def clear(self):             # <<<<<<<<<<<<<<
@@ -14085,21 +14085,21 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_4__del__(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_7clear(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_6clear[] = "\n        clear the XAL interface and reset it to be like it was freshly initialized all current sounds and players become invalid\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_7clear = {__Pyx_NAMESTR("clear"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_7clear, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_6clear)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_7clear(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_7clear(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_6clear[] = "\n        clear the XAL interface and reset it to be like it was freshly initialized all current sounds and players become invalid\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_7clear = {__Pyx_NAMESTR("clear"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_7clear, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_6clear)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_7clear(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("clear (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_6clear(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_6clear(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_6clear(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   double __pyx_v_fade;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -14111,7 +14111,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("clear", 0);
 
-  /* "_PyXAL.pyx":1108
+  /* "_pyxal.pyx":1108
  *         clear the XAL interface and reset it to be like it was freshly initialized all current sounds and players become invalid
  *         '''
  *         self._players = {}             # <<<<<<<<<<<<<<
@@ -14123,7 +14123,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_players, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1109
+  /* "_pyxal.pyx":1109
  *         '''
  *         self._players = {}
  *         if self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -14139,7 +14139,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1110
+    /* "_pyxal.pyx":1110
  *         self._players = {}
  *         if self.isXALInitialized():
  *             fade = 0.0             # <<<<<<<<<<<<<<
@@ -14148,7 +14148,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
  */
     __pyx_v_fade = 0.0;
 
-    /* "_PyXAL.pyx":1111
+    /* "_pyxal.pyx":1111
  *         if self.isXALInitialized():
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)             # <<<<<<<<<<<<<<
@@ -14162,7 +14162,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":1112
+    /* "_pyxal.pyx":1112
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)
  *             XAL.mgr.clear()             # <<<<<<<<<<<<<<
@@ -14174,7 +14174,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":1104
+  /* "_pyxal.pyx":1104
  *         del self._wrapper
  * 
  *     def clear(self):             # <<<<<<<<<<<<<<
@@ -14188,7 +14188,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.clear", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.clear", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -14196,7 +14196,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1114
+/* "_pyxal.pyx":1114
  *             XAL.mgr.clear()
  * 
  *     def createSound(self, filename):             # <<<<<<<<<<<<<<
@@ -14205,10 +14205,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_6clear(CYTHON_UNUSED PyObject *__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_9createSound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_8createSound[] = "\n        create a sound object\n        raises a runtime error if the sound fails to load so be sure to put this call in a try except block\n        \n        @param filename: string full path to a sound file to load\n        @return: a PySound wraper to the sound object\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_9createSound = {__Pyx_NAMESTR("createSound"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_9createSound, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_8createSound)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_9createSound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_9createSound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_8createSound[] = "\n        create a sound object\n        raises a runtime error if the sound fails to load so be sure to put this call in a try except block\n        \n        @param filename: string full path to a sound file to load\n        @return: a PySound wraper to the sound object\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_9createSound = {__Pyx_NAMESTR("createSound"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_9createSound, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_8createSound)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_9createSound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_filename = 0;
   int __pyx_lineno = 0;
@@ -14256,18 +14256,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_9createSound(PyObject *__pyx_self
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("createSound", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1114; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.createSound", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.createSound", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_8createSound(__pyx_self, __pyx_v_self, __pyx_v_filename);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_8createSound(__pyx_self, __pyx_v_self, __pyx_v_filename);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_8createSound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
   PyObject *__pyx_v_pysound = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -14281,7 +14281,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("createSound", 0);
 
-  /* "_PyXAL.pyx":1122
+  /* "_pyxal.pyx":1122
  *         @return: a PySound wraper to the sound object
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -14298,7 +14298,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1123
+    /* "_pyxal.pyx":1123
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -14312,7 +14312,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1124
+  /* "_pyxal.pyx":1124
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         pysound = PySound(filename)             # <<<<<<<<<<<<<<
@@ -14333,7 +14333,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
   __pyx_v_pysound = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1125
+  /* "_pyxal.pyx":1125
  *             raise RuntimeError("XAL is not Initialized")
  *         pysound = PySound(filename)
  *         return pysound             # <<<<<<<<<<<<<<
@@ -14345,7 +14345,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
   __pyx_r = __pyx_v_pysound;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":1114
+  /* "_pyxal.pyx":1114
  *             XAL.mgr.clear()
  * 
  *     def createSound(self, filename):             # <<<<<<<<<<<<<<
@@ -14358,7 +14358,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.XALManager.createSound", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.createSound", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_pysound);
@@ -14367,7 +14367,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1127
+/* "_pyxal.pyx":1127
  *         return pysound
  * 
  *     def createPlayer(self, sound):             # <<<<<<<<<<<<<<
@@ -14376,10 +14376,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_8createSound(CYTHON_UNUSED PyObje
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_11createPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_10createPlayer[] = "\n        create a player from a sound object\n        raises a runtime error if XAL fails to create a player so be sure to put this call in a try except block\n        \n        @param sound: a PySound wrapper to a sound object\n        @return: a PyPlayer wraper to the player object\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_11createPlayer = {__Pyx_NAMESTR("createPlayer"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_11createPlayer, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_10createPlayer)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_11createPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_11createPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_10createPlayer[] = "\n        create a player from a sound object\n        raises a runtime error if XAL fails to create a player so be sure to put this call in a try except block\n        \n        @param sound: a PySound wrapper to a sound object\n        @return: a PyPlayer wraper to the player object\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_11createPlayer = {__Pyx_NAMESTR("createPlayer"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_11createPlayer, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_10createPlayer)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_11createPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_sound = 0;
   int __pyx_lineno = 0;
@@ -14427,18 +14427,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_11createPlayer(PyObject *__pyx_se
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("createPlayer", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1127; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.createPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.createPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_10createPlayer(__pyx_self, __pyx_v_self, __pyx_v_sound);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_10createPlayer(__pyx_self, __pyx_v_self, __pyx_v_sound);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_10createPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound) {
   PyObject *__pyx_v_sound_name = NULL;
   PyObject *__pyx_v_pyplayer = NULL;
   PyObject *__pyx_r = NULL;
@@ -14454,7 +14454,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("createPlayer", 0);
 
-  /* "_PyXAL.pyx":1135
+  /* "_pyxal.pyx":1135
  *         @return: a PyPlayer wraper to the player object
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -14471,7 +14471,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1136
+    /* "_pyxal.pyx":1136
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -14485,7 +14485,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1137
+  /* "_pyxal.pyx":1137
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(sound, PySound):             # <<<<<<<<<<<<<<
@@ -14499,7 +14499,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __pyx_t_3 = ((!(__pyx_t_4 != 0)) != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1138
+    /* "_pyxal.pyx":1138
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(sound, PySound):
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))             # <<<<<<<<<<<<<<
@@ -14521,7 +14521,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1139
+  /* "_pyxal.pyx":1139
  *         if not isinstance(sound, PySound):
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
  *         sound_name = sound.getName()             # <<<<<<<<<<<<<<
@@ -14536,7 +14536,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __pyx_v_sound_name = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1140
+  /* "_pyxal.pyx":1140
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
  *         sound_name = sound.getName()
  *         if not sound_name in self._players:             # <<<<<<<<<<<<<<
@@ -14550,7 +14550,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1141
+    /* "_pyxal.pyx":1141
  *         sound_name = sound.getName()
  *         if not sound_name in self._players:
  *             self._players[sound_name] = []             # <<<<<<<<<<<<<<
@@ -14568,7 +14568,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   }
   __pyx_L5:;
 
-  /* "_PyXAL.pyx":1142
+  /* "_pyxal.pyx":1142
  *         if not sound_name in self._players:
  *             self._players[sound_name] = []
  *         pyplayer = PyPlayer(sound)             # <<<<<<<<<<<<<<
@@ -14589,7 +14589,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __pyx_v_pyplayer = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1143
+  /* "_pyxal.pyx":1143
  *             self._players[sound_name] = []
  *         pyplayer = PyPlayer(sound)
  *         self._players[sound_name].append(pyplayer)             # <<<<<<<<<<<<<<
@@ -14604,7 +14604,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_v_pyplayer); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1143; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "_PyXAL.pyx":1144
+  /* "_pyxal.pyx":1144
  *         pyplayer = PyPlayer(sound)
  *         self._players[sound_name].append(pyplayer)
  *         return pyplayer             # <<<<<<<<<<<<<<
@@ -14616,7 +14616,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __pyx_r = __pyx_v_pyplayer;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":1127
+  /* "_pyxal.pyx":1127
  *         return pysound
  * 
  *     def createPlayer(self, sound):             # <<<<<<<<<<<<<<
@@ -14629,7 +14629,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.XALManager.createPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.createPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_sound_name);
@@ -14639,7 +14639,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1146
+/* "_pyxal.pyx":1146
  *         return pyplayer
  * 
  *     def destroyPlayer(self, player):             # <<<<<<<<<<<<<<
@@ -14648,10 +14648,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_10createPlayer(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_13destroyPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_12destroyPlayer[] = "\n        destroy a player object\n        destroyes the C++ interface. the object is unusable after this\n        \n        @param pyplayer: the PyPlayer wrapper for the player to destory\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_13destroyPlayer = {__Pyx_NAMESTR("destroyPlayer"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_13destroyPlayer, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_12destroyPlayer)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_13destroyPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_13destroyPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_12destroyPlayer[] = "\n        destroy a player object\n        destroyes the C++ interface. the object is unusable after this\n        \n        @param pyplayer: the PyPlayer wrapper for the player to destory\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_13destroyPlayer = {__Pyx_NAMESTR("destroyPlayer"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_13destroyPlayer, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_12destroyPlayer)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_13destroyPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_player = 0;
   int __pyx_lineno = 0;
@@ -14699,18 +14699,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_13destroyPlayer(PyObject *__pyx_s
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("destroyPlayer", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1146; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.destroyPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.destroyPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(__pyx_self, __pyx_v_self, __pyx_v_player);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_12destroyPlayer(__pyx_self, __pyx_v_self, __pyx_v_player);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_player) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_12destroyPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_player) {
   PyObject *__pyx_v_name = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -14724,7 +14724,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("destroyPlayer", 0);
 
-  /* "_PyXAL.pyx":1153
+  /* "_pyxal.pyx":1153
  *         @param pyplayer: the PyPlayer wrapper for the player to destory
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -14741,7 +14741,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1154
+    /* "_pyxal.pyx":1154
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -14755,7 +14755,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1154; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1155
+  /* "_pyxal.pyx":1155
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(player, PyPlayer):             # <<<<<<<<<<<<<<
@@ -14769,7 +14769,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   __pyx_t_3 = ((!(__pyx_t_4 != 0)) != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1156
+    /* "_pyxal.pyx":1156
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(player, PyPlayer):
  *             raise TypeError("Expected argument 1 to be of type PyPlayer got %s" % type(player))             # <<<<<<<<<<<<<<
@@ -14791,7 +14791,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1157
+  /* "_pyxal.pyx":1157
  *         if not isinstance(player, PyPlayer):
  *             raise TypeError("Expected argument 1 to be of type PyPlayer got %s" % type(player))
  *         name = player.getName()             # <<<<<<<<<<<<<<
@@ -14806,7 +14806,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   __pyx_v_name = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1158
+  /* "_pyxal.pyx":1158
  *             raise TypeError("Expected argument 1 to be of type PyPlayer got %s" % type(player))
  *         name = player.getName()
  *         if name in self._players:             # <<<<<<<<<<<<<<
@@ -14820,7 +14820,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1159
+    /* "_pyxal.pyx":1159
  *         name = player.getName()
  *         if name in self._players:
  *             if player in self._players[name]:             # <<<<<<<<<<<<<<
@@ -14837,7 +14837,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
     __pyx_t_3 = (__pyx_t_4 != 0);
     if (__pyx_t_3) {
 
-      /* "_PyXAL.pyx":1160
+      /* "_pyxal.pyx":1160
  *         if name in self._players:
  *             if player in self._players[name]:
  *                 self._players[name].remove(player)             # <<<<<<<<<<<<<<
@@ -14869,7 +14869,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   }
   __pyx_L5:;
 
-  /* "_PyXAL.pyx":1161
+  /* "_pyxal.pyx":1161
  *             if player in self._players[name]:
  *                 self._players[name].remove(player)
  *         player._destroy()             # <<<<<<<<<<<<<<
@@ -14883,7 +14883,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1146
+  /* "_pyxal.pyx":1146
  *         return pyplayer
  * 
  *     def destroyPlayer(self, player):             # <<<<<<<<<<<<<<
@@ -14898,7 +14898,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("_PyXAL.XALManager.destroyPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.destroyPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_name);
@@ -14907,7 +14907,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1163
+/* "_pyxal.pyx":1163
  *         player._destroy()
  * 
  *     def destroySound(self, sound):             # <<<<<<<<<<<<<<
@@ -14916,10 +14916,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_12destroyPlayer(CYTHON_UNUSED PyO
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_15destroySound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_14destroySound[] = "\n        destroy a sound object\n        destroyes the C++ interface. the object is unusable after this and so is any player that uses the sound\n        \n        @param pyplayer: the Pysound wrapper for the sound to destory\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_15destroySound = {__Pyx_NAMESTR("destroySound"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_15destroySound, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_14destroySound)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_15destroySound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_15destroySound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_14destroySound[] = "\n        destroy a sound object\n        destroyes the C++ interface. the object is unusable after this and so is any player that uses the sound\n        \n        @param pyplayer: the Pysound wrapper for the sound to destory\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_15destroySound = {__Pyx_NAMESTR("destroySound"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_15destroySound, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_14destroySound)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_15destroySound(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_sound = 0;
   int __pyx_lineno = 0;
@@ -14967,18 +14967,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_15destroySound(PyObject *__pyx_se
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("destroySound", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1163; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.destroySound", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.destroySound", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_14destroySound(__pyx_self, __pyx_v_self, __pyx_v_sound);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_14destroySound(__pyx_self, __pyx_v_self, __pyx_v_sound);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_14destroySound(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sound) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -14990,7 +14990,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("destroySound", 0);
 
-  /* "_PyXAL.pyx":1170
+  /* "_pyxal.pyx":1170
  *         @param pyplayer: the Pysound wrapper for the sound to destory
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -15007,7 +15007,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1171
+    /* "_pyxal.pyx":1171
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -15021,7 +15021,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1172
+  /* "_pyxal.pyx":1172
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(sound, PySound):             # <<<<<<<<<<<<<<
@@ -15035,7 +15035,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
   __pyx_t_3 = ((!(__pyx_t_4 != 0)) != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1173
+    /* "_pyxal.pyx":1173
  *             raise RuntimeError("XAL is not Initialized")
  *         if not isinstance(sound, PySound):
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))             # <<<<<<<<<<<<<<
@@ -15057,7 +15057,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1174
+  /* "_pyxal.pyx":1174
  *         if not isinstance(sound, PySound):
  *             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
  *         sound._destroy()             # <<<<<<<<<<<<<<
@@ -15071,7 +15071,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1163
+  /* "_pyxal.pyx":1163
  *         player._destroy()
  * 
  *     def destroySound(self, sound):             # <<<<<<<<<<<<<<
@@ -15085,7 +15085,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.destroySound", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.destroySound", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -15093,7 +15093,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1176
+/* "_pyxal.pyx":1176
  *         sound._destroy()
  * 
  *     def findPlayer(self, str name):             # <<<<<<<<<<<<<<
@@ -15102,10 +15102,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_14destroySound(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_17findPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_16findPlayer[] = "\n        tries to find a player for the sound whos name is passed. it find the player useing the intrealy kept list of wrpaed player instances. returns the first player in the list\n        \n        @param name: string the name of the soudn to find a player for\n        @return: a PyPlayer wraper to the player object or None if no player is found\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_17findPlayer = {__Pyx_NAMESTR("findPlayer"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_17findPlayer, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_16findPlayer)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_17findPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_17findPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_16findPlayer[] = "\n        tries to find a player for the sound whos name is passed. it find the player useing the intrealy kept list of wrpaed player instances. returns the first player in the list\n        \n        @param name: string the name of the soudn to find a player for\n        @return: a PyPlayer wraper to the player object or None if no player is found\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_17findPlayer = {__Pyx_NAMESTR("findPlayer"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_17findPlayer, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_16findPlayer)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_17findPlayer(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   int __pyx_lineno = 0;
@@ -15153,12 +15153,12 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_17findPlayer(PyObject *__pyx_self
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("findPlayer", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1176; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.findPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.findPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_name), (&PyString_Type), 1, "name", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_16findPlayer(__pyx_self, __pyx_v_self, __pyx_v_name);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_16findPlayer(__pyx_self, __pyx_v_self, __pyx_v_name);
 
   /* function exit code */
   goto __pyx_L0;
@@ -15169,7 +15169,7 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_17findPlayer(PyObject *__pyx_self
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_16findPlayer(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -15182,7 +15182,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("findPlayer", 0);
 
-  /* "_PyXAL.pyx":1183
+  /* "_pyxal.pyx":1183
  *         @return: a PyPlayer wraper to the player object or None if no player is found
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -15199,7 +15199,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1184
+    /* "_pyxal.pyx":1184
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -15213,7 +15213,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1185
+  /* "_pyxal.pyx":1185
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         if name in self._players:             # <<<<<<<<<<<<<<
@@ -15227,7 +15227,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
   __pyx_t_3 = (__pyx_t_4 != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1186
+    /* "_pyxal.pyx":1186
  *             raise RuntimeError("XAL is not Initialized")
  *         if name in self._players:
  *             if len(self._players[name]) > 0:             # <<<<<<<<<<<<<<
@@ -15244,7 +15244,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
     __pyx_t_3 = ((__pyx_t_5 > 0) != 0);
     if (__pyx_t_3) {
 
-      /* "_PyXAL.pyx":1187
+      /* "_pyxal.pyx":1187
  *         if name in self._players:
  *             if len(self._players[name]) > 0:
  *                 return self._players[name][0]             # <<<<<<<<<<<<<<
@@ -15268,7 +15268,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
   }
   __pyx_L4:;
 
-  /* "_PyXAL.pyx":1188
+  /* "_pyxal.pyx":1188
  *             if len(self._players[name]) > 0:
  *                 return self._players[name][0]
  *         return None             # <<<<<<<<<<<<<<
@@ -15280,7 +15280,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
   __pyx_r = Py_None;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":1176
+  /* "_pyxal.pyx":1176
  *         sound._destroy()
  * 
  *     def findPlayer(self, str name):             # <<<<<<<<<<<<<<
@@ -15292,7 +15292,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.findPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.findPlayer", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -15300,7 +15300,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1190
+/* "_pyxal.pyx":1190
  *         return None
  * 
  *     def play(self, name, float fadeTime = 0.0, bool looping = False, float gain = 1.0):             # <<<<<<<<<<<<<<
@@ -15309,10 +15309,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_16findPlayer(CYTHON_UNUSED PyObje
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_19play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_18play[] = "\n        play the sound identified by the name passed (it must of alrady been created)\n        \n        @param name: string the name of the sound to play. it must alrady of been created\n        @param fadeTime: float time is seconds for teh sound to fade in (0.0 by default)\n        @param looping: bool should the sound loop? (False by default)\n        @param gain: float the volume to play the sound at. 1.0 is normal 0.5 is half 2.0 is twice the volume ect. (1.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_19play = {__Pyx_NAMESTR("play"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_19play, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_18play)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_19play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_19play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_18play[] = "\n        play the sound identified by the name passed (it must of alrady been created)\n        \n        @param name: string the name of the sound to play. it must alrady of been created\n        @param fadeTime: float time is seconds for teh sound to fade in (0.0 by default)\n        @param looping: bool should the sound loop? (False by default)\n        @param gain: float the volume to play the sound at. 1.0 is normal 0.5 is half 2.0 is twice the volume ect. (1.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_19play = {__Pyx_NAMESTR("play"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_19play, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_18play)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_19play(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   float __pyx_v_fadeTime;
@@ -15401,18 +15401,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_19play(PyObject *__pyx_self, PyOb
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("play", 0, 2, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1190; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_18play(__pyx_self, __pyx_v_self, __pyx_v_name, __pyx_v_fadeTime, __pyx_v_looping, __pyx_v_gain);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_18play(__pyx_self, __pyx_v_self, __pyx_v_name, __pyx_v_fadeTime, __pyx_v_looping, __pyx_v_gain);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime, bool __pyx_v_looping, float __pyx_v_gain) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_18play(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime, bool __pyx_v_looping, float __pyx_v_gain) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -15425,7 +15425,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("play", 0);
 
-  /* "_PyXAL.pyx":1199
+  /* "_pyxal.pyx":1199
  *         @param gain: float the volume to play the sound at. 1.0 is normal 0.5 is half 2.0 is twice the volume ect. (1.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -15442,7 +15442,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1200
+    /* "_pyxal.pyx":1200
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -15456,16 +15456,16 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1201
+  /* "_pyxal.pyx":1201
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)             # <<<<<<<<<<<<<<
  *         XAL.mgr.play(hl_name, fadeTime, looping, gain)
  * 
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_name);
 
-  /* "_PyXAL.pyx":1202
+  /* "_pyxal.pyx":1202
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         XAL.mgr.play(hl_name, fadeTime, looping, gain)             # <<<<<<<<<<<<<<
@@ -15479,7 +15479,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1190
+  /* "_pyxal.pyx":1190
  *         return None
  * 
  *     def play(self, name, float fadeTime = 0.0, bool looping = False, float gain = 1.0):             # <<<<<<<<<<<<<<
@@ -15493,7 +15493,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.play", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -15501,7 +15501,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1204
+/* "_pyxal.pyx":1204
  *         XAL.mgr.play(hl_name, fadeTime, looping, gain)
  * 
  *     def stop(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -15510,10 +15510,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_18play(CYTHON_UNUSED PyObject *__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_21stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_20stop[] = "\n        stop playing the sound identifed by the name passed\n        \n        @param name: string the name of the sound to stop\n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_21stop = {__Pyx_NAMESTR("stop"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_21stop, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_20stop)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_21stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_21stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_20stop[] = "\n        stop playing the sound identifed by the name passed\n        \n        @param name: string the name of the sound to stop\n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_21stop = {__Pyx_NAMESTR("stop"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_21stop, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_20stop)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_21stop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   float __pyx_v_fadeTime;
@@ -15576,18 +15576,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_21stop(PyObject *__pyx_self, PyOb
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("stop", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1204; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_20stop(__pyx_self, __pyx_v_self, __pyx_v_name, __pyx_v_fadeTime);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_20stop(__pyx_self, __pyx_v_self, __pyx_v_name, __pyx_v_fadeTime);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_20stop(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -15600,7 +15600,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("stop", 0);
 
-  /* "_PyXAL.pyx":1211
+  /* "_pyxal.pyx":1211
  *         @param fadeTime: float the time is second for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -15617,7 +15617,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1212
+    /* "_pyxal.pyx":1212
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -15631,16 +15631,16 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1213
+  /* "_pyxal.pyx":1213
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)             # <<<<<<<<<<<<<<
  *         XAL.mgr.stop(hl_name, fadeTime)
  * 
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_name);
 
-  /* "_PyXAL.pyx":1214
+  /* "_pyxal.pyx":1214
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         XAL.mgr.stop(hl_name, fadeTime)             # <<<<<<<<<<<<<<
@@ -15654,7 +15654,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1214; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1204
+  /* "_pyxal.pyx":1204
  *         XAL.mgr.play(hl_name, fadeTime, looping, gain)
  * 
  *     def stop(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -15668,7 +15668,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.stop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -15676,7 +15676,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1216
+/* "_pyxal.pyx":1216
  *         XAL.mgr.stop(hl_name, fadeTime)
  * 
  *     def stopFirst(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -15685,10 +15685,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_20stop(CYTHON_UNUSED PyObject *__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_23stopFirst(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_22stopFirst[] = "\n        stop playing the first player of the sound identifed by the name passed\n        \n        @param name: string the name of the sound to stop\n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_23stopFirst = {__Pyx_NAMESTR("stopFirst"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_23stopFirst, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_22stopFirst)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_23stopFirst(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_23stopFirst(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_22stopFirst[] = "\n        stop playing the first player of the sound identifed by the name passed\n        \n        @param name: string the name of the sound to stop\n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_23stopFirst = {__Pyx_NAMESTR("stopFirst"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_23stopFirst, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_22stopFirst)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_23stopFirst(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   float __pyx_v_fadeTime;
@@ -15751,18 +15751,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_23stopFirst(PyObject *__pyx_self,
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("stopFirst", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1216; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.stopFirst", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.stopFirst", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_22stopFirst(__pyx_self, __pyx_v_self, __pyx_v_name, __pyx_v_fadeTime);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_22stopFirst(__pyx_self, __pyx_v_self, __pyx_v_name, __pyx_v_fadeTime);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_22stopFirst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name, float __pyx_v_fadeTime) {
   hstr __pyx_v_hl_name;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -15775,7 +15775,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObjec
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("stopFirst", 0);
 
-  /* "_PyXAL.pyx":1223
+  /* "_pyxal.pyx":1223
  *         @param fadeTime: float the time is second for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -15792,7 +15792,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObjec
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1224
+    /* "_pyxal.pyx":1224
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -15806,16 +15806,16 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObjec
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1225
+  /* "_pyxal.pyx":1225
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)             # <<<<<<<<<<<<<<
  *         XAL.mgr.stopFirst(hl_name, fadeTime)
  * 
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_name);
 
-  /* "_PyXAL.pyx":1226
+  /* "_pyxal.pyx":1226
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         XAL.mgr.stopFirst(hl_name, fadeTime)             # <<<<<<<<<<<<<<
@@ -15829,7 +15829,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObjec
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1226; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1216
+  /* "_pyxal.pyx":1216
  *         XAL.mgr.stop(hl_name, fadeTime)
  * 
  *     def stopFirst(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -15843,7 +15843,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObjec
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.stopFirst", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.stopFirst", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -15851,7 +15851,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObjec
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1228
+/* "_pyxal.pyx":1228
  *         XAL.mgr.stopFirst(hl_name, fadeTime)
  * 
  *     def stopAll(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -15860,10 +15860,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_22stopFirst(CYTHON_UNUSED PyObjec
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_25stopAll(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_24stopAll[] = "\n        stop playing the all players of the sound identifed by the name passed\n        \n        @param name: string the name of the sound to stop\n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_25stopAll = {__Pyx_NAMESTR("stopAll"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_25stopAll, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_24stopAll)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_25stopAll(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_25stopAll(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_24stopAll[] = "\n        stop playing the all players of the sound identifed by the name passed\n        \n        @param name: string the name of the sound to stop\n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_25stopAll = {__Pyx_NAMESTR("stopAll"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_25stopAll, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_24stopAll)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_25stopAll(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   float __pyx_v_fadeTime;
   int __pyx_lineno = 0;
@@ -15917,18 +15917,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_25stopAll(PyObject *__pyx_self, P
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("stopAll", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.stopAll", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.stopAll", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_24stopAll(__pyx_self, __pyx_v_self, __pyx_v_fadeTime);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_24stopAll(__pyx_self, __pyx_v_self, __pyx_v_fadeTime);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_24stopAll(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, float __pyx_v_fadeTime) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -15940,7 +15940,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("stopAll", 0);
 
-  /* "_PyXAL.pyx":1235
+  /* "_pyxal.pyx":1235
  *         @param fadeTime: float the time is second for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -15957,7 +15957,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject 
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1236
+    /* "_pyxal.pyx":1236
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -15971,7 +15971,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1236; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1237
+  /* "_pyxal.pyx":1237
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         XAL.mgr.stopAll(fadeTime)             # <<<<<<<<<<<<<<
@@ -15985,7 +15985,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject 
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1237; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1228
+  /* "_pyxal.pyx":1228
  *         XAL.mgr.stopFirst(hl_name, fadeTime)
  * 
  *     def stopAll(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -15999,7 +15999,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject 
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.stopAll", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.stopAll", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -16007,7 +16007,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1239
+/* "_pyxal.pyx":1239
  *         XAL.mgr.stopAll(fadeTime)
  * 
  *     def isAnyPlaying(self, name):             # <<<<<<<<<<<<<<
@@ -16016,10 +16016,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_24stopAll(CYTHON_UNUSED PyObject 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_27isAnyPlaying(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_26isAnyPlaying[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name playing\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_27isAnyPlaying = {__Pyx_NAMESTR("isAnyPlaying"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_27isAnyPlaying, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_26isAnyPlaying)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_27isAnyPlaying(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_27isAnyPlaying(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_26isAnyPlaying[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name playing\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_27isAnyPlaying = {__Pyx_NAMESTR("isAnyPlaying"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_27isAnyPlaying, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_26isAnyPlaying)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_27isAnyPlaying(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   int __pyx_lineno = 0;
@@ -16067,18 +16067,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_27isAnyPlaying(PyObject *__pyx_se
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("isAnyPlaying", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1239; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(__pyx_self, __pyx_v_self, __pyx_v_name);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_26isAnyPlaying(__pyx_self, __pyx_v_self, __pyx_v_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
   hstr __pyx_v_hl_name;
   int __pyx_v_result;
   PyObject *__pyx_r = NULL;
@@ -16093,7 +16093,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isAnyPlaying", 0);
 
-  /* "_PyXAL.pyx":1244
+  /* "_pyxal.pyx":1244
  *         @return: bool True if there is a sound by this name playing
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -16110,7 +16110,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1245
+    /* "_pyxal.pyx":1245
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -16124,16 +16124,16 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1246
+  /* "_pyxal.pyx":1246
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)             # <<<<<<<<<<<<<<
  *         cdef bint result = XAL.mgr.isAnyPlaying(hl_name)
  *         return result
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_name);
 
-  /* "_PyXAL.pyx":1247
+  /* "_pyxal.pyx":1247
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyPlaying(hl_name)             # <<<<<<<<<<<<<<
@@ -16148,7 +16148,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
   }
   __pyx_v_result = __pyx_t_5;
 
-  /* "_PyXAL.pyx":1248
+  /* "_pyxal.pyx":1248
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyPlaying(hl_name)
  *         return result             # <<<<<<<<<<<<<<
@@ -16162,7 +16162,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":1239
+  /* "_pyxal.pyx":1239
  *         XAL.mgr.stopAll(fadeTime)
  * 
  *     def isAnyPlaying(self, name):             # <<<<<<<<<<<<<<
@@ -16174,7 +16174,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyPlaying", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -16182,7 +16182,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1250
+/* "_pyxal.pyx":1250
  *         return result
  * 
  *     def isAnyFading(self, name):             # <<<<<<<<<<<<<<
@@ -16191,10 +16191,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_26isAnyPlaying(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_29isAnyFading(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_28isAnyFading[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name fading in or out\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_29isAnyFading = {__Pyx_NAMESTR("isAnyFading"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_29isAnyFading, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_28isAnyFading)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_29isAnyFading(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_29isAnyFading(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_28isAnyFading[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name fading in or out\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_29isAnyFading = {__Pyx_NAMESTR("isAnyFading"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_29isAnyFading, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_28isAnyFading)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_29isAnyFading(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   int __pyx_lineno = 0;
@@ -16242,18 +16242,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_29isAnyFading(PyObject *__pyx_sel
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("isAnyFading", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1250; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_28isAnyFading(__pyx_self, __pyx_v_self, __pyx_v_name);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_28isAnyFading(__pyx_self, __pyx_v_self, __pyx_v_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_28isAnyFading(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
   hstr __pyx_v_hl_name;
   int __pyx_v_result;
   PyObject *__pyx_r = NULL;
@@ -16268,7 +16268,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isAnyFading", 0);
 
-  /* "_PyXAL.pyx":1255
+  /* "_pyxal.pyx":1255
  *         @return: bool True if there is a sound by this name fading in or out
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -16285,7 +16285,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1256
+    /* "_pyxal.pyx":1256
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -16299,16 +16299,16 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1257
+  /* "_pyxal.pyx":1257
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)             # <<<<<<<<<<<<<<
  *         cdef bint result = XAL.mgr.isAnyFading(hl_name)
  *         return result
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_name);
 
-  /* "_PyXAL.pyx":1258
+  /* "_pyxal.pyx":1258
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyFading(hl_name)             # <<<<<<<<<<<<<<
@@ -16323,7 +16323,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
   }
   __pyx_v_result = __pyx_t_5;
 
-  /* "_PyXAL.pyx":1259
+  /* "_pyxal.pyx":1259
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyFading(hl_name)
  *         return result             # <<<<<<<<<<<<<<
@@ -16337,7 +16337,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":1250
+  /* "_pyxal.pyx":1250
  *         return result
  * 
  *     def isAnyFading(self, name):             # <<<<<<<<<<<<<<
@@ -16349,7 +16349,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyFading", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -16357,7 +16357,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1261
+/* "_pyxal.pyx":1261
  *         return result
  * 
  *     def isAnyFadingIn(self, name):             # <<<<<<<<<<<<<<
@@ -16366,10 +16366,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_28isAnyFading(CYTHON_UNUSED PyObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_31isAnyFadingIn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_30isAnyFadingIn[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name fading in\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_31isAnyFadingIn = {__Pyx_NAMESTR("isAnyFadingIn"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_31isAnyFadingIn, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_30isAnyFadingIn)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_31isAnyFadingIn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_31isAnyFadingIn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_30isAnyFadingIn[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name fading in\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_31isAnyFadingIn = {__Pyx_NAMESTR("isAnyFadingIn"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_31isAnyFadingIn, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_30isAnyFadingIn)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_31isAnyFadingIn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   int __pyx_lineno = 0;
@@ -16417,18 +16417,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_31isAnyFadingIn(PyObject *__pyx_s
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("isAnyFadingIn", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1261; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(__pyx_self, __pyx_v_self, __pyx_v_name);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_30isAnyFadingIn(__pyx_self, __pyx_v_self, __pyx_v_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
   hstr __pyx_v_hl_name;
   int __pyx_v_result;
   PyObject *__pyx_r = NULL;
@@ -16443,7 +16443,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isAnyFadingIn", 0);
 
-  /* "_PyXAL.pyx":1266
+  /* "_pyxal.pyx":1266
  *         @return: bool True if there is a sound by this name fading in
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -16460,7 +16460,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1267
+    /* "_pyxal.pyx":1267
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -16474,16 +16474,16 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1268
+  /* "_pyxal.pyx":1268
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)             # <<<<<<<<<<<<<<
  *         cdef bint result = XAL.mgr.isAnyFadingIn(hl_name)
  *         return result
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_name);
 
-  /* "_PyXAL.pyx":1269
+  /* "_pyxal.pyx":1269
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyFadingIn(hl_name)             # <<<<<<<<<<<<<<
@@ -16498,7 +16498,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
   }
   __pyx_v_result = __pyx_t_5;
 
-  /* "_PyXAL.pyx":1270
+  /* "_pyxal.pyx":1270
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyFadingIn(hl_name)
  *         return result             # <<<<<<<<<<<<<<
@@ -16512,7 +16512,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":1261
+  /* "_pyxal.pyx":1261
  *         return result
  * 
  *     def isAnyFadingIn(self, name):             # <<<<<<<<<<<<<<
@@ -16524,7 +16524,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyFadingIn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -16532,7 +16532,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1272
+/* "_pyxal.pyx":1272
  *         return result
  * 
  *     def isAnyFadingOut(self, name):             # <<<<<<<<<<<<<<
@@ -16541,10 +16541,10 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_30isAnyFadingIn(CYTHON_UNUSED PyO
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_33isAnyFadingOut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_32isAnyFadingOut[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name fading out\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_33isAnyFadingOut = {__Pyx_NAMESTR("isAnyFadingOut"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_33isAnyFadingOut, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_32isAnyFadingOut)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_33isAnyFadingOut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_33isAnyFadingOut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_32isAnyFadingOut[] = "\n        @param name: sting name of sound to check\n        @return: bool True if there is a sound by this name fading out\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_33isAnyFadingOut = {__Pyx_NAMESTR("isAnyFadingOut"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_33isAnyFadingOut, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_32isAnyFadingOut)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_33isAnyFadingOut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_name = 0;
   int __pyx_lineno = 0;
@@ -16592,18 +16592,18 @@ static PyObject *__pyx_pw_6_PyXAL_10XALManager_33isAnyFadingOut(PyObject *__pyx_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("isAnyFadingOut", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1272; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(__pyx_self, __pyx_v_self, __pyx_v_name);
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_32isAnyFadingOut(__pyx_self, __pyx_v_self, __pyx_v_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_32isAnyFadingOut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_name) {
   hstr __pyx_v_hl_name;
   int __pyx_v_result;
   PyObject *__pyx_r = NULL;
@@ -16618,7 +16618,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isAnyFadingOut", 0);
 
-  /* "_PyXAL.pyx":1277
+  /* "_pyxal.pyx":1277
  *         @return: bool True if there is a sound by this name fading out
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -16635,7 +16635,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1278
+    /* "_pyxal.pyx":1278
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -16649,16 +16649,16 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1279
+  /* "_pyxal.pyx":1279
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)             # <<<<<<<<<<<<<<
  *         cdef bint result = XAL.mgr.isAnyFadingOut(hl_name)
  *         return result
  */
-  __pyx_v_hl_name = __pyx_f_6_PyXAL_Py_to_Hstr(__pyx_v_name);
+  __pyx_v_hl_name = __pyx_f_6_pyxal_Py_to_Hstr(__pyx_v_name);
 
-  /* "_PyXAL.pyx":1280
+  /* "_pyxal.pyx":1280
  *             raise RuntimeError("XAL is not Initialized")
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyFadingOut(hl_name)             # <<<<<<<<<<<<<<
@@ -16673,7 +16673,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
   }
   __pyx_v_result = __pyx_t_5;
 
-  /* "_PyXAL.pyx":1281
+  /* "_pyxal.pyx":1281
  *         cdef hstr hl_name = Py_to_Hstr(name)
  *         cdef bint result = XAL.mgr.isAnyFadingOut(hl_name)
  *         return result             # <<<<<<<<<<<<<<
@@ -16687,7 +16687,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "_PyXAL.pyx":1272
+  /* "_pyxal.pyx":1272
  *         return result
  * 
  *     def isAnyFadingOut(self, name):             # <<<<<<<<<<<<<<
@@ -16699,7 +16699,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.isAnyFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.isAnyFadingOut", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -16707,7 +16707,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1283
+/* "_pyxal.pyx":1283
  *         return result
  * 
  *     def suspendAudio(self):             # <<<<<<<<<<<<<<
@@ -16716,21 +16716,21 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_32isAnyFadingOut(CYTHON_UNUSED Py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_35suspendAudio(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_34suspendAudio[] = "\n        pause all sounds and players\n        \n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_35suspendAudio = {__Pyx_NAMESTR("suspendAudio"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_35suspendAudio, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_34suspendAudio)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_35suspendAudio(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_35suspendAudio(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_34suspendAudio[] = "\n        pause all sounds and players\n        \n        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_35suspendAudio = {__Pyx_NAMESTR("suspendAudio"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_35suspendAudio, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_34suspendAudio)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_35suspendAudio(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("suspendAudio (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_34suspendAudio(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_34suspendAudio(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_34suspendAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -16742,7 +16742,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("suspendAudio", 0);
 
-  /* "_PyXAL.pyx":1289
+  /* "_pyxal.pyx":1289
  *         @param fadeTime: float the time is second for the sound to fade out (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -16759,7 +16759,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyOb
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1290
+    /* "_pyxal.pyx":1290
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -16773,7 +16773,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1290; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1291
+  /* "_pyxal.pyx":1291
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         XAL.mgr.suspendAudio()             # <<<<<<<<<<<<<<
@@ -16787,7 +16787,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1283
+  /* "_pyxal.pyx":1283
  *         return result
  * 
  *     def suspendAudio(self):             # <<<<<<<<<<<<<<
@@ -16801,7 +16801,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyOb
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.suspendAudio", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.suspendAudio", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -16809,7 +16809,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1293
+/* "_pyxal.pyx":1293
  *         XAL.mgr.suspendAudio()
  * 
  *     def resumeAudio(self):             # <<<<<<<<<<<<<<
@@ -16818,21 +16818,21 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_34suspendAudio(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_37resumeAudio(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6_PyXAL_10XALManager_36resumeAudio[] = "\n        resume all sounds and players\n        \n        @param fadeTime: float the time is second for the sound to fade in (0.0 by default)\n        ";
-static PyMethodDef __pyx_mdef_6_PyXAL_10XALManager_37resumeAudio = {__Pyx_NAMESTR("resumeAudio"), (PyCFunction)__pyx_pw_6_PyXAL_10XALManager_37resumeAudio, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_10XALManager_36resumeAudio)};
-static PyObject *__pyx_pw_6_PyXAL_10XALManager_37resumeAudio(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6_pyxal_10XALManager_37resumeAudio(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6_pyxal_10XALManager_36resumeAudio[] = "\n        resume all sounds and players\n        \n        @param fadeTime: float the time is second for the sound to fade in (0.0 by default)\n        ";
+static PyMethodDef __pyx_mdef_6_pyxal_10XALManager_37resumeAudio = {__Pyx_NAMESTR("resumeAudio"), (PyCFunction)__pyx_pw_6_pyxal_10XALManager_37resumeAudio, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_10XALManager_36resumeAudio)};
+static PyObject *__pyx_pw_6_pyxal_10XALManager_37resumeAudio(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("resumeAudio (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_10XALManager_36resumeAudio(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6_pyxal_10XALManager_36resumeAudio(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6_pyxal_10XALManager_36resumeAudio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -16844,7 +16844,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("resumeAudio", 0);
 
-  /* "_PyXAL.pyx":1299
+  /* "_pyxal.pyx":1299
  *         @param fadeTime: float the time is second for the sound to fade in (0.0 by default)
  *         '''
  *         if not self.isXALInitialized():             # <<<<<<<<<<<<<<
@@ -16861,7 +16861,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObj
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "_PyXAL.pyx":1300
+    /* "_pyxal.pyx":1300
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -16875,7 +16875,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1300; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1301
+  /* "_pyxal.pyx":1301
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")
  *         XAL.mgr.resumeAudio()             # <<<<<<<<<<<<<<
@@ -16889,7 +16889,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObj
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "_PyXAL.pyx":1293
+  /* "_pyxal.pyx":1293
  *         XAL.mgr.suspendAudio()
  * 
  *     def resumeAudio(self):             # <<<<<<<<<<<<<<
@@ -16903,7 +16903,7 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObj
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("_PyXAL.XALManager.resumeAudio", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.XALManager.resumeAudio", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -16911,19 +16911,19 @@ static PyObject *__pyx_pf_6_PyXAL_10XALManager_36resumeAudio(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1303
+/* "_pyxal.pyx":1303
  *         XAL.mgr.resumeAudio()
  * 
  * def Init(int backendId, bint threaded = True):             # <<<<<<<<<<<<<<
  *     '''
- *     Setup XAL and create an XALManager interface at PyXAL.Mgr
+ *     Setup XAL and create an XALManager interface at pyxal.Mgr
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_1Init(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6_PyXAL_Init[] = "\n    Setup XAL and create an XALManager interface at PyXAL.Mgr\n    \n    @param backendId: int window handel in the calling aplication\n    @param threaded: bool should XAL use a threaded interface? (True by default)\n    ";
-static PyMethodDef __pyx_mdef_6_PyXAL_1Init = {__Pyx_NAMESTR("Init"), (PyCFunction)__pyx_pw_6_PyXAL_1Init, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_Init)};
-static PyObject *__pyx_pw_6_PyXAL_1Init(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6_pyxal_1Init(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6_pyxal_Init[] = "\n    Setup XAL and create an XALManager interface at pyxal.Mgr\n    \n    @param backendId: int window handel in the calling aplication\n    @param threaded: bool should XAL use a threaded interface? (True by default)\n    ";
+static PyMethodDef __pyx_mdef_6_pyxal_1Init = {__Pyx_NAMESTR("Init"), (PyCFunction)__pyx_pw_6_pyxal_1Init, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_Init)};
+static PyObject *__pyx_pw_6_pyxal_1Init(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_backendId;
   int __pyx_v_threaded;
   int __pyx_lineno = 0;
@@ -16977,18 +16977,18 @@ static PyObject *__pyx_pw_6_PyXAL_1Init(PyObject *__pyx_self, PyObject *__pyx_ar
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("Init", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1303; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("_PyXAL.Init", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.Init", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6_PyXAL_Init(__pyx_self, __pyx_v_backendId, __pyx_v_threaded);
+  __pyx_r = __pyx_pf_6_pyxal_Init(__pyx_self, __pyx_v_backendId, __pyx_v_threaded);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_backendId, int __pyx_v_threaded) {
+static PyObject *__pyx_pf_6_pyxal_Init(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_backendId, int __pyx_v_threaded) {
   double __pyx_v_fade;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -17003,7 +17003,7 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("Init", 0);
 
-  /* "_PyXAL.pyx":1311
+  /* "_pyxal.pyx":1311
  *     '''
  *     global Mgr
  *     if Mgr is None:             # <<<<<<<<<<<<<<
@@ -17017,7 +17017,7 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "_PyXAL.pyx":1312
+    /* "_pyxal.pyx":1312
  *     global Mgr
  *     if Mgr is None:
  *         if XAL.mgr is not NULL:             # <<<<<<<<<<<<<<
@@ -17027,7 +17027,7 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
     __pyx_t_3 = ((xal::mgr != NULL) != 0);
     if (__pyx_t_3) {
 
-      /* "_PyXAL.pyx":1313
+      /* "_pyxal.pyx":1313
  *     if Mgr is None:
  *         if XAL.mgr is not NULL:
  *             fade = 0.0             # <<<<<<<<<<<<<<
@@ -17036,7 +17036,7 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
  */
       __pyx_v_fade = 0.0;
 
-      /* "_PyXAL.pyx":1314
+      /* "_pyxal.pyx":1314
  *         if XAL.mgr is not NULL:
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)             # <<<<<<<<<<<<<<
@@ -17050,7 +17050,7 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
         {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1314; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
 
-      /* "_PyXAL.pyx":1315
+      /* "_pyxal.pyx":1315
  *             fade = 0.0
  *             XAL.mgr.stopAll(fade)
  *             XAL.destroy()             # <<<<<<<<<<<<<<
@@ -17067,7 +17067,7 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
     }
     __pyx_L4:;
 
-    /* "_PyXAL.pyx":1316
+    /* "_pyxal.pyx":1316
  *             XAL.mgr.stopAll(fade)
  *             XAL.destroy()
  *         Mgr = XALManager(backendId, threaded)             # <<<<<<<<<<<<<<
@@ -17098,12 +17098,12 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":1303
+  /* "_pyxal.pyx":1303
  *         XAL.mgr.resumeAudio()
  * 
  * def Init(int backendId, bint threaded = True):             # <<<<<<<<<<<<<<
  *     '''
- *     Setup XAL and create an XALManager interface at PyXAL.Mgr
+ *     Setup XAL and create an XALManager interface at pyxal.Mgr
  */
 
   /* function exit code */
@@ -17114,7 +17114,7 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("_PyXAL.Init", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.Init", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -17122,30 +17122,30 @@ static PyObject *__pyx_pf_6_PyXAL_Init(CYTHON_UNUSED PyObject *__pyx_self, int _
   return __pyx_r;
 }
 
-/* "_PyXAL.pyx":1318
+/* "_pyxal.pyx":1318
  *         Mgr = XALManager(backendId, threaded)
  * 
  * def Destroy():             # <<<<<<<<<<<<<<
  *     '''
- *     Destroy XAL and remove the interface at PyXAL setting it to None
+ *     Destroy XAL and remove the interface at pyxal setting it to None
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6_PyXAL_3Destroy(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6_PyXAL_2Destroy[] = "\n    Destroy XAL and remove the interface at PyXAL setting it to None\n    ";
-static PyMethodDef __pyx_mdef_6_PyXAL_3Destroy = {__Pyx_NAMESTR("Destroy"), (PyCFunction)__pyx_pw_6_PyXAL_3Destroy, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_2Destroy)};
-static PyObject *__pyx_pw_6_PyXAL_3Destroy(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6_pyxal_3Destroy(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6_pyxal_2Destroy[] = "\n    Destroy XAL and remove the interface at pyxal setting it to None\n    ";
+static PyMethodDef __pyx_mdef_6_pyxal_3Destroy = {__Pyx_NAMESTR("Destroy"), (PyCFunction)__pyx_pw_6_pyxal_3Destroy, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_2Destroy)};
+static PyObject *__pyx_pw_6_pyxal_3Destroy(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("Destroy (wrapper)", 0);
-  __pyx_r = __pyx_pf_6_PyXAL_2Destroy(__pyx_self);
+  __pyx_r = __pyx_pf_6_pyxal_2Destroy(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_6_pyxal_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
   double __pyx_v_fade;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -17155,7 +17155,7 @@ static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("Destroy", 0);
 
-  /* "_PyXAL.pyx":1323
+  /* "_pyxal.pyx":1323
  *     '''
  *     global Mgr
  *     if XAL.mgr is not NULL:             # <<<<<<<<<<<<<<
@@ -17165,7 +17165,7 @@ static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
   __pyx_t_1 = ((xal::mgr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "_PyXAL.pyx":1324
+    /* "_pyxal.pyx":1324
  *     global Mgr
  *     if XAL.mgr is not NULL:
  *         fade = 0.0             # <<<<<<<<<<<<<<
@@ -17174,7 +17174,7 @@ static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
  */
     __pyx_v_fade = 0.0;
 
-    /* "_PyXAL.pyx":1325
+    /* "_pyxal.pyx":1325
  *     if XAL.mgr is not NULL:
  *         fade = 0.0
  *         XAL.mgr.stopAll(fade)             # <<<<<<<<<<<<<<
@@ -17188,7 +17188,7 @@ static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1325; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "_PyXAL.pyx":1326
+    /* "_pyxal.pyx":1326
  *         fade = 0.0
  *         XAL.mgr.stopAll(fade)
  *         XAL.destroy()             # <<<<<<<<<<<<<<
@@ -17204,26 +17204,26 @@ static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
   }
   __pyx_L3:;
 
-  /* "_PyXAL.pyx":1327
+  /* "_pyxal.pyx":1327
  *         XAL.mgr.stopAll(fade)
  *         XAL.destroy()
  *     Mgr = None             # <<<<<<<<<<<<<<
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_Mgr, Py_None) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1327; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1318
+  /* "_pyxal.pyx":1318
  *         Mgr = XALManager(backendId, threaded)
  * 
  * def Destroy():             # <<<<<<<<<<<<<<
  *     '''
- *     Destroy XAL and remove the interface at PyXAL setting it to None
+ *     Destroy XAL and remove the interface at pyxal setting it to None
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("_PyXAL.Destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("_pyxal.Destroy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -17231,7 +17231,7 @@ static PyObject *__pyx_pf_6_PyXAL_2Destroy(CYTHON_UNUSED PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_6_PyXAL_PyAudioManager(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6_pyxal_PyAudioManager(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -17242,7 +17242,7 @@ static PyObject *__pyx_tp_new_6_PyXAL_PyAudioManager(PyTypeObject *t, CYTHON_UNU
   return o;
 }
 
-static void __pyx_tp_dealloc_6_PyXAL_PyAudioManager(PyObject *o) {
+static void __pyx_tp_dealloc_6_pyxal_PyAudioManager(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -17251,16 +17251,16 @@ static void __pyx_tp_dealloc_6_PyXAL_PyAudioManager(PyObject *o) {
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6_PyXAL_PyAudioManager[] = {
+static PyMethodDef __pyx_methods_6_pyxal_PyAudioManager[] = {
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6_PyXAL_PyAudioManager = {
+static PyTypeObject __pyx_type_6_pyxal_PyAudioManager = {
   PyVarObject_HEAD_INIT(0, 0)
-  __Pyx_NAMESTR("_PyXAL.PyAudioManager"), /*tp_name*/
-  sizeof(struct __pyx_obj_6_PyXAL_PyAudioManager), /*tp_basicsize*/
+  __Pyx_NAMESTR("_pyxal.PyAudioManager"), /*tp_name*/
+  sizeof(struct __pyx_obj_6_pyxal_PyAudioManager), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6_PyXAL_PyAudioManager, /*tp_dealloc*/
+  __pyx_tp_dealloc_6_pyxal_PyAudioManager, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -17287,7 +17287,7 @@ static PyTypeObject __pyx_type_6_PyXAL_PyAudioManager = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6_PyXAL_PyAudioManager, /*tp_methods*/
+  __pyx_methods_6_pyxal_PyAudioManager, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -17295,9 +17295,9 @@ static PyTypeObject __pyx_type_6_PyXAL_PyAudioManager = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_6_PyXAL_14PyAudioManager_1__init__, /*tp_init*/
+  __pyx_pw_6_pyxal_14PyAudioManager_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6_PyXAL_PyAudioManager, /*tp_new*/
+  __pyx_tp_new_6_pyxal_PyAudioManager, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -17314,7 +17314,7 @@ static PyTypeObject __pyx_type_6_PyXAL_PyAudioManager = {
   #endif
 };
 
-static PyObject *__pyx_tp_new_6_PyXAL_SoundWrapper(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6_pyxal_SoundWrapper(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -17325,7 +17325,7 @@ static PyObject *__pyx_tp_new_6_PyXAL_SoundWrapper(PyTypeObject *t, CYTHON_UNUSE
   return o;
 }
 
-static void __pyx_tp_dealloc_6_PyXAL_SoundWrapper(PyObject *o) {
+static void __pyx_tp_dealloc_6_pyxal_SoundWrapper(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -17335,36 +17335,36 @@ static void __pyx_tp_dealloc_6_PyXAL_SoundWrapper(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6_PyXAL_12SoundWrapper_5__dealloc__(o);
+    __pyx_pw_6_pyxal_12SoundWrapper_5__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6_PyXAL_SoundWrapper[] = {
-  {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_3_destroy, METH_NOARGS, __Pyx_DOCSTR(0)},
-  {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_7isXALInitialized, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_6isXALInitialized)},
-  {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_9getName, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_8getName)},
-  {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_11getFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_10getFilename)},
-  {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_13getRealFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_12getRealFilename)},
-  {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_15getSize, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_14getSize)},
-  {__Pyx_NAMESTR("getChannels"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_17getChannels, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_16getChannels)},
-  {__Pyx_NAMESTR("getSamplingRate"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_19getSamplingRate, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_18getSamplingRate)},
-  {__Pyx_NAMESTR("getBitsPerSample"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_21getBitsPerSample, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_20getBitsPerSample)},
-  {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_23getDuration, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_22getDuration)},
-  {__Pyx_NAMESTR("getFormat"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_25getFormat, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_24getFormat)},
-  {__Pyx_NAMESTR("isStreamed"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_27isStreamed, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_26isStreamed)},
-  {__Pyx_NAMESTR("readPcmData"), (PyCFunction)__pyx_pw_6_PyXAL_12SoundWrapper_29readPcmData, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_12SoundWrapper_28readPcmData)},
+static PyMethodDef __pyx_methods_6_pyxal_SoundWrapper[] = {
+  {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_3_destroy, METH_NOARGS, __Pyx_DOCSTR(0)},
+  {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_7isXALInitialized, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_6isXALInitialized)},
+  {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_9getName, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_8getName)},
+  {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_11getFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_10getFilename)},
+  {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_13getRealFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_12getRealFilename)},
+  {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_15getSize, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_14getSize)},
+  {__Pyx_NAMESTR("getChannels"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_17getChannels, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_16getChannels)},
+  {__Pyx_NAMESTR("getSamplingRate"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_19getSamplingRate, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_18getSamplingRate)},
+  {__Pyx_NAMESTR("getBitsPerSample"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_21getBitsPerSample, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_20getBitsPerSample)},
+  {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_23getDuration, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_22getDuration)},
+  {__Pyx_NAMESTR("getFormat"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_25getFormat, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_24getFormat)},
+  {__Pyx_NAMESTR("isStreamed"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_27isStreamed, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_26isStreamed)},
+  {__Pyx_NAMESTR("readPcmData"), (PyCFunction)__pyx_pw_6_pyxal_12SoundWrapper_29readPcmData, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_12SoundWrapper_28readPcmData)},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6_PyXAL_SoundWrapper = {
+static PyTypeObject __pyx_type_6_pyxal_SoundWrapper = {
   PyVarObject_HEAD_INIT(0, 0)
-  __Pyx_NAMESTR("_PyXAL.SoundWrapper"), /*tp_name*/
-  sizeof(struct __pyx_obj_6_PyXAL_SoundWrapper), /*tp_basicsize*/
+  __Pyx_NAMESTR("_pyxal.SoundWrapper"), /*tp_name*/
+  sizeof(struct __pyx_obj_6_pyxal_SoundWrapper), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6_PyXAL_SoundWrapper, /*tp_dealloc*/
+  __pyx_tp_dealloc_6_pyxal_SoundWrapper, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -17391,7 +17391,7 @@ static PyTypeObject __pyx_type_6_PyXAL_SoundWrapper = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6_PyXAL_SoundWrapper, /*tp_methods*/
+  __pyx_methods_6_pyxal_SoundWrapper, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -17399,9 +17399,9 @@ static PyTypeObject __pyx_type_6_PyXAL_SoundWrapper = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_6_PyXAL_12SoundWrapper_1__init__, /*tp_init*/
+  __pyx_pw_6_pyxal_12SoundWrapper_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6_PyXAL_SoundWrapper, /*tp_new*/
+  __pyx_tp_new_6_pyxal_SoundWrapper, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -17418,7 +17418,7 @@ static PyTypeObject __pyx_type_6_PyXAL_SoundWrapper = {
   #endif
 };
 
-static PyObject *__pyx_tp_new_6_PyXAL_PlayerWrapper(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6_pyxal_PlayerWrapper(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -17429,7 +17429,7 @@ static PyObject *__pyx_tp_new_6_PyXAL_PlayerWrapper(PyTypeObject *t, CYTHON_UNUS
   return o;
 }
 
-static void __pyx_tp_dealloc_6_PyXAL_PlayerWrapper(PyObject *o) {
+static void __pyx_tp_dealloc_6_pyxal_PlayerWrapper(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -17439,45 +17439,45 @@ static void __pyx_tp_dealloc_6_PyXAL_PlayerWrapper(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6_PyXAL_13PlayerWrapper_5__dealloc__(o);
+    __pyx_pw_6_pyxal_13PlayerWrapper_5__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6_PyXAL_PlayerWrapper[] = {
-  {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_3_destroy, METH_NOARGS, __Pyx_DOCSTR(0)},
-  {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_7isXALInitialized, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_6isXALInitialized)},
-  {__Pyx_NAMESTR("getGain"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_9getGain, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_8getGain)},
-  {__Pyx_NAMESTR("setGain"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_11setGain, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_10setGain)},
-  {__Pyx_NAMESTR("getPitch"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_13getPitch, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_12getPitch)},
-  {__Pyx_NAMESTR("setPitch"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_15setPitch, METH_O, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_14setPitch)},
-  {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_17getName, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_16getName)},
-  {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_19getFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_18getFilename)},
-  {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_21getRealFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_20getRealFilename)},
-  {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_23getDuration, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_22getDuration)},
-  {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_25getSize, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_24getSize)},
-  {__Pyx_NAMESTR("getTimePosition"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_27getTimePosition, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_26getTimePosition)},
-  {__Pyx_NAMESTR("getSamplePosition"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_29getSamplePosition, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_28getSamplePosition)},
-  {__Pyx_NAMESTR("isPlaying"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_31isPlaying, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_30isPlaying)},
-  {__Pyx_NAMESTR("isPaused"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_33isPaused, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_32isPaused)},
-  {__Pyx_NAMESTR("isFading"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_35isFading, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_34isFading)},
-  {__Pyx_NAMESTR("isFadingIn"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_37isFadingIn, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_36isFadingIn)},
-  {__Pyx_NAMESTR("isFadingOut"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_39isFadingOut, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_38isFadingOut)},
-  {__Pyx_NAMESTR("isLooping"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_41isLooping, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_40isLooping)},
-  {__Pyx_NAMESTR("play"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_43play, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_42play)},
-  {__Pyx_NAMESTR("stop"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_45stop, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_44stop)},
-  {__Pyx_NAMESTR("pause"), (PyCFunction)__pyx_pw_6_PyXAL_13PlayerWrapper_47pause, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_13PlayerWrapper_46pause)},
+static PyMethodDef __pyx_methods_6_pyxal_PlayerWrapper[] = {
+  {__Pyx_NAMESTR("_destroy"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_3_destroy, METH_NOARGS, __Pyx_DOCSTR(0)},
+  {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_7isXALInitialized, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_6isXALInitialized)},
+  {__Pyx_NAMESTR("getGain"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_9getGain, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_8getGain)},
+  {__Pyx_NAMESTR("setGain"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_11setGain, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_10setGain)},
+  {__Pyx_NAMESTR("getPitch"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_13getPitch, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_12getPitch)},
+  {__Pyx_NAMESTR("setPitch"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_15setPitch, METH_O, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_14setPitch)},
+  {__Pyx_NAMESTR("getName"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_17getName, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_16getName)},
+  {__Pyx_NAMESTR("getFilename"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_19getFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_18getFilename)},
+  {__Pyx_NAMESTR("getRealFilename"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_21getRealFilename, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_20getRealFilename)},
+  {__Pyx_NAMESTR("getDuration"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_23getDuration, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_22getDuration)},
+  {__Pyx_NAMESTR("getSize"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_25getSize, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_24getSize)},
+  {__Pyx_NAMESTR("getTimePosition"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_27getTimePosition, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_26getTimePosition)},
+  {__Pyx_NAMESTR("getSamplePosition"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_29getSamplePosition, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_28getSamplePosition)},
+  {__Pyx_NAMESTR("isPlaying"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_31isPlaying, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_30isPlaying)},
+  {__Pyx_NAMESTR("isPaused"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_33isPaused, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_32isPaused)},
+  {__Pyx_NAMESTR("isFading"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_35isFading, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_34isFading)},
+  {__Pyx_NAMESTR("isFadingIn"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_37isFadingIn, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_36isFadingIn)},
+  {__Pyx_NAMESTR("isFadingOut"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_39isFadingOut, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_38isFadingOut)},
+  {__Pyx_NAMESTR("isLooping"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_41isLooping, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_40isLooping)},
+  {__Pyx_NAMESTR("play"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_43play, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_42play)},
+  {__Pyx_NAMESTR("stop"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_45stop, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_44stop)},
+  {__Pyx_NAMESTR("pause"), (PyCFunction)__pyx_pw_6_pyxal_13PlayerWrapper_47pause, METH_VARARGS|METH_KEYWORDS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_13PlayerWrapper_46pause)},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6_PyXAL_PlayerWrapper = {
+static PyTypeObject __pyx_type_6_pyxal_PlayerWrapper = {
   PyVarObject_HEAD_INIT(0, 0)
-  __Pyx_NAMESTR("_PyXAL.PlayerWrapper"), /*tp_name*/
-  sizeof(struct __pyx_obj_6_PyXAL_PlayerWrapper), /*tp_basicsize*/
+  __Pyx_NAMESTR("_pyxal.PlayerWrapper"), /*tp_name*/
+  sizeof(struct __pyx_obj_6_pyxal_PlayerWrapper), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6_PyXAL_PlayerWrapper, /*tp_dealloc*/
+  __pyx_tp_dealloc_6_pyxal_PlayerWrapper, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -17504,7 +17504,7 @@ static PyTypeObject __pyx_type_6_PyXAL_PlayerWrapper = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6_PyXAL_PlayerWrapper, /*tp_methods*/
+  __pyx_methods_6_pyxal_PlayerWrapper, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -17512,9 +17512,9 @@ static PyTypeObject __pyx_type_6_PyXAL_PlayerWrapper = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_6_PyXAL_13PlayerWrapper_1__init__, /*tp_init*/
+  __pyx_pw_6_pyxal_13PlayerWrapper_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6_PyXAL_PlayerWrapper, /*tp_new*/
+  __pyx_tp_new_6_pyxal_PlayerWrapper, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -17531,7 +17531,7 @@ static PyTypeObject __pyx_type_6_PyXAL_PlayerWrapper = {
   #endif
 };
 
-static PyObject *__pyx_tp_new_6_PyXAL_XALManagerWrapper(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6_pyxal_XALManagerWrapper(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -17542,7 +17542,7 @@ static PyObject *__pyx_tp_new_6_PyXAL_XALManagerWrapper(PyTypeObject *t, CYTHON_
   return o;
 }
 
-static void __pyx_tp_dealloc_6_PyXAL_XALManagerWrapper(PyObject *o) {
+static void __pyx_tp_dealloc_6_pyxal_XALManagerWrapper(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -17552,26 +17552,26 @@ static void __pyx_tp_dealloc_6_PyXAL_XALManagerWrapper(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6_PyXAL_17XALManagerWrapper_3__dealloc__(o);
+    __pyx_pw_6_pyxal_17XALManagerWrapper_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6_PyXAL_XALManagerWrapper[] = {
-  {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_PyXAL_17XALManagerWrapper_5isXALInitialized, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_17XALManagerWrapper_4isXALInitialized)},
-  {__Pyx_NAMESTR("SetupXAL"), (PyCFunction)__pyx_pw_6_PyXAL_17XALManagerWrapper_7SetupXAL, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_PyXAL_17XALManagerWrapper_6SetupXAL)},
-  {__Pyx_NAMESTR("_destroyXAL"), (PyCFunction)__pyx_pw_6_PyXAL_17XALManagerWrapper_9_destroyXAL, METH_NOARGS, __Pyx_DOCSTR(0)},
+static PyMethodDef __pyx_methods_6_pyxal_XALManagerWrapper[] = {
+  {__Pyx_NAMESTR("isXALInitialized"), (PyCFunction)__pyx_pw_6_pyxal_17XALManagerWrapper_5isXALInitialized, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_17XALManagerWrapper_4isXALInitialized)},
+  {__Pyx_NAMESTR("SetupXAL"), (PyCFunction)__pyx_pw_6_pyxal_17XALManagerWrapper_7SetupXAL, METH_NOARGS, __Pyx_DOCSTR(__pyx_doc_6_pyxal_17XALManagerWrapper_6SetupXAL)},
+  {__Pyx_NAMESTR("_destroyXAL"), (PyCFunction)__pyx_pw_6_pyxal_17XALManagerWrapper_9_destroyXAL, METH_NOARGS, __Pyx_DOCSTR(0)},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6_PyXAL_XALManagerWrapper = {
+static PyTypeObject __pyx_type_6_pyxal_XALManagerWrapper = {
   PyVarObject_HEAD_INIT(0, 0)
-  __Pyx_NAMESTR("_PyXAL.XALManagerWrapper"), /*tp_name*/
-  sizeof(struct __pyx_obj_6_PyXAL_XALManagerWrapper), /*tp_basicsize*/
+  __Pyx_NAMESTR("_pyxal.XALManagerWrapper"), /*tp_name*/
+  sizeof(struct __pyx_obj_6_pyxal_XALManagerWrapper), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6_PyXAL_XALManagerWrapper, /*tp_dealloc*/
+  __pyx_tp_dealloc_6_pyxal_XALManagerWrapper, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -17591,14 +17591,14 @@ static PyTypeObject __pyx_type_6_PyXAL_XALManagerWrapper = {
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  __Pyx_DOCSTR("\n    a wrapper for the xal::mgr object which is a xal::AudioManager. in other words this is the main interface to XAL you SHOLD NOT create an instance of the class yourself.\n    call PyXAL.Init to set up XAL. an instance of this class will be made avalable at PyXAL.Mgr\n    "), /*tp_doc*/
+  __Pyx_DOCSTR("\n    a wrapper for the xal::mgr object which is a xal::AudioManager. in other words this is the main interface to XAL you SHOLD NOT create an instance of the class yourself.\n    call pyxal.Init to set up XAL. an instance of this class will be made avalable at pyxal.Mgr\n    "), /*tp_doc*/
   0, /*tp_traverse*/
   0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6_PyXAL_XALManagerWrapper, /*tp_methods*/
+  __pyx_methods_6_pyxal_XALManagerWrapper, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -17606,9 +17606,9 @@ static PyTypeObject __pyx_type_6_PyXAL_XALManagerWrapper = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_6_PyXAL_17XALManagerWrapper_1__init__, /*tp_init*/
+  __pyx_pw_6_pyxal_17XALManagerWrapper_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6_PyXAL_XALManagerWrapper, /*tp_new*/
+  __pyx_tp_new_6_pyxal_XALManagerWrapper, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -17636,7 +17636,7 @@ static struct PyModuleDef __pyx_moduledef = {
   #else
     PyModuleDef_HEAD_INIT,
   #endif
-    __Pyx_NAMESTR("_PyXAL"),
+    __Pyx_NAMESTR("_pyxal"),
     0, /* m_doc */
     -1, /* m_size */
     __pyx_methods /* m_methods */,
@@ -17701,7 +17701,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_PySound_isStreamed, __pyx_k_PySound_isStreamed, sizeof(__pyx_k_PySound_isStreamed), 0, 0, 1, 1},
   {&__pyx_n_s_PySound_isXALInitialized, __pyx_k_PySound_isXALInitialized, sizeof(__pyx_k_PySound_isXALInitialized), 0, 0, 1, 1},
   {&__pyx_n_s_PySound_readPcmData, __pyx_k_PySound_readPcmData, sizeof(__pyx_k_PySound_readPcmData), 0, 0, 1, 1},
-  {&__pyx_n_s_PyXAL, __pyx_k_PyXAL, sizeof(__pyx_k_PyXAL), 0, 0, 1, 1},
+  {&__pyx_n_s_pyxal, __pyx_k_pyxal, sizeof(__pyx_k_pyxal), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_SetupXAL, __pyx_k_SetupXAL, sizeof(__pyx_k_SetupXAL), 0, 0, 1, 1},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
@@ -17842,7 +17842,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "_PyXAL.pyx":107
+  /* "_pyxal.pyx":107
  * 
  * cdef hstr Py_to_Hstr (string):
  *     py_byte_string = string.encode('UTF-8')             # <<<<<<<<<<<<<<
@@ -17853,7 +17853,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "_PyXAL.pyx":132
+  /* "_pyxal.pyx":132
  *         as such calling the __init__ method will raise a Runtime Error
  *         '''
  *         raise RuntimeError("PyAudioManager Can not be initialized from python")             # <<<<<<<<<<<<<<
@@ -17864,7 +17864,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "_PyXAL.pyx":148
+  /* "_pyxal.pyx":148
  *         as such calling the __init__ method will raise a Runtime Error
  *         '''
  *         raise RuntimeError("PySound Can not be initialized from python")             # <<<<<<<<<<<<<<
@@ -17875,7 +17875,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "_PyXAL.pyx":174
+  /* "_pyxal.pyx":174
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -17886,7 +17886,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "_PyXAL.pyx":176
+  /* "_pyxal.pyx":176
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -17897,7 +17897,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "_PyXAL.pyx":186
+  /* "_pyxal.pyx":186
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -17908,7 +17908,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "_PyXAL.pyx":188
+  /* "_pyxal.pyx":188
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -17919,7 +17919,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "_PyXAL.pyx":198
+  /* "_pyxal.pyx":198
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -17930,7 +17930,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "_PyXAL.pyx":200
+  /* "_pyxal.pyx":200
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -17941,7 +17941,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "_PyXAL.pyx":210
+  /* "_pyxal.pyx":210
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -17952,7 +17952,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "_PyXAL.pyx":212
+  /* "_pyxal.pyx":212
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -17963,7 +17963,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "_PyXAL.pyx":221
+  /* "_pyxal.pyx":221
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -17974,7 +17974,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
-  /* "_PyXAL.pyx":223
+  /* "_pyxal.pyx":223
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -17985,7 +17985,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
 
-  /* "_PyXAL.pyx":232
+  /* "_pyxal.pyx":232
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -17996,7 +17996,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 
-  /* "_PyXAL.pyx":234
+  /* "_pyxal.pyx":234
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18007,7 +18007,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
 
-  /* "_PyXAL.pyx":243
+  /* "_pyxal.pyx":243
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18018,7 +18018,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
 
-  /* "_PyXAL.pyx":245
+  /* "_pyxal.pyx":245
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18029,7 +18029,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "_PyXAL.pyx":254
+  /* "_pyxal.pyx":254
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18040,7 +18040,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "_PyXAL.pyx":256
+  /* "_pyxal.pyx":256
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18051,7 +18051,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
 
-  /* "_PyXAL.pyx":266
+  /* "_pyxal.pyx":266
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18062,7 +18062,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
 
-  /* "_PyXAL.pyx":268
+  /* "_pyxal.pyx":268
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18073,7 +18073,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "_PyXAL.pyx":278
+  /* "_pyxal.pyx":278
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18084,7 +18084,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "_PyXAL.pyx":280
+  /* "_pyxal.pyx":280
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18095,7 +18095,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "_PyXAL.pyx":290
+  /* "_pyxal.pyx":290
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18106,7 +18106,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "_PyXAL.pyx":292
+  /* "_pyxal.pyx":292
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18117,7 +18117,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "_PyXAL.pyx":321
+  /* "_pyxal.pyx":321
  *         as such calling the __init__ method will raise a Runtime Error
  *         '''
  *         raise RuntimeError("PyPlayer Can not be initialized from python")             # <<<<<<<<<<<<<<
@@ -18128,7 +18128,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
 
-  /* "_PyXAL.pyx":347
+  /* "_pyxal.pyx":347
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18139,7 +18139,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
 
-  /* "_PyXAL.pyx":349
+  /* "_pyxal.pyx":349
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18150,7 +18150,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
 
-  /* "_PyXAL.pyx":359
+  /* "_pyxal.pyx":359
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18161,7 +18161,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
 
-  /* "_PyXAL.pyx":361
+  /* "_pyxal.pyx":361
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18172,7 +18172,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
 
-  /* "_PyXAL.pyx":369
+  /* "_pyxal.pyx":369
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18183,7 +18183,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
 
-  /* "_PyXAL.pyx":371
+  /* "_pyxal.pyx":371
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18194,7 +18194,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
 
-  /* "_PyXAL.pyx":381
+  /* "_pyxal.pyx":381
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18205,7 +18205,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
 
-  /* "_PyXAL.pyx":383
+  /* "_pyxal.pyx":383
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18216,7 +18216,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
 
-  /* "_PyXAL.pyx":391
+  /* "_pyxal.pyx":391
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18227,7 +18227,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
 
-  /* "_PyXAL.pyx":393
+  /* "_pyxal.pyx":393
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18238,7 +18238,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
 
-  /* "_PyXAL.pyx":403
+  /* "_pyxal.pyx":403
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18249,7 +18249,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__38);
   __Pyx_GIVEREF(__pyx_tuple__38);
 
-  /* "_PyXAL.pyx":405
+  /* "_pyxal.pyx":405
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18260,7 +18260,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
 
-  /* "_PyXAL.pyx":415
+  /* "_pyxal.pyx":415
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18271,7 +18271,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__40);
   __Pyx_GIVEREF(__pyx_tuple__40);
 
-  /* "_PyXAL.pyx":417
+  /* "_pyxal.pyx":417
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18282,7 +18282,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
 
-  /* "_PyXAL.pyx":427
+  /* "_pyxal.pyx":427
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18293,7 +18293,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__42);
   __Pyx_GIVEREF(__pyx_tuple__42);
 
-  /* "_PyXAL.pyx":429
+  /* "_pyxal.pyx":429
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18304,7 +18304,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__43);
   __Pyx_GIVEREF(__pyx_tuple__43);
 
-  /* "_PyXAL.pyx":438
+  /* "_pyxal.pyx":438
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18315,7 +18315,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__44);
   __Pyx_GIVEREF(__pyx_tuple__44);
 
-  /* "_PyXAL.pyx":440
+  /* "_pyxal.pyx":440
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18326,7 +18326,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__45);
   __Pyx_GIVEREF(__pyx_tuple__45);
 
-  /* "_PyXAL.pyx":449
+  /* "_pyxal.pyx":449
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18337,7 +18337,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
 
-  /* "_PyXAL.pyx":451
+  /* "_pyxal.pyx":451
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18348,7 +18348,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__47);
   __Pyx_GIVEREF(__pyx_tuple__47);
 
-  /* "_PyXAL.pyx":460
+  /* "_pyxal.pyx":460
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18359,7 +18359,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__48);
   __Pyx_GIVEREF(__pyx_tuple__48);
 
-  /* "_PyXAL.pyx":462
+  /* "_pyxal.pyx":462
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18370,7 +18370,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__49);
   __Pyx_GIVEREF(__pyx_tuple__49);
 
-  /* "_PyXAL.pyx":471
+  /* "_pyxal.pyx":471
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18381,7 +18381,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__50);
   __Pyx_GIVEREF(__pyx_tuple__50);
 
-  /* "_PyXAL.pyx":473
+  /* "_pyxal.pyx":473
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18392,7 +18392,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__51);
   __Pyx_GIVEREF(__pyx_tuple__51);
 
-  /* "_PyXAL.pyx":481
+  /* "_pyxal.pyx":481
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18403,7 +18403,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__52);
   __Pyx_GIVEREF(__pyx_tuple__52);
 
-  /* "_PyXAL.pyx":483
+  /* "_pyxal.pyx":483
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18414,7 +18414,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__53);
   __Pyx_GIVEREF(__pyx_tuple__53);
 
-  /* "_PyXAL.pyx":491
+  /* "_pyxal.pyx":491
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18425,7 +18425,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__54);
   __Pyx_GIVEREF(__pyx_tuple__54);
 
-  /* "_PyXAL.pyx":493
+  /* "_pyxal.pyx":493
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18436,7 +18436,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__55);
   __Pyx_GIVEREF(__pyx_tuple__55);
 
-  /* "_PyXAL.pyx":501
+  /* "_pyxal.pyx":501
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18447,7 +18447,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__56);
   __Pyx_GIVEREF(__pyx_tuple__56);
 
-  /* "_PyXAL.pyx":503
+  /* "_pyxal.pyx":503
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18458,7 +18458,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__57);
   __Pyx_GIVEREF(__pyx_tuple__57);
 
-  /* "_PyXAL.pyx":511
+  /* "_pyxal.pyx":511
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18469,7 +18469,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__58);
   __Pyx_GIVEREF(__pyx_tuple__58);
 
-  /* "_PyXAL.pyx":513
+  /* "_pyxal.pyx":513
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18480,7 +18480,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__59);
   __Pyx_GIVEREF(__pyx_tuple__59);
 
-  /* "_PyXAL.pyx":521
+  /* "_pyxal.pyx":521
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18491,7 +18491,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__60);
   __Pyx_GIVEREF(__pyx_tuple__60);
 
-  /* "_PyXAL.pyx":523
+  /* "_pyxal.pyx":523
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18502,7 +18502,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__61);
   __Pyx_GIVEREF(__pyx_tuple__61);
 
-  /* "_PyXAL.pyx":534
+  /* "_pyxal.pyx":534
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18513,7 +18513,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__62);
   __Pyx_GIVEREF(__pyx_tuple__62);
 
-  /* "_PyXAL.pyx":536
+  /* "_pyxal.pyx":536
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18524,7 +18524,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__63);
   __Pyx_GIVEREF(__pyx_tuple__63);
 
-  /* "_PyXAL.pyx":546
+  /* "_pyxal.pyx":546
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18535,7 +18535,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__64);
   __Pyx_GIVEREF(__pyx_tuple__64);
 
-  /* "_PyXAL.pyx":548
+  /* "_pyxal.pyx":548
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18546,7 +18546,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__65);
   __Pyx_GIVEREF(__pyx_tuple__65);
 
-  /* "_PyXAL.pyx":558
+  /* "_pyxal.pyx":558
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18557,7 +18557,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__66);
   __Pyx_GIVEREF(__pyx_tuple__66);
 
-  /* "_PyXAL.pyx":560
+  /* "_pyxal.pyx":560
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18568,7 +18568,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__67);
   __Pyx_GIVEREF(__pyx_tuple__67);
 
-  /* "_PyXAL.pyx":578
+  /* "_pyxal.pyx":578
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18579,7 +18579,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__68);
   __Pyx_GIVEREF(__pyx_tuple__68);
 
-  /* "_PyXAL.pyx":616
+  /* "_pyxal.pyx":616
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18590,7 +18590,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__69);
   __Pyx_GIVEREF(__pyx_tuple__69);
 
-  /* "_PyXAL.pyx":618
+  /* "_pyxal.pyx":618
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18601,7 +18601,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__70);
   __Pyx_GIVEREF(__pyx_tuple__70);
 
-  /* "_PyXAL.pyx":626
+  /* "_pyxal.pyx":626
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18612,7 +18612,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__71);
   __Pyx_GIVEREF(__pyx_tuple__71);
 
-  /* "_PyXAL.pyx":628
+  /* "_pyxal.pyx":628
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18623,7 +18623,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__72);
   __Pyx_GIVEREF(__pyx_tuple__72);
 
-  /* "_PyXAL.pyx":636
+  /* "_pyxal.pyx":636
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18634,7 +18634,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__73);
   __Pyx_GIVEREF(__pyx_tuple__73);
 
-  /* "_PyXAL.pyx":638
+  /* "_pyxal.pyx":638
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18645,7 +18645,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__74);
   __Pyx_GIVEREF(__pyx_tuple__74);
 
-  /* "_PyXAL.pyx":646
+  /* "_pyxal.pyx":646
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18656,7 +18656,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__75);
   __Pyx_GIVEREF(__pyx_tuple__75);
 
-  /* "_PyXAL.pyx":648
+  /* "_pyxal.pyx":648
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18667,7 +18667,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__76);
   __Pyx_GIVEREF(__pyx_tuple__76);
 
-  /* "_PyXAL.pyx":656
+  /* "_pyxal.pyx":656
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18678,7 +18678,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__77);
   __Pyx_GIVEREF(__pyx_tuple__77);
 
-  /* "_PyXAL.pyx":658
+  /* "_pyxal.pyx":658
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18689,7 +18689,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__78);
   __Pyx_GIVEREF(__pyx_tuple__78);
 
-  /* "_PyXAL.pyx":666
+  /* "_pyxal.pyx":666
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18700,7 +18700,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__79);
   __Pyx_GIVEREF(__pyx_tuple__79);
 
-  /* "_PyXAL.pyx":668
+  /* "_pyxal.pyx":668
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18711,7 +18711,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__80);
   __Pyx_GIVEREF(__pyx_tuple__80);
 
-  /* "_PyXAL.pyx":676
+  /* "_pyxal.pyx":676
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18722,7 +18722,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__81);
   __Pyx_GIVEREF(__pyx_tuple__81);
 
-  /* "_PyXAL.pyx":678
+  /* "_pyxal.pyx":678
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18733,7 +18733,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__82);
   __Pyx_GIVEREF(__pyx_tuple__82);
 
-  /* "_PyXAL.pyx":686
+  /* "_pyxal.pyx":686
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18744,7 +18744,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__83);
   __Pyx_GIVEREF(__pyx_tuple__83);
 
-  /* "_PyXAL.pyx":688
+  /* "_pyxal.pyx":688
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18755,7 +18755,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__84);
   __Pyx_GIVEREF(__pyx_tuple__84);
 
-  /* "_PyXAL.pyx":697
+  /* "_pyxal.pyx":697
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18766,7 +18766,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__85);
   __Pyx_GIVEREF(__pyx_tuple__85);
 
-  /* "_PyXAL.pyx":699
+  /* "_pyxal.pyx":699
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18777,7 +18777,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__86);
   __Pyx_GIVEREF(__pyx_tuple__86);
 
-  /* "_PyXAL.pyx":708
+  /* "_pyxal.pyx":708
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18788,7 +18788,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__87);
   __Pyx_GIVEREF(__pyx_tuple__87);
 
-  /* "_PyXAL.pyx":710
+  /* "_pyxal.pyx":710
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18799,7 +18799,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__88);
   __Pyx_GIVEREF(__pyx_tuple__88);
 
-  /* "_PyXAL.pyx":719
+  /* "_pyxal.pyx":719
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18810,7 +18810,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__89);
   __Pyx_GIVEREF(__pyx_tuple__89);
 
-  /* "_PyXAL.pyx":721
+  /* "_pyxal.pyx":721
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18821,7 +18821,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__90);
   __Pyx_GIVEREF(__pyx_tuple__90);
 
-  /* "_PyXAL.pyx":738
+  /* "_pyxal.pyx":738
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18832,7 +18832,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__91);
   __Pyx_GIVEREF(__pyx_tuple__91);
 
-  /* "_PyXAL.pyx":786
+  /* "_pyxal.pyx":786
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18843,7 +18843,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__92);
   __Pyx_GIVEREF(__pyx_tuple__92);
 
-  /* "_PyXAL.pyx":788
+  /* "_pyxal.pyx":788
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18854,7 +18854,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__93);
   __Pyx_GIVEREF(__pyx_tuple__93);
 
-  /* "_PyXAL.pyx":797
+  /* "_pyxal.pyx":797
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18865,7 +18865,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__94);
   __Pyx_GIVEREF(__pyx_tuple__94);
 
-  /* "_PyXAL.pyx":799
+  /* "_pyxal.pyx":799
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18876,7 +18876,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__95);
   __Pyx_GIVEREF(__pyx_tuple__95);
 
-  /* "_PyXAL.pyx":807
+  /* "_pyxal.pyx":807
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18887,7 +18887,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__96);
   __Pyx_GIVEREF(__pyx_tuple__96);
 
-  /* "_PyXAL.pyx":809
+  /* "_pyxal.pyx":809
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18898,7 +18898,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__97);
   __Pyx_GIVEREF(__pyx_tuple__97);
 
-  /* "_PyXAL.pyx":818
+  /* "_pyxal.pyx":818
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18909,7 +18909,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__98);
   __Pyx_GIVEREF(__pyx_tuple__98);
 
-  /* "_PyXAL.pyx":820
+  /* "_pyxal.pyx":820
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18920,7 +18920,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__99);
   __Pyx_GIVEREF(__pyx_tuple__99);
 
-  /* "_PyXAL.pyx":834
+  /* "_pyxal.pyx":834
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18931,7 +18931,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__100);
   __Pyx_GIVEREF(__pyx_tuple__100);
 
-  /* "_PyXAL.pyx":836
+  /* "_pyxal.pyx":836
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18942,7 +18942,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__101);
   __Pyx_GIVEREF(__pyx_tuple__101);
 
-  /* "_PyXAL.pyx":844
+  /* "_pyxal.pyx":844
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18953,7 +18953,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__102);
   __Pyx_GIVEREF(__pyx_tuple__102);
 
-  /* "_PyXAL.pyx":846
+  /* "_pyxal.pyx":846
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18964,7 +18964,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__103);
   __Pyx_GIVEREF(__pyx_tuple__103);
 
-  /* "_PyXAL.pyx":854
+  /* "_pyxal.pyx":854
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18975,7 +18975,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__104);
   __Pyx_GIVEREF(__pyx_tuple__104);
 
-  /* "_PyXAL.pyx":856
+  /* "_pyxal.pyx":856
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -18986,7 +18986,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__105);
   __Pyx_GIVEREF(__pyx_tuple__105);
 
-  /* "_PyXAL.pyx":864
+  /* "_pyxal.pyx":864
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -18997,7 +18997,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__106);
   __Pyx_GIVEREF(__pyx_tuple__106);
 
-  /* "_PyXAL.pyx":866
+  /* "_pyxal.pyx":866
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19008,7 +19008,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__107);
   __Pyx_GIVEREF(__pyx_tuple__107);
 
-  /* "_PyXAL.pyx":874
+  /* "_pyxal.pyx":874
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19019,7 +19019,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__108);
   __Pyx_GIVEREF(__pyx_tuple__108);
 
-  /* "_PyXAL.pyx":876
+  /* "_pyxal.pyx":876
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19030,7 +19030,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__109);
   __Pyx_GIVEREF(__pyx_tuple__109);
 
-  /* "_PyXAL.pyx":884
+  /* "_pyxal.pyx":884
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19041,7 +19041,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__110);
   __Pyx_GIVEREF(__pyx_tuple__110);
 
-  /* "_PyXAL.pyx":886
+  /* "_pyxal.pyx":886
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19052,7 +19052,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__111);
   __Pyx_GIVEREF(__pyx_tuple__111);
 
-  /* "_PyXAL.pyx":894
+  /* "_pyxal.pyx":894
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19063,7 +19063,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__112);
   __Pyx_GIVEREF(__pyx_tuple__112);
 
-  /* "_PyXAL.pyx":896
+  /* "_pyxal.pyx":896
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19074,7 +19074,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__113);
   __Pyx_GIVEREF(__pyx_tuple__113);
 
-  /* "_PyXAL.pyx":904
+  /* "_pyxal.pyx":904
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19085,7 +19085,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__114);
   __Pyx_GIVEREF(__pyx_tuple__114);
 
-  /* "_PyXAL.pyx":906
+  /* "_pyxal.pyx":906
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19096,7 +19096,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__115);
   __Pyx_GIVEREF(__pyx_tuple__115);
 
-  /* "_PyXAL.pyx":914
+  /* "_pyxal.pyx":914
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19107,7 +19107,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__116);
   __Pyx_GIVEREF(__pyx_tuple__116);
 
-  /* "_PyXAL.pyx":916
+  /* "_pyxal.pyx":916
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19118,7 +19118,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__117);
   __Pyx_GIVEREF(__pyx_tuple__117);
 
-  /* "_PyXAL.pyx":924
+  /* "_pyxal.pyx":924
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19129,7 +19129,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__118);
   __Pyx_GIVEREF(__pyx_tuple__118);
 
-  /* "_PyXAL.pyx":926
+  /* "_pyxal.pyx":926
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19140,7 +19140,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__119);
   __Pyx_GIVEREF(__pyx_tuple__119);
 
-  /* "_PyXAL.pyx":934
+  /* "_pyxal.pyx":934
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19151,7 +19151,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__120);
   __Pyx_GIVEREF(__pyx_tuple__120);
 
-  /* "_PyXAL.pyx":936
+  /* "_pyxal.pyx":936
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19162,7 +19162,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__121);
   __Pyx_GIVEREF(__pyx_tuple__121);
 
-  /* "_PyXAL.pyx":944
+  /* "_pyxal.pyx":944
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19173,7 +19173,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__122);
   __Pyx_GIVEREF(__pyx_tuple__122);
 
-  /* "_PyXAL.pyx":946
+  /* "_pyxal.pyx":946
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19184,7 +19184,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__123);
   __Pyx_GIVEREF(__pyx_tuple__123);
 
-  /* "_PyXAL.pyx":954
+  /* "_pyxal.pyx":954
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19195,7 +19195,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__124);
   __Pyx_GIVEREF(__pyx_tuple__124);
 
-  /* "_PyXAL.pyx":956
+  /* "_pyxal.pyx":956
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19206,7 +19206,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__125);
   __Pyx_GIVEREF(__pyx_tuple__125);
 
-  /* "_PyXAL.pyx":967
+  /* "_pyxal.pyx":967
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19217,7 +19217,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__126);
   __Pyx_GIVEREF(__pyx_tuple__126);
 
-  /* "_PyXAL.pyx":969
+  /* "_pyxal.pyx":969
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19228,7 +19228,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__127);
   __Pyx_GIVEREF(__pyx_tuple__127);
 
-  /* "_PyXAL.pyx":979
+  /* "_pyxal.pyx":979
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19239,7 +19239,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__128);
   __Pyx_GIVEREF(__pyx_tuple__128);
 
-  /* "_PyXAL.pyx":981
+  /* "_pyxal.pyx":981
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19250,7 +19250,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__129);
   __Pyx_GIVEREF(__pyx_tuple__129);
 
-  /* "_PyXAL.pyx":991
+  /* "_pyxal.pyx":991
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19261,7 +19261,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__130);
   __Pyx_GIVEREF(__pyx_tuple__130);
 
-  /* "_PyXAL.pyx":993
+  /* "_pyxal.pyx":993
  *             raise RuntimeError("XAL is not Initialized")
  *         if self.destroyed:
  *             raise RuntimeError("the C++ interface for this object has been destroyed")             # <<<<<<<<<<<<<<
@@ -19272,10 +19272,10 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__131);
   __Pyx_GIVEREF(__pyx_tuple__131);
 
-  /* "_PyXAL.pyx":1020
+  /* "_pyxal.pyx":1020
  *         global Mgr
  *         if Mgr is not None:
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")             # <<<<<<<<<<<<<<
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")             # <<<<<<<<<<<<<<
  *         self.CATEGORY_STR = "default"
  *         cdef hstr dname = hstr(deviceName)
  */
@@ -19283,7 +19283,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__132);
   __Pyx_GIVEREF(__pyx_tuple__132);
 
-  /* "_PyXAL.pyx":1049
+  /* "_pyxal.pyx":1049
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19294,10 +19294,10 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__133);
   __Pyx_GIVEREF(__pyx_tuple__133);
 
-  /* "_PyXAL.pyx":1083
+  /* "_pyxal.pyx":1083
  *         global Mgr
  *         if Mgr is not None:
- *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")             # <<<<<<<<<<<<<<
+ *             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at pyxal.Mgr")             # <<<<<<<<<<<<<<
  *         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)
  *         self._wrapper = wrapper
  */
@@ -19305,7 +19305,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__134);
   __Pyx_GIVEREF(__pyx_tuple__134);
 
-  /* "_PyXAL.pyx":1123
+  /* "_pyxal.pyx":1123
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19316,7 +19316,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__135);
   __Pyx_GIVEREF(__pyx_tuple__135);
 
-  /* "_PyXAL.pyx":1136
+  /* "_pyxal.pyx":1136
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19327,7 +19327,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__136);
   __Pyx_GIVEREF(__pyx_tuple__136);
 
-  /* "_PyXAL.pyx":1154
+  /* "_pyxal.pyx":1154
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19338,7 +19338,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__137);
   __Pyx_GIVEREF(__pyx_tuple__137);
 
-  /* "_PyXAL.pyx":1171
+  /* "_pyxal.pyx":1171
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19349,7 +19349,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__138);
   __Pyx_GIVEREF(__pyx_tuple__138);
 
-  /* "_PyXAL.pyx":1184
+  /* "_pyxal.pyx":1184
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19360,7 +19360,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__139);
   __Pyx_GIVEREF(__pyx_tuple__139);
 
-  /* "_PyXAL.pyx":1200
+  /* "_pyxal.pyx":1200
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19371,7 +19371,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__140);
   __Pyx_GIVEREF(__pyx_tuple__140);
 
-  /* "_PyXAL.pyx":1212
+  /* "_pyxal.pyx":1212
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19382,7 +19382,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__141);
   __Pyx_GIVEREF(__pyx_tuple__141);
 
-  /* "_PyXAL.pyx":1224
+  /* "_pyxal.pyx":1224
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19393,7 +19393,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__142);
   __Pyx_GIVEREF(__pyx_tuple__142);
 
-  /* "_PyXAL.pyx":1236
+  /* "_pyxal.pyx":1236
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19404,7 +19404,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__143);
   __Pyx_GIVEREF(__pyx_tuple__143);
 
-  /* "_PyXAL.pyx":1245
+  /* "_pyxal.pyx":1245
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19415,7 +19415,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__144);
   __Pyx_GIVEREF(__pyx_tuple__144);
 
-  /* "_PyXAL.pyx":1256
+  /* "_pyxal.pyx":1256
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19426,7 +19426,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__145);
   __Pyx_GIVEREF(__pyx_tuple__145);
 
-  /* "_PyXAL.pyx":1267
+  /* "_pyxal.pyx":1267
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19437,7 +19437,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__146);
   __Pyx_GIVEREF(__pyx_tuple__146);
 
-  /* "_PyXAL.pyx":1278
+  /* "_pyxal.pyx":1278
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19448,7 +19448,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__147);
   __Pyx_GIVEREF(__pyx_tuple__147);
 
-  /* "_PyXAL.pyx":1290
+  /* "_pyxal.pyx":1290
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19459,7 +19459,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__148);
   __Pyx_GIVEREF(__pyx_tuple__148);
 
-  /* "_PyXAL.pyx":1300
+  /* "_pyxal.pyx":1300
  *         '''
  *         if not self.isXALInitialized():
  *             raise RuntimeError("XAL is not Initialized")             # <<<<<<<<<<<<<<
@@ -19470,7 +19470,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__149);
   __Pyx_GIVEREF(__pyx_tuple__149);
 
-  /* "_PyXAL.pyx":573
+  /* "_pyxal.pyx":573
  *     destroyed = False
  * 
  *     def __init__(self, filename):             # <<<<<<<<<<<<<<
@@ -19482,7 +19482,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__150);
   __pyx_codeobj__151 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__150, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_init, 573, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__151)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 573; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":592
+  /* "_pyxal.pyx":592
  *         self._wrapper = wrapper
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -19494,7 +19494,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__152);
   __pyx_codeobj__153 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__152, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_destroy, 592, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__153)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 592; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":597
+  /* "_pyxal.pyx":597
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -19506,7 +19506,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__154);
   __pyx_codeobj__155 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__154, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_del, 597, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__155)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":602
+  /* "_pyxal.pyx":602
  *         del self._wrapper
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -19518,7 +19518,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__156);
   __pyx_codeobj__157 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__156, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isXALInitialized, 602, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__157)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 602; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":611
+  /* "_pyxal.pyx":611
  *             return False
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -19530,7 +19530,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__158);
   __pyx_codeobj__159 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__158, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getName, 611, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__159)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 611; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":621
+  /* "_pyxal.pyx":621
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -19542,7 +19542,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__160);
   __pyx_codeobj__161 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__160, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getFilename, 621, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__161)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 621; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":631
+  /* "_pyxal.pyx":631
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -19554,7 +19554,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__162);
   __pyx_codeobj__163 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__162, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getRealFilename, 631, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__163)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 631; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":641
+  /* "_pyxal.pyx":641
  *         return self._wrapper.getRealFilename()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -19566,7 +19566,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__164);
   __pyx_codeobj__165 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__164, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getSize, 641, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__165)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":651
+  /* "_pyxal.pyx":651
  *         return self._wrapper.getSize()
  * 
  *     def getChannels(self):             # <<<<<<<<<<<<<<
@@ -19578,7 +19578,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__166);
   __pyx_codeobj__167 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__166, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getChannels, 651, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__167)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 651; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":661
+  /* "_pyxal.pyx":661
  *         return self._wrapper.getChannels()
  * 
  *     def getSamplingRate(self):             # <<<<<<<<<<<<<<
@@ -19590,7 +19590,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__168);
   __pyx_codeobj__169 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__168, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getSamplingRate, 661, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__169)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 661; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":671
+  /* "_pyxal.pyx":671
  *         return self._wrapper.getSamplingRate()
  * 
  *     def getBitsPerSample(self):             # <<<<<<<<<<<<<<
@@ -19602,7 +19602,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__170);
   __pyx_codeobj__171 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__170, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getBitsPerSample, 671, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__171)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 671; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":681
+  /* "_pyxal.pyx":681
  *         return self._wrapper.getBitsPerSample()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -19614,7 +19614,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__172);
   __pyx_codeobj__173 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__172, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getDuration, 681, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__173)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 681; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":691
+  /* "_pyxal.pyx":691
  *         return self._wrapper.getDuration()
  * 
  *     def getFormat(self):             # <<<<<<<<<<<<<<
@@ -19626,7 +19626,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__174);
   __pyx_codeobj__175 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__174, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getFormat, 691, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__175)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 691; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":702
+  /* "_pyxal.pyx":702
  *         return self._wrapper.getFormat()
  * 
  *     def isStreamed(self):             # <<<<<<<<<<<<<<
@@ -19638,7 +19638,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__176);
   __pyx_codeobj__177 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__176, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isStreamed, 702, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__177)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 702; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":713
+  /* "_pyxal.pyx":713
  *         return self._wrapper.isStreamed()
  * 
  *     def readPcmData(self):             # <<<<<<<<<<<<<<
@@ -19650,7 +19650,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__178);
   __pyx_codeobj__179 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__178, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_readPcmData, 713, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__179)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 713; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":733
+  /* "_pyxal.pyx":733
  *     destroyed = False
  * 
  *     def __init__(self, sound):             # <<<<<<<<<<<<<<
@@ -19662,7 +19662,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__180);
   __pyx_codeobj__181 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__180, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_init, 733, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__181)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":753
+  /* "_pyxal.pyx":753
  *         self._sound = sound
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
@@ -19674,7 +19674,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__182);
   __pyx_codeobj__183 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__182, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_destroy, 753, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__183)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":758
+  /* "_pyxal.pyx":758
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -19686,7 +19686,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__184);
   __pyx_codeobj__185 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__184, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_del, 758, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__185)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":772
+  /* "_pyxal.pyx":772
  * 
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -19698,7 +19698,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__186);
   __pyx_codeobj__187 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__186, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isXALInitialized, 772, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__187)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 772; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":781
+  /* "_pyxal.pyx":781
  *             return False
  * 
  *     def getGain(self):             # <<<<<<<<<<<<<<
@@ -19710,7 +19710,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__188);
   __pyx_codeobj__189 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__188, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getGain, 781, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__189)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":791
+  /* "_pyxal.pyx":791
  *         return self._wrapper.getGain()
  * 
  *     def setGain(self, float value):             # <<<<<<<<<<<<<<
@@ -19722,7 +19722,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__190);
   __pyx_codeobj__191 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__190, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_setGain, 791, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__191)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 791; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":802
+  /* "_pyxal.pyx":802
  *         self._wrapper.setGain(value)
  * 
  *     def getPitch(self):             # <<<<<<<<<<<<<<
@@ -19734,7 +19734,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__192);
   __pyx_codeobj__193 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__192, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getPitch, 802, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__193)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 802; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":812
+  /* "_pyxal.pyx":812
  *         return self._wrapper.getPitch()
  * 
  *     def setPitch(self, float value):             # <<<<<<<<<<<<<<
@@ -19746,7 +19746,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__194);
   __pyx_codeobj__195 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__194, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_setPitch, 812, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__195)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":823
+  /* "_pyxal.pyx":823
  *         self._wrapper.setPitch(value)
  * 
  *     def getSound(self):             # <<<<<<<<<<<<<<
@@ -19758,7 +19758,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__196);
   __pyx_codeobj__197 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__196, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getSound, 823, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__197)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":829
+  /* "_pyxal.pyx":829
  *         return self._sound
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
@@ -19770,7 +19770,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__198);
   __pyx_codeobj__199 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__198, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getName, 829, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__199)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":839
+  /* "_pyxal.pyx":839
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
@@ -19782,7 +19782,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__200);
   __pyx_codeobj__201 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__200, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getFilename, 839, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__201)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 839; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":849
+  /* "_pyxal.pyx":849
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
@@ -19794,7 +19794,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__202);
   __pyx_codeobj__203 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__202, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getRealFilename, 849, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__203)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 849; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":859
+  /* "_pyxal.pyx":859
  *         return self._wrapper.getRealFilename()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
@@ -19806,7 +19806,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__204);
   __pyx_codeobj__205 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__204, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getDuration, 859, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__205)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 859; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":869
+  /* "_pyxal.pyx":869
  *         return self._wrapper.getDuration()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
@@ -19818,7 +19818,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__206);
   __pyx_codeobj__207 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__206, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getSize, 869, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__207)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":879
+  /* "_pyxal.pyx":879
  *         return self._wrapper.getSize()
  * 
  *     def getTimePosition(self):             # <<<<<<<<<<<<<<
@@ -19830,7 +19830,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__208);
   __pyx_codeobj__209 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__208, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getTimePosition, 879, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__209)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 879; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":889
+  /* "_pyxal.pyx":889
  *         return self._wrapper.getTimePosition()
  * 
  *     def getSamplePosition(self):             # <<<<<<<<<<<<<<
@@ -19842,7 +19842,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__210);
   __pyx_codeobj__211 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__210, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_getSamplePosition, 889, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__211)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":899
+  /* "_pyxal.pyx":899
  *         return self._wrapper.getSamplePosition()
  * 
  *     def isPlaying(self):             # <<<<<<<<<<<<<<
@@ -19854,7 +19854,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__212);
   __pyx_codeobj__213 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__212, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isPlaying, 899, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__213)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 899; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":909
+  /* "_pyxal.pyx":909
  *         return self._wrapper.isPlaying()
  * 
  *     def isPaused(self):             # <<<<<<<<<<<<<<
@@ -19866,7 +19866,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__214);
   __pyx_codeobj__215 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__214, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isPaused, 909, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__215)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 909; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":919
+  /* "_pyxal.pyx":919
  *         return self._wrapper.isPaused()
  * 
  *     def isFading(self):             # <<<<<<<<<<<<<<
@@ -19878,7 +19878,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__216);
   __pyx_codeobj__217 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__216, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isFading, 919, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__217)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 919; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":929
+  /* "_pyxal.pyx":929
  *         return self._wrapper.isFading()
  * 
  *     def isFadingIn(self):             # <<<<<<<<<<<<<<
@@ -19890,7 +19890,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__218);
   __pyx_codeobj__219 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__218, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isFadingIn, 929, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__219)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 929; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":939
+  /* "_pyxal.pyx":939
  *         return self._wrapper.isFadingIn()
  * 
  *     def isFadingOut(self):             # <<<<<<<<<<<<<<
@@ -19902,7 +19902,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__220);
   __pyx_codeobj__221 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__220, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isFadingOut, 939, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__221)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 939; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":949
+  /* "_pyxal.pyx":949
  *         return self._wrapper.isFadingOut()
  * 
  *     def isLooping(self):             # <<<<<<<<<<<<<<
@@ -19914,7 +19914,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__222);
   __pyx_codeobj__223 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__222, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isLooping, 949, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__223)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 949; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":959
+  /* "_pyxal.pyx":959
  *         return self._wrapper.isLooping()
  * 
  *     def play(self, float fadeTime = 0.0, bool looping = False):             # <<<<<<<<<<<<<<
@@ -19926,7 +19926,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__224);
   __pyx_codeobj__225 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__224, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_play, 959, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__225)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 959; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":972
+  /* "_pyxal.pyx":972
  *         self._wrapper.play(fadeTime, looping)
  * 
  *     def stop(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -19938,7 +19938,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__226);
   __pyx_codeobj__227 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__226, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_stop, 972, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__227)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 972; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":984
+  /* "_pyxal.pyx":984
  *         self._wrapper.stop(fadeTime)
  * 
  *     def pause(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -19950,19 +19950,19 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__228);
   __pyx_codeobj__229 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__228, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_pause, 984, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__229)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1073
+  /* "_pyxal.pyx":1073
  *     _wrapper = None
  * 
  *     def __init__(self, int backendId, bint threaded = False):             # <<<<<<<<<<<<<<
  *         '''
- *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
+ *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
  */
   __pyx_tuple__230 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_backendId, __pyx_n_s_threaded, __pyx_n_s_wrapper_2); if (unlikely(!__pyx_tuple__230)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__230);
   __Pyx_GIVEREF(__pyx_tuple__230);
   __pyx_codeobj__231 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__230, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_init, 1073, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__231)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1088
+  /* "_pyxal.pyx":1088
  *         self._players = {}
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
@@ -19974,7 +19974,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__232);
   __pyx_codeobj__233 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__232, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isXALInitialized, 1088, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__233)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1088; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1097
+  /* "_pyxal.pyx":1097
  *             return False
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -19986,7 +19986,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__234);
   __pyx_codeobj__235 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__234, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_del, 1097, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__235)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1104
+  /* "_pyxal.pyx":1104
  *         del self._wrapper
  * 
  *     def clear(self):             # <<<<<<<<<<<<<<
@@ -19998,7 +19998,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__236);
   __pyx_codeobj__237 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__236, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_clear, 1104, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__237)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1114
+  /* "_pyxal.pyx":1114
  *             XAL.mgr.clear()
  * 
  *     def createSound(self, filename):             # <<<<<<<<<<<<<<
@@ -20010,7 +20010,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__238);
   __pyx_codeobj__239 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__238, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_createSound, 1114, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__239)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1127
+  /* "_pyxal.pyx":1127
  *         return pysound
  * 
  *     def createPlayer(self, sound):             # <<<<<<<<<<<<<<
@@ -20022,7 +20022,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__240);
   __pyx_codeobj__241 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__240, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_createPlayer, 1127, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__241)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1146
+  /* "_pyxal.pyx":1146
  *         return pyplayer
  * 
  *     def destroyPlayer(self, player):             # <<<<<<<<<<<<<<
@@ -20034,7 +20034,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__242);
   __pyx_codeobj__243 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__242, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_destroyPlayer, 1146, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__243)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1146; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1163
+  /* "_pyxal.pyx":1163
  *         player._destroy()
  * 
  *     def destroySound(self, sound):             # <<<<<<<<<<<<<<
@@ -20046,7 +20046,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__244);
   __pyx_codeobj__245 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__244, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_destroySound, 1163, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__245)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1176
+  /* "_pyxal.pyx":1176
  *         sound._destroy()
  * 
  *     def findPlayer(self, str name):             # <<<<<<<<<<<<<<
@@ -20058,7 +20058,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__246);
   __pyx_codeobj__247 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__246, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_findPlayer, 1176, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__247)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1190
+  /* "_pyxal.pyx":1190
  *         return None
  * 
  *     def play(self, name, float fadeTime = 0.0, bool looping = False, float gain = 1.0):             # <<<<<<<<<<<<<<
@@ -20070,7 +20070,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__248);
   __pyx_codeobj__249 = (PyObject*)__Pyx_PyCode_New(5, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__248, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_play, 1190, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__249)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1204
+  /* "_pyxal.pyx":1204
  *         XAL.mgr.play(hl_name, fadeTime, looping, gain)
  * 
  *     def stop(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -20082,7 +20082,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__250);
   __pyx_codeobj__251 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__250, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_stop, 1204, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__251)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1216
+  /* "_pyxal.pyx":1216
  *         XAL.mgr.stop(hl_name, fadeTime)
  * 
  *     def stopFirst(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -20094,7 +20094,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__252);
   __pyx_codeobj__253 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__252, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_stopFirst, 1216, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__253)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1228
+  /* "_pyxal.pyx":1228
  *         XAL.mgr.stopFirst(hl_name, fadeTime)
  * 
  *     def stopAll(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -20106,7 +20106,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__254);
   __pyx_codeobj__255 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__254, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_stopAll, 1228, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__255)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1239
+  /* "_pyxal.pyx":1239
  *         XAL.mgr.stopAll(fadeTime)
  * 
  *     def isAnyPlaying(self, name):             # <<<<<<<<<<<<<<
@@ -20118,7 +20118,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__256);
   __pyx_codeobj__257 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__256, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isAnyPlaying, 1239, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__257)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1239; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1250
+  /* "_pyxal.pyx":1250
  *         return result
  * 
  *     def isAnyFading(self, name):             # <<<<<<<<<<<<<<
@@ -20130,7 +20130,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__258);
   __pyx_codeobj__259 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__258, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isAnyFading, 1250, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__259)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1261
+  /* "_pyxal.pyx":1261
  *         return result
  * 
  *     def isAnyFadingIn(self, name):             # <<<<<<<<<<<<<<
@@ -20142,7 +20142,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__260);
   __pyx_codeobj__261 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__260, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isAnyFadingIn, 1261, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__261)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1261; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1272
+  /* "_pyxal.pyx":1272
  *         return result
  * 
  *     def isAnyFadingOut(self, name):             # <<<<<<<<<<<<<<
@@ -20154,7 +20154,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__262);
   __pyx_codeobj__263 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__262, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_isAnyFadingOut, 1272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__263)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1283
+  /* "_pyxal.pyx":1283
  *         return result
  * 
  *     def suspendAudio(self):             # <<<<<<<<<<<<<<
@@ -20166,7 +20166,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__264);
   __pyx_codeobj__265 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__264, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_suspendAudio, 1283, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__265)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1283; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1293
+  /* "_pyxal.pyx":1293
  *         XAL.mgr.suspendAudio()
  * 
  *     def resumeAudio(self):             # <<<<<<<<<<<<<<
@@ -20178,24 +20178,24 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__266);
   __pyx_codeobj__267 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__266, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_resumeAudio, 1293, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__267)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1303
+  /* "_pyxal.pyx":1303
  *         XAL.mgr.resumeAudio()
  * 
  * def Init(int backendId, bint threaded = True):             # <<<<<<<<<<<<<<
  *     '''
- *     Setup XAL and create an XALManager interface at PyXAL.Mgr
+ *     Setup XAL and create an XALManager interface at pyxal.Mgr
  */
   __pyx_tuple__268 = PyTuple_Pack(3, __pyx_n_s_backendId, __pyx_n_s_threaded, __pyx_n_s_fade); if (unlikely(!__pyx_tuple__268)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__268);
   __Pyx_GIVEREF(__pyx_tuple__268);
   __pyx_codeobj__269 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__268, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_E_Projects_ARC_editor_Welder_src, __pyx_n_s_Init, 1303, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__269)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1318
+  /* "_pyxal.pyx":1318
  *         Mgr = XALManager(backendId, threaded)
  * 
  * def Destroy():             # <<<<<<<<<<<<<<
  *     '''
- *     Destroy XAL and remove the interface at PyXAL setting it to None
+ *     Destroy XAL and remove the interface at pyxal setting it to None
  */
   __pyx_tuple__270 = PyTuple_Pack(1, __pyx_n_s_fade); if (unlikely(!__pyx_tuple__270)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1318; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__270);
@@ -20216,11 +20216,11 @@ static int __Pyx_InitGlobals(void) {
 }
 
 #if PY_MAJOR_VERSION < 3
-PyMODINIT_FUNC init_PyXAL(void); /*proto*/
-PyMODINIT_FUNC init_PyXAL(void)
+PyMODINIT_FUNC init_pyxal(void); /*proto*/
+PyMODINIT_FUNC init_pyxal(void)
 #else
-PyMODINIT_FUNC PyInit__PyXAL(void); /*proto*/
-PyMODINIT_FUNC PyInit__PyXAL(void)
+PyMODINIT_FUNC PyInit__pyxal(void); /*proto*/
+PyMODINIT_FUNC PyInit__pyxal(void)
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
@@ -20243,7 +20243,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
           Py_FatalError("failed to import 'refnanny' module");
   }
   #endif
-  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit__PyXAL(void)", 0);
+  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit__pyxal(void)", 0);
   if ( __Pyx_check_binary_version() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -20265,7 +20265,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   #endif
   /*--- Module creation code ---*/
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4(__Pyx_NAMESTR("_PyXAL"), __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4(__Pyx_NAMESTR("_pyxal"), __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -20282,14 +20282,14 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main__PyXAL) {
+  if (__pyx_module_is_main__pyxal) {
     if (__Pyx_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "_PyXAL")) {
-      if (unlikely(PyDict_SetItemString(modules, "_PyXAL", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "_pyxal")) {
+      if (unlikely(PyDict_SetItemString(modules, "_pyxal", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -20298,80 +20298,80 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   /*--- Constants init code ---*/
   if (unlikely(__Pyx_InitCachedConstants() < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Global init code ---*/
-  __pyx_v_6_PyXAL_XAL_AS_DEFAULT = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_DISABLED = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_DIRECTSOUND = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_OPENAL = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_OPENSLES = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_SDL = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_XAUDIO2 = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_AVFOUNDATION = Py_None; Py_INCREF(Py_None);
-  __pyx_v_6_PyXAL_XAL_AS_COREAUDIO = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_DEFAULT = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_DISABLED = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_DIRECTSOUND = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_OPENAL = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_OPENSLES = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_SDL = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_XAUDIO2 = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_AVFOUNDATION = Py_None; Py_INCREF(Py_None);
+  __pyx_v_6_pyxal_XAL_AS_COREAUDIO = Py_None; Py_INCREF(Py_None);
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6_PyXAL_PyAudioManager) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6_PyXAL_PyAudioManager.tp_print = 0;
+  if (PyType_Ready(&__pyx_type_6_pyxal_PyAudioManager) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6_pyxal_PyAudioManager.tp_print = 0;
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_PyXAL_PyAudioManager, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_pyxal_PyAudioManager, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_6_PyXAL_14PyAudioManager___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_6_PyXAL_14PyAudioManager___init__.doc = __pyx_doc_6_PyXAL_14PyAudioManager___init__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_PyXAL_14PyAudioManager___init__;
+      __pyx_wrapperbase_6_pyxal_14PyAudioManager___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_6_pyxal_14PyAudioManager___init__.doc = __pyx_doc_6_pyxal_14PyAudioManager___init__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_pyxal_14PyAudioManager___init__;
     }
   }
   #endif
-  if (__Pyx_SetAttrString(__pyx_m, "PyAudioManager", (PyObject *)&__pyx_type_6_PyXAL_PyAudioManager) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6_PyXAL_PyAudioManager = &__pyx_type_6_PyXAL_PyAudioManager;
-  if (PyType_Ready(&__pyx_type_6_PyXAL_SoundWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6_PyXAL_SoundWrapper.tp_print = 0;
+  if (__Pyx_SetAttrString(__pyx_m, "PyAudioManager", (PyObject *)&__pyx_type_6_pyxal_PyAudioManager) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6_pyxal_PyAudioManager = &__pyx_type_6_pyxal_PyAudioManager;
+  if (PyType_Ready(&__pyx_type_6_pyxal_SoundWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6_pyxal_SoundWrapper.tp_print = 0;
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_PyXAL_SoundWrapper, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_pyxal_SoundWrapper, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_6_PyXAL_12SoundWrapper___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_6_PyXAL_12SoundWrapper___init__.doc = __pyx_doc_6_PyXAL_12SoundWrapper___init__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_PyXAL_12SoundWrapper___init__;
+      __pyx_wrapperbase_6_pyxal_12SoundWrapper___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_6_pyxal_12SoundWrapper___init__.doc = __pyx_doc_6_pyxal_12SoundWrapper___init__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_pyxal_12SoundWrapper___init__;
     }
   }
   #endif
-  if (__Pyx_SetAttrString(__pyx_m, "SoundWrapper", (PyObject *)&__pyx_type_6_PyXAL_SoundWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6_PyXAL_SoundWrapper = &__pyx_type_6_PyXAL_SoundWrapper;
-  if (PyType_Ready(&__pyx_type_6_PyXAL_PlayerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6_PyXAL_PlayerWrapper.tp_print = 0;
+  if (__Pyx_SetAttrString(__pyx_m, "SoundWrapper", (PyObject *)&__pyx_type_6_pyxal_SoundWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6_pyxal_SoundWrapper = &__pyx_type_6_pyxal_SoundWrapper;
+  if (PyType_Ready(&__pyx_type_6_pyxal_PlayerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6_pyxal_PlayerWrapper.tp_print = 0;
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_PyXAL_PlayerWrapper, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_pyxal_PlayerWrapper, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_6_PyXAL_13PlayerWrapper___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_6_PyXAL_13PlayerWrapper___init__.doc = __pyx_doc_6_PyXAL_13PlayerWrapper___init__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_PyXAL_13PlayerWrapper___init__;
+      __pyx_wrapperbase_6_pyxal_13PlayerWrapper___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_6_pyxal_13PlayerWrapper___init__.doc = __pyx_doc_6_pyxal_13PlayerWrapper___init__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_pyxal_13PlayerWrapper___init__;
     }
   }
   #endif
-  if (__Pyx_SetAttrString(__pyx_m, "PlayerWrapper", (PyObject *)&__pyx_type_6_PyXAL_PlayerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6_PyXAL_PlayerWrapper = &__pyx_type_6_PyXAL_PlayerWrapper;
-  if (PyType_Ready(&__pyx_type_6_PyXAL_XALManagerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 997; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6_PyXAL_XALManagerWrapper.tp_print = 0;
+  if (__Pyx_SetAttrString(__pyx_m, "PlayerWrapper", (PyObject *)&__pyx_type_6_pyxal_PlayerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6_pyxal_PlayerWrapper = &__pyx_type_6_pyxal_PlayerWrapper;
+  if (PyType_Ready(&__pyx_type_6_pyxal_XALManagerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 997; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6_pyxal_XALManagerWrapper.tp_print = 0;
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_PyXAL_XALManagerWrapper, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 997; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyObject *wrapper = __Pyx_GetAttrString((PyObject *)&__pyx_type_6_pyxal_XALManagerWrapper, "__init__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 997; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_6_PyXAL_17XALManagerWrapper___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_6_PyXAL_17XALManagerWrapper___init__.doc = __pyx_doc_6_PyXAL_17XALManagerWrapper___init__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_PyXAL_17XALManagerWrapper___init__;
+      __pyx_wrapperbase_6_pyxal_17XALManagerWrapper___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_6_pyxal_17XALManagerWrapper___init__.doc = __pyx_doc_6_pyxal_17XALManagerWrapper___init__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6_pyxal_17XALManagerWrapper___init__;
     }
   }
   #endif
-  if (__Pyx_SetAttrString(__pyx_m, "XALManagerWrapper", (PyObject *)&__pyx_type_6_PyXAL_XALManagerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 997; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6_PyXAL_XALManagerWrapper = &__pyx_type_6_PyXAL_XALManagerWrapper;
+  if (__Pyx_SetAttrString(__pyx_m, "XALManagerWrapper", (PyObject *)&__pyx_type_6_pyxal_XALManagerWrapper) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 997; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6_pyxal_XALManagerWrapper = &__pyx_type_6_pyxal_XALManagerWrapper;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "_PyXAL.pyx":8
+  /* "_pyxal.pyx":8
  * cimport XAL
  * 
  * import os             # <<<<<<<<<<<<<<
@@ -20383,7 +20383,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":10
+  /* "_pyxal.pyx":10
  * import os
  * 
  * cdef XAL_AS_DEFAULT = XAL.AS_DEFAULT             # <<<<<<<<<<<<<<
@@ -20392,12 +20392,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_DEFAULT); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_DEFAULT);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_DEFAULT, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_DEFAULT);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_DEFAULT, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":11
+  /* "_pyxal.pyx":11
  * 
  * cdef XAL_AS_DEFAULT = XAL.AS_DEFAULT
  * cdef XAL_AS_DISABLED = XAL.AS_DISABLED             # <<<<<<<<<<<<<<
@@ -20406,12 +20406,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_DISABLED); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_DISABLED);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_DISABLED, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_DISABLED);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_DISABLED, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":12
+  /* "_pyxal.pyx":12
  * cdef XAL_AS_DEFAULT = XAL.AS_DEFAULT
  * cdef XAL_AS_DISABLED = XAL.AS_DISABLED
  * cdef XAL_AS_DIRECTSOUND = XAL.AS_DIRECTSOUND             # <<<<<<<<<<<<<<
@@ -20420,12 +20420,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_DIRECTSOUND); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_DIRECTSOUND);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_DIRECTSOUND, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_DIRECTSOUND);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_DIRECTSOUND, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":13
+  /* "_pyxal.pyx":13
  * cdef XAL_AS_DISABLED = XAL.AS_DISABLED
  * cdef XAL_AS_DIRECTSOUND = XAL.AS_DIRECTSOUND
  * cdef XAL_AS_OPENAL = XAL.AS_OPENAL             # <<<<<<<<<<<<<<
@@ -20434,12 +20434,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_OPENAL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_OPENAL);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_OPENAL, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_OPENAL);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_OPENAL, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":14
+  /* "_pyxal.pyx":14
  * cdef XAL_AS_DIRECTSOUND = XAL.AS_DIRECTSOUND
  * cdef XAL_AS_OPENAL = XAL.AS_OPENAL
  * cdef XAL_AS_OPENSLES = XAL.AS_OPENSLES             # <<<<<<<<<<<<<<
@@ -20448,12 +20448,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_OPENSLES); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_OPENSLES);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_OPENSLES, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_OPENSLES);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_OPENSLES, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":15
+  /* "_pyxal.pyx":15
  * cdef XAL_AS_OPENAL = XAL.AS_OPENAL
  * cdef XAL_AS_OPENSLES = XAL.AS_OPENSLES
  * cdef XAL_AS_SDL = XAL.AS_SDL             # <<<<<<<<<<<<<<
@@ -20462,12 +20462,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_SDL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_SDL);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_SDL, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_SDL);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_SDL, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":16
+  /* "_pyxal.pyx":16
  * cdef XAL_AS_OPENSLES = XAL.AS_OPENSLES
  * cdef XAL_AS_SDL = XAL.AS_SDL
  * cdef XAL_AS_XAUDIO2 = XAL.AS_XAUDIO2             # <<<<<<<<<<<<<<
@@ -20476,12 +20476,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_XAUDIO2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_XAUDIO2);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_XAUDIO2, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_XAUDIO2);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_XAUDIO2, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":17
+  /* "_pyxal.pyx":17
  * cdef XAL_AS_SDL = XAL.AS_SDL
  * cdef XAL_AS_XAUDIO2 = XAL.AS_XAUDIO2
  * cdef XAL_AS_AVFOUNDATION = XAL.AS_AVFOUNDATION             # <<<<<<<<<<<<<<
@@ -20490,12 +20490,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_AVFOUNDATION); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_AVFOUNDATION);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_AVFOUNDATION, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_AVFOUNDATION);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_AVFOUNDATION, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":18
+  /* "_pyxal.pyx":18
  * cdef XAL_AS_XAUDIO2 = XAL.AS_XAUDIO2
  * cdef XAL_AS_AVFOUNDATION = XAL.AS_AVFOUNDATION
  * cdef XAL_AS_COREAUDIO = XAL.AS_COREAUDIO             # <<<<<<<<<<<<<<
@@ -20504,129 +20504,129 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   __pyx_t_1 = PyInt_FromLong(xal::AS_COREAUDIO); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_XGOTREF(__pyx_v_6_PyXAL_XAL_AS_COREAUDIO);
-  __Pyx_DECREF_SET(__pyx_v_6_PyXAL_XAL_AS_COREAUDIO, __pyx_t_1);
+  __Pyx_XGOTREF(__pyx_v_6_pyxal_XAL_AS_COREAUDIO);
+  __Pyx_DECREF_SET(__pyx_v_6_pyxal_XAL_AS_COREAUDIO, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":20
+  /* "_pyxal.pyx":20
  * cdef XAL_AS_COREAUDIO = XAL.AS_COREAUDIO
  * 
  * cdef XAL.BufferMode FULL = XAL.FULL             # <<<<<<<<<<<<<<
  * cdef XAL.BufferMode LAZY = XAL.LAZY
  * cdef XAL.BufferMode MANAGED = XAL.MANAGED
  */
-  __pyx_v_6_PyXAL_FULL = xal::FULL;
+  __pyx_v_6_pyxal_FULL = xal::FULL;
 
-  /* "_PyXAL.pyx":21
+  /* "_pyxal.pyx":21
  * 
  * cdef XAL.BufferMode FULL = XAL.FULL
  * cdef XAL.BufferMode LAZY = XAL.LAZY             # <<<<<<<<<<<<<<
  * cdef XAL.BufferMode MANAGED = XAL.MANAGED
  * cdef XAL.BufferMode ON_DEMAND = XAL.ON_DEMAND
  */
-  __pyx_v_6_PyXAL_LAZY = xal::LAZY;
+  __pyx_v_6_pyxal_LAZY = xal::LAZY;
 
-  /* "_PyXAL.pyx":22
+  /* "_pyxal.pyx":22
  * cdef XAL.BufferMode FULL = XAL.FULL
  * cdef XAL.BufferMode LAZY = XAL.LAZY
  * cdef XAL.BufferMode MANAGED = XAL.MANAGED             # <<<<<<<<<<<<<<
  * cdef XAL.BufferMode ON_DEMAND = XAL.ON_DEMAND
  * cdef XAL.BufferMode STREAMED = XAL.STREAMED
  */
-  __pyx_v_6_PyXAL_MANAGED = xal::MANAGED;
+  __pyx_v_6_pyxal_MANAGED = xal::MANAGED;
 
-  /* "_PyXAL.pyx":23
+  /* "_pyxal.pyx":23
  * cdef XAL.BufferMode LAZY = XAL.LAZY
  * cdef XAL.BufferMode MANAGED = XAL.MANAGED
  * cdef XAL.BufferMode ON_DEMAND = XAL.ON_DEMAND             # <<<<<<<<<<<<<<
  * cdef XAL.BufferMode STREAMED = XAL.STREAMED
  * 
  */
-  __pyx_v_6_PyXAL_ON_DEMAND = xal::ON_DEMAND;
+  __pyx_v_6_pyxal_ON_DEMAND = xal::ON_DEMAND;
 
-  /* "_PyXAL.pyx":24
+  /* "_pyxal.pyx":24
  * cdef XAL.BufferMode MANAGED = XAL.MANAGED
  * cdef XAL.BufferMode ON_DEMAND = XAL.ON_DEMAND
  * cdef XAL.BufferMode STREAMED = XAL.STREAMED             # <<<<<<<<<<<<<<
  * 
  * cdef XAL.SourceMode DISK = XAL.DISK
  */
-  __pyx_v_6_PyXAL_STREAMED = xal::STREAMED;
+  __pyx_v_6_pyxal_STREAMED = xal::STREAMED;
 
-  /* "_PyXAL.pyx":26
+  /* "_pyxal.pyx":26
  * cdef XAL.BufferMode STREAMED = XAL.STREAMED
  * 
  * cdef XAL.SourceMode DISK = XAL.DISK             # <<<<<<<<<<<<<<
  * cdef XAL.SourceMode RAM = XAL.RAM
  * 
  */
-  __pyx_v_6_PyXAL_DISK = xal::DISK;
+  __pyx_v_6_pyxal_DISK = xal::DISK;
 
-  /* "_PyXAL.pyx":27
+  /* "_pyxal.pyx":27
  * 
  * cdef XAL.SourceMode DISK = XAL.DISK
  * cdef XAL.SourceMode RAM = XAL.RAM             # <<<<<<<<<<<<<<
  * 
  * cdef XAL.Format FLAC = XAL.FLAC
  */
-  __pyx_v_6_PyXAL_RAM = xal::RAM;
+  __pyx_v_6_pyxal_RAM = xal::RAM;
 
-  /* "_PyXAL.pyx":29
+  /* "_pyxal.pyx":29
  * cdef XAL.SourceMode RAM = XAL.RAM
  * 
  * cdef XAL.Format FLAC = XAL.FLAC             # <<<<<<<<<<<<<<
  * cdef XAL.Format M4A = XAL.M4A
  * cdef XAL.Format OGG = XAL.OGG
  */
-  __pyx_v_6_PyXAL_FLAC = xal::FLAC;
+  __pyx_v_6_pyxal_FLAC = xal::FLAC;
 
-  /* "_PyXAL.pyx":30
+  /* "_pyxal.pyx":30
  * 
  * cdef XAL.Format FLAC = XAL.FLAC
  * cdef XAL.Format M4A = XAL.M4A             # <<<<<<<<<<<<<<
  * cdef XAL.Format OGG = XAL.OGG
  * cdef XAL.Format SPX = XAL.SPX
  */
-  __pyx_v_6_PyXAL_M4A = xal::M4A;
+  __pyx_v_6_pyxal_M4A = xal::M4A;
 
-  /* "_PyXAL.pyx":31
+  /* "_pyxal.pyx":31
  * cdef XAL.Format FLAC = XAL.FLAC
  * cdef XAL.Format M4A = XAL.M4A
  * cdef XAL.Format OGG = XAL.OGG             # <<<<<<<<<<<<<<
  * cdef XAL.Format SPX = XAL.SPX
  * cdef XAL.Format WAV = XAL.WAV
  */
-  __pyx_v_6_PyXAL_OGG = xal::OGG;
+  __pyx_v_6_pyxal_OGG = xal::OGG;
 
-  /* "_PyXAL.pyx":32
+  /* "_pyxal.pyx":32
  * cdef XAL.Format M4A = XAL.M4A
  * cdef XAL.Format OGG = XAL.OGG
  * cdef XAL.Format SPX = XAL.SPX             # <<<<<<<<<<<<<<
  * cdef XAL.Format WAV = XAL.WAV
  * cdef XAL.Format UNKNOWN = XAL.UNKNOWN
  */
-  __pyx_v_6_PyXAL_SPX = xal::SPX;
+  __pyx_v_6_pyxal_SPX = xal::SPX;
 
-  /* "_PyXAL.pyx":33
+  /* "_pyxal.pyx":33
  * cdef XAL.Format OGG = XAL.OGG
  * cdef XAL.Format SPX = XAL.SPX
  * cdef XAL.Format WAV = XAL.WAV             # <<<<<<<<<<<<<<
  * cdef XAL.Format UNKNOWN = XAL.UNKNOWN
  * 
  */
-  __pyx_v_6_PyXAL_WAV = xal::WAV;
+  __pyx_v_6_pyxal_WAV = xal::WAV;
 
-  /* "_PyXAL.pyx":34
+  /* "_pyxal.pyx":34
  * cdef XAL.Format SPX = XAL.SPX
  * cdef XAL.Format WAV = XAL.WAV
  * cdef XAL.Format UNKNOWN = XAL.UNKNOWN             # <<<<<<<<<<<<<<
  * 
  * cdef extern from *:
  */
-  __pyx_v_6_PyXAL_UNKNOWN = xal::UNKNOWN;
+  __pyx_v_6_pyxal_UNKNOWN = xal::UNKNOWN;
 
-  /* "_PyXAL.pyx":104
+  /* "_pyxal.pyx":104
  * # XAL.setLogFunction(Log)
  * 
  * Mgr = None             # <<<<<<<<<<<<<<
@@ -20635,7 +20635,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_Mgr, Py_None) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":564
+  /* "_pyxal.pyx":564
  * 
  * 
  * class PySound(object):             # <<<<<<<<<<<<<<
@@ -20649,10 +20649,10 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_GIVEREF(__pyx_builtin_object);
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_PySound, __pyx_n_s_PySound, (PyObject *) NULL, __pyx_n_s_PyXAL, __pyx_kp_s_a_interface_for_the_wrapper_of); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_PySound, __pyx_n_s_PySound, (PyObject *) NULL, __pyx_n_s_pyxal, __pyx_kp_s_a_interface_for_the_wrapper_of); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "_PyXAL.pyx":569
+  /* "_pyxal.pyx":569
  *     '''
  * 
  *     CATEGORY_STR = "default"             # <<<<<<<<<<<<<<
@@ -20661,7 +20661,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_CATEGORY_STR, __pyx_n_s_default) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 569; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":570
+  /* "_pyxal.pyx":570
  * 
  *     CATEGORY_STR = "default"
  *     _wrapper = None             # <<<<<<<<<<<<<<
@@ -20670,7 +20670,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_wrapper, Py_None) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 570; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":571
+  /* "_pyxal.pyx":571
  *     CATEGORY_STR = "default"
  *     _wrapper = None
  *     destroyed = False             # <<<<<<<<<<<<<<
@@ -20679,187 +20679,187 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_destroyed, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":573
+  /* "_pyxal.pyx":573
  *     destroyed = False
  * 
  *     def __init__(self, filename):             # <<<<<<<<<<<<<<
  *         '''
  *         this creates a sound object from a file name
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_1__init__, 0, __pyx_n_s_PySound___init, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__151)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 573; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_1__init__, 0, __pyx_n_s_PySound___init, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__151)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 573; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 573; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":592
+  /* "_pyxal.pyx":592
  *         self._wrapper = wrapper
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
  *         if self.isXALInitialized() and not self.destroyed:
  *             self._wrapper._destroy()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_3_destroy, 0, __pyx_n_s_PySound__destroy, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__153)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 592; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_3_destroy, 0, __pyx_n_s_PySound__destroy, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__153)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 592; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_destroy, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 592; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":597
+  /* "_pyxal.pyx":597
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
  *         if self.isXALInitialized():
  *             self._destroy()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_5__del__, 0, __pyx_n_s_PySound___del, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__155)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_5__del__, 0, __pyx_n_s_PySound___del, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__155)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_del, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":602
+  /* "_pyxal.pyx":602
  *         del self._wrapper
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
  *         '''
  *         returns true if the C++ side of the interface to XAL exists
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_7isXALInitialized, 0, __pyx_n_s_PySound_isXALInitialized, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__157)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 602; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_7isXALInitialized, 0, __pyx_n_s_PySound_isXALInitialized, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__157)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 602; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isXALInitialized, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 602; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":611
+  /* "_pyxal.pyx":611
  *             return False
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_9getName, 0, __pyx_n_s_PySound_getName, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__159)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 611; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_9getName, 0, __pyx_n_s_PySound_getName, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__159)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 611; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getName, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 611; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":621
+  /* "_pyxal.pyx":621
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: returns a string containing the file name the sound was loaded from
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_11getFilename, 0, __pyx_n_s_PySound_getFilename, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__161)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 621; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_11getFilename, 0, __pyx_n_s_PySound_getFilename, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__161)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 621; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getFilename, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 621; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":631
+  /* "_pyxal.pyx":631
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: returns a string with the full path to the file the string was loaded from
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_13getRealFilename, 0, __pyx_n_s_PySound_getRealFilename, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__163)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 631; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_13getRealFilename, 0, __pyx_n_s_PySound_getRealFilename, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__163)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 631; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getRealFilename, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 631; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":641
+  /* "_pyxal.pyx":641
  *         return self._wrapper.getRealFilename()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: int the size of the sound data in bits not bytes
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_15getSize, 0, __pyx_n_s_PySound_getSize, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__165)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_15getSize, 0, __pyx_n_s_PySound_getSize, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__165)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getSize, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":651
+  /* "_pyxal.pyx":651
  *         return self._wrapper.getSize()
  * 
  *     def getChannels(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: int number of channels the sound has. 1 for mono or 2 for stereo
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_17getChannels, 0, __pyx_n_s_PySound_getChannels, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__167)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 651; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_17getChannels, 0, __pyx_n_s_PySound_getChannels, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__167)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 651; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getChannels, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 651; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":661
+  /* "_pyxal.pyx":661
  *         return self._wrapper.getChannels()
  * 
  *     def getSamplingRate(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: int the sampeling rate for the sound in samples per second
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_19getSamplingRate, 0, __pyx_n_s_PySound_getSamplingRate, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__169)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 661; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_19getSamplingRate, 0, __pyx_n_s_PySound_getSamplingRate, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__169)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 661; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getSamplingRate, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 661; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":671
+  /* "_pyxal.pyx":671
  *         return self._wrapper.getSamplingRate()
  * 
  *     def getBitsPerSample(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: int the bits per sample of data in the sound. usualy 8, 16, or 24, possibly 32 not sure
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_21getBitsPerSample, 0, __pyx_n_s_PySound_getBitsPerSample, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__171)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 671; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_21getBitsPerSample, 0, __pyx_n_s_PySound_getBitsPerSample, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__171)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 671; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getBitsPerSample, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 671; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":681
+  /* "_pyxal.pyx":681
  *         return self._wrapper.getBitsPerSample()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_23getDuration, 0, __pyx_n_s_PySound_getDuration, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__173)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 681; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_23getDuration, 0, __pyx_n_s_PySound_getDuration, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__173)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 681; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getDuration, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 681; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":691
+  /* "_pyxal.pyx":691
  *         return self._wrapper.getDuration()
  * 
  *     def getFormat(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: int the intrnal designation of the sound format. coresponds to a file type but as of now there is no way to tell for certin which is which
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_25getFormat, 0, __pyx_n_s_PySound_getFormat, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__175)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 691; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_25getFormat, 0, __pyx_n_s_PySound_getFormat, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__175)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 691; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getFormat, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 691; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":702
+  /* "_pyxal.pyx":702
  *         return self._wrapper.getFormat()
  * 
  *     def isStreamed(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: bool is the sound being streamed from it's file to the player? or is it comleatly loaded into memory.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_27isStreamed, 0, __pyx_n_s_PySound_isStreamed, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__177)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 702; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_27isStreamed, 0, __pyx_n_s_PySound_isStreamed, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__177)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 702; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isStreamed, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 702; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":713
+  /* "_pyxal.pyx":713
  *         return self._wrapper.isStreamed()
  * 
  *     def readPcmData(self):             # <<<<<<<<<<<<<<
  *         '''
  *         read the raw data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_7PySound_29readPcmData, 0, __pyx_n_s_PySound_readPcmData, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__179)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 713; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_7PySound_29readPcmData, 0, __pyx_n_s_PySound_readPcmData, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__179)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 713; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_readPcmData, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 713; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":564
+  /* "_pyxal.pyx":564
  * 
  * 
  * class PySound(object):             # <<<<<<<<<<<<<<
@@ -20874,7 +20874,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":724
+  /* "_pyxal.pyx":724
  *         return self._wrapper.readPcmData()
  * 
  * class PyPlayer(object):             # <<<<<<<<<<<<<<
@@ -20888,10 +20888,10 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_GIVEREF(__pyx_builtin_object);
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 724; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_PyPlayer, __pyx_n_s_PyPlayer, (PyObject *) NULL, __pyx_n_s_PyXAL, __pyx_kp_s_a_interface_for_the_C_wrapper); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 724; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_PyPlayer, __pyx_n_s_PyPlayer, (PyObject *) NULL, __pyx_n_s_pyxal, __pyx_kp_s_a_interface_for_the_C_wrapper); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 724; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "_PyXAL.pyx":729
+  /* "_pyxal.pyx":729
  *     '''
  * 
  *     _wrapper = None             # <<<<<<<<<<<<<<
@@ -20900,7 +20900,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_wrapper, Py_None) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 729; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":730
+  /* "_pyxal.pyx":730
  * 
  *     _wrapper = None
  *     _sound = None             # <<<<<<<<<<<<<<
@@ -20909,7 +20909,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_sound_2, Py_None) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 730; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":731
+  /* "_pyxal.pyx":731
  *     _wrapper = None
  *     _sound = None
  *     destroyed = False             # <<<<<<<<<<<<<<
@@ -20918,271 +20918,271 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_destroyed, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 731; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":733
+  /* "_pyxal.pyx":733
  *     destroyed = False
  * 
  *     def __init__(self, sound):             # <<<<<<<<<<<<<<
  *         '''
  *         a PyPlayer object created by bassing a PySound to the __init__ method
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_1__init__, 0, __pyx_n_s_PyPlayer___init, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__181)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_1__init__, 0, __pyx_n_s_PyPlayer___init, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__181)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":753
+  /* "_pyxal.pyx":753
  *         self._sound = sound
  * 
  *     def _destroy(self):             # <<<<<<<<<<<<<<
  *         if self.isXALInitialized() and not self.destroyed:
  *             self._wrapper._destroy()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_3_destroy, 0, __pyx_n_s_PyPlayer__destroy, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__183)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_3_destroy, 0, __pyx_n_s_PyPlayer__destroy, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__183)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_destroy, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":758
+  /* "_pyxal.pyx":758
  *             self.destroyed = True
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
  *         global Mgr
  *         if not self.destroyed:
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_5__del__, 0, __pyx_n_s_PyPlayer___del, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__185)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_5__del__, 0, __pyx_n_s_PyPlayer___del, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__185)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_del, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":772
+  /* "_pyxal.pyx":772
  * 
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
  *         '''
  *         returns true if the C++ side of the interface to XAL exists
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_7isXALInitialized, 0, __pyx_n_s_PyPlayer_isXALInitialized, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__187)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 772; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_7isXALInitialized, 0, __pyx_n_s_PyPlayer_isXALInitialized, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__187)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 772; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isXALInitialized, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 772; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":781
+  /* "_pyxal.pyx":781
  *             return False
  * 
  *     def getGain(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: float the current gain of the player (also knows as volume)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_9getGain, 0, __pyx_n_s_PyPlayer_getGain, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__189)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_9getGain, 0, __pyx_n_s_PyPlayer_getGain, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__189)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getGain, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":791
+  /* "_pyxal.pyx":791
  *         return self._wrapper.getGain()
  * 
  *     def setGain(self, float value):             # <<<<<<<<<<<<<<
  *         '''
  *         set the gain of the player (also knows as volume)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_11setGain, 0, __pyx_n_s_PyPlayer_setGain, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__191)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 791; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_11setGain, 0, __pyx_n_s_PyPlayer_setGain, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__191)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 791; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_setGain, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 791; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":802
+  /* "_pyxal.pyx":802
  *         self._wrapper.setGain(value)
  * 
  *     def getPitch(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: float the current pitch of the player
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_13getPitch, 0, __pyx_n_s_PyPlayer_getPitch, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__193)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 802; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_13getPitch, 0, __pyx_n_s_PyPlayer_getPitch, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__193)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 802; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getPitch, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 802; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":812
+  /* "_pyxal.pyx":812
  *         return self._wrapper.getPitch()
  * 
  *     def setPitch(self, float value):             # <<<<<<<<<<<<<<
  *         '''
  *         set the current pitch of the player
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_15setPitch, 0, __pyx_n_s_PyPlayer_setPitch, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__195)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_15setPitch, 0, __pyx_n_s_PyPlayer_setPitch, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__195)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_setPitch, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":823
+  /* "_pyxal.pyx":823
  *         self._wrapper.setPitch(value)
  * 
  *     def getSound(self):             # <<<<<<<<<<<<<<
  *         '''
  *         return a PySound class wrapper for the sound object of the player
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_17getSound, 0, __pyx_n_s_PyPlayer_getSound, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__197)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_17getSound, 0, __pyx_n_s_PyPlayer_getSound, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__197)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getSound, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":829
+  /* "_pyxal.pyx":829
  *         return self._sound
  * 
  *     def getName(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_19getName, 0, __pyx_n_s_PyPlayer_getName, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__199)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_19getName, 0, __pyx_n_s_PyPlayer_getName, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__199)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getName, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":839
+  /* "_pyxal.pyx":839
  *         return self._wrapper.getName()
  * 
  *     def getFilename(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: returns a string containing the file name the sound was loaded from
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_21getFilename, 0, __pyx_n_s_PyPlayer_getFilename, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__201)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 839; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_21getFilename, 0, __pyx_n_s_PyPlayer_getFilename, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__201)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 839; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getFilename, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 839; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":849
+  /* "_pyxal.pyx":849
  *         return self._wrapper.getFilename()
  * 
  *     def getRealFilename(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: returns a string with the full path to the file the string was loaded from
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_23getRealFilename, 0, __pyx_n_s_PyPlayer_getRealFilename, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__203)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 849; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_23getRealFilename, 0, __pyx_n_s_PyPlayer_getRealFilename, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__203)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 849; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getRealFilename, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 849; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":859
+  /* "_pyxal.pyx":859
  *         return self._wrapper.getRealFilename()
  * 
  *     def getDuration(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: float duration of the sound in seconds. it is a floating point number to acound for fractions of a second
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_25getDuration, 0, __pyx_n_s_PyPlayer_getDuration, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__205)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 859; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_25getDuration, 0, __pyx_n_s_PyPlayer_getDuration, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__205)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 859; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getDuration, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 859; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":869
+  /* "_pyxal.pyx":869
  *         return self._wrapper.getDuration()
  * 
  *     def getSize(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: int the size of the sound data in bits not bytes
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_27getSize, 0, __pyx_n_s_PyPlayer_getSize, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__207)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_27getSize, 0, __pyx_n_s_PyPlayer_getSize, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__207)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getSize, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":879
+  /* "_pyxal.pyx":879
  *         return self._wrapper.getSize()
  * 
  *     def getTimePosition(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: float the time position in seconds
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_29getTimePosition, 0, __pyx_n_s_PyPlayer_getTimePosition, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__209)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 879; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_29getTimePosition, 0, __pyx_n_s_PyPlayer_getTimePosition, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__209)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 879; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getTimePosition, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 879; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":889
+  /* "_pyxal.pyx":889
  *         return self._wrapper.getTimePosition()
  * 
  *     def getSamplePosition(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: unsigned int the position in the buffer
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_31getSamplePosition, 0, __pyx_n_s_PyPlayer_getSamplePosition, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__211)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_31getSamplePosition, 0, __pyx_n_s_PyPlayer_getSamplePosition, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__211)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_getSamplePosition, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":899
+  /* "_pyxal.pyx":899
  *         return self._wrapper.getSamplePosition()
  * 
  *     def isPlaying(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: bool True of the sound is playing
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_33isPlaying, 0, __pyx_n_s_PyPlayer_isPlaying, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__213)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 899; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_33isPlaying, 0, __pyx_n_s_PyPlayer_isPlaying, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__213)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 899; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isPlaying, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 899; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":909
+  /* "_pyxal.pyx":909
  *         return self._wrapper.isPlaying()
  * 
  *     def isPaused(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: bool True if the sound is paused
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_35isPaused, 0, __pyx_n_s_PyPlayer_isPaused, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__215)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 909; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_35isPaused, 0, __pyx_n_s_PyPlayer_isPaused, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__215)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 909; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isPaused, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 909; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":919
+  /* "_pyxal.pyx":919
  *         return self._wrapper.isPaused()
  * 
  *     def isFading(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: bool True if the sound is fading in or out
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_37isFading, 0, __pyx_n_s_PyPlayer_isFading, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__217)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 919; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_37isFading, 0, __pyx_n_s_PyPlayer_isFading, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__217)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 919; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isFading, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 919; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":929
+  /* "_pyxal.pyx":929
  *         return self._wrapper.isFading()
  * 
  *     def isFadingIn(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: bool True if the sound is fading in
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_39isFadingIn, 0, __pyx_n_s_PyPlayer_isFadingIn, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__219)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 929; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_39isFadingIn, 0, __pyx_n_s_PyPlayer_isFadingIn, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__219)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 929; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isFadingIn, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 929; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":939
+  /* "_pyxal.pyx":939
  *         return self._wrapper.isFadingIn()
  * 
  *     def isFadingOut(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: bool True if teh sound is fading out
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_41isFadingOut, 0, __pyx_n_s_PyPlayer_isFadingOut, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__221)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 939; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_41isFadingOut, 0, __pyx_n_s_PyPlayer_isFadingOut, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__221)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 939; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isFadingOut, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 939; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":949
+  /* "_pyxal.pyx":949
  *         return self._wrapper.isFadingOut()
  * 
  *     def isLooping(self):             # <<<<<<<<<<<<<<
  *         '''
  *         @return: bool True of the sound is looping
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_43isLooping, 0, __pyx_n_s_PyPlayer_isLooping, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__223)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 949; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_43isLooping, 0, __pyx_n_s_PyPlayer_isLooping, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__223)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 949; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isLooping, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 949; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":959
+  /* "_pyxal.pyx":959
  *         return self._wrapper.isLooping()
  * 
  *     def play(self, float fadeTime = 0.0, bool looping = False):             # <<<<<<<<<<<<<<
@@ -21201,14 +21201,14 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_GIVEREF(__pyx_t_5);
   __pyx_t_4 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_45play, 0, __pyx_n_s_PyPlayer_play, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__225)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 959; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_45play, 0, __pyx_n_s_PyPlayer_play, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__225)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 959; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_t_6);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_play, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 959; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":972
+  /* "_pyxal.pyx":972
  *         self._wrapper.play(fadeTime, looping)
  * 
  *     def stop(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -21222,14 +21222,14 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_47stop, 0, __pyx_n_s_PyPlayer_stop, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__227)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 972; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_47stop, 0, __pyx_n_s_PyPlayer_stop, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__227)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 972; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_t_6);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_stop, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 972; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":984
+  /* "_pyxal.pyx":984
  *         self._wrapper.stop(fadeTime)
  * 
  *     def pause(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -21243,14 +21243,14 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_8PyPlayer_49pause, 0, __pyx_n_s_PyPlayer_pause, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__229)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_8PyPlayer_49pause, 0, __pyx_n_s_PyPlayer_pause, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__229)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_t_6);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_pause, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":724
+  /* "_pyxal.pyx":724
  *         return self._wrapper.readPcmData()
  * 
  * class PyPlayer(object):             # <<<<<<<<<<<<<<
@@ -21265,7 +21265,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1059
+  /* "_pyxal.pyx":1059
  *             XAL.destroy()
  * 
  * class XALManager(object):             # <<<<<<<<<<<<<<
@@ -21279,10 +21279,10 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_GIVEREF(__pyx_builtin_object);
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_XALManager, __pyx_n_s_XALManager, (PyObject *) NULL, __pyx_n_s_PyXAL, __pyx_kp_s_a_wrapper_for_the_xal_mgr_objec); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_XALManager, __pyx_n_s_XALManager, (PyObject *) NULL, __pyx_n_s_pyxal, __pyx_kp_s_a_wrapper_for_the_xal_mgr_objec); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "_PyXAL.pyx":1065
+  /* "_pyxal.pyx":1065
  *     '''
  * 
  *     destroyed = False             # <<<<<<<<<<<<<<
@@ -21291,7 +21291,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_destroyed, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1066
+  /* "_pyxal.pyx":1066
  * 
  *     destroyed = False
  *     inited = False             # <<<<<<<<<<<<<<
@@ -21300,7 +21300,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_inited, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1066; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1068
+  /* "_pyxal.pyx":1068
  *     inited = False
  * 
  *     CATEGORY_STR = "default"             # <<<<<<<<<<<<<<
@@ -21309,7 +21309,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_CATEGORY_STR, __pyx_n_s_default) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1070
+  /* "_pyxal.pyx":1070
  *     CATEGORY_STR = "default"
  * 
  *     _players = {}             # <<<<<<<<<<<<<<
@@ -21321,7 +21321,7 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_players, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1070; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1071
+  /* "_pyxal.pyx":1071
  * 
  *     _players = {}
  *     _wrapper = None             # <<<<<<<<<<<<<<
@@ -21330,12 +21330,12 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_wrapper, Py_None) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1071; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "_PyXAL.pyx":1073
+  /* "_pyxal.pyx":1073
  *     _wrapper = None
  * 
  *     def __init__(self, int backendId, bint threaded = False):             # <<<<<<<<<<<<<<
  *         '''
- *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
+ *         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call pyxal.Init and use the object created at pyxal.Mgr
  */
   __pyx_t_5 = __Pyx_PyBool_FromLong(((int)0)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
@@ -21344,110 +21344,110 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_1__init__, 0, __pyx_n_s_XALManager___init, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__231)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_1__init__, 0, __pyx_n_s_XALManager___init, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__231)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_t_6);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_init, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1088
+  /* "_pyxal.pyx":1088
  *         self._players = {}
  * 
  *     def isXALInitialized(self):             # <<<<<<<<<<<<<<
  *         '''
  *         returns true if the C++ side of the interface to XAL exists
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_3isXALInitialized, 0, __pyx_n_s_XALManager_isXALInitialized, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__233)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1088; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_3isXALInitialized, 0, __pyx_n_s_XALManager_isXALInitialized, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__233)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1088; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isXALInitialized, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1088; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1097
+  /* "_pyxal.pyx":1097
  *             return False
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
  *         '''
  *         make sure XAL is destroyed if the interface is destroyed
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_5__del__, 0, __pyx_n_s_XALManager___del, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__235)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_5__del__, 0, __pyx_n_s_XALManager___del, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__235)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_del, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1104
+  /* "_pyxal.pyx":1104
  *         del self._wrapper
  * 
  *     def clear(self):             # <<<<<<<<<<<<<<
  *         '''
  *         clear the XAL interface and reset it to be like it was freshly initialized all current sounds and players become invalid
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_7clear, 0, __pyx_n_s_XALManager_clear, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__237)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_7clear, 0, __pyx_n_s_XALManager_clear, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__237)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_clear, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1114
+  /* "_pyxal.pyx":1114
  *             XAL.mgr.clear()
  * 
  *     def createSound(self, filename):             # <<<<<<<<<<<<<<
  *         '''
  *         create a sound object
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_9createSound, 0, __pyx_n_s_XALManager_createSound, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__239)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_9createSound, 0, __pyx_n_s_XALManager_createSound, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__239)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_createSound, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1127
+  /* "_pyxal.pyx":1127
  *         return pysound
  * 
  *     def createPlayer(self, sound):             # <<<<<<<<<<<<<<
  *         '''
  *         create a player from a sound object
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_11createPlayer, 0, __pyx_n_s_XALManager_createPlayer, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__241)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_11createPlayer, 0, __pyx_n_s_XALManager_createPlayer, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__241)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_createPlayer, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1146
+  /* "_pyxal.pyx":1146
  *         return pyplayer
  * 
  *     def destroyPlayer(self, player):             # <<<<<<<<<<<<<<
  *         '''
  *         destroy a player object
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_13destroyPlayer, 0, __pyx_n_s_XALManager_destroyPlayer, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__243)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1146; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_13destroyPlayer, 0, __pyx_n_s_XALManager_destroyPlayer, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__243)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1146; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_destroyPlayer, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1146; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1163
+  /* "_pyxal.pyx":1163
  *         player._destroy()
  * 
  *     def destroySound(self, sound):             # <<<<<<<<<<<<<<
  *         '''
  *         destroy a sound object
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_15destroySound, 0, __pyx_n_s_XALManager_destroySound, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__245)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_15destroySound, 0, __pyx_n_s_XALManager_destroySound, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__245)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_destroySound, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1176
+  /* "_pyxal.pyx":1176
  *         sound._destroy()
  * 
  *     def findPlayer(self, str name):             # <<<<<<<<<<<<<<
  *         '''
  *         tries to find a player for the sound whos name is passed. it find the player useing the intrealy kept list of wrpaed player instances. returns the first player in the list
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_17findPlayer, 0, __pyx_n_s_XALManager_findPlayer, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__247)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_17findPlayer, 0, __pyx_n_s_XALManager_findPlayer, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__247)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_findPlayer, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_PyXAL.pyx":1190
+  /* "_pyxal.pyx":1190
  *         return None
  * 
  *     def play(self, name, float fadeTime = 0.0, bool looping = False, float gain = 1.0):             # <<<<<<<<<<<<<<
@@ -21471,14 +21471,14 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __pyx_t_5 = 0;
   __pyx_t_6 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_19play, 0, __pyx_n_s_XALManager_play, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__249)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_19play, 0, __pyx_n_s_XALManager_play, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__249)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_t_7);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_play, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1204
+  /* "_pyxal.pyx":1204
  *         XAL.mgr.play(hl_name, fadeTime, looping, gain)
  * 
  *     def stop(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -21492,14 +21492,14 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_21stop, 0, __pyx_n_s_XALManager_stop, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__251)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_21stop, 0, __pyx_n_s_XALManager_stop, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__251)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_t_7);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_stop, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1216
+  /* "_pyxal.pyx":1216
  *         XAL.mgr.stop(hl_name, fadeTime)
  * 
  *     def stopFirst(self, name, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -21513,14 +21513,14 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_23stopFirst, 0, __pyx_n_s_XALManager_stopFirst, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__253)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_23stopFirst, 0, __pyx_n_s_XALManager_stopFirst, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__253)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_t_7);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_stopFirst, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1228
+  /* "_pyxal.pyx":1228
  *         XAL.mgr.stopFirst(hl_name, fadeTime)
  * 
  *     def stopAll(self, float fadeTime = 0.0):             # <<<<<<<<<<<<<<
@@ -21534,86 +21534,86 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_25stopAll, 0, __pyx_n_s_XALManager_stopAll, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__255)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_25stopAll, 0, __pyx_n_s_XALManager_stopAll, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__255)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_t_7);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_stopAll, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1239
+  /* "_pyxal.pyx":1239
  *         XAL.mgr.stopAll(fadeTime)
  * 
  *     def isAnyPlaying(self, name):             # <<<<<<<<<<<<<<
  *         '''
  *         @param name: sting name of sound to check
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_27isAnyPlaying, 0, __pyx_n_s_XALManager_isAnyPlaying, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__257)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1239; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_27isAnyPlaying, 0, __pyx_n_s_XALManager_isAnyPlaying, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__257)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1239; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isAnyPlaying, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1239; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1250
+  /* "_pyxal.pyx":1250
  *         return result
  * 
  *     def isAnyFading(self, name):             # <<<<<<<<<<<<<<
  *         '''
  *         @param name: sting name of sound to check
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_29isAnyFading, 0, __pyx_n_s_XALManager_isAnyFading, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__259)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_29isAnyFading, 0, __pyx_n_s_XALManager_isAnyFading, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__259)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isAnyFading, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1261
+  /* "_pyxal.pyx":1261
  *         return result
  * 
  *     def isAnyFadingIn(self, name):             # <<<<<<<<<<<<<<
  *         '''
  *         @param name: sting name of sound to check
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_31isAnyFadingIn, 0, __pyx_n_s_XALManager_isAnyFadingIn, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__261)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1261; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_31isAnyFadingIn, 0, __pyx_n_s_XALManager_isAnyFadingIn, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__261)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1261; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isAnyFadingIn, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1261; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1272
+  /* "_pyxal.pyx":1272
  *         return result
  * 
  *     def isAnyFadingOut(self, name):             # <<<<<<<<<<<<<<
  *         '''
  *         @param name: sting name of sound to check
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_33isAnyFadingOut, 0, __pyx_n_s_XALManager_isAnyFadingOut, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__263)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_33isAnyFadingOut, 0, __pyx_n_s_XALManager_isAnyFadingOut, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__263)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_isAnyFadingOut, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1283
+  /* "_pyxal.pyx":1283
  *         return result
  * 
  *     def suspendAudio(self):             # <<<<<<<<<<<<<<
  *         '''
  *         pause all sounds and players
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_35suspendAudio, 0, __pyx_n_s_XALManager_suspendAudio, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__265)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1283; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_35suspendAudio, 0, __pyx_n_s_XALManager_suspendAudio, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__265)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1283; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_suspendAudio, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1283; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1293
+  /* "_pyxal.pyx":1293
  *         XAL.mgr.suspendAudio()
  * 
  *     def resumeAudio(self):             # <<<<<<<<<<<<<<
  *         '''
  *         resume all sounds and players
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_PyXAL_10XALManager_37resumeAudio, 0, __pyx_n_s_XALManager_resumeAudio, NULL, __pyx_n_s_PyXAL, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__267)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6_pyxal_10XALManager_37resumeAudio, 0, __pyx_n_s_XALManager_resumeAudio, NULL, __pyx_n_s_pyxal, PyModule_GetDict(__pyx_m), ((PyObject *)__pyx_codeobj__267)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_resumeAudio, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "_PyXAL.pyx":1059
+  /* "_pyxal.pyx":1059
  *             XAL.destroy()
  * 
  * class XALManager(object):             # <<<<<<<<<<<<<<
@@ -21628,31 +21628,31 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1303
+  /* "_pyxal.pyx":1303
  *         XAL.mgr.resumeAudio()
  * 
  * def Init(int backendId, bint threaded = True):             # <<<<<<<<<<<<<<
  *     '''
- *     Setup XAL and create an XALManager interface at PyXAL.Mgr
+ *     Setup XAL and create an XALManager interface at pyxal.Mgr
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6_PyXAL_1Init, NULL, __pyx_n_s_PyXAL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6_pyxal_1Init, NULL, __pyx_n_s_pyxal); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_Init, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1318
+  /* "_pyxal.pyx":1318
  *         Mgr = XALManager(backendId, threaded)
  * 
  * def Destroy():             # <<<<<<<<<<<<<<
  *     '''
- *     Destroy XAL and remove the interface at PyXAL setting it to None
+ *     Destroy XAL and remove the interface at pyxal setting it to None
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6_PyXAL_3Destroy, NULL, __pyx_n_s_PyXAL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1318; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6_pyxal_3Destroy, NULL, __pyx_n_s_pyxal); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1318; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_Destroy, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1318; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_PyXAL.pyx":1
+  /* "_pyxal.pyx":1
  * from cython.operator cimport dereference as deref             # <<<<<<<<<<<<<<
  * from libc.stdlib cimport free
  * from libcpp cimport bool
@@ -21671,10 +21671,10 @@ PyMODINIT_FUNC PyInit__PyXAL(void)
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   if (__pyx_m) {
-    __Pyx_AddTraceback("init _PyXAL", __pyx_clineno, __pyx_lineno, __pyx_filename);
+    __Pyx_AddTraceback("init _pyxal", __pyx_clineno, __pyx_lineno, __pyx_filename);
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init _PyXAL");
+    PyErr_SetString(PyExc_ImportError, "init _pyxal");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

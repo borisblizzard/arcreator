@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="PyXAL"
+	Name="pyxal"
 	ProjectGUID="{E40E6D51-5318-49A6-A013-B0C309962BB9}"
-	RootNamespace="PyXAL"
+	RootNamespace="pyxal"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Users\Ben\Desktop\ARC\editor\ARCed\src\Core\PyXAL\include;C:\Python27\include;C:\Python27\PC"
+				AdditionalIncludeDirectories="C:\Users\Ben\Desktop\ARC\editor\ARCed\src\Core\pyxal\include;C:\Python27\include;C:\Python27\PC"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PYXAL_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="C:\Python27\PCbuild;C:\Users\Ben\Desktop\ARC\editor\ARCed\src\Core\PyXAL\bin;C:\Users\Ben\Desktop\ARC\editor\ARCed\src\Core\PyXAL\lib"
+				AdditionalLibraryDirectories="C:\Python27\PCbuild;C:\Users\Ben\Desktop\ARC\editor\ARCed\src\Core\pyxal\bin;C:\Users\Ben\Desktop\ARC\editor\ARCed\src\Core\pyxal\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/export:init_PyXAL"
+				AdditionalOptions="/export:init_pyxal"
 				AdditionalDependencies="libhltypes.lib libxal.lib python27.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="C:\Python27\PCbuild;&quot;$(SolutionDir)lib&quot;;&quot;$(SolutionDir)bin&quot;;C:\Python27\libs;&quot;C:\Python27\Lib\site-packages\numpy\core\lib\&quot;"
@@ -178,7 +178,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\_PyXAL.cpp"
+				RelativePath=".\_pyxal.cpp"
 				>
 			</File>
 		</Filter>
@@ -291,7 +291,7 @@
 			>
 		</Filter>
 		<File
-			RelativePath=".\_PyXAL.pyx"
+			RelativePath=".\_pyxal.pyx"
 			>
 		</File>
 		<File
